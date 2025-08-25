@@ -1,3 +1,12 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Important pages for crawling
+Allow: /project-cargo
+Allow: /images/
+
+# Sitemap location
+Sitemap: https://holleman.ro/sitemap.xml
+
+# Crawl-delay to be respectful
+Crawl-delay: 1
