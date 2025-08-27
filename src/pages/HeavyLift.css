@@ -1,0 +1,294 @@
+/* Heavy Lift Page Styles */
+.heavy-lift-page {
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.heavy-lift-page .hero-section {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heavy-lift-page .hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heavy-lift-page .hero-content {
+  text-align: center;
+  color: white;
+  z-index: 2;
+}
+
+.heavy-lift-page .hero-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-title-size);
+  margin-bottom: clamp(10px, 2vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.heavy-lift-page .hero-subtitle {
+  font-family: 'Gotham Medium', sans-serif;
+  font-size: var(--hero-subtitle-size);
+  margin: 0;
+  opacity: 0.9;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Services Section */
+.heavy-lift-page .services-section {
+  padding: clamp(80px, 10vw, 120px) clamp(40px, 8vw, 80px);
+  background: #f8f9fa;
+}
+
+.heavy-lift-page .services-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.heavy-lift-page .services-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--page-title-size);
+  text-align: center;
+  margin-bottom: clamp(60px, 8vw, 80px);
+  color: #333;
+  line-height: 1.3;
+}
+
+.heavy-lift-page .services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.heavy-lift-page .service-item {
+  background: white;
+  border-radius: 15px;
+  padding: 20px 15px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heavy-lift-page .service-item.clickable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: #136B38;
+  color: white;
+}
+
+.heavy-lift-page .service-item.clickable:hover .service-icon img {
+  filter: brightness(0) invert(1);
+}
+
+.heavy-lift-page .service-item.clickable:hover h3 {
+  color: white;
+}
+
+.heavy-lift-page .service-item.clickable:hover .service-overlay {
+  opacity: 1;
+}
+
+.heavy-lift-page .service-icon {
+  margin-bottom: 20px;
+}
+
+.heavy-lift-page .service-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.heavy-lift-page .service-item h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(14px, 1.6vw, 18px);
+  margin-bottom: 10px;
+  color: #2c3e50;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+  text-align: center;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.heavy-lift-page .service-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.heavy-lift-page .service-overlay p {
+  font-size: 20px;
+  margin: 0;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.heavy-lift-page .services-footer {
+  text-align: center;
+}
+
+
+
+/* Services Navigation Section */
+.heavy-lift-page .services-nav-section {
+  padding: clamp(60px, 8vw, 80px) clamp(40px, 8vw, 80px);
+  background: white;
+}
+
+.heavy-lift-page .services-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heavy-lift-page .services-nav-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--page-title-size);
+  margin-bottom: clamp(40px, 6vw, 60px);
+  color: #333;
+}
+
+.heavy-lift-page .services-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heavy-lift-page .service-nav-item {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: clamp(30px, 4vw, 40px);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.heavy-lift-page .service-nav-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  background: white;
+}
+
+.heavy-lift-page .service-nav-icon {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heavy-lift-page .service-nav-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.heavy-lift-page .service-nav-item h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2.2vw, 20px);
+  margin: 0;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .heavy-lift-page .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  .heavy-lift-page .services-nav-grid {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heavy-lift-page .hero-section {
+    height: 100vh;
+  }
+  
+  .heavy-lift-page .services-section {
+    padding: 60px 25px;
+  }
+  
+  .heavy-lift-page .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .heavy-lift-page .service-item {
+    min-height: 160px;
+    padding: 18px 12px;
+  }
+  
+  .heavy-lift-page .services-nav-section {
+    padding: 50px 25px;
+  }
+  
+  .heavy-lift-page .services-nav-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heavy-lift-page .hero-section {
+    height: 100vh;
+  }
+  
+  .heavy-lift-page .services-section {
+    padding: 50px 20px;
+  }
+  
+  .heavy-lift-page .service-item {
+    min-height: 150px;
+    padding: 15px 10px;
+  }
+  
+  .heavy-lift-page .services-nav-section {
+    padding: 40px 20px;
+  }
+}

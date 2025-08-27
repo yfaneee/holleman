@@ -1075,22 +1075,21 @@
 
 /* Services Navigation Section */
 .services-nav-section {
+  padding: clamp(60px, 8vw, 80px) clamp(40px, 8vw, 80px);
   background: white;
-  padding: 50px 20px;
-  text-align: center;
 }
 
 .services-nav-container {
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .services-nav-title {
   font-family: 'Gotham Bold', sans-serif;
   font-size: var(--page-title-size);
-  color: #2c3e50;
-  margin-bottom: 50px;
-  font-weight: bold;
+  margin-bottom: clamp(40px, 6vw, 60px);
+  color: #333;
 }
 
 .services-nav-grid {
@@ -1102,41 +1101,44 @@
 }
 
 .service-nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: clamp(30px, 4vw, 40px);
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 20px;
-}
-
-.service-nav-item:hover {
-  transform: translateY(-5px);
-  filter: drop-shadow(0 10px 25px rgba(19, 107, 56, 0.6));
-}
-
-.service-nav-icon {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.service-nav-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  filter: drop-shadow(0 10px 25px rgba(19, 107, 56, 0.6));
+  background: white;
+}
+
+.service-nav-icon {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .service-nav-icon img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
 }
 
 .service-nav-item h3 {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: var(--content-medium);
-  color: #2c3e50;
+  font-size: clamp(16px, 2.2vw, 20px);
   margin: 0;
-  font-weight: bold;
+  color: #333;
 }
 
 /* Discover Projects CTA Section */
@@ -1273,18 +1275,13 @@
 
 @media (max-width: 768px) {
   .services-nav-section {
-    padding: 40px 20px;
+    padding: 50px 25px;
   }
   
   .services-nav-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 20px;
     max-width: 300px;
-  }
-  
-  .services-nav-title {
-    font-size: clamp(20px, 5vw, 28px);
-    margin-bottom: 30px;
   }
   
   .discover-projects-section {
@@ -1303,12 +1300,7 @@
 
 @media (max-width: 480px) {
   .services-nav-section {
-    padding: 30px 15px;
-  }
-  
-  .services-nav-title {
-    font-size: clamp(18px, 6vw, 24px);
-    margin-bottom: 25px;
+    padding: 40px 20px;
   }
   
   .discover-projects-section {

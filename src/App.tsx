@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home';
 import ProjectCargo from './pages/ProjectCargo';
 import ITL from './pages/ITL';
+import HeavyLift from './pages/HeavyLift';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/project-cargo" element={<ProjectCargo />} />
           <Route path="/itl" element={<ITL />} />
+          <Route path="/heavy-lift" element={<HeavyLift />} />
         </Routes>
       </div>
     </Router>

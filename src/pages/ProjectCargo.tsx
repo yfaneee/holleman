@@ -340,22 +340,19 @@ const ProjectCargo: React.FC = () => {
       <section className="services-nav-section">
         <div className="services-nav-container">
           <h2 className="services-nav-title">Afla despre mai multe servicii</h2>
-          
           <div className="services-nav-grid">
-            <div className="service-nav-item" onClick={() => {/* TODO: Navigate to Heavy Lift page */}}>
+            <div className="service-nav-item" onClick={() => navigate('/heavy-lift')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/heavy.webp" alt="Heavy Lift icon" />
               </div>
               <h3>Heavy Lift</h3>
             </div>
-            
             <div className="service-nav-item" onClick={() => navigate('/itl')}>
               <div className="service-nav-icon">
-                <img src="/images/icons/itlicon.webp" alt="ITL icon" />
+                <img src="/images/icons/iconinternational.webp" alt="ITL icon" />
               </div>
               <h3>ITL</h3>
             </div>
-            
             <div className="service-nav-item" onClick={() => {/* TODO: Navigate to Agro page */}}>
               <div className="service-nav-icon">
                 <img src="/images/icons/agro.webp" alt="Agro icon" />

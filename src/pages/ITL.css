@@ -122,7 +122,7 @@
 .itl-page .services-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 25px;
+  gap: 20px;
   justify-items: center;
 }
 
@@ -198,6 +198,7 @@
   text-align: center;
   word-wrap: break-word;
   hyphens: auto;
+  max-width: 260px;
 }
 
 /* Service Overlay */
@@ -577,6 +578,85 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .itl-page .services-section {
+    padding: 70px 30px;
+  }
+  
+  .itl-page .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  /* Reset grid positioning for 2-column layout */
+  .itl-page .services-grid .service-item:nth-child(1),
+  .itl-page .services-grid .service-item:nth-child(2),
+  .itl-page .services-grid .service-item:nth-child(3),
+  .itl-page .services-grid .service-item:nth-child(4),
+  .itl-page .services-grid .service-item:nth-child(5) {
+    grid-column: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .itl-page .services-section {
+    padding: 60px 25px;
+  }
+  
+  .itl-page .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  /* Keep grid positioning reset for mobile - single column */
+  .itl-page .services-grid .service-item:nth-child(1),
+  .itl-page .services-grid .service-item:nth-child(2),
+  .itl-page .services-grid .service-item:nth-child(3),
+  .itl-page .services-grid .service-item:nth-child(4),
+  .itl-page .services-grid .service-item:nth-child(5) {
+    grid-column: unset;
+  }
+  
+  .itl-page .service-item {
+    padding: 30px 20px;
+  }
+  
+  .itl-page .service-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+  }
+  
+  .itl-page .service-icon img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .itl-page .transport-logistics-section {
+    padding: 40px 20px;
+    min-height: 350px;
+  }
+  
+  .itl-page .transport-logistics-content {
+    padding: 20px;
+  }
+  
+  .itl-page .transport-logistics-title {
+    font-size: clamp(20px, 5vw, 32px);
+    margin-bottom: 25px;
+  }
+  
+  .itl-page .transport-logistics-list li {
+    font-size: clamp(14px, 3.5vw, 16px);
+    margin-bottom: 15px;
+    padding-left: 20px;
+  }
+  
+  .itl-page .transport-logistics-list li::before {
+    font-size: 11px;
+  }
+}
+
 @media (max-width: 480px) {
   .itl-page .transport-logistics-section {
     padding: 30px 15px;
@@ -603,11 +683,7 @@
   }
 
   .itl-page .services-section {
-    padding: 50px 0;
-  }
-
-  .itl-page .services-container {
-    padding: 0 15px;
+    padding: 50px 20px;
   }
 
   .itl-page .services-title {
@@ -618,15 +694,6 @@
   .itl-page .services-grid {
     grid-template-columns: 1fr;
     gap: 20px;
-  }
-
-  /* Reset all grid positioning for mobile - single column */
-  .itl-page .services-grid .service-item:nth-child(1),
-  .itl-page .services-grid .service-item:nth-child(2),
-  .itl-page .services-grid .service-item:nth-child(3),
-  .itl-page .services-grid .service-item:nth-child(4),
-  .itl-page .services-grid .service-item:nth-child(5) {
-    grid-column: unset;
   }
 
   .itl-page .service-item {
@@ -957,22 +1024,21 @@
 
 /* Services Navigation Section */
 .itl-page .services-nav-section {
+  padding: clamp(60px, 8vw, 80px) clamp(40px, 8vw, 80px);
   background: white;
-  padding: 50px 20px;
-  text-align: center;
 }
 
 .itl-page .services-nav-container {
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .itl-page .services-nav-title {
   font-family: 'Gotham Bold', sans-serif;
   font-size: var(--page-title-size);
-  color: #2c3e50;
-  margin-bottom: 50px;
-  font-weight: bold;
+  margin-bottom: clamp(40px, 6vw, 60px);
+  color: #333;
 }
 
 .itl-page .services-nav-grid {
@@ -984,155 +1050,49 @@
 }
 
 .itl-page .service-nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: clamp(30px, 4vw, 40px);
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 20px;
-}
-
-.itl-page .service-nav-item:hover {
-  transform: translateY(-5px);
-  filter: drop-shadow(0 10px 25px rgba(19, 107, 56, 0.6));
-}
-
-.itl-page .service-nav-icon {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.itl-page .service-nav-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  background: white;
+}
+
+.itl-page .service-nav-icon {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .itl-page .service-nav-icon img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
 }
 
 .itl-page .service-nav-item h3 {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: var(--content-medium);
-  color: #2c3e50;
+  font-size: clamp(16px, 2.2vw, 20px);
   margin: 0;
-  font-weight: bold;
+  color: #333;
 }
 
 /* Responsive Design for Services Navigation */
-@media (max-width: 1600px) {
-  .itl-page .services-nav-section {
-    padding: 60px 20px;
-  }
-  
-  .itl-page .services-nav-title {
-    font-size: clamp(24px, 3.5vw, 36px);
-    margin-bottom: 40px;
-  }
-  
-  .itl-page .services-nav-grid {
-    gap: 35px;
-    max-width: 750px;
-  }
-  
-  .itl-page .service-nav-icon {
-    width: 75px;
-    height: 75px;
-    margin-bottom: 18px;
-  }
-  
-  .itl-page .service-nav-icon img {
-    width: 55px;
-    height: 55px;
-  }
-  
-  .itl-page .service-nav-item h3 {
-    font-size: clamp(15px, 1.8vw, 18px);
-  }
-}
-
-@media (max-width: 1366px) {
-  .itl-page .services-nav-section {
-    padding: 50px 20px;
-  }
-  
-  .itl-page .services-nav-title {
-    font-size: clamp(22px, 3.2vw, 32px);
-    margin-bottom: 35px;
-  }
-  
-  .itl-page .services-nav-grid {
-    gap: 30px;
-    max-width: 700px;
-  }
-  
-  .itl-page .service-nav-icon {
-    width: 70px;
-    height: 70px;
-    margin-bottom: 16px;
-  }
-  
-  .itl-page .service-nav-icon img {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .itl-page .service-nav-item h3 {
-    font-size: clamp(14px, 1.6vw, 16px);
-  }
-}
-
-@media (max-width: 1200px) {
-  .itl-page .services-nav-grid {
-    max-width: 650px;
-  }
-}
-
 @media (max-width: 768px) {
   .itl-page .services-nav-section {
-    padding: 40px 20px;
-  }
-  
-  .itl-page .services-nav-title {
-    font-size: clamp(20px, 5vw, 28px);
-    margin-bottom: 30px;
-  }
-  
-  .itl-page .services-nav-grid {
-    gap: 25px;
-    max-width: 100%;
-  }
-  
-  .itl-page .service-nav-icon {
-    width: 65px;
-    height: 65px;
-    margin-bottom: 15px;
-  }
-  
-  .itl-page .service-nav-icon img {
-    width: 45px;
-    height: 45px;
-  }
-  
-  .itl-page .service-nav-item h3 {
-    font-size: clamp(14px, 3.5vw, 16px);
-  }
-  
-  .itl-page .service-nav-item {
-    padding: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .itl-page .services-nav-section {
-    padding: 30px 15px;
-  }
-  
-  .itl-page .services-nav-title {
-    font-size: clamp(18px, 6vw, 24px);
-    margin-bottom: 25px;
+    padding: 50px 25px;
   }
   
   .itl-page .services-nav-grid {
@@ -1140,23 +1100,10 @@
     gap: 20px;
     max-width: 300px;
   }
-  
-  .itl-page .service-nav-icon {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 12px;
-  }
-  
-  .itl-page .service-nav-icon img {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .itl-page .service-nav-item h3 {
-    font-size: clamp(13px, 4vw, 15px);
-  }
-  
-  .itl-page .service-nav-item {
-    padding: 12px;
+}
+
+@media (max-width: 480px) {
+  .itl-page .services-nav-section {
+    padding: 40px 20px;
   }
 }

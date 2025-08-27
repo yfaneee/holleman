@@ -87,6 +87,10 @@ const Home: React.FC = () => {
     navigate('/itl');
   }, [navigate]);
 
+  const navigateToHeavyLift = useCallback(() => {
+    navigate('/heavy-lift');
+  }, [navigate]);
+
   // Auto-play effect
   useEffect(() => {
     startSlideInterval();
@@ -202,8 +206,10 @@ const Home: React.FC = () => {
               <div className="accent-triangle top-right second" aria-hidden="true"></div>
             </article>
 
-            <article className="service-card" role="button" tabIndex={0} 
-                     aria-label="Servicii Heavy Lift - Relocări industriale">
+            <article className="service-card" onClick={navigateToHeavyLift}
+                     role="button" tabIndex={0} 
+                     aria-label="Servicii Heavy Lift - Relocări industriale - Click pentru detalii"
+                     onKeyDown={(e) => e.key === 'Enter' && navigateToHeavyLift()}>
               <div className="card-image">
                 <img src="/images/heavylift.webp" 
                      alt="Echipamente specializate pentru relocări industriale Heavy Lift" 
@@ -350,13 +356,17 @@ const Home: React.FC = () => {
               </div>
               <div className="info-item" role="listitem">
                 <span className="label">Mobil:</span>
-                <a href="tel:+40744317713" className="value" aria-label="Sună la numărul de mobil">+40 744 317 713</a> / 
-                <a href="tel:+40745017529" className="value">+40 745 017 529</a>
+                <span className="value-group">
+                  <a href="tel:+40744317713" className="value" aria-label="Sună la numărul de mobil">+40 744 317 713</a> / 
+                  <a href="tel:+40745017529" className="value">+40 745 017 529</a>
+                </span>
               </div>
               <div className="info-item" role="listitem">
                 <span className="label">Telefon:</span>
-                <a href="tel:+40213213822" className="value" aria-label="Sună la telefon fix">+40 21 321 38 22</a> / 
-                <a href="tel:+40213216182" className="value">321 61 82</a>
+                <span className="value-group">
+                  <a href="tel:+40213213822" className="value" aria-label="Sună la telefon fix"> +40 21 321 38 22</a> / 
+                  <a href="tel:+40213216182" className="value"> 321 61 82</a>
+                </span>
               </div>
               <div className="info-item" role="listitem">
                 <span className="label">Fax:</span>
