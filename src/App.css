@@ -1,3 +1,39 @@
+/* Global CSS Custom Properties for Typography */
+:root {
+  /* Hero Typography */
+  --hero-title-size: clamp(29px, 4.8vw, 70px);
+  --hero-subtitle-size: clamp(14px, 2.4vw, 30px);
+  
+  /* Page Titles */
+  --page-title-size: clamp(19px, 2.8vw, 30px);
+  
+  /* Section Titles */
+  --section-title-large: clamp(22px, 3.2vw, 38px);
+  --section-title-medium: clamp(18px, 2.5vw, 24px);
+  --section-title-small: clamp(16px, 2.4vw, 22px);
+  
+  /* Content Typography */
+  --content-large: clamp(16px, 2vw, 18px);
+  --content-medium: clamp(13px, 1.6vw, 20px);
+  --content-small: clamp(13px, 1.5vw, 15px);
+  --content-extra-small: clamp(11px, 1.4vw, 14px);
+  
+  /* Description Text */
+  --description-large: clamp(16px, 2.5vw, 24px);
+  --description-medium: clamp(14px, 2vw, 22px);
+  --description-small: clamp(11px, 2vw, 22px);
+  
+  /* Navigation and UI */
+  --nav-size: clamp(12px, 1.5vw, 16px);
+  --button-size: clamp(10px, 1.5vw, 12px);
+  
+  /* Mobile Responsive Overrides */
+  --hero-title-mobile: clamp(24px, 9vw, 40px);
+  --hero-subtitle-mobile: clamp(14px, 5vw, 20px);
+  --section-title-mobile: clamp(18px, 6vw, 24px);
+  --content-mobile: clamp(11px, 1.2vw, 13px);
+}
+
 /* Global Scrollbar Styles */
 html {
   overflow-x: hidden;

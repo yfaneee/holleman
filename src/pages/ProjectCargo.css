@@ -28,7 +28,7 @@
 
 .hero-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(29px, 4.8vw, 70px);
+  font-size: var(--hero-title-size);
   font-weight: bold;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -38,7 +38,7 @@
 
 .hero-subtitle {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(14px, 2.4vw, 30px);
+  font-size: var(--hero-subtitle-size);
   margin-bottom: 0;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
   font-weight: 400;
@@ -112,7 +112,7 @@
 
 .services-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(19px, 2.8vw, 30px);
+  font-size: var(--page-title-size);
   color: #2c3e50;
   margin: 0;
   line-height: 1.3;
@@ -167,7 +167,7 @@
 
 .service-item h3 {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(13px, 1.6vw, 16px);
+  font-size: var(--content-medium);
   color: #2c3e50;
   margin: 0;
   line-height: 1.4;
@@ -196,13 +196,13 @@
 .service-overlay h3 {
   color: white;
   margin-bottom: 15px;
-  font-size: clamp(16px, 2vw, 18px);
+  font-size: var(--content-large);
   font-family: inherit;
 }
 
 .service-overlay p {
   color: white;
-  font-size: clamp(13px, 1.5vw, 15px);
+  font-size: var(--content-small);
   line-height: 1.5;
   margin: 0;
   opacity: 0.9;
@@ -374,7 +374,7 @@
   }
   
   .service-item h3 {
-    font-size: clamp(13px, 1.6vw, 16px);
+    font-size: var(--content-medium);
   }
   
   .service-overlay p {
@@ -412,7 +412,7 @@
 
 .expertise-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(19px, 2.8vw, 30px);
+  font-size: var(--page-title-size);
   color: #2c3e50;
   margin-bottom: 60px;
   font-weight: bold;
@@ -447,14 +447,14 @@
 
 .expertise-item h3 {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(13px, 1.6vw, 16px);
+  font-size: var(--content-medium);
   color: #2c3e50;
   margin-bottom: 15px;
   font-weight: bold;
 }
 
 .expertise-item p {
-  font-size: clamp(13px, 1.5vw, 16px);
+  font-size: var(--content-medium);
   color: #666;
   line-height: 1.5;
   margin: 0;
@@ -521,7 +521,7 @@
   }
   
   .expertise-item h3 {
-    font-size: clamp(13px, 1.6vw, 16px);
+    font-size: var(--content-medium);
     margin-bottom: 10px;
   }
   
@@ -675,7 +675,7 @@
 
 .why-choose-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(22px, 3.2vw, 38px);
+  font-size: var(--section-title-large);
   color: white;
   margin-bottom: 40px;
   line-height: 1.2;
@@ -694,7 +694,7 @@
 
 .why-choose-list li {
   color: white;
-  font-size: clamp(13px, 1.6vw, 20px);
+  font-size: clamp(16px, 1.8vw, 20px);
   line-height: 1.6;
   margin-bottom: 20px;
   padding-left: 30px;
@@ -751,7 +751,7 @@
   }
   
   .why-choose-title {
-    font-size: clamp(22px, 3.2vw, 38px);
+    font-size: var(--section-title-large);
     margin-bottom: 30px;
   }
   
@@ -839,7 +839,7 @@
 
 .case-studies-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(19px, 2.8vw, 30px);
+  font-size: var(--page-title-size);
   color: #2c3e50;
   margin-bottom: 50px;
   font-weight: bold;
@@ -914,7 +914,7 @@
 
 .case-study-content h3 {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(18px, 2.5vw, 24px);
+  font-size: var(--section-title-medium);
   color: #2c3e50;
   margin-bottom: 15px;
   line-height: 1.3;
@@ -1087,7 +1087,7 @@
 
 .services-nav-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(19px, 2.8vw, 30px);
+  font-size: var(--page-title-size);
   color: #2c3e50;
   margin-bottom: 50px;
   font-weight: bold;
@@ -1133,7 +1133,7 @@
 
 .service-nav-item h3 {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(13px, 1.6vw, 16px);
+  font-size: var(--content-medium);
   color: #2c3e50;
   margin: 0;
   font-weight: bold;

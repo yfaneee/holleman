@@ -51,7 +51,12 @@
   height: clamp(60px, 11vh, 120px);
   width: auto;
   object-fit: contain;
-  transition: filter 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 /* Navigation Styles */

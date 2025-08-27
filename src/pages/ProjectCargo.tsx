@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './ProjectCargo.css';
 
 const ProjectCargo: React.FC = () => {
+  const navigate = useNavigate();
   const [currentCaseStudy, setCurrentCaseStudy] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -48,13 +50,13 @@ const ProjectCargo: React.FC = () => {
     e.stopPropagation(); // Prevent card click
     setIsVideoPlaying(!isVideoPlaying);
     // Here you would implement video play logic
-    console.log("Play video:", caseStudies[currentCaseStudy].videoUrl);
+    // TODO: Implement video modal or navigation
   };
 
   const handleCardClick = () => {
     // Navigate to case study page
-    console.log("Navigate to:", caseStudies[currentCaseStudy].caseStudyUrl);
-    // You can use navigate here if needed
+    // TODO: Implement navigation to case study detail page
+    // navigate(`/case-study/${caseStudies[currentCaseStudy].id}`);
   };
 
   const nextCaseStudy = () => {
@@ -88,6 +90,26 @@ const ProjectCargo: React.FC = () => {
       setIsPaused(false);
     }, 10000);
   };
+
+  // SEO: Set document title and meta description for Project Cargo page
+  useEffect(() => {
+    document.title = "Project Cargo - Transport Agabaritic și Relocări Industriale | Holleman";
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Servicii profesionale Project Cargo: transport agabaritic, relocări industriale, managementul proiectelor complexe. Echipamente grele, turbine eoliene, transformatoare. Experți cu peste 25 ani experiență.');
+    }
+    
+    // Update canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://holleman.ro/project-cargo');
+  }, []);
 
   return (
     <div className="project-cargo-page">
@@ -320,21 +342,21 @@ const ProjectCargo: React.FC = () => {
           <h2 className="services-nav-title">Afla despre mai multe servicii</h2>
           
           <div className="services-nav-grid">
-            <div className="service-nav-item" onClick={() => console.log('Navigate to Heavy Lift')}>
+            <div className="service-nav-item" onClick={() => {/* TODO: Navigate to Heavy Lift page */}}>
               <div className="service-nav-icon">
                 <img src="/images/icons/heavy.webp" alt="Heavy Lift icon" />
               </div>
               <h3>Heavy Lift</h3>
             </div>
             
-            <div className="service-nav-item" onClick={() => console.log('Navigate to ITL')}>
+            <div className="service-nav-item" onClick={() => navigate('/itl')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/itlicon.webp" alt="ITL icon" />
               </div>
               <h3>ITL</h3>
             </div>
             
-            <div className="service-nav-item" onClick={() => console.log('Navigate to Agro')}>
+            <div className="service-nav-item" onClick={() => {/* TODO: Navigate to Agro page */}}>
               <div className="service-nav-icon">
                 <img src="/images/icons/agro.webp" alt="Agro icon" />
               </div>
@@ -345,7 +367,7 @@ const ProjectCargo: React.FC = () => {
       </section>
 
       {/* Discover Projects CTA Section */}
-      <section className="discover-projects-section" onClick={() => console.log('Navigate to projects')}>
+      <section className="discover-projects-section" onClick={() => {/* TODO: Navigate to projects gallery */}}>
         <div className="discover-projects-container">
           <div className="discover-projects-content">
             <h2 className="discover-projects-title">Descopera proiectele noastre</h2>

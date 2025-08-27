@@ -18,7 +18,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 
@@ -30,7 +29,7 @@
 
 .home .hero-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(38px, 6.4vw, 90px);
+  font-size: var(--hero-title-size);
   color: white;
   margin: 0;
   text-transform: uppercase;
@@ -40,7 +39,7 @@
 
 .home .hero-subtitle {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(14px, 2.4vw, 50px);
+  font-size: var(--hero-subtitle-size);
   color: white;
   margin: 20px 0 0 0;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -60,7 +59,7 @@
 
 .home .services-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(28px, 5vw, 40px);
+  font-size: var(--page-title-size);
   color: #333;
   text-align: center;
   margin-bottom: 50px;
@@ -326,7 +325,7 @@
 
 .section2-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(20px, 4.8vw, 36px);
+  font-size: var(--section-title-large);
   color: white;
   margin: 0 0 30px 0;
   text-transform: uppercase;
@@ -336,7 +335,7 @@
 }
 
 .section2-description {
-  font-size: clamp(11px, 2vw, 22px);
+  font-size: var(--description-small);
   color: white;
   margin: 0 0 50px 0;
   line-height: 1.6;
@@ -347,8 +346,8 @@
 }
 
 .cta-icon {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   object-fit: contain;
 }
 
@@ -372,7 +371,7 @@
 
 .sponsors-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(16px, 2.4vw, 22px);
+  font-size: var(--section-title-small);
   color: #666;
   text-align: center;
   margin-bottom: 60px;
@@ -413,7 +412,7 @@
 
 .sponsor-placeholder {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(11px, 1.6vw, 14px);
+  font-size: var(--content-extra-small);
   color: #333;
   font-weight: bold;
   text-transform: uppercase;
@@ -422,7 +421,7 @@
 }
 
 .sponsor-tagline {
-  font-size: clamp(10px, 1.5vw, 12px);
+  font-size: var(--button-size);
   color: #666;
   margin-top: 8px;
   font-style: italic;
@@ -531,7 +530,7 @@
 
 .section3-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(29px, 4.8vw, 51px);
+  font-size: var(--hero-title-size);
   color: white;
   margin: 0 0 30px 0;
   text-transform: uppercase;
@@ -541,7 +540,7 @@
 }
 
 .section3-description {
-  font-size: clamp(16px, 2.5vw, 24px);
+  font-size: var(--description-large);
   color: white;
   margin: 0 0 50px 0;
   line-height: 1.6;
@@ -573,7 +572,7 @@
   top: 0;
   right: 0;
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(22px, 3vw, 44px);
+  font-size: var(--section-title-large);
   color: #333;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -588,7 +587,7 @@
   transform: translateY(20px);
   font-family: 'Gotham Bold', sans-serif;
   color: #333;
-  font-size: clamp(18px, 2.4vw, 34px);
+  font-size: var(--section-title-medium);
   text-align: left;
   line-height: 1.05;
   z-index: 4;
@@ -597,7 +596,7 @@
 
 .slideshow-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(22px, 4vw, 32px);
+  font-size: var(--section-title-large);
   color: #333;
   margin-bottom: 60px;
   text-transform: uppercase;
@@ -646,13 +645,13 @@
 
 .slide-overlay h4 {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(16px, 2.4vw, 22px);
+  font-size: var(--section-title-small);
   margin: 0 0 10px 0;
   text-transform: uppercase;
 }
 
 .slide-overlay p {
-  font-size: clamp(11px, 1.6vw, 14px);
+  font-size: var(--content-extra-small);
   margin: 0;
   opacity: 0.9;
 }

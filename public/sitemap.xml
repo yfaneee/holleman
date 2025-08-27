@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://holleman.ro/</loc>
+    <lastmod>2024-12-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://holleman.ro/images/Group8723.webp</image:loc>
+      <image:caption>Holleman Special Transport - Transport agabaritic și Project Cargo</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Project Cargo Page -->
+  <url>
+    <loc>https://holleman.ro/project-cargo</loc>
+    <lastmod>2024-12-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://holleman.ro/images/projectcargobg.webp</image:loc>
+      <image:caption>Project Cargo - Transport agabaritic și relocări industriale</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- ITL Page -->
+  <url>
+    <loc>https://holleman.ro/itl</loc>
+    <lastmod>2024-12-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://holleman.ro/images/ITLbackground.webp</image:loc>
+      <image:caption>ITL - Transport internațional și logistică</image:caption>
+    </image:image>
+  </url>
+  
+</urlset>

@@ -83,6 +83,10 @@ const Home: React.FC = () => {
     navigate('/project-cargo');
   }, [navigate]);
 
+  const navigateToITL = useCallback(() => {
+    navigate('/itl');
+  }, [navigate]);
+
   // Auto-play effect
   useEffect(() => {
     startSlideInterval();
@@ -104,37 +108,29 @@ const Home: React.FC = () => {
 
   const nextSlideIndex = (currentSlide + 1) % slides.length;
 
+  // SEO: Set document title and meta description for home page
+  useEffect(() => {
+    document.title = "Holleman Special Transport & Project Cargo - Transport Agabaritic România";
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Experți în transporturi agabaritice, Project Cargo și relocări industriale cu peste 25 ani experiență. Soluții complete de transport special în România și Europa.');
+    }
+    
+    // Update canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://holleman.ro');
+  }, []);
+
   return (
     <div className="home">
-      {/* Structured Data for SEO */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "Holleman Special Transport & Project Cargo SRL",
-          "description": "Experți în transporturi agabaritice și Project Cargo cu peste 25 ani experiență în România și Europa",
-          "url": "https://holleman.ro",
-          "logo": "https://holleman.ro/images/Rectangle.webp",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+40-744-317-713",
-            "contactType": "customer service",
-            "areaServed": "RO",
-            "availableLanguage": "Romanian"
-          },
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Soseaua de Centura nr. 29, Comuna Jilava",
-            "addressLocality": "Bucuresti",
-            "postalCode": "077120",
-            "addressCountry": "RO"
-          },
-          "sameAs": [
-            "https://www.facebook.com/holleman",
-            "https://www.linkedin.com/company/holleman"
-          ]
-        })}
-      </script>
+      {/* Note: Structured data is already included in index.html */}
       
       <Header />
       
@@ -187,8 +183,10 @@ const Home: React.FC = () => {
               <div className="accent-triangle top-right" aria-hidden="true"></div>
             </article>
 
-            <article className="service-card" role="button" tabIndex={0} 
-                     aria-label="Servicii ITL - Transport internațional">
+            <article className="service-card" onClick={navigateToITL}
+                     role="button" tabIndex={0} 
+                     aria-label="Servicii ITL - Transport internațional - Click pentru detalii"
+                     onKeyDown={(e) => e.key === 'Enter' && navigateToITL()}>
               <div className="card-image">
                 <img src="/images/itl.webp" 
                      alt="Servicii de transport și logistică internațională" 
@@ -233,7 +231,7 @@ const Home: React.FC = () => {
               De la transporturi agabaritice și logistică internațională, la Project Cargo, relocări industriale și servicii agricole, suntem partenerul tău de încredere pentru fiecare provocare
             </p>
             <button className="btn" aria-label="Solicită o ofertă personalizată de la Holleman">
-              Cere o ofertă
+              Cere o oferta
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
             </button>
           </div>

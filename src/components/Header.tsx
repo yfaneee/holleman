@@ -40,7 +40,7 @@ const Header: React.FC = () => {
         {/* Logo and Navigation Group */}
         <div className="logo-nav-group">
           {/* Logo Section */}
-          <div className="logo">
+          <div className="logo" onClick={navigateToHome} style={{ cursor: 'pointer' }}>
             <img src="/images/Rectangle.webp" alt="HOLLEMAN Logo" className="logo-image" />
           </div>
 
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
                 <div className="dropdown-menu" role="menu">
                   <a href="/project-cargo" role="menuitem" aria-label="Servicii Project Cargo - transport agabaritic">Project Cargo</a>
                   <a href="/heavy-lift" role="menuitem" aria-label="Servicii Heavy Lift - relocări industriale">Heavy Lift</a>
-                  <a href="/inter-trans" role="menuitem" aria-label="Inter Trans Logistics - transport internațional">Inter Trans Logistics</a>
+                  <a href="/itl" role="menuitem" aria-label="Inter Trans Logistics - transport internațional">ITL</a>
                   <a href="/holleman-agro" role="menuitem" aria-label="Holleman Agro - servicii agricole">Holleman Agro</a>
                 </div>
               )}
