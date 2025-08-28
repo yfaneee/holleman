@@ -301,6 +301,10 @@
     max-width: 100%;
     margin-left: -70px;
   }
+
+  .inspiration-container {
+    margin-left: 0;
+  }
   
   .inspiration-content h2 {
     font-size: clamp(20px, 5vw, 32px);
@@ -371,6 +375,10 @@
   
   .inspiration-content {
     padding: 45px;
+  }
+
+  .inspiration-container {
+    margin-left: 0;
   }
   
   .inspiration-content h2 {
@@ -772,86 +780,84 @@
   padding: 40px 0;
 }
 
-/* Inspiration Section */
-.inspiration-section {
+/* Call to Action Section */
+.proiecte-page .cta-section {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
-  padding: 80px 20px;
+  padding: 120px 20px;
   position: relative;
   min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.inspiration-container {
+.proiecte-page .cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.proiecte-page .cta-container {
   max-width: 1200px;
-  margin-left: 100px;
-  position: relative;
+  margin: 0 auto;
   z-index: 2;
+  position: relative;
+}
+
+.proiecte-page .cta-content {
+  text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
 }
 
-.inspiration-content {
-  max-width: 850px;
-  padding: 40px;
-  text-align: left;
-  color: white;
-}
-
-.inspiration-content h2 {
+.proiecte-page .cta-title {
   font-family: 'Gotham Bold', sans-serif;
   font-size: var(--section-title-large);
   color: white;
-  margin-bottom: 40px;
-  line-height: 1.2;
-  font-weight: bold;
+  line-height: 1.3;
+  max-width: 900px;
+  margin: 0;
+  text-align: center;
 }
 
-.inspiration-text {
+.proiecte-page .cta-text {
   max-width: 850px;
-  margin: 0 0 40px 0;
+  margin: 0;
+  text-align: center;
 }
 
-.inspiration-text p {
+.proiecte-page .cta-text p {
   font-family: 'Gotham Book', sans-serif;
   font-size: clamp(16px, 1.8vw, 20px);
   color: white;
   line-height: 1.6;
   margin-bottom: 20px;
-  padding-left: 30px;
-  position: relative;
-  text-align: left;
+  text-align: center;
 }
 
-.inspiration-text p:last-child {
+.proiecte-page .cta-text p:last-child {
   margin-bottom: 0;
 }
 
-.inspiration-text p::before {
-  content: "●";
-  color: #D4A017;
-  font-size: 16px;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.inspiration-text strong {
+.proiecte-page .cta-text strong {
   font-family: 'Gotham Bold', sans-serif;
   font-weight: 700;
+  color: #D4A017;
 }
 
-.inspiration-container .button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: calc(100vw - 40px);
-  margin-left: calc(-100px - 20px);
-  position: relative;
-}
-
-.inspiration-container .btn {
+/* Yellow CTA button styling (same as ITL) */
+.proiecte-page .btn {
   --color: #D4A017;
   --color2: rgb(255, 255, 255);
   padding: 0.8em 1.75em;
@@ -869,13 +875,9 @@
   color: var(--color);
   font-family: 'Gotham Bold', sans-serif;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 }
 
-.inspiration-content .btn::after, .inspiration-content .btn::before {
+.proiecte-page .btn::after, .proiecte-page .btn::before {
   content: '';
   display: block;
   height: 100%;
@@ -889,34 +891,74 @@
   background-color: var(--color);
 }
 
-.inspiration-container .btn::before {
+.proiecte-page .btn::before {
   top: -50%;
   left: -25%;
   transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
 }
 
-.inspiration-container .btn:hover::before {
+.proiecte-page .btn:hover::before {
   transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
 }
 
-.inspiration-container .btn:hover::after {
+.proiecte-page .btn:hover::after {
   transform: skew(45deg) translate(-50%, -50%);
 }
 
-.inspiration-container .btn:hover {
+.proiecte-page .btn:hover {
   color: var(--color2);
 }
 
-.inspiration-container .btn:active {
+.proiecte-page .btn:active {
   filter: brightness(.7);
   transform: scale(.98);
 }
 
-.inspiration-container .cta-icon {
-  width: 24px;
-  height: 24px;
+.proiecte-page .cta-btn {
+  --color: #D4A017;
+  --color2: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.proiecte-page .cta-icon {
+  width: 25px;
+  height: 25px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+}
+
+/* Responsive CTA */
+@media (max-width: 768px) {
+  .proiecte-page .cta-section {
+    padding: 80px 20px;
+    min-height: 400px;
+  }
+
+  .proiecte-page .cta-content {
+    gap: 30px;
+  }
+
+  .proiecte-page .cta-title {
+    font-size: clamp(20px, 4vw, 32px);
+  }
+}
+
+@media (max-width: 480px) {
+  .proiecte-page .cta-section {
+    padding: 60px 15px;
+    min-height: 350px;
+  }
+
+  .proiecte-page .cta-content {
+    gap: 25px;
+  }
+
+  .proiecte-page .cta-title {
+    font-size: clamp(18px, 5vw, 24px);
+    line-height: 1.4;
+  }
 }
 
 /* Image Slideshow Section */

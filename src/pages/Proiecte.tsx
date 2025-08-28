@@ -398,11 +398,13 @@ const Proiecte: React.FC = () => {
       </section>
 
       {/* Inspiration Section */}
-      <section className="inspiration-section" style={{backgroundImage: `url('/images/Group8733.webp')`}}>
-        <div className="inspiration-container">
-          <div className="inspiration-content">
-            <h2>Inspirația pentru proiectul tău</h2>
-            <div className="inspiration-text">
+      <section className="cta-section" style={{backgroundImage: `url('/images/Group8733.webp')`}}>
+        <div className="cta-container">
+          <div className="cta-content">
+            <h2 className="cta-title">
+              Inspirația pentru proiectul tău
+            </h2>
+            <div className="cta-text">
               <p>
                 Aceste exemple reale reflectă capacitatea noastră de a 
                 adapta soluții în funcție de nevoile fiecărui client, de a 
@@ -416,9 +418,7 @@ const Proiecte: React.FC = () => {
                 potrivit.
               </p>
             </div>
-          </div>
-          <div className="button-container">
-            <button className="btn" onClick={() => window.location.href = '/contact'}>
+            <button className="btn cta-btn" onClick={() => window.location.href = '/contact'}>
               Contacteaza-ne pentru o oferta personalizata
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
             </button>
