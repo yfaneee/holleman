@@ -162,7 +162,7 @@ const Proiecte: React.FC = () => {
 
             <div className="project-card" data-division="project-cargo">
               <div className="project-image">
-                <img src="/images/projectcargo.webp" alt="Transport saabriric in industria petrolifera" />
+                <img src="/images/projectcargo.webp" alt="Transport agabaritic in industria petroliera" />
               </div>
               <div className="project-overlay project-cargo">
                 <div className="project-info">
@@ -393,6 +393,35 @@ const Proiecte: React.FC = () => {
                 animation: isPaused ? 'none' : 'progress 4s linear forwards',
               }}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Inspiration Section */}
+      <section className="inspiration-section" style={{backgroundImage: `url('/images/Group8733.webp')`}}>
+        <div className="inspiration-container">
+          <div className="inspiration-content">
+            <h2>Inspirația pentru proiectul tău</h2>
+            <div className="inspiration-text">
+              <p>
+                Aceste exemple reale reflectă capacitatea noastră de a 
+                adapta soluții în funcție de nevoile fiecărui client, de a 
+                gestiona riscurile și de a livra valoare adăugată, indiferent de 
+                dimensiunea sau dificultatea proiectului.
+              </p>
+              <p>
+                Indiferent dacă ai în plan un transport special, o relocare 
+                industrială sau un proiect agricol integrat, aici găsești surse 
+                de inspirație, idei și încrederea că <strong>Holleman</strong> este partenerul 
+                potrivit.
+              </p>
+            </div>
+          </div>
+          <div className="button-container">
+            <button className="btn" onClick={() => window.location.href = '/contact'}>
+              Contacteaza-ne pentru o oferta personalizata
+              <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
+            </button>
           </div>
         </div>
       </section>

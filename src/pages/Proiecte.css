@@ -150,6 +150,32 @@
   .proiecte-page .content-paragraphs p::before {
     font-size: 11px;
   }
+
+  /* Inspiration Section Responsive */
+  .inspiration-section {
+    padding: 60px 20px;
+    min-height: 450px;
+  }
+  
+  .inspiration-content {
+    padding: 30px;
+    max-width: 700px;
+  }
+  
+  .inspiration-content h2 {
+    font-size: clamp(24px, 3.5vw, 42px);
+    margin-bottom: 35px;
+  }
+  
+  .inspiration-text p {
+    font-size: clamp(15px, 1.8vw, 18px);
+    margin-bottom: 18px;
+    padding-left: 25px;
+  }
+  
+  .inspiration-text p::before {
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 1366px) {
@@ -181,10 +207,49 @@
   .proiecte-page .content-paragraphs p::before {
     font-size: 13px;
   }
+
+  /* Inspiration Section Responsive */
+  .inspiration-section {
+    padding: 50px 20px;
+    min-height: 400px;
+  }
+  
+  .inspiration-content {
+    padding: 25px;
+    max-width: 650px;
+  }
+  
+  .inspiration-container {
+    margin-left: 50px;
+  }
+
+  .inspiration-container .button-container {
+    width: calc(100vw - 40px);
+    margin-left: calc(-50px - 20px);
+  }
+  
+  .inspiration-content h2 {
+    font-size: var(--section-title-large);
+    margin-bottom: 30px;
+  }
+  
+  .inspiration-text p {
+    font-size: clamp(14px, 1.6vw, 16px);
+    margin-bottom: 16px;
+    padding-left: 22px;
+  }
+  
+  .inspiration-text p::before {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 1200px) {
   .proiecte-page .content-text {
+    max-width: 600px;
+  }
+
+  .inspiration-content {
     max-width: 600px;
   }
 }
@@ -204,6 +269,11 @@
     max-width: 100%;
     margin-left: -70px;
   }
+
+  .inspiration-container .button-container {
+    width: 100vw;
+    margin-left: -20px;
+  }
   
   .proiecte-page .content-text h2 {
     font-size: clamp(20px, 5vw, 32px);
@@ -218,6 +288,44 @@
   
   .proiecte-page .content-paragraphs p::before {
     font-size: 11px;
+  }
+
+  /* Inspiration Section Mobile */
+  .inspiration-section {
+    padding: 40px 20px;
+    min-height: 350px;
+  }
+  
+  .inspiration-content {
+    padding: 20px;
+    max-width: 100%;
+    margin-left: -70px;
+  }
+  
+  .inspiration-content h2 {
+    font-size: clamp(20px, 5vw, 32px);
+    margin-bottom: 25px;
+  }
+  
+  .inspiration-text p {
+    font-size: clamp(14px, 3.5vw, 16px);
+    margin-bottom: 15px;
+    padding-left: 20px;
+  }
+  
+  .inspiration-text p::before {
+    font-size: 11px;
+  }
+
+  .inspiration-container .btn {
+    padding: 0.7em 1.5em;
+    font-size: 16px;
+    gap: 12px;
+  }
+
+  .inspiration-container .cta-icon {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -234,6 +342,11 @@
   .proiecte-page .content-text {
     padding: 45px;
   }
+
+  .inspiration-container .button-container {
+    width: 100vw;
+    margin-left: -15px;
+  }
   
   .proiecte-page .content-text h2 {
     font-size: clamp(18px, 6vw, 28px);
@@ -248,6 +361,42 @@
   
   .proiecte-page .content-paragraphs p::before {
     font-size: 10px;
+  }
+
+  /* Inspiration Section Small Mobile */
+  .inspiration-section {
+    padding: 30px 15px;
+    min-height: 300px;
+  }
+  
+  .inspiration-content {
+    padding: 45px;
+  }
+  
+  .inspiration-content h2 {
+    font-size: clamp(18px, 6vw, 28px);
+    margin-bottom: 20px;
+  }
+  
+  .inspiration-text p {
+    font-size: clamp(13px, 4vw, 15px);
+    margin-bottom: 12px;
+    padding-left: 18px;
+  }
+  
+  .inspiration-text p::before {
+    font-size: 10px;
+  }
+
+  .inspiration-container .btn {
+    padding: 0.6em 1.2em;
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .inspiration-container .cta-icon {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -267,7 +416,7 @@
 .proiecte-page .search-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 60px;
+  margin-bottom: 90px;
   margin-top: 20px;
 }
 
@@ -393,7 +542,7 @@
 }
 
 .project-overlay.heavy-lift {
-  background: linear-gradient(to top, rgba(19, 107, 56, 0.9), rgba(19, 107, 56, 0.7));
+  background: linear-gradient(to top, rgba(212, 160, 23, 0.9), rgba(212, 160, 23, 0.7));
 }
 
 .project-overlay.project-cargo {
@@ -401,11 +550,11 @@
 }
 
 .project-overlay.itl {
-  background: linear-gradient(to top, rgba(212, 160, 23, 0.9), rgba(212, 160, 23, 0.7));
+  background: linear-gradient(to top, rgba(19, 80, 145, 0.9), rgba(19, 80, 145, 0.7));
 }
 
 .project-overlay.agro {
-  background: linear-gradient(to top, rgba(212, 160, 23, 0.9), rgba(212, 160, 23, 0.7));
+  background: linear-gradient(to top, rgba(163,102,39, 0.9), rgba(163,102,39, 0.7));
 }
 
 .project-info h3 {
@@ -446,7 +595,7 @@
 
 /* Hover Background Colors */
 .project-card[data-division="heavy-lift"]:hover .project-hover-content {
-  background: rgba(19, 107, 56, 0.8);
+  background: rgba(212, 160, 23, 0.8);
 }
 
 .project-card[data-division="project-cargo"]:hover .project-hover-content {
@@ -454,11 +603,11 @@
 }
 
 .project-card[data-division="itl"]:hover .project-hover-content {
-  background: rgba(212, 160, 23, 0.8);
+  background: rgba(11, 80, 145, 0.8);
 }
 
 .project-card[data-division="agro"]:hover .project-hover-content {
-  background: rgba(212, 160, 23, 0.8);
+  background: rgba(163, 102, 39, 0.8);
 }
 
 .project-details h3 {
@@ -621,6 +770,153 @@
   justify-content: center;
   margin-top: 60px;
   padding: 40px 0;
+}
+
+/* Inspiration Section */
+.inspiration-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  padding: 80px 20px;
+  position: relative;
+  min-height: 500px;
+}
+
+.inspiration-container {
+  max-width: 1200px;
+  margin-left: 100px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.inspiration-content {
+  max-width: 850px;
+  padding: 40px;
+  text-align: left;
+  color: white;
+}
+
+.inspiration-content h2 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: white;
+  margin-bottom: 40px;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.inspiration-text {
+  max-width: 850px;
+  margin: 0 0 40px 0;
+}
+
+.inspiration-text p {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: white;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding-left: 30px;
+  position: relative;
+  text-align: left;
+}
+
+.inspiration-text p:last-child {
+  margin-bottom: 0;
+}
+
+.inspiration-text p::before {
+  content: "●";
+  color: #D4A017;
+  font-size: 16px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.inspiration-text strong {
+  font-family: 'Gotham Bold', sans-serif;
+  font-weight: 700;
+}
+
+.inspiration-container .button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: calc(100vw - 40px);
+  margin-left: calc(-100px - 20px);
+  position: relative;
+}
+
+.inspiration-container .btn {
+  --color: #D4A017;
+  --color2: rgb(255, 255, 255);
+  padding: 0.8em 1.75em;
+  background-color: transparent;
+  border-radius: 6px;
+  border: .3px solid var(--color);
+  transition: .5s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  font-weight: 300;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--color);
+  font-family: 'Gotham Bold', sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.inspiration-content .btn::after, .inspiration-content .btn::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: skew(90deg) translate(-50%, -50%);
+  position: absolute;
+  inset: 50%;
+  left: 25%;
+  z-index: -1;
+  transition: .5s ease-out;
+  background-color: var(--color);
+}
+
+.inspiration-container .btn::before {
+  top: -50%;
+  left: -25%;
+  transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.inspiration-container .btn:hover::before {
+  transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.inspiration-container .btn:hover::after {
+  transform: skew(45deg) translate(-50%, -50%);
+}
+
+.inspiration-container .btn:hover {
+  color: var(--color2);
+}
+
+.inspiration-container .btn:active {
+  filter: brightness(.7);
+  transform: scale(.98);
+}
+
+.inspiration-container .cta-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 /* Image Slideshow Section */
