@@ -63,8 +63,8 @@ const Footer: React.FC = () => {
             
             <h3>Proiecte</h3>
             <ul>
-              <li><a href="/proiecte/galerie">Galerie</a></li>
-              <li><a href="/proiecte/studii">Studii de caz</a></li>
+              <li><a href="/proiecte">Portofoliu</a></li>
+              <li><a href="/galerie">Galerie</a></li>
             </ul>
           </div>
 

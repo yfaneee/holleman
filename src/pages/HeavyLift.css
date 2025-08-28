@@ -165,6 +165,272 @@
 
 
 
+/* Content Sections */
+.heavy-lift-page .content-section {
+  padding: clamp(80px, 10vw, 120px) 0;
+  background: white;
+}
+
+.heavy-lift-page .content-section.alternate {
+  background: #f8f9fa;
+}
+
+.heavy-lift-page .content-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(40px, 8vw, 80px);
+}
+
+.heavy-lift-page .content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(60px, 8vw, 100px);
+  align-items: center;
+  min-height: 500px;
+}
+
+.heavy-lift-page .content-grid .content-image {
+  order: 1;
+}
+
+.heavy-lift-page .content-grid .content-text {
+  order: 2;
+}
+
+.heavy-lift-page .content-grid.reverse .content-text {
+  order: 1;
+}
+
+.heavy-lift-page .content-grid.reverse .content-image {
+  order: 2;
+}
+
+.heavy-lift-page .content-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.heavy-lift-page .content-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.heavy-lift-page .content-image:hover img {
+  transform: scale(1.05);
+}
+
+.heavy-lift-page .content-text {
+  padding: clamp(20px, 4vw, 40px);
+  position: relative;
+  overflow: visible;
+}
+
+
+
+.heavy-lift-page .content-text h2 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  color: #2c3e50;
+  margin-bottom: clamp(20px, 3vw, 30px);
+  line-height: 1.3;
+}
+
+.heavy-lift-page .content-text p {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+.heavy-lift-page .content-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.heavy-lift-page .content-text li {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: #555;
+  padding: 6px 0;
+  padding-left: 25px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.heavy-lift-page .content-text li:before {
+  content: "•";
+  color: #136B38;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+}
+
+.heavy-lift-page .equipment-list h3 {
+  font-family: 'Gotham Medium', sans-serif;
+  font-size: clamp(18px, 2.2vw, 22px);
+  color: #2c3e50;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.heavy-lift-page .equipment-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.heavy-lift-page .equipment-list li {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: #555;
+  padding: 8px 0;
+  padding-left: 25px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.heavy-lift-page .equipment-list li:before {
+  content: "•";
+  color: #136B38;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: 20px;
+}
+
+.heavy-lift-page .action-button {
+  margin-top: 30px;
+}
+
+.heavy-lift-page .btn {
+  --color: #136B38;
+  --color2: rgb(255, 255, 255);
+  padding: 0.8em 1.75em;
+  background-color: transparent;
+  border-radius: 6px;
+  border: .3px solid var(--color);
+  transition: .5s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  font-weight: 300;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--color);
+  font-family: 'Gotham Bold', sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.heavy-lift-page .btn::after, .heavy-lift-page .btn::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: skew(90deg) translate(-50%, -50%);
+  position: absolute;
+  inset: 50%;
+  left: 25%;
+  z-index: -1;
+  transition: .5s ease-out;
+  background-color: var(--color);
+}
+
+.heavy-lift-page .btn::before {
+  top: -50%;
+  left: -25%;
+  transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.heavy-lift-page .btn:hover::before {
+  transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.heavy-lift-page .btn:hover::after {
+  transform: skew(45deg) translate(-50%, -50%);
+}
+
+.heavy-lift-page .btn:hover {
+  color: var(--color2);
+}
+
+.heavy-lift-page .btn:active {
+  filter: brightness(.7);
+  transform: scale(.98);
+}
+
+.heavy-lift-page .btn-arrow {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.heavy-lift-page .btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* Discover Projects CTA Section */
+.heavy-lift-page .discover-projects-section {
+  background: #136B38;
+  padding: 35px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.heavy-lift-page .discover-projects-section:hover {
+  background: #115830;
+}
+
+.heavy-lift-page .discover-projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.heavy-lift-page .discover-projects-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  text-align: center;
+}
+
+.heavy-lift-page .discover-projects-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2.4vw, 26px);
+  color: white;
+  margin: 0;
+  font-weight: bold;
+}
+
+.heavy-lift-page .discover-play-button {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.heavy-lift-page .discover-play-button:hover {
+  transform: scale(1.1);
+}
+
+.heavy-lift-page .discover-play-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /* Services Navigation Section */
 .heavy-lift-page .services-nav-section {
   padding: clamp(60px, 8vw, 80px) clamp(40px, 8vw, 80px);
@@ -233,6 +499,27 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1600px) {
+  .heavy-lift-page .btn {
+    padding: 0.7em 1.5em;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .heavy-lift-page .btn {
+    padding: 0.6em 1.3em;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heavy-lift-page .btn {
+    padding: 0.6em 1.5em;
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 1200px) {
   .heavy-lift-page .services-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -241,6 +528,19 @@
   
   .heavy-lift-page .services-nav-grid {
     gap: 30px;
+  }
+  
+  .heavy-lift-page .discover-projects-section {
+    padding: 50px 20px;
+  }
+  
+  .heavy-lift-page .discover-projects-content {
+    gap: 25px;
+  }
+  
+  .heavy-lift-page .discover-play-button {
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -263,6 +563,43 @@
     padding: 18px 12px;
   }
   
+  .heavy-lift-page .content-section {
+    padding: 60px 0;
+  }
+  
+  .heavy-lift-page .content-container {
+    padding: 0 25px;
+  }
+  
+  .heavy-lift-page .content-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    min-height: auto;
+  }
+  
+  .heavy-lift-page .content-grid .content-image {
+    order: 1;
+  }
+  
+  .heavy-lift-page .content-grid .content-text {
+    order: 2;
+    padding: 20px 0;
+  }
+  
+
+  
+  .heavy-lift-page .content-grid.reverse .content-text {
+    order: 1;
+  }
+  
+  .heavy-lift-page .content-grid.reverse .content-image {
+    order: 2;
+  }
+  
+  .heavy-lift-page .content-image img {
+    height: 250px;
+  }
+  
   .heavy-lift-page .services-nav-section {
     padding: 50px 25px;
   }
@@ -271,6 +608,14 @@
     grid-template-columns: 1fr;
     gap: 20px;
     max-width: 300px;
+  }
+  
+  .heavy-lift-page .discover-projects-section {
+    padding: 40px 20px;
+  }
+  
+  .heavy-lift-page .discover-projects-content {
+    gap: 20px;
   }
 }
 
@@ -288,7 +633,59 @@
     padding: 15px 10px;
   }
   
+  .heavy-lift-page .content-section {
+    padding: 50px 0;
+  }
+  
+  .heavy-lift-page .content-container {
+    padding: 0 20px;
+  }
+  
+  .heavy-lift-page .content-grid {
+    gap: 30px;
+  }
+  
+  .heavy-lift-page .content-text {
+    padding: 15px 0;
+  }
+  
+
+  
+  .heavy-lift-page .content-image img {
+    height: 200px;
+  }
+  
   .heavy-lift-page .services-nav-section {
     padding: 40px 20px;
   }
+  
+  .heavy-lift-page .discover-projects-section {
+    padding: 30px 20px;
+  }
+  
+  .heavy-lift-page .discover-projects-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .heavy-lift-page .discover-projects-title {
+    font-size: clamp(18px, 4vw, 24px);
+  }
 }
+
+@media (max-width: 360px) {
+  .heavy-lift-page .discover-projects-section {
+    padding: 25px 15px;
+  }
+  
+  .heavy-lift-page .discover-projects-title {
+    font-size: clamp(16px, 5vw, 22px);
+  }
+  
+  .heavy-lift-page .discover-play-button {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+

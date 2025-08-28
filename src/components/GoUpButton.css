@@ -1,0 +1,86 @@
+/* Go Up Button Component Styles */
+.go-up-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: #136B38;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(19, 107, 56, 0.3);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  z-index: 1000;
+  animation: slideIn 0.3s ease forwards;
+}
+
+.go-up-button:hover {
+  background: #0f5a2e;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(19, 107, 56, 0.4);
+}
+
+.go-up-button:active {
+  transform: translateY(-1px);
+}
+
+.go-up-button svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  transition: transform 0.3s ease;
+}
+
+.go-up-button:hover svg {
+  transform: translateY(-2px);
+}
+
+/* Animation for button appearance */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive for go up button */
+@media (max-width: 768px) {
+  .go-up-button {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .go-up-button svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .go-up-button {
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .go-up-button svg {
+    width: 18px;
+    height: 18px;
+  }
+}

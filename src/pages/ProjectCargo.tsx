@@ -364,7 +364,7 @@ const ProjectCargo: React.FC = () => {
       </section>
 
       {/* Discover Projects CTA Section */}
-      <section className="discover-projects-section" onClick={() => {/* TODO: Navigate to projects gallery */}}>
+      <section className="discover-projects-section" onClick={() => navigate('/proiecte')}>
         <div className="discover-projects-container">
           <div className="discover-projects-content">
             <h2 className="discover-projects-title">Descopera proiectele noastre</h2>

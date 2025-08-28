@@ -83,9 +83,8 @@ const Header: React.FC = () => {
               <span className="dropdown-arrow">▼</span>
               {activeDropdown === 'proiecte' && (
                 <div className="dropdown-menu">
+                  <a href="/proiecte">Portofoliu</a>
                   <a href="/galerie">Galerie</a>
-                  <a href="/studii-caz">Studii de caz</a>
-                  <a href="/portofoliu">Portofoliu</a>
                 </div>
               )}
             </div>
