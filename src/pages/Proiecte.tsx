@@ -1,14 +1,21 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { getAllProjects } from '../data/projectsData';
 import './Proiecte.css';
 
 const Proiecte: React.FC = () => {
+  const navigate = useNavigate();
+  
   // Slideshow state
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Get all projects data
+  const allProjects = getAllProjects();
 
   // Slideshow images
   const slides = [
@@ -82,6 +89,11 @@ const Proiecte: React.FC = () => {
 
   const nextSlideIndex = (currentSlide + 1) % slides.length;
 
+  // Handle project navigation
+  const handleProjectClick = (projectId: string) => {
+    navigate(`/proiecte/${projectId}`);
+  };
+
   useEffect(() => {
     // SEO setup
     document.title = "Proiecte - Portofoliul Holleman | Transport Echipamente Grele";
@@ -139,186 +151,30 @@ const Proiecte: React.FC = () => {
 
           {/* Project Grid */}
           <div className="project-grid">
-            {/* Sample Project Cards */}
-            <div className="project-card" data-division="heavy-lift">
-              <div className="project-image">
-                <img src="/images/source/flota.webp" alt="Lorem ipsum dolor sit amet, consectetur" />
-              </div>
-              <div className="project-overlay heavy-lift">
-                <div className="project-info">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
+            {allProjects.map((project) => (
+              <div key={project.id} className="project-card" data-division={project.division}>
+                <div className="project-image">
+                  <img src={project.gallery.mainImage} alt={project.title} />
+                </div>
+                <div className={`project-overlay ${project.division}`}>
+                  <div className="project-info">
+                    <h3>{project.title}</h3>
+                  </div>
+                </div>
+                <div className="project-hover-content">
+                  <div className="project-details">
+                    <h3>{project.title}</h3>
+                    <p>{project.description.paragraphs[0].substring(0, 120)}...</p>
+                    <button 
+                      className="project-button"
+                      onClick={() => handleProjectClick(project.id)}
+                    >
+                      <img src="/images/gobttn.webp" alt="Vezi proiectul" />
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                  <p>Transport specializat pentru echipamente industriale grele, cu soluții personalizate și siguranță maximă.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card" data-division="project-cargo">
-              <div className="project-image">
-                <img src="/images/projectcargo.webp" alt="Transport agabaritic in industria petroliera" />
-              </div>
-              <div className="project-overlay project-cargo">
-                <div className="project-info">
-                  <h3>Transport saabriric in industria petrolifera</h3>
-                </div>
-              </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Transport saabriric in industria petrolifera</h3>
-                  <p>Soluții de transport pentru proiecte complexe în industria petrochimică, cu echipamente specializate.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card" data-division="itl">
-              <div className="project-image">
-                <img src="/images/itl.webp" alt="Transport impresionant de 200 de tone" />
-              </div>
-              <div className="project-overlay itl">
-                <div className="project-info">
-                  <h3>Transport impresionant de 200 de tone</h3>
-                </div>
-              </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Transport impresionant de 200 de tone</h3>
-                  <p>Operațiune de transport internațional pentru echipamente industriale de dimensiuni excepționale.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card" data-division="heavy-lift">
-              <div className="project-image">
-                <img src="/images/heavylift.webp" alt="Lorem ipsum dolor sit amet, consectetur" />
-              </div>
-              <div className="project-overlay heavy-lift">
-                <div className="project-info">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                </div>
-              </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                  <p>Relocare complexă de echipamente industriale cu macarale specializate și logistică avansată.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card" data-division="project-cargo">
-              <div className="project-image">
-                <img src="/images/slide2.webp" alt="Lorem ipsum dolor sit amet, consectetur" />
-              </div>
-              <div className="project-overlay project-cargo">
-                <div className="project-info">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                </div>
-              </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                  <p>Gestionarea proiectelor de transport agabaritic cu planificare detaliată și execuție impecabilă.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card" data-division="itl">
-              <div className="project-image">
-                <img src="/images/slide3.webp" alt="Lorem ipsum dolor sit amet, consectetur" />
-              </div>
-              <div className="project-overlay itl">
-                <div className="project-info">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                </div>
-              </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                  <p>Transport internațional de echipamente cu trasee optimizate și documentație completă.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card" data-division="agro">
-              <div className="project-image">
-                <img src="/images/agro.webp" alt="Lorem ipsum dolor sit amet, consectetur" />
-              </div>
-              <div className="project-overlay agro">
-                <div className="project-info">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                </div>
-              </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                  <p>Servicii specializate pentru sectorul agricol cu echipamente adaptate și soluții eficiente.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card" data-division="heavy-lift">
-              <div className="project-image">
-                <img src="/images/slide4.webp" alt="Lorem ipsum dolor sit amet, consectetur" />
-              </div>
-              <div className="project-overlay heavy-lift">
-                <div className="project-info">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                </div>
-              </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                  <p>Operațiuni de ridicare și transport pentru echipamente de mari dimensiuni și greutăți.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card" data-division="project-cargo">
-              <div className="project-image">
-                <img src="/images/slide5.webp" alt="Lorem ipsum dolor sit amet, consectetur" />
-              </div>
-              <div className="project-overlay project-cargo">
-                <div className="project-info">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                </div>
-              </div>
-              <div className="project-hover-content">
-                <div className="project-details">
-                  <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-                  <p>Coordonarea completă a proiectelor cu echipe multidisciplinare și tehnologie avansată.</p>
-                  <button className="project-button">
-                    <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                  </button>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
           {/* Contact Button */}
           <div className="gallery-contact-section">

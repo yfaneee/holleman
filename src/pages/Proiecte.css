@@ -412,7 +412,6 @@
 .project-gallery-section {
   padding: 80px 20px;
   background-color: #f8f9fa;
-  min-height: 100vh;
 }
 
 .gallery-container {
@@ -801,7 +800,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -856,9 +855,9 @@
   color: #D4A017;
 }
 
-/* Yellow CTA button styling (same as ITL) */
+/* Default button styling - no yellow color */
 .proiecte-page .btn {
-  --color: #D4A017;
+  --color: #136B38;
   --color2: rgb(255, 255, 255);
   padding: 0.8em 1.75em;
   background-color: transparent;
@@ -921,6 +920,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  border-color: #D4A017;
+  color: #D4A017;
 }
 
 .proiecte-page .cta-icon {

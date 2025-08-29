@@ -34,6 +34,10 @@ const Header: React.FC = () => {
     navigate('/');
   };
 
+  const navigateToDespreNoi = () => {
+    navigate('/despre-noi');
+  };
+
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
@@ -49,7 +53,7 @@ const Header: React.FC = () => {
             <div className="nav-item" onClick={navigateToHome}>
               <span>ACASA</span>
             </div>
-            <div className="nav-item">
+            <div className="nav-item" onClick={navigateToDespreNoi}>
               <span>DESPRE NOI</span>
             </div>
             

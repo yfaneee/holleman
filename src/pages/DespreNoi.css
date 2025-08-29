@@ -1,0 +1,327 @@
+/* Despre Noi Page Styles */
+.despre-noi-page {
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.despre-noi-hero {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+  z-index: 2;
+  position: relative;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(48px, 8vw, 80px);
+  margin: 0 0 30px 0;
+  line-height: 1.1;
+  font-weight: 700;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(18px, 3vw, 24px);
+  margin: 0;
+  line-height: 1.4;
+  opacity: 0.95;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Boxes Section */
+.despre-noi-navigation {
+  padding: 100px 20px;
+  background-color: #f8f9fa;
+}
+
+.navigation-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.navigation-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--page-title-size);
+  color: #333;
+  margin: 0 0 80px 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.navigation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.navigation-box {
+  background: white;
+  border-radius: 15px;
+  padding: 20px 15px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.navigation-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: #136B38;
+  color: white;
+}
+
+.navigation-box:hover .box-icon img {
+  filter: brightness(0) invert(1);
+}
+
+.navigation-box:hover .box-title {
+  color: white;
+}
+
+.navigation-box:hover .box-subtitle {
+  color: white;
+  opacity: 0.9;
+}
+
+.navigation-box:hover .box-overlay {
+  opacity: 1;
+}
+
+.box-icon {
+  margin-bottom: 20px;
+}
+
+.box-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.box-content {
+  flex: 1;
+}
+
+.box-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(14px, 1.6vw, 18px);
+  margin-bottom: 10px;
+  color: #2c3e50;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+  text-align: center;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.box-subtitle {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(12px, 1.2vw, 14px);
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.box-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.overlay-text {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 12px;
+  color: white;
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Cine Suntem Section */
+.cine-suntem-section {
+  background-color: #f8f9fa;
+  position: relative;
+  padding: 100px 0 0 0;
+}
+
+.cine-suntem-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  margin-bottom: 60px;
+}
+
+.cine-suntem-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  color: #333;
+  text-align: center;
+  margin: 0 0 60px 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.cine-suntem-description {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 2vw, 18px);
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 50px 0;
+  text-align: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cine-suntem-values {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.value-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  gap: 20px;
+}
+
+.value-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #D4A017;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.value-content {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 1.5vw, 16px);
+  color: #333;
+  line-height: 1.5;
+}
+
+.value-content strong {
+  font-family: 'Gotham Bold', sans-serif;
+  font-weight: 700;
+}
+
+.cine-suntem-footer {
+  background-color: #136B38;
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cine-suntem-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-top: 100px solid #f8f9fa;
+}
+
+.cine-suntem-footer-text {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: white;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 700;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .navigation-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .despre-noi-hero {
+    height: 80vh;
+  }
+  
+  .despre-noi-navigation {
+    padding: 80px 20px;
+  }
+  
+  .navigation-title {
+    margin-bottom: 60px;
+  }
+  
+  .navigation-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .navigation-box {
+    padding: 20px 15px;
+    min-height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .despre-noi-hero {
+    height: 70vh;
+  }
+  
+  .despre-noi-navigation {
+    padding: 60px 15px;
+  }
+  
+  .navigation-title {
+    margin-bottom: 50px;
+  }
+  
+  .navigation-box {
+    padding: 20px 15px;
+    min-height: 140px;
+  }
+}

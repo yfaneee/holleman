@@ -6,6 +6,8 @@ import ProjectCargo from './pages/ProjectCargo';
 import ITL from './pages/ITL';
 import HeavyLift from './pages/HeavyLift';
 import Proiecte from './pages/Proiecte';
+import ProjectPage from './pages/ProjectPage';
+import DespreNoi from './pages/DespreNoi';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
           <Route path="/itl" element={<ITL />} />
           <Route path="/heavy-lift" element={<HeavyLift />} />
           <Route path="/proiecte" element={<Proiecte />} />
+          <Route path="/proiecte/:projectId" element={<ProjectPage />} />
+          <Route path="/despre-noi" element={<DespreNoi />} />
         </Routes>
       </div>
     </Router>
