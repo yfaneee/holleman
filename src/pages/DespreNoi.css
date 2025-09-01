@@ -177,9 +177,9 @@
 
 /* Cine Suntem Section */
 .cine-suntem-section {
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   position: relative;
-  padding: 100px 0 0 0;
+  padding: 30px 0 0 0;
 }
 
 .cine-suntem-container {
@@ -246,7 +246,7 @@
 
 .cine-suntem-footer {
   background-color: #136B38;
-  padding: 60px 20px;
+  padding: 30px 20px;
   position: relative;
   overflow: hidden;
 }
@@ -259,7 +259,7 @@
   width: 0;
   height: 0;
   border-left: 100px solid transparent;
-  border-top: 100px solid #f8f9fa;
+  border-top: 100px solid #D4A017;
 }
 
 .cine-suntem-footer-text {
@@ -270,9 +270,614 @@
   margin: 0;
   line-height: 1.4;
   font-weight: 700;
-  max-width: 900px;
+  max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Istoric și evoluție Section */
+.istoric-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  padding: 80px 20px;
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.istoric-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.istoric-container {
+  max-width: 1200px;
+  margin-left: 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.istoric-content {
+  max-width: 850px;
+  padding: 40px;
+  text-align: left;
+  color: white;
+}
+
+.istoric-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: white;
+  margin-bottom: 40px;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.istoric-text {
+  max-width: 850px;
+  margin: 0;
+}
+
+.istoric-paragraph {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.istoric-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.istoric-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #D4A017;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.istoric-paragraph p {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: white;
+  line-height: 1.6;
+  margin: 0;
+  text-align: left;
+}
+
+.istoric-paragraph strong {
+  font-family: 'Gotham Bold', sans-serif;
+  font-weight: 700;
+  color: #D4A017;
+}
+
+/* Misiunea și viziunea noastră Section */
+.misiune-section {
+  background-color: #ffffff;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.misiune-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.misiune-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.misiune-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  color: #333;
+  text-align: center;
+  margin: 0 0 60px 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.misiune-text {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.misiune-paragraph {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 2vw, 20px);
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 40px 0;
+  text-align: center;
+}
+
+.misiune-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.misiune-accent {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.green-triangle {
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-bottom: 100px solid #136B38;
+}
+
+/* Misiune Footer */
+.misiune-footer {
+  background-color: #136B38;
+  padding: 30px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.misiune-footer-text {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: white;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 700;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Certificări și conformitate Section */
+.certificari-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  padding: 80px 20px;
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.certificari-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.certificari-container {
+  max-width: 1200px;
+  margin-left: 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.certificari-content {
+  max-width: 850px;
+  padding: 40px;
+  text-align: left;
+  color: white;
+}
+
+.certificari-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: white;
+  margin-bottom: 40px;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.certificari-text {
+  max-width: 850px;
+  margin: 0;
+}
+
+.certificari-intro {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: white;
+  line-height: 1.6;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.certificari-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.certificari-list li {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: white;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  padding-left: 25px;
+  position: relative;
+}
+
+.certificari-list li::before {
+  content: "•";
+  color: #D4A017;
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: bold;
+}
+
+.certificari-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Conducerea Grupului Holleman Section */
+.conducerea-section {
+  background-color: #ffffff;
+  padding: 80px 20px;
+  position: relative;
+}
+
+.conducerea-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.conducerea-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.conducerea-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  color: #333;
+  margin: 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.conducerea-accent {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.green-triangle-top {
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-bottom: 100px solid #136B38;
+}
+
+.conducerea-content {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.management-info {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.management-subtitle {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  color: #333;
+  margin: 0 0 30px 0;
+  font-weight: 700;
+}
+
+.management-description {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+.management-description:last-child {
+  margin-bottom: 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 70px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-member {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.member-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.avatar-placeholder {
+  width: 80px;
+  height: 80px;
+  background: #999;
+  border-radius: 50% 50% 0 0;
+  position: relative;
+}
+
+.avatar-placeholder::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background: #666;
+  border-radius: 50%;
+}
+
+.member-name {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: #333;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.member-position {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(14px, 1.4vw, 16px);
+  color: #666;
+  margin: 0;
+}
+
+/* Ce ne definește ca echipă de leadership Section */
+.leadership-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  padding: 80px 20px;
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.leadership-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.leadership-container {
+  max-width: 1200px;
+  margin-left: 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.leadership-content {
+  max-width: 850px;
+  padding: 40px;
+  text-align: left;
+  color: white;
+}
+
+.leadership-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: white;
+  margin-bottom: 40px;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.leadership-points {
+  max-width: 850px;
+  margin: 0;
+}
+
+.leadership-point {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.leadership-point:last-child {
+  margin-bottom: 0;
+}
+
+.point-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #D4A017;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.leadership-point p {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: white;
+  line-height: 1.6;
+  margin: 0;
+  text-align: left;
+}
+
+.leadership-point strong {
+  font-family: 'Gotham Bold', sans-serif;
+  font-weight: 700;
+}
+
+/* Responsabilitate Socială Corporativă Section */
+.responsabilitate-section {
+  background-color: #ffffff;
+  padding: 80px 20px;
+  position: relative;
+}
+
+.responsabilitate-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.responsabilitate-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  color: #333;
+  text-align: center;
+  margin: 0 0 40px 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.responsabilitate-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.responsabilitate-intro {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.responsabilitate-subtitle {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: #333;
+  margin: 0 0 40px 0;
+  text-align: center;
+  font-weight: 700;
+}
+
+.csr-initiatives {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.csr-initiative {
+  text-align: left;
+}
+
+.initiative-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: #D4A017;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.initiative-description {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 1.6vw, 16px);
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* Discover Projects CTA Section */
+.discover-projects-section {
+  background: #136B38;
+  padding: 35px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.discover-projects-section:hover {
+  background: #115830;
+}
+
+.discover-projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.discover-projects-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  text-align: center;
+}
+
+.discover-projects-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2.4vw, 26px);
+  color: white;
+  margin: 0;
+  font-weight: bold;
+}
+
+.discover-play-button {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.discover-play-button:hover {
+  transform: scale(1.1);
+}
+
+.discover-play-button img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
 }
 
 /* Responsive Design */
@@ -281,11 +886,30 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
   }
+  
+  .discover-projects-section {
+    padding: 50px 20px;
+  }
+  
+  .discover-projects-content {
+    gap: 25px;
+  }
+  
+  .discover-play-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .discover-play-button img {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 @media (max-width: 768px) {
   .despre-noi-hero {
-    height: 80vh;
+    height: 100vh;
+    padding: 0 20px;
   }
   
   .despre-noi-navigation {
@@ -305,11 +929,202 @@
     padding: 20px 15px;
     min-height: 160px;
   }
+  
+  .istoric-section {
+    padding: 40px 20px;
+    min-height: 350px;
+  }
+  
+  .istoric-container {
+    margin-left: 0;
+  }
+  
+  .istoric-content {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  .istoric-title {
+    font-size: clamp(20px, 5vw, 32px);
+    margin-bottom: 25px;
+  }
+  
+  .istoric-paragraph p {
+    font-size: clamp(14px, 3.5vw, 16px);
+    margin-bottom: 15px;
+  }
+  
+  .misiune-section {
+    padding: 60px 20px;
+  }
+  
+  .misiune-title {
+    margin-bottom: 40px;
+  }
+  
+  .misiune-paragraph {
+    font-size: clamp(15px, 3.5vw, 18px);
+    margin-bottom: 30px;
+  }
+  
+  .green-triangle {
+    border-left: 100px solid transparent;
+    border-bottom: 100px solid #136B38;
+  }
+  
+  .certificari-section {
+    padding: 40px 20px;
+    min-height: 350px;
+  }
+  
+  .certificari-container {
+    margin-left: 0;
+  }
+  
+  .certificari-content {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  .certificari-title {
+    font-size: clamp(20px, 5vw, 32px);
+    margin-bottom: 25px;
+  }
+  
+  .certificari-intro {
+    font-size: clamp(14px, 3.5vw, 16px);
+    margin-bottom: 20px;
+  }
+  
+  .certificari-list li {
+    font-size: clamp(14px, 3.5vw, 16px);
+    margin-bottom: 12px;
+    padding-left: 20px;
+  }
+  
+  .certificari-list li::before {
+    font-size: 16px;
+  }
+  
+  .gold-triangle {
+    border-left: 100px solid transparent;
+    border-bottom: 100px solid #D4A017;
+  }
+  
+  .conducerea-section {
+    padding: 60px 20px;
+  }
+  
+  .conducerea-header {
+    margin-bottom: 40px;
+  }
+  
+  .green-triangle-top {
+    border-left: 80px solid transparent;
+    border-bottom: 80px solid #136B38;
+  }
+  
+  .conducerea-content {
+    gap: 40px;
+  }
+  
+  .management-info {
+    text-align: center;
+  }
+  
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  
+  .member-avatar {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+  
+  .avatar-placeholder {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .avatar-placeholder::before {
+    width: 25px;
+    height: 25px;
+    top: 12px;
+  }
+  
+  .leadership-section {
+    padding: 40px 20px;
+    min-height: 350px;
+  }
+  
+  .leadership-container {
+    margin-left: 0;
+  }
+  
+  .leadership-content {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  .leadership-title {
+    font-size: clamp(20px, 5vw, 32px);
+    margin-bottom: 25px;
+  }
+  
+  .leadership-point {
+    margin-bottom: 20px;
+    gap: 15px;
+  }
+  
+  .leadership-point p {
+    font-size: clamp(14px, 3.5vw, 16px);
+  }
+  
+  .responsabilitate-section {
+    padding: 60px 20px;
+  }
+  
+  .discover-projects-section {
+    padding: 40px 20px;
+  }
+  
+  .discover-projects-content {
+    gap: 20px;
+  }
+  
+  .responsabilitate-title {
+    margin-bottom: 30px;
+  }
+  
+  .responsabilitate-intro {
+    font-size: clamp(15px, 3.5vw, 16px);
+    margin-bottom: 25px;
+  }
+  
+  .responsabilitate-subtitle {
+    font-size: clamp(15px, 3.5vw, 16px);
+    margin-bottom: 30px;
+  }
+  
+  .csr-initiatives {
+    gap: 25px;
+  }
+  
+  .initiative-title {
+    font-size: clamp(15px, 3.5vw, 18px);
+  }
+  
+  .initiative-description {
+    font-size: clamp(14px, 3vw, 15px);
+    padding-left: 15px;
+  }
 }
 
 @media (max-width: 480px) {
   .despre-noi-hero {
-    height: 70vh;
+    height: 100vh;
   }
   
   .despre-noi-navigation {
@@ -323,5 +1138,212 @@
   .navigation-box {
     padding: 20px 15px;
     min-height: 140px;
+  }
+  
+  .istoric-section {
+    padding: 30px 15px;
+    min-height: 300px;
+  }
+  
+  .istoric-content {
+    padding: 15px;
+  }
+  
+  .istoric-title {
+    font-size: clamp(18px, 6vw, 28px);
+    margin-bottom: 20px;
+  }
+  
+  .istoric-paragraph {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .istoric-paragraph p {
+    font-size: clamp(13px, 4vw, 15px);
+  }
+  
+  .misiune-section {
+    padding: 40px 15px;
+  }
+  
+  .misiune-title {
+    margin-bottom: 30px;
+  }
+  
+  .misiune-paragraph {
+    font-size: clamp(14px, 4vw, 16px);
+    margin-bottom: 25px;
+  }
+  
+  .green-triangle {
+    border-left: 80px solid transparent;
+    border-bottom: 80px solid #136B38;
+  }
+  
+  .certificari-section {
+    padding: 30px 15px;
+    min-height: 300px;
+  }
+  
+  .certificari-content {
+    padding: 15px;
+  }
+  
+  .certificari-title {
+    font-size: clamp(18px, 6vw, 28px);
+    margin-bottom: 20px;
+  }
+  
+  .certificari-intro {
+    font-size: clamp(13px, 4vw, 15px);
+    margin-bottom: 15px;
+  }
+  
+  .certificari-list li {
+    font-size: clamp(13px, 4vw, 15px);
+    margin-bottom: 10px;
+    padding-left: 18px;
+  }
+  
+  .certificari-list li::before {
+    font-size: 14px;
+  }
+  
+  .gold-triangle {
+    border-left: 80px solid transparent;
+    border-bottom: 80px solid #D4A017;
+  }
+  
+  .conducerea-section {
+    padding: 40px 15px;
+  }
+  
+  .conducerea-header {
+    margin-bottom: 30px;
+  }
+  
+  .green-triangle-top {
+    border-left: 60px solid transparent;
+    border-bottom: 60px solid #136B38;
+  }
+  
+  .conducerea-content {
+    gap: 30px;
+  }
+  
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    max-width: 300px;
+  }
+  
+  .member-avatar {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 12px;
+  }
+  
+  .avatar-placeholder {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .avatar-placeholder::before {
+    width: 22px;
+    height: 22px;
+    top: 10px;
+  }
+  
+  .leadership-section {
+    padding: 30px 15px;
+    min-height: 300px;
+  }
+  
+  .leadership-content {
+    padding: 15px;
+  }
+  
+  .leadership-title {
+    font-size: clamp(18px, 6vw, 28px);
+    margin-bottom: 20px;
+  }
+  
+  .leadership-point {
+    margin-bottom: 18px;
+    gap: 12px;
+  }
+  
+  .leadership-point p {
+    font-size: clamp(13px, 4vw, 15px);
+  }
+  
+  .point-bullet {
+    width: 10px;
+    height: 10px;
+    margin-top: 6px;
+  }
+  
+  .responsabilitate-section {
+    padding: 40px 15px;
+  }
+  
+  .discover-projects-section {
+    padding: 30px 20px;
+  }
+  
+  .discover-projects-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .discover-projects-title {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+  
+  .responsabilitate-title {
+    margin-bottom: 25px;
+  }
+  
+  .responsabilitate-intro {
+    font-size: clamp(14px, 4vw, 15px);
+    margin-bottom: 20px;
+  }
+  
+  .responsabilitate-subtitle {
+    font-size: clamp(14px, 4vw, 15px);
+    margin-bottom: 25px;
+  }
+  
+  .csr-initiatives {
+    gap: 20px;
+  }
+  
+  .initiative-title {
+    font-size: clamp(14px, 4vw, 16px);
+    margin-bottom: 8px;
+  }
+  
+  .initiative-description {
+    font-size: clamp(13px, 3.5vw, 14px);
+    padding-left: 10px;
+  }
+  
+  .discover-projects-section {
+    padding: 25px 15px;
+  }
+  
+  .discover-projects-title {
+    font-size: clamp(16px, 5vw, 22px);
+  }
+  
+  .discover-play-button {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .discover-play-button img {
+    width: 45px;
+    height: 45px;
   }
 }

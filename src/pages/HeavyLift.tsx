@@ -266,7 +266,7 @@ const HeavyLift: React.FC = () => {
               </div>
               <h3>ITL</h3>
             </div>
-            <div className="service-nav-item" onClick={() => {/* TODO: Navigate to Agro page */}}>
+            <div className="service-nav-item" onClick={() => navigate('/agro')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/agro.webp" alt="Agro icon" />
               </div>

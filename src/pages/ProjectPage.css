@@ -19,7 +19,7 @@
 
 /* Project Content Section */
 .project-content-section {
-  padding: 220px 20px 80px;
+  padding: 190px 20px 80px;
   background-color: #f8f9fa;
 }
 
@@ -477,7 +477,11 @@
 }
 
 /* Responsive Design */
-
+@media (max-width: 1366px) {
+  .project-content-section {
+    padding: 165px 20px 80px;
+  }
+}
 
 @media (max-width: 1200px) {
   .project-content-container {

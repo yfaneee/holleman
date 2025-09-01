@@ -69,7 +69,7 @@ const Header: React.FC = () => {
                   <a href="/project-cargo" role="menuitem" aria-label="Servicii Project Cargo - transport agabaritic">Project Cargo</a>
                   <a href="/heavy-lift" role="menuitem" aria-label="Servicii Heavy Lift - relocări industriale">Heavy Lift</a>
                   <a href="/itl" role="menuitem" aria-label="Inter Trans Logistics - transport internațional">ITL</a>
-                  <a href="/holleman-agro" role="menuitem" aria-label="Holleman Agro - servicii agricole">Holleman Agro</a>
+                  <a href="/agro" role="menuitem" aria-label="Holleman Agro - servicii agricole">Holleman Agro</a>
                 </div>
               )}
             </div>

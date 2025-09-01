@@ -707,7 +707,7 @@
 }
 
 @media (max-width: 768px) {
-  .slideshow-brand { font-size: clamp(18px, 4vw, 28px); right: 10px; top: 0; }
+  .slideshow-brand { font-size: clamp(18px, 4vw, 28px); right: 5px; top: -30px; }
   .slideshow-caption { font-size: clamp(16px, 4vw, 24px); transform: translateY(10px); left: 10px; }
 }
 
@@ -1099,6 +1099,44 @@
   .company-info h3 { font-size: clamp(14px, 2.2vw, 20px); }
   .info-item .label { font-size: clamp(13px, 1.8vw, 16px); }
   .info-item .value { font-size: clamp(13px, 1.8vw, 16px); }
+}
+
+/* Service cards responsive for lower resolution screens */
+@media (max-width: 1366px) and (min-width: 801px) {
+  .service-cards {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .service-card {
+    max-width: 370px;
+    margin: 0 auto;
+  }
+  
+  .card-image {
+    height: 220px;
+  }
+  
+  .card-content {
+    padding: 25px;
+  }
+  
+  .card-content h3 {
+    font-size: 15px;
+  }
+  
+  .card-content p {
+    font-size: 13px;
+  }
+
+  .slideshow-caption {
+    margin-left: 30px;
+  }
+
+  .slideshow-brand {
+    margin-right: 30px;
+  }
 }
 
 /* Button Styles (from ProjectCargo design) */

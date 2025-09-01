@@ -1,0 +1,768 @@
+/* Agro Page Styles */
+.agro-page {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* Hero Section */
+.agro-hero {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agro-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agro-hero-content {
+  text-align: center;
+  color: white;
+  z-index: 2;
+  position: relative;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.agro-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-title-size);
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1.1;
+}
+
+.agro-subtitle {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: var(--hero-subtitle-size);
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.3;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Agro Content Section */
+.agro-content-section {
+  background-color: #ffffff;
+  padding: 80px 20px;
+  position: relative;
+}
+
+.agro-content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.agro-content-header {
+  margin-bottom: 50px;
+  text-align: left;
+}
+
+.agro-content-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  color: #333;
+  margin: 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.agro-highlight {
+  color: #D4A017;
+  font-weight: 700;
+}
+
+.agro-content-text {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.agro-content-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.agro-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #D4A017;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.agro-content-point p {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Agro Services Section */
+.agro-services-section {
+  padding: 60px 20px;
+  background: #f8f9fa;
+  min-height: auto;
+}
+
+.agro-services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.agro-services-header {
+  margin-bottom: 60px;
+}
+
+.agro-services-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(24px, 4vw, 36px);
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.agro-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(430px, 1fr));
+  gap: 25px;
+  margin-bottom: 60px;
+  justify-content: center;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.agro-services-grid .agro-service-item:nth-child(7) {
+  grid-column: 2;
+}
+
+.agro-service-item {
+    background: white;
+    padding: 35px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 176px;
+}
+
+.btn {
+    --color: #136B38;
+    --color2: rgb(255, 255, 255);
+    padding: 0.8em 1.75em;
+    background-color: transparent;
+    border-radius: 6px;
+    border: .3px solid var(--color);
+    transition: .5s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: 300;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: var(--color);
+    font-family: 'Gotham Bold', sans-serif;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn::after, .btn::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform: skew(90deg) translate(-50%, -50%);
+    position: absolute;
+    inset: 50%;
+    left: 25%;
+    z-index: -1;
+    transition: .5s ease-out;
+    background-color: var(--color);
+  }
+  
+  .btn::before {
+    top: -50%;
+    left: -25%;
+    transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+  }
+  
+  .btn:hover::before {
+    transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+  }
+  
+  .btn:hover::after {
+    transform: skew(45deg) translate(-50%, -50%);
+  }
+  
+  .btn:hover {
+    color: var(--color2);
+  }
+  
+  .btn:active {
+    filter: brightness(.7);
+    transform: scale(.98);
+  }
+  
+.agro-service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.agro-service-item:hover .agro-service-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.agro-service-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.agro-service-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.agro-service-item h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2vw, 18px);
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Agro Service Overlay */
+.agro-service-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #136B38;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+}
+
+.agro-service-overlay h3 {
+  color: white;
+  margin-bottom: 15px;
+  font-size: clamp(16px, 2.2vw, 20px);
+  font-family: 'Gotham Bold', sans-serif;
+}
+
+.agro-service-overlay p {
+  color: white;
+  font-size: clamp(13px, 1.6vw, 15px);
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.agro-service-icon-white img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.agro-services-footer {
+  text-align: center;
+}
+
+/* Call to Action Section */
+.agro-cta-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  padding: 120px 20px;
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agro-cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.agro-cta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 2;
+  position: relative;
+}
+
+.agro-cta-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.agro-cta-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: white;
+  line-height: 1.3;
+  max-width: 900px;
+  margin: 0;
+  text-align: center;
+}
+
+.agro-highlight {
+  color: #D4A017;
+}
+
+/* Yellow CTA button styling */
+.agro-page .cta-btn {
+  --color: #D4A017;
+  --color2: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.agro-page .cta-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+/* Services Navigation Section */
+.agro-page .services-nav-section {
+  padding: clamp(60px, 8vw, 80px) clamp(40px, 8vw, 80px);
+  background: white;
+}
+
+.agro-page .services-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.agro-page .services-nav-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--page-title-size);
+  margin-bottom: clamp(40px, 6vw, 60px);
+  color: #333;
+}
+
+.agro-page .services-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.agro-page .service-nav-item {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: clamp(30px, 4vw, 40px);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.agro-page .service-nav-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  background: white;
+}
+
+.agro-page .service-nav-icon {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+}
+
+.agro-page .service-nav-icon img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.agro-page .service-nav-item h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2.2vw, 20px);
+  margin: 0;
+  color: #333;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1380px) and (min-width: 1201px) {
+  .agro-services-section {
+    padding: 80px 60px;
+  }
+  
+  .agro-services-grid {
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 769px) {
+  .agro-hero {
+    height: 90vh;
+  }
+  
+  .agro-title {
+    margin-bottom: 15px;
+  }
+  
+  .agro-content-section {
+    padding: 60px 20px;
+  }
+  
+  .agro-content-header {
+    margin-bottom: 40px;
+  }
+  
+  .agro-content-text {
+    gap: 25px;
+  }
+  
+  .agro-content-point {
+    gap: 15px;
+  }
+  
+  .agro-services-section {
+    padding: 60px 20px;
+  }
+  
+  .agro-services-title {
+    font-size: clamp(20px, 3vw, 36px);
+    line-height: 1.2;
+  }
+  
+  .agro-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 50px;
+  }
+  
+  .agro-services-grid .agro-service-item:nth-child(7) {
+    grid-column: 1;
+  }
+  
+  .agro-service-item {
+    padding: 30px 15px;
+  }
+  
+  .agro-service-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+  }
+  
+  .agro-service-icon img {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .agro-service-item h3 {
+    font-size: clamp(14px, 1.8vw, 18px);
+  }
+  
+  .agro-service-overlay p {
+    font-size: clamp(12px, 1.4vw, 14px);
+  }
+  
+  .agro-service-icon-white {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 15px;
+  }
+  
+  .agro-service-icon-white img {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .agro-cta-section {
+    padding: 80px 20px;
+    min-height: 400px;
+  }
+  
+  .agro-cta-content {
+    gap: 30px;
+  }
+  
+  .agro-cta-title {
+    font-size: clamp(20px, 4vw, 32px);
+  }
+  
+  .agro-page .services-nav-section {
+    padding: 50px 25px;
+  }
+  
+  .agro-page .services-nav-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .agro-hero {
+    height: 100vh;
+    padding: 0 20px;
+  }
+  
+  .agro-hero-content {
+    padding: 0 15px;
+  }
+  
+  .agro-title {
+    margin-bottom: 12px;
+    font-size: clamp(28px, 8vw, 48px);
+  }
+  
+  .agro-subtitle {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+  
+  .agro-content-section {
+    padding: 50px 15px;
+  }
+  
+  .agro-content-header {
+    margin-bottom: 35px;
+  }
+  
+  .agro-content-title {
+    font-size: clamp(28px, 6vw, 40px);
+  }
+  
+  .agro-content-text {
+    gap: 20px;
+  }
+  
+  .agro-content-point {
+    gap: 12px;
+  }
+  
+  .agro-bullet {
+    width: 10px;
+    height: 10px;
+    margin-top: 6px;
+  }
+  
+  .agro-content-point p {
+    font-size: clamp(15px, 3.5vw, 17px);
+  }
+  
+  .agro-services-section {
+    padding: 50px 20px;
+  }
+  
+  .agro-services-title {
+    font-size: clamp(18px, 2.8vw, 32px);
+    margin-bottom: 40px;
+  }
+  
+  .agro-services-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+  
+  .agro-services-grid .agro-service-item:nth-child(7) {
+    grid-column: 1;
+  }
+  
+  .agro-service-item {
+    padding: 25px 15px;
+  }
+  
+  .agro-service-icon {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 12px;
+  }
+  
+  .agro-service-icon img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .agro-service-item h3 {
+    font-size: clamp(14px, 2vw, 16px);
+  }
+  
+  .agro-service-overlay p {
+    font-size: clamp(11px, 1.2vw, 13px);
+  }
+  
+  .agro-service-icon-white {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 10px;
+  }
+  
+  .agro-service-icon-white img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .agro-hero {
+    height: 100vh;
+  }
+  
+  .agro-hero-content {
+    padding: 0 15px;
+  }
+  
+  .agro-title {
+    margin-bottom: 10px;
+    font-size: clamp(24px, 9vw, 40px);
+  }
+  
+  .agro-subtitle {
+    font-size: clamp(14px, 5vw, 20px);
+  }
+  
+  .agro-content-section {
+    padding: 40px 30px;
+  }
+  
+  .agro-content-header {
+    margin-bottom: 30px;
+  }
+  
+  .agro-content-title {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+  
+  .agro-content-text {
+    gap: 18px;
+  }
+  
+  .agro-content-point {
+    gap: 10px;
+  }
+  
+  .agro-bullet {
+    width: 8px;
+    height: 8px;
+    margin-top: 5px;
+  }
+  
+  .agro-content-point p {
+    font-size: clamp(14px, 4vw, 16px);
+  }
+  
+  .agro-services-section {
+    padding: 60px 20px;
+  }
+  
+  .agro-services-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+  
+  .agro-services-grid .agro-service-item:nth-child(7) {
+    grid-column: 1;
+  }
+  
+  .agro-service-item {
+    padding: 30px 20px;
+  }
+  
+  .agro-service-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+  }
+  
+  .agro-service-icon img {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .agro-cta-section {
+    padding: 60px 15px;
+    min-height: 350px;
+  }
+  
+  .agro-cta-content {
+    gap: 25px;
+  }
+  
+  .agro-cta-title {
+    font-size: clamp(18px, 5vw, 24px);
+    line-height: 1.4;
+  }
+  
+  .agro-page .services-nav-section {
+    padding: 40px 20px;
+  }
+}

@@ -500,17 +500,11 @@
 
 /* Responsive Design */
 @media (max-width: 1600px) {
-  .heavy-lift-page .btn {
-    padding: 0.7em 1.5em;
-    font-size: 16px;
-  }
+  /* Removed contact button responsiveness for 1600px - button keeps normal size */
 }
 
 @media (max-width: 1366px) {
-  .heavy-lift-page .btn {
-    padding: 0.6em 1.3em;
-    font-size: 15px;
-  }
+  /* Removed contact button responsiveness for 1366px - button keeps normal size */
 }
 
 @media (max-width: 480px) {
