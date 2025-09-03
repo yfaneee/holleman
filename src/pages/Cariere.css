@@ -1,0 +1,1042 @@
+/* Cariere Page Styles */
+
+/* Available Positions Section - Based on Project Cargo Services */
+.cariere-page .positions-section {
+  padding: 60px 20px;
+  background: #f8f9fa;
+  min-height: auto;
+}
+
+.cariere-page .positions-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cariere-page .positions-header {
+  margin-bottom: 60px;
+}
+
+.cariere-page .positions-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--page-title-size);
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.3;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cariere-page .positions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.cariere-page .position-item {
+  background: white;
+  padding: 30px 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cariere-page .position-item:hover .position-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cariere-page .position-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 15px;
+}
+
+.cariere-page .position-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.cariere-page .position-item h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--content-medium);
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Position Overlay */
+.cariere-page .position-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #136B38;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.cariere-page .position-overlay h3 {
+  color: white;
+  margin-bottom: 15px;
+  font-size: var(--content-large);
+  font-family: inherit;
+}
+
+.cariere-page .position-overlay p {
+  color: white;
+  font-size: var(--content-small);
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.cariere-page .position-icon-white {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.cariere-page .position-icon-white img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.cariere-page .positions-footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.cariere-page .positions-note {
+  font-size: var(--content-medium);
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 700;
+}
+
+.cariere-page .green-highlight {
+  color: #136B38;
+  font-weight: bold;
+}
+
+/* Responsive Design for Positions */
+@media (max-width: 1600px) {
+  .cariere-page .positions-section {
+    padding: 60px 20px;
+  }
+  
+  .cariere-page .positions-title {
+    font-size: clamp(20px, 3vw, 36px);
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 1200px) {
+  .cariere-page .positions-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cariere-page .positions-section {
+    padding: 50px 15px;
+  }
+  
+  .cariere-page .positions-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .cariere-page .positions-title {
+    font-size: clamp(18px, 4vw, 28px);
+    margin-bottom: 30px;
+  }
+  
+  .cariere-page .position-item {
+    padding: 25px 15px;
+  }
+  
+  .cariere-page .position-overlay {
+    padding: 15px;
+  }
+  
+  .cariere-page .positions-header {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cariere-page .positions-section {
+    padding: 40px 10px;
+  }
+  
+  .cariere-page .position-item {
+    padding: 20px 12px;
+  }
+  
+  .cariere-page .position-icon,
+  .cariere-page .position-icon-white {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+  }
+  
+  .cariere-page .position-icon img,
+  .cariere-page .position-icon-white img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* End of Positions Section */
+
+/* Career Quote Footer */
+.cariere-page .career-quote-footer {
+  background: #136B38;
+  padding: 60px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cariere-page .career-quote-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-top: 100px solid #D4A017;
+}
+
+.cariere-page .career-quote-text {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: white;
+  text-align: center;
+  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+/* Responsive Design for Career Quote Footer */
+@media (max-width: 768px) {
+  .cariere-page .career-quote-footer {
+    padding: 40px 20px;
+  }
+  
+  .cariere-page .career-quote-footer::before {
+    border-left: 60px solid transparent;
+    border-top: 60px solid #D4A017;
+  }
+}
+
+@media (max-width: 480px) {
+  .cariere-page .career-quote-footer {
+    padding: 30px 15px;
+  }
+  
+  .cariere-page .career-quote-footer::before {
+    border-left: 40px solid transparent;
+    border-top: 40px solid #D4A017;
+  }
+}
+
+/* Application Form Section */
+.cariere-page .application-section {
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.cariere-page .application-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.cariere-page .application-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 200px;
+}
+
+.cariere-page .application-form-wrapper {
+  flex: 0 0 400px;
+}
+
+.cariere-page .application-form-box {
+  background: #D4A017;
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cariere-page .form-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(20px, 3vw, 24px);
+  color: white;
+  text-align: center;
+  margin: 0 0 30px 0;
+  font-weight: bold;
+}
+
+.cariere-page .application-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cariere-page .form-group {
+  width: 100%;
+}
+
+.cariere-page .form-input,
+.cariere-page .form-textarea {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-family: inherit;
+  background: white;
+  color: #333;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.cariere-page .form-input:focus,
+.cariere-page .form-textarea:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.cariere-page .form-textarea {
+  border-radius: 15px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.cariere-page .form-input::placeholder,
+.cariere-page .form-textarea::placeholder {
+  color: #999;
+  font-family: inherit;
+}
+
+/* Phone Input with Changeable Prefix */
+.cariere-page .phone-group {
+  position: relative;
+}
+
+.cariere-page .phone-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: white;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.cariere-page .phone-prefix-select {
+  border: none;
+  padding: 15px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  outline: none;
+  cursor: pointer;
+  border-right: 1px solid #e9ecef;
+  min-width: 85px;
+  font-family: inherit;
+}
+
+.cariere-page .phone-input {
+  border-radius: 0 25px 25px 0 !important;
+  border: none !important;
+  padding: 15px 20px !important;
+  flex: 1;
+}
+
+.cariere-page .phone-input:focus {
+  box-shadow: none !important;
+}
+
+.cariere-page .phone-input-wrapper:focus-within {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.cariere-page .form-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.cariere-page .submit-btn {
+  flex: 1;
+  background: white;
+  color: #D4A017;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Gotham Bold', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cariere-page .submit-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cariere-page .cv-btn {
+  background: white;
+  color: #D4A017;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Gotham Bold', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cariere-page .cv-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cariere-page .cv-icon {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cariere-page .cv-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.cariere-page .application-content {
+  flex: 1;
+  color: white;
+  text-align: left;
+}
+
+.cariere-page .application-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  color: white;
+  margin: 0 0 30px 0;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.cariere-page .application-subtitle {
+  font-size: clamp(20px, 3vw, 28px);
+  color: white;
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+}
+
+.cariere-page .application-description {
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: white;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Responsive Design for Application Section */
+@media (max-width: 1200px) {
+  .cariere-page .application-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+  
+  .cariere-page .application-form-wrapper {
+    flex: none;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .cariere-page .application-content {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .cariere-page .application-section {
+    min-height: auto;
+    padding: 60px 0;
+  }
+  
+  .cariere-page .application-container {
+    padding: 0 20px;
+    gap: 30px;
+  }
+  
+  .cariere-page .application-form-box {
+    padding: 30px 20px;
+  }
+  
+  .cariere-page .form-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .cariere-page .cv-btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cariere-page .application-container {
+    padding: 0 15px;
+  }
+  
+  .cariere-page .application-form-box {
+    padding: 25px 15px;
+  }
+  
+  .cariere-page .form-input,
+  .cariere-page .form-textarea {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .cariere-page .submit-btn,
+  .cariere-page .cv-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Contact CTA Section */
+.cariere-page .contact-cta-section {
+  background: #136B38;
+  padding: 35px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cariere-page .contact-cta-section:hover {
+  background: #115830;
+}
+
+.cariere-page .contact-cta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cariere-page .contact-cta-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  text-align: center;
+}
+
+.cariere-page .contact-cta-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2.4vw, 26px);
+  color: white;
+  margin: 0;
+  font-weight: bold;
+}
+
+.cariere-page .contact-play-button {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.cariere-page .contact-play-button:hover {
+  transform: scale(1.1);
+}
+
+.cariere-page .contact-play-button img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* Responsive Design for Contact CTA */
+@media (max-width: 1200px) {
+  .cariere-page .contact-cta-section {
+    padding: 50px 20px;
+  }
+  
+  .cariere-page .contact-cta-content {
+    gap: 25px;
+  }
+  
+  .cariere-page .contact-play-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .cariere-page .contact-play-button img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cariere-page .contact-cta-section {
+    padding: 25px 15px;
+  }
+  
+  .cariere-page .contact-cta-title {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+  
+  .cariere-page .contact-play-button {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .cariere-page .contact-play-button img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Hero Section */
+.cariere-page .cariere-hero {
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cariere-page .cariere-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.cariere-page .hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.cariere-page .hero-content {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  max-width: 800px;
+  padding: 0 40px;
+}
+
+.cariere-page .hero-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-title-size);
+  color: white;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cariere-page .hero-subtitle {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-subtitle-size);
+  color: white;
+  margin: 20px 0 0 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  line-height: 1.3;
+}
+
+/* Why Holleman Section */
+.cariere-page .why-holleman-section {
+  background: white;
+  padding: 80px 0;
+}
+
+.cariere-page .why-holleman-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.cariere-page .section-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  color: #333;
+  text-align: center;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+}
+
+.cariere-page .why-holleman-content {
+  max-width: 900 px;
+  margin: 0 auto;
+}
+
+.cariere-page .intro-text {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.cariere-page .intro-text:last-of-type {
+  margin-bottom: 60px;
+}
+
+/* Benefits Grid */
+.cariere-page .benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.cariere-page .benefit-item {
+  background: white;
+  border-radius: 15px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.cariere-page .benefit-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.cariere-page .benefit-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cariere-page .icon-placeholder {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #136B38, #1a8a47);
+  border-radius: 50%;
+  position: relative;
+}
+
+.cariere-page .icon-placeholder::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.cariere-page .benefit-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: #333;
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+}
+
+.cariere-page .benefit-description {
+  font-size: clamp(14px, 2vw, 16px);
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cariere-page .cariere-hero {
+    height: 100vh;
+    min-height: 100vh;
+  }
+  
+  .cariere-page .hero-content {
+    padding: 0 20px;
+  }
+  
+  .cariere-page .why-holleman-section {
+    padding: 60px 0;
+  }
+  
+  .cariere-page .why-holleman-container {
+    padding: 0 20px;
+  }
+  
+  .cariere-page .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  
+  .cariere-page .benefit-item {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cariere-page .cariere-hero {
+    height: 100vh;
+    min-height: 100vh;
+  }
+  
+  .cariere-page .hero-content {
+    padding: 0 15px;
+  }
+  
+  .cariere-page .why-holleman-section {
+    padding: 40px 0;
+  }
+  
+  .cariere-page .why-holleman-container {
+    padding: 0 15px;
+  }
+  
+  .cariere-page .benefit-item {
+    padding: 25px 15px;
+  }
+}
+
+/* Additional styling for different benefit items */
+.cariere-page .benefit-item:nth-child(1) .icon-placeholder {
+  background: linear-gradient(135deg, #136B38, #1a8a47);
+}
+
+.cariere-page .benefit-item:nth-child(2) .icon-placeholder {
+  background: linear-gradient(135deg, #135091, #1a6bb8);
+}
+
+.cariere-page .benefit-item:nth-child(3) .icon-placeholder {
+  background: linear-gradient(135deg, #D4A017, #f4c430);
+}
+
+.cariere-page .benefit-item:nth-child(4) .icon-placeholder {
+  background: linear-gradient(135deg, #8B4513, #A0522D);
+}
+
+/* Hover effects for benefit items */
+.cariere-page .benefit-item:nth-child(1):hover {
+  border-color: #136B38;
+}
+
+.cariere-page .benefit-item:nth-child(2):hover {
+  border-color: #135091;
+}
+
+.cariere-page .benefit-item:nth-child(3):hover {
+  border-color: #D4A017;
+}
+
+.cariere-page .benefit-item:nth-child(4):hover {
+  border-color: #8B4513;
+}
+
+/* Benefits for Employees Section */
+.cariere-page .benefits-employees-section {
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.cariere-page .benefits-employees-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.cariere-page .benefits-employees-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.cariere-page .benefits-employees-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.cariere-page .benefits-employees-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: white;
+  text-align: center;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cariere-page .benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.cariere-page .benefit-point {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  font-size: clamp(18px, 3vw, 24px);
+  line-height: 1.4;
+}
+
+.cariere-page .benefit-highlight {
+  color: #D4A017;
+  font-weight: bold;
+}
+
+.cariere-page .benefit-text {
+  color: white;
+}
+
+/* Responsive Design for Benefits Section */
+@media (max-width: 768px) {
+  .cariere-page .benefits-employees-section {
+    min-height: 60vh;
+    padding: 60px 0;
+  }
+  
+  .cariere-page .benefits-employees-container {
+    padding: 0 20px;
+  }
+  
+  .cariere-page .benefits-employees-title {
+    margin-bottom: 40px;
+  }
+  
+  .cariere-page .benefits-list {
+    gap: 25px;
+  }
+  
+  .cariere-page .benefit-point {
+    font-size: clamp(16px, 4vw, 20px);
+  }
+  
+  .cariere-page .yellow-accent-triangle {
+    border-width: 0 120px 120px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .cariere-page .benefits-employees-section {
+    min-height: 50vh;
+    padding: 40px 0;
+  }
+  
+  .cariere-page .benefits-employees-container {
+    padding: 0 15px;
+  }
+  
+  .cariere-page .benefits-list {
+    margin-left: 30px;
+    gap: 20px;
+  }
+  
+  .cariere-page .benefit-point {
+    font-size: clamp(14px, 4vw, 18px);
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .cariere-page .yellow-accent-triangle {
+    border-width: 0 80px 80px 0;
+  }
+}

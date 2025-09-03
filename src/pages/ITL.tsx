@@ -127,7 +127,7 @@ const ITL: React.FC = () => {
           </div>
           
           <div className="services-footer">
-            <button className="btn" onClick={() => window.location.href = '/contact'}>CONTACT</button>
+            <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
           </div>
         </div>
       </section>
@@ -182,7 +182,7 @@ const ITL: React.FC = () => {
             <h2 className="cta-title">
               Alege <span className="highlight">Holleman ITL</span> pentru o logistică fără sincope, soluții inteligente și un partener de încredere în mișcarea mărfurilor tale.
             </h2>
-            <button className="btn cta-btn" onClick={() => window.location.href = '/contact'}>
+            <button className="btn cta-btn" onClick={() => navigate('/contact')}>
               Contacteaza-ne pentru o oferta personalizata
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
             </button>

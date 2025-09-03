@@ -9,6 +9,8 @@ import Agro from './pages/Agro';
 import Proiecte from './pages/Proiecte';
 import ProjectPage from './pages/ProjectPage';
 import DespreNoi from './pages/DespreNoi';
+import Cariere from './pages/Cariere';
+import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           <Route path="/proiecte" element={<Proiecte />} />
           <Route path="/proiecte/:projectId" element={<ProjectPage />} />
           <Route path="/despre-noi" element={<DespreNoi />} />
+          <Route path="/cariere" element={<Cariere />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>

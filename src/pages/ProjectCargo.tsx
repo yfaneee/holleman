@@ -218,7 +218,7 @@ const ProjectCargo: React.FC = () => {
           </div>
           
           <div className="services-footer">
-            <button className="btn">CONTACT</button>
+            <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
           </div>
         </div>
       </section>
@@ -331,7 +331,7 @@ const ProjectCargo: React.FC = () => {
           </div>
           
           <div className="case-studies-footer">
-            <button className="btn">CONTACT</button>
+          <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
           </div>
         </div>
       </section>

@@ -11,9 +11,7 @@ const Home: React.FC = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
 
-  const heroStyle = {
-    backgroundImage: `url('/images/Group8723.webp')`
-  };
+
 
   const section2Style = {
     backgroundImage: `url('/images/section2.webp')`
@@ -139,7 +137,20 @@ const Home: React.FC = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="hero" style={heroStyle} aria-label="Pagina principală Holleman">
+      <section className="hero" aria-label="Pagina principală Holleman">
+        <video 
+          className="hero-video"
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          poster="/images/Group8723.webp"
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          Your browser does not support the video tag.
+        </video>
+        <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">HOLLEMAN</h1>
           <p className="hero-subtitle">
@@ -236,7 +247,7 @@ const Home: React.FC = () => {
             <p className="section2-description">
               De la transporturi agabaritice și logistică internațională, la Project Cargo, relocări industriale și servicii agricole, suntem partenerul tău de încredere pentru fiecare provocare
             </p>
-            <button className="btn" aria-label="Solicită o ofertă personalizată de la Holleman">
+            <button className="btn" onClick={() => navigate('/contact')} aria-label="Solicită o ofertă personalizată de la Holleman">
               Cere o oferta
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
             </button>

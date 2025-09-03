@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -86,6 +86,26 @@ const DespreNoi: React.FC = () => {
     }
   };
 
+  // Handle hash navigation for anchor links
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          const headerHeight = window.innerWidth <= 768 ? 100 : 120;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <div className="despre-noi-page">
       <Header />
@@ -133,7 +153,7 @@ const DespreNoi: React.FC = () => {
       </section>
 
       {/* Cine Suntem Section */}
-      <section className="cine-suntem-section" ref={cineSuntemRef}>
+      <section className="cine-suntem-section" id="prezentare-grup-holleman" ref={cineSuntemRef}>
         <div className="cine-suntem-container">
           <h2 className="cine-suntem-title">Cine suntem - Valorile care ne definesc</h2>
           
@@ -294,7 +314,7 @@ const DespreNoi: React.FC = () => {
       </section>
 
       {/* Conducerea Grupului Holleman Section */}
-      <section className="conducerea-section" ref={conducereaRef}>
+      <section className="conducerea-section" id="conducerea-grupului" ref={conducereaRef}>
       <div className="conducerea-accent">
               <div className="green-triangle-top"></div>
             </div>
@@ -416,7 +436,7 @@ const DespreNoi: React.FC = () => {
       </section>
 
       {/* Responsabilitate Socială Corporativă Section */}
-      <section className="responsabilitate-section" ref={responsabilitateRef}>
+      <section className="responsabilitate-section" id="responsabilitate-sociala-corporativa" ref={responsabilitateRef}>
         <div className="responsabilitate-container">
           <h2 className="responsabilitate-title">Responsabilitate Socială Corporativă</h2>
           

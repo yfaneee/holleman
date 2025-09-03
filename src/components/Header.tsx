@@ -38,6 +38,14 @@ const Header: React.FC = () => {
     navigate('/despre-noi');
   };
 
+  const navigateToCariere = () => {
+    navigate('/cariere');
+  };
+
+  const navigateToContact = () => {
+    navigate('/contact');
+  };
+
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
@@ -74,7 +82,7 @@ const Header: React.FC = () => {
               )}
             </div>
             
-            <div className="nav-item">
+            <div className="nav-item" onClick={navigateToCariere}>
               <span>CARIERE</span>
             </div>
             
@@ -93,7 +101,7 @@ const Header: React.FC = () => {
               )}
             </div>
             
-            <div className="nav-item">
+            <div className="nav-item" onClick={navigateToContact}>
               <span>CONTACT</span>
             </div>
             <div className="nav-item">

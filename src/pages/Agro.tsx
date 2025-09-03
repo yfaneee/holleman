@@ -122,7 +122,7 @@ const Agro: React.FC = () => {
           </div>
           
           <div className="agro-services-footer">
-            <button className="btn">CONTACT</button>
+            <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
           </div>
         </div>
       </section>
@@ -165,7 +165,7 @@ const Agro: React.FC = () => {
             <h2 className="agro-cta-title">
               <span className="agro-highlight">Holleman Agro</span> este mai mult decât un furnizor - este un partener activ în dezvoltarea lanțului agroalimentar, de la sămânță până la produsul finit. Punem la dispoziție resursele, infrastructura și expertiza necesare pentru o agricultură modernă și sustenabilă.
             </h2>
-            <button className="btn cta-btn" onClick={() => window.location.href = '/contact'}>
+            <button className="btn cta-btn" onClick={() => navigate('/contact')}>
               Contacteaza-ne pentru o oferta personalizata
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
             </button>

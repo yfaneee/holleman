@@ -178,7 +178,7 @@ const Proiecte: React.FC = () => {
           </div>
           {/* Contact Button */}
           <div className="gallery-contact-section">
-              <button className="btn">CONTACT</button>
+              <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
             </div>
         </div>
       </section>
@@ -274,7 +274,7 @@ const Proiecte: React.FC = () => {
                 potrivit.
               </p>
             </div>
-            <button className="btn cta-btn" onClick={() => window.location.href = '/contact'}>
+            <button className="btn cta-btn" onClick={() => navigate('/contact')}>
               Contacteaza-ne pentru o oferta personalizata
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
             </button>

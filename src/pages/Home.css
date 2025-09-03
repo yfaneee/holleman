@@ -2,28 +2,39 @@
 .home .hero {
   height: 100vh;
   width: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
-.home .hero::before {
-  content: '';
+.home .hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  object-fit: cover;
+}
+
+.home .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .home .hero-content {
   text-align: center;
-  z-index: 2;
+  z-index: 3;
   position: relative;
 }
 
@@ -266,6 +277,12 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .home .hero-video {
+    /* Ensure video covers full screen on mobile */
+    min-width: 100%;
+    min-height: 100%;
+  }
+  
   .hero-title {
     font-size: clamp(36px, 10vw, 80px);
   }
@@ -289,6 +306,17 @@
   
   .search-input {
     font-size: 13px;
+  }
+}
+
+/* Additional mobile optimizations for video */
+@media (max-width: 480px) {
+  .home .hero-video {
+    /* For very small screens, ensure proper coverage */
+    width: 100vw;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
   }
 }
 

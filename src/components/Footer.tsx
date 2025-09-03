@@ -23,8 +23,8 @@ const Footer: React.FC = () => {
           <div className="footer-column">
             <h3>Cariere</h3>
             <ul>
-              <li><a href="/cariere/sectiune-dedicata">Sectiune dedicata recrutarii</a></li>
-              <li><a href="/cariere/posturi">Posturi disponibile</a></li>
+              <li><a href="/cariere#sectiune-dedicata-recrutarii">Sectiune dedicata recrutarii</a></li>
+              <li><a href="/cariere#posturi-disponibile">Posturi disponibile</a></li>
             </ul>
             
             <h3>Contact</h3>
@@ -37,11 +37,11 @@ const Footer: React.FC = () => {
 
           {/* About Us Column */}
           <div className="footer-column">
-            <h3>About us</h3>
+            <h3>Despre Noi</h3>
             <ul>
-              <li><a href="/despre/prezentare">Prezentare Grup Holleman</a></li>
-              <li><a href="/despre/conducerea">Conducerea Grupului</a></li>
-              <li><a href="/despre/responsabilitate">Responsabilitate Sociala Corporativa</a></li>
+              <li><a href="/despre-noi#prezentare-grup-holleman">Prezentare Grup Holleman</a></li>
+              <li><a href="/despre-noi#conducerea-grupului">Conducerea Grupului</a></li>
+              <li><a href="/despre-noi#responsabilitate-sociala-corporativa">Responsabilitate Sociala Corporativa</a></li>
             </ul>
             
             <h3>Blog</h3>
