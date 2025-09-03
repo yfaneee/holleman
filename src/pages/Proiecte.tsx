@@ -27,54 +27,56 @@ const Proiecte: React.FC = () => {
   // Get all projects data
   const allProjects = getAllProjects();
 
-  // Generate suggestions based on search term
-  const getSuggestions = () => {
+  // Generate suggestions based on search term (memoized for performance)
+  const suggestions = React.useMemo(() => {
     if (searchTerm.length < 2) return [];
     
-    const suggestions = new Set<string>();
+    const suggestionSet = new Set<string>();
+    const searchLower = searchTerm.toLowerCase();
     
     allProjects.forEach(project => {
       // Add project titles that match
-      if (project.title.toLowerCase().includes(searchTerm.toLowerCase())) {
-        suggestions.add(project.title);
+      if (project.title.toLowerCase().includes(searchLower)) {
+        suggestionSet.add(project.title);
       }
       
       // Add project subtitles that match
-      if (project.subtitle.toLowerCase().includes(searchTerm.toLowerCase())) {
-        suggestions.add(project.subtitle);
+      if (project.subtitle.toLowerCase().includes(searchLower)) {
+        suggestionSet.add(project.subtitle);
       }
       
-      // Add keywords from descriptions
+      // Add keywords from descriptions (optimized)
       project.description.paragraphs.forEach(paragraph => {
         const words = paragraph.toLowerCase().split(/\s+/);
         words.forEach(word => {
-          // Clean word of punctuation
           const cleanWord = word.replace(/[^\w]/g, '');
-          if (cleanWord.length > 3 && cleanWord.includes(searchTerm.toLowerCase())) {
-            suggestions.add(cleanWord);
+          if (cleanWord.length > 3 && cleanWord.includes(searchLower)) {
+            suggestionSet.add(cleanWord);
           }
         });
       });
     });
     
-    return Array.from(suggestions).slice(0, 8); // Limit to 8 suggestions
-  };
+    return Array.from(suggestionSet).slice(0, 8);
+  }, [searchTerm, allProjects]);
 
-  const suggestions = getSuggestions();
-
-  // Filter projects based on search term and division
-  const filteredProjects = allProjects.filter(project => {
-    const matchesSearch = searchTerm === '' || 
-      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.subtitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.description.paragraphs.some(paragraph => 
-        paragraph.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+  // Filter projects based on search term and division (memoized for performance)
+  const filteredProjects = React.useMemo(() => {
+    const searchLower = searchTerm.toLowerCase();
     
-    const matchesDivision = selectedDivision === '' || project.division === selectedDivision;
-    
-    return matchesSearch && matchesDivision;
-  });
+    return allProjects.filter(project => {
+      const matchesSearch = searchTerm === '' || 
+        project.title.toLowerCase().includes(searchLower) ||
+        project.subtitle.toLowerCase().includes(searchLower) ||
+        project.description.paragraphs.some(paragraph => 
+          paragraph.toLowerCase().includes(searchLower)
+        );
+      
+      const matchesDivision = selectedDivision === '' || project.division === selectedDivision;
+      
+      return matchesSearch && matchesDivision;
+    });
+  }, [searchTerm, selectedDivision, allProjects]);
 
   // Handle search input change
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,8 +92,8 @@ const Proiecte: React.FC = () => {
     setShowSuggestions(false);
   };
 
-  // Handle suggestion click
-  const handleSuggestionClick = (suggestion: string, event?: React.MouseEvent) => {
+  // Handle suggestion click (memoized for performance)
+  const handleSuggestionClick = React.useCallback((suggestion: string, event?: React.MouseEvent) => {
     isClickingSuggestionRef.current = true;
     
     if (event) {
@@ -111,10 +113,10 @@ const Proiecte: React.FC = () => {
         searchInputRef.current.focus();
       }
     }, 50);
-  };
+  }, []);
 
-  // Handle keyboard navigation
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  // Handle keyboard navigation (memoized for performance)
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!showSuggestions || suggestions.length === 0) return;
 
     switch (event.key) {
@@ -139,7 +141,7 @@ const Proiecte: React.FC = () => {
         setSelectedSuggestionIndex(-1);
         break;
     }
-  };
+  }, [showSuggestions, suggestions, selectedSuggestionIndex, handleSuggestionClick]);
 
   // Handle input focus
   const handleInputFocus = () => {
@@ -248,12 +250,16 @@ const Proiecte: React.FC = () => {
   };
 
   useEffect(() => {
-    // SEO setup
+    // Enhanced SEO setup
     document.title = "Proiecte - Portofoliul Holleman | Transport Echipamente Grele";
+    
+    // Meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 'Explorează portofoliul Holleman - proiecte reprezentative din Heavy Lift, Project Cargo, ITL și Agro. Dovada angajamentului nostru pentru excelență, inovație și siguranță.');
     }
+    
+    // Canonical URL
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -261,7 +267,84 @@ const Proiecte: React.FC = () => {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', 'https://holleman.ro/proiecte');
-  }, []);
+    
+    // Open Graph tags
+    const updateOGTag = (property: string, content: string) => {
+      let ogTag = document.querySelector(`meta[property="${property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', content);
+    };
+    
+    updateOGTag('og:title', 'Proiecte Holleman - Portofoliu Transport Agabaritic');
+    updateOGTag('og:description', 'Descoperă proiectele noastre din transporturi agabaritice, Heavy Lift, Project Cargo și ITL. Peste 25 ani experiență în România și Europa.');
+    updateOGTag('og:url', 'https://holleman.ro/proiecte');
+    updateOGTag('og:type', 'website');
+    
+    // Structured data for project portfolio
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Portofoliu Proiecte Holleman",
+      "description": "Portofoliul complet al proiectelor Holleman în transporturi agabaritice și relocări industriale",
+      "url": "https://holleman.ro/proiecte",
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": allProjects.length,
+        "itemListElement": allProjects.map((project, index) => ({
+          "@type": "CreativeWork",
+          "position": index + 1,
+          "name": project.title,
+          "description": project.subtitle,
+          "url": `https://holleman.ro/proiecte/${project.id}`,
+          "image": `https://holleman.ro${project.gallery.mainImage}`,
+          "creator": {
+            "@type": "Organization",
+            "name": "Holleman Special Transport & Project Cargo"
+          },
+          "category": project.division
+        }))
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Acasă",
+            "item": "https://holleman.ro"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Proiecte",
+            "item": "https://holleman.ro/proiecte"
+          }
+        ]
+      }
+    };
+    
+    // Add or update structured data
+    let structuredDataScript = document.querySelector('#projects-structured-data') as HTMLScriptElement;
+    if (!structuredDataScript) {
+      structuredDataScript = document.createElement('script') as HTMLScriptElement;
+      structuredDataScript.id = 'projects-structured-data';
+      structuredDataScript.type = 'application/ld+json';
+      document.head.appendChild(structuredDataScript);
+    }
+    structuredDataScript.textContent = JSON.stringify(structuredData);
+    
+    // Cleanup function to remove structured data when component unmounts
+    return () => {
+      const script = document.querySelector('#projects-structured-data');
+      if (script) {
+        script.remove();
+      }
+    };
+  }, [allProjects]);
 
   return (
     <div className="proiecte-page">
@@ -278,7 +361,7 @@ const Proiecte: React.FC = () => {
        </section>
 
       {/* Project Gallery Section */}
-      <section className="project-gallery-section">
+      <section className="project-gallery-section" aria-labelledby="projects-heading">
         <div className="gallery-container">
           {/* Search Bar */}
           <div className="search-container">
@@ -335,12 +418,18 @@ const Proiecte: React.FC = () => {
           </div>
 
           {/* Project Grid */}
-          <div className="project-grid">
+          <div className="project-grid" role="grid" aria-label="Proiecte Holleman">
+            <h2 id="projects-heading" className="sr-only">Lista proiectelor Holleman</h2>
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project) => (
                 <div key={project.id} className="project-card" data-division={project.division}>
                   <div className="project-image">
-                    <img src={project.gallery.mainImage} alt={project.title} />
+                    <img 
+                      src={project.gallery.mainImage} 
+                      alt={`${project.title} - ${project.subtitle} | Holleman ${project.division}`}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                   <div className={`project-overlay ${project.division}`}>
                     <div className="project-info">
