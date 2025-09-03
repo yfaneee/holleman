@@ -512,6 +512,10 @@
     padding: 0.6em 1.5em;
     font-size: 16px;
   }
+
+  .heavy-lift-page .service-item h3 {
+    font-size: var(--description-medium);
+  }
 }
 
 @media (max-width: 1200px) {

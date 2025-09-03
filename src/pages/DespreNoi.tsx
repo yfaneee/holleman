@@ -121,7 +121,7 @@ const DespreNoi: React.FC = () => {
         <div className="hero-content">
           <h1 className="hero-title">Despre noi</h1>
           <p className="hero-subtitle">
-            Descoperă povestea, valorile și oamenii din spatele succesului Holleman
+            Descopera povestea, valorile si oamenii din spatele succesului Holleman
           </p>
         </div>
       </section>

@@ -83,7 +83,7 @@ const Cariere: React.FC = () => {
         <div className="hero-content">
           <h1 className="hero-title">Cariere</h1>
           <p className="hero-subtitle">
-            Alătură-te echipei care face ca imposibilul să devină posibil
+            Alatura-te echipei care face ca imposibilul sa devina posibil
           </p>
         </div>
       </section>

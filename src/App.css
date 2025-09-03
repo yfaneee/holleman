@@ -21,7 +21,7 @@
   /* Description Text */
   --description-large: clamp(16px, 2.5vw, 24px);
   --description-medium: clamp(14px, 2vw, 22px);
-  --description-small: clamp(11px, 2vw, 22px);
+  --description-small: clamp(14px, 2vw, 20px);
   
   /* Navigation and UI */
   --nav-size: clamp(12px, 1.5vw, 16px);

@@ -346,6 +346,36 @@ const Proiecte: React.FC = () => {
     };
   }, [allProjects]);
 
+  // Handle hash navigation for footer links
+  useEffect(() => {
+    const handleHashNavigation = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        setTimeout(() => {
+          const element = document.querySelector(hash);
+          if (element) {
+            const headerHeight = window.innerWidth <= 768 ? 180 : 300;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - headerHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 100);
+      }
+    };
+
+    // Handle hash on initial load
+    handleHashNavigation();
+
+    // Handle hash changes
+    window.addEventListener('hashchange', handleHashNavigation);
+    
+    return () => window.removeEventListener('hashchange', handleHashNavigation);
+  }, []);
+
   return (
     <div className="proiecte-page">
       <Header />

@@ -39,7 +39,7 @@ const ITL: React.FC = () => {
       <section className="hero-section" style={heroStyle}>
         <div className="hero-content">
           <h1 className="hero-title">ITL</h1>
-          <p className="hero-subtitle">Ne plimbăm mai mult decât GPS-ul tău.</p>
+          <p className="hero-subtitle">Ne plimbam mai mult decat GPS-ul tau.</p>
         </div>
       </section>
 

@@ -86,19 +86,8 @@ const Header: React.FC = () => {
               <span>CARIERE</span>
             </div>
             
-            <div 
-              className="nav-item dropdown"
-              onMouseEnter={() => handleDropdownHover('proiecte')}
-              onMouseLeave={handleDropdownLeave}
-            >
+            <div className="nav-item" onClick={() => navigate('/proiecte')}>
               <span>PROIECTE</span>
-              <span className="dropdown-arrow">▼</span>
-              {activeDropdown === 'proiecte' && (
-                <div className="dropdown-menu">
-                  <a href="/proiecte">Portofoliu</a>
-                  <a href="/galerie">Galerie</a>
-                </div>
-              )}
             </div>
             
             <div className="nav-item" onClick={navigateToContact}>

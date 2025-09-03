@@ -36,7 +36,7 @@
 
 .hero-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(48px, 8vw, 80px);
+  font-size: var(--hero-title-size);
   margin: 0 0 30px 0;
   line-height: 1.1;
   font-weight: 700;
@@ -44,8 +44,8 @@
 }
 
 .hero-subtitle {
-  font-family: 'Gotham Book', sans-serif;
-  font-size: clamp(18px, 3vw, 24px);
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-subtitle-size);
   margin: 0;
   line-height: 1.4;
   opacity: 0.95;

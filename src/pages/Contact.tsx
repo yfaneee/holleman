@@ -141,7 +141,7 @@ const Contact: React.FC = () => {
         <div className="hero-content">
           <h1 className="hero-title">Contact</h1>
           <p className="hero-subtitle">
-            Suntem aici să te ajutăm cu orice întrebare
+            Suntem aici sa te ajutam cu orice intrebare
           </p>
         </div>
       </section>

@@ -712,7 +712,7 @@
   }
 
   .itl-page .service-item h3 {
-    font-size: clamp(12px, 2vw, 14px);
+    font-size: var(--content-medium);
     line-height: 1.3;
   }
 
@@ -987,8 +987,6 @@
   height: 25px;
   object-fit: contain;
 }
-
-
 
 /* Responsive CTA */
 @media (max-width: 768px) {

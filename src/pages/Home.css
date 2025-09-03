@@ -59,7 +59,6 @@
 /* Services Section */
 .home .services {
   background: white;
-  padding: 80px 0;
 }
 
 .home .services-container {
@@ -1113,8 +1112,6 @@
 @media (max-width: 1600px) {
   /* Section 2 - reduce font sizes and height */
   .section2 { min-height: 450px; }
-  .section2-title { font-size: clamp(24px, 3.5vw, 36px); }
-  .section2-description { font-size: clamp(14px, 1.8vw, 20px); }
   /* Section 3 - reduce font sizes and height */
   .section3 { min-height: 450px; }
   .section3-title { font-size: clamp(24px, 3.5vw, 36px); }
