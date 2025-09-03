@@ -29,6 +29,9 @@ function App() {
           <Route path="/despre-noi" element={<DespreNoi />} />
           <Route path="/cariere" element={<Cariere />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/contact/formular" element={<Contact />} />
+          <Route path="/contact/date" element={<Contact />} />
+          <Route path="/contact/cerere" element={<Contact />} />
         </Routes>
       </div>
     </Router>

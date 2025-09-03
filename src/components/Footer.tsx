@@ -29,9 +29,9 @@ const Footer: React.FC = () => {
             
             <h3>Contact</h3>
             <ul>
+              <li><a href="/contact/cerere">Cerere oferta</a></li>
               <li><a href="/contact/formular">Formular de contact</a></li>
               <li><a href="/contact/date">Date de contact</a></li>
-              <li><a href="/contact/cerere">Cerere oferta</a></li>
             </ul>
           </div>
 

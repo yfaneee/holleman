@@ -92,6 +92,40 @@ const Contact: React.FC = () => {
     canonical.setAttribute('href', 'https://holleman.ro/contact');
   }, []);
 
+  // Handle scroll to section based on URL path
+  useEffect(() => {
+    const handleScrollToSection = () => {
+      const path = window.location.pathname;
+      let targetId = '';
+      
+      if (path === '/contact/formular') {
+        targetId = 'formular-contact';
+      } else if (path === '/contact/date') {
+        targetId = 'date-contact';
+      } else if (path === '/contact/cerere') {
+        targetId = 'cerere-oferta';
+      }
+      
+      if (targetId) {
+        setTimeout(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            const headerHeight = window.innerWidth <= 768 ? 100 : 120;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - headerHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 100);
+      }
+    };
+
+    handleScrollToSection();
+  }, []);
+
   return (
     <div className="contact-page">
       <Header />
@@ -113,7 +147,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Service Selection Section */}
-      <section className="service-selection-section">
+      <section id="cerere-oferta" className="service-selection-section">
         <div className="service-selection-container">
           <h2 className="service-selection-title">
             Cerere ofertă – trimite solicitarea direct către divizia potrivită:
@@ -146,6 +180,7 @@ const Contact: React.FC = () => {
 
       {/* Contact Form Section */}
       <section 
+        id="formular-contact"
         className="contact-form-section"
         style={{
           backgroundImage: `url('/images/Group8748.webp')`
@@ -438,7 +473,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Location & Info Section */}
-      <section className="location-section">
+      <section id="date-contact" className="location-section">
         <div className="location-container">
           <div className="location-content">
             <div className="map-container">
@@ -524,25 +559,66 @@ const Contact: React.FC = () => {
               
               <div className="offices-grid">
                 <div className="office-item">
-                  <div className="flag-icon">🇧🇬</div>
+                  <div className="flag-icon">
+                    <img src="/images/icons/BGflag.webp" alt="Bulgaria flag" />
+                  </div>
                   <span>Bulgaria – Sofia</span>
                 </div>
                 
                 <div className="office-item">
-                  <div className="flag-icon">🇷🇸</div>
+                  <div className="flag-icon">
+                    <img src="/images/icons/SRflag.webp" alt="Serbia flag" />
+                  </div>
                   <span>Serbia – Belgrad</span>
                 </div>
                 
                 <div className="office-item">
-                  <div className="flag-icon">🇲🇩</div>
+                  <div className="flag-icon">
+                    <img src="/images/icons/MDflag.webp" alt="Moldova flag" />
+                  </div>
                   <span>Republica Moldova – Chișinău</span>
                 </div>
                 
                 <div className="office-item">
-                  <div className="flag-icon">🇭🇺</div>
+                  <div className="flag-icon">
+                    <img src="/images/icons/HUflag.webp" alt="Hungary flag" />
+                  </div>
                   <span>Ungaria – Szeged</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Unlimited Coverage Section */}
+      <section className="unlimited-coverage-section">
+        <div className="unlimited-coverage-container">
+          <div className="coverage-content">
+            <h2 className="coverage-title">Acoperire fără limite</h2>
+            <p className="coverage-subtitle">
+              Indiferent unde se află proiectul tău – în România, în Europa sau în afara granițelor UE 
+              – Holleman îți oferă o rețea pregătită să răspundă rapid, eficient și profesionist.
+            </p>
+            
+            <div className="partnerships-section">
+              <h3 className="partnerships-title">Parteneriate internaționale:</h3>
+              <p className="partnerships-intro">Colaborăm cu operatori logistici și transportatori specializați în:</p>
+              
+              <ul className="partnerships-list">
+                <li>
+                  <span className="bullet-point"></span>
+                  Germania, Austria, Polonia, Olanda, Italia, Turcia
+                </li>
+                <li>
+                  <span className="bullet-point"></span>
+                  Rute comerciale Est–Vest și coridoare multimodale internaționale
+                </li>
+                <li>
+                  <span className="bullet-point"></span>
+                  Acces rapid la porturi maritime și fluviale (Constanța, Rotterdam, Antwerp, etc.)
+                </li>
+              </ul>
             </div>
           </div>
         </div>

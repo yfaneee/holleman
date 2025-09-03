@@ -14,8 +14,161 @@ const Proiecte: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   
+  // Search and filter state
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDivision, setSelectedDivision] = useState('');
+  
+  // Autocomplete state
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const isClickingSuggestionRef = useRef(false);
+  
   // Get all projects data
   const allProjects = getAllProjects();
+
+  // Generate suggestions based on search term
+  const getSuggestions = () => {
+    if (searchTerm.length < 2) return [];
+    
+    const suggestions = new Set<string>();
+    
+    allProjects.forEach(project => {
+      // Add project titles that match
+      if (project.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+        suggestions.add(project.title);
+      }
+      
+      // Add project subtitles that match
+      if (project.subtitle.toLowerCase().includes(searchTerm.toLowerCase())) {
+        suggestions.add(project.subtitle);
+      }
+      
+      // Add keywords from descriptions
+      project.description.paragraphs.forEach(paragraph => {
+        const words = paragraph.toLowerCase().split(/\s+/);
+        words.forEach(word => {
+          // Clean word of punctuation
+          const cleanWord = word.replace(/[^\w]/g, '');
+          if (cleanWord.length > 3 && cleanWord.includes(searchTerm.toLowerCase())) {
+            suggestions.add(cleanWord);
+          }
+        });
+      });
+    });
+    
+    return Array.from(suggestions).slice(0, 8); // Limit to 8 suggestions
+  };
+
+  const suggestions = getSuggestions();
+
+  // Filter projects based on search term and division
+  const filteredProjects = allProjects.filter(project => {
+    const matchesSearch = searchTerm === '' || 
+      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.subtitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.paragraphs.some(paragraph => 
+        paragraph.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    
+    const matchesDivision = selectedDivision === '' || project.division === selectedDivision;
+    
+    return matchesSearch && matchesDivision;
+  });
+
+  // Handle search input change
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    setShowSuggestions(value.length >= 2);
+    setSelectedSuggestionIndex(-1);
+  };
+
+  // Handle division filter change
+  const handleDivisionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDivision(event.target.value);
+    setShowSuggestions(false);
+  };
+
+  // Handle suggestion click
+  const handleSuggestionClick = (suggestion: string, event?: React.MouseEvent) => {
+    isClickingSuggestionRef.current = true;
+    
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    // Update search term immediately
+    setSearchTerm(suggestion);
+    setShowSuggestions(false);
+    setSelectedSuggestionIndex(-1);
+    
+    // Reset the clicking flag after a short delay
+    setTimeout(() => {
+      isClickingSuggestionRef.current = false;
+      if (searchInputRef.current) {
+        searchInputRef.current.focus();
+      }
+    }, 50);
+  };
+
+  // Handle keyboard navigation
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        setSelectedSuggestionIndex(prev => 
+          prev < suggestions.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        setSelectedSuggestionIndex(prev => prev > 0 ? prev - 1 : -1);
+        break;
+      case 'Enter':
+        event.preventDefault();
+        if (selectedSuggestionIndex >= 0) {
+          handleSuggestionClick(suggestions[selectedSuggestionIndex]);
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        setSelectedSuggestionIndex(-1);
+        break;
+    }
+  };
+
+  // Handle input focus
+  const handleInputFocus = () => {
+    if (searchTerm.length >= 2) {
+      setShowSuggestions(true);
+    }
+  };
+
+  // Handle click outside to close suggestions
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Don't close if we're clicking on a suggestion
+      if (isClickingSuggestionRef.current) {
+        return;
+      }
+      
+      const target = event.target as Node;
+      const searchContainer = searchInputRef.current?.closest('.search-input-container');
+      
+      if (searchContainer && !searchContainer.contains(target)) {
+        setShowSuggestions(false);
+        setSelectedSuggestionIndex(-1);
+      }
+    };
+
+    // Use mouseup instead of mousedown to let click events fire first
+    document.addEventListener('mouseup', handleClickOutside);
+    return () => document.removeEventListener('mouseup', handleClickOutside);
+  }, []);
 
   // Slideshow images
   const slides = [
@@ -131,14 +284,46 @@ const Proiecte: React.FC = () => {
           <div className="search-container">
             <div className="search-bar" role="search">
               <img src="/images/search.webp" alt="" className="search-icon" role="presentation" />
-              <input
-                type="text"
-                placeholder="Caută proiecte..."
-                className="search-input"
-                aria-label="Căutare proiecte Holleman"
-              />
+              <div className="search-input-container">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Caută proiecte..."
+                  className="search-input"
+                  aria-label="Căutare proiecte Holleman"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  onKeyDown={handleKeyDown}
+                  onFocus={handleInputFocus}
+                  autoComplete="off"
+                />
+                
+                {/* Suggestions Dropdown */}
+                {showSuggestions && suggestions.length > 0 && (
+                  <div className="suggestions-dropdown">
+                    {suggestions.map((suggestion, index) => (
+                      <div
+                        key={suggestion}
+                        className={`suggestion-item ${
+                          index === selectedSuggestionIndex ? 'selected' : ''
+                        }`}
+                        onMouseDown={(event) => handleSuggestionClick(suggestion, event)}
+                        onMouseEnter={() => setSelectedSuggestionIndex(index)}
+                      >
+                        <img src="/images/search.webp" alt="" className="suggestion-icon" />
+                        <span>{suggestion}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
               <div className="division-filter">
-                <select className="division-select">
+                <select 
+                  className="division-select"
+                  value={selectedDivision}
+                  onChange={handleDivisionChange}
+                >
                   <option value="">DIVIZIE</option>
                   <option value="heavy-lift">Heavy Lift</option>
                   <option value="project-cargo">Project Cargo</option>
@@ -151,30 +336,48 @@ const Proiecte: React.FC = () => {
 
           {/* Project Grid */}
           <div className="project-grid">
-            {allProjects.map((project) => (
-              <div key={project.id} className="project-card" data-division={project.division}>
-                <div className="project-image">
-                  <img src={project.gallery.mainImage} alt={project.title} />
-                </div>
-                <div className={`project-overlay ${project.division}`}>
-                  <div className="project-info">
-                    <h3>{project.title}</h3>
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((project) => (
+                <div key={project.id} className="project-card" data-division={project.division}>
+                  <div className="project-image">
+                    <img src={project.gallery.mainImage} alt={project.title} />
+                  </div>
+                  <div className={`project-overlay ${project.division}`}>
+                    <div className="project-info">
+                      <h3>{project.title}</h3>
+                    </div>
+                  </div>
+                  <div className="project-hover-content">
+                    <div className="project-details">
+                      <h3>{project.title}</h3>
+                      <p>{project.description.paragraphs[0].substring(0, 120)}...</p>
+                      <button 
+                        className="project-button"
+                        onClick={() => handleProjectClick(project.id)}
+                      >
+                        <img src="/images/gobttn.webp" alt="Vezi proiectul" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="project-hover-content">
-                  <div className="project-details">
-                    <h3>{project.title}</h3>
-                    <p>{project.description.paragraphs[0].substring(0, 120)}...</p>
-                    <button 
-                      className="project-button"
-                      onClick={() => handleProjectClick(project.id)}
-                    >
-                      <img src="/images/gobttn.webp" alt="Vezi proiectul" />
-                    </button>
-                  </div>
+              ))
+            ) : (
+              <div className="no-results">
+                <div className="no-results-content">
+                  <h3>Nu au fost găsite proiecte</h3>
+                  <p>Încearcă să modifici termenii de căutare sau să alegi o divizie diferită.</p>
+                  <button 
+                    className="btn clear-filters-btn"
+                    onClick={() => {
+                      setSearchTerm('');
+                      setSelectedDivision('');
+                    }}
+                  >
+                    Șterge filtrele
+                  </button>
                 </div>
               </div>
-            ))}
+            )}
           </div>
           {/* Contact Button */}
           <div className="gallery-contact-section">

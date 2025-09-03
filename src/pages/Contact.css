@@ -958,6 +958,18 @@
 .contact-page .flag-icon {
   font-size: 20px;
   flex-shrink: 0;
+  width: 32px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-page .flag-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .contact-page .office-item span {
@@ -995,6 +1007,8 @@
 
   .contact-page .flag-icon {
     font-size: 18px;
+    width: 28px;
+    height: 20px;
   }
 
   .contact-page .office-item span {
@@ -1014,5 +1028,122 @@
 
   .contact-page .office-item {
     padding: 10px 12px;
+  }
+}
+
+/* Unlimited Coverage Section */
+.contact-page .unlimited-coverage-section {
+  background-color: #f8f9fa;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-page .unlimited-coverage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-page .coverage-content {
+  max-width: 900px;
+  padding-left: 40px;
+}
+
+.contact-page .coverage-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: bold;
+  color: #2c5530;
+  margin-bottom: 25px;
+  line-height: 1.2;
+}
+
+.contact-page .coverage-subtitle {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.contact-page .partnerships-section {
+  margin-top: 40px;
+}
+
+.contact-page .partnerships-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: bold;
+  color: #2c5530;
+  margin-bottom: 15px;
+}
+
+.contact-page .partnerships-intro {
+  font-size: clamp(16px, 2vw, 18px);
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.contact-page .partnerships-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-page .partnerships-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: clamp(15px, 2vw, 17px);
+  line-height: 1.6;
+  color: #333;
+}
+
+.contact-page .bullet-point {
+  width: 12px;
+  height: 12px;
+  background-color: #D4A017;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+
+
+/* Responsive Design for Unlimited Coverage */
+@media (max-width: 768px) {
+  .contact-page .unlimited-coverage-section {
+    padding: 60px 15px;
+  }
+
+  .contact-page .coverage-content {
+    max-width: 100%;
+  }
+
+  .contact-page .partnerships-list li {
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .contact-page .bullet-point {
+    width: 10px;
+    height: 10px;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-page .unlimited-coverage-section {
+    padding: 40px 15px;
+  }
+
+
+
+  .contact-page .partnerships-list li {
+    gap: 10px;
+    margin-bottom: 15px;
   }
 }
