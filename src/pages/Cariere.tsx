@@ -2,11 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useEmailForm } from '../hooks/useEmailForm';
+import { CareerFormData, isValidEmail, isValidPhone } from '../services/emailService';
 import './Cariere.css';
+import '../styles/forms.css';
 
 const Cariere: React.FC = () => {
   const navigate = useNavigate();
   const [selectedPrefix, setSelectedPrefix] = useState('+40');
+  const { isLoading, isSuccess, error, submitCareerForm, resetForm } = useEmailForm();
+  
+  // Form state
+  const [formData, setFormData] = useState<CareerFormData>({
+    name: '',
+    email: '',
+    phone: '',
+    phonePrefix: '+40',
+    position: '',
+    message: ''
+  });
+  
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [selectedCvFile, setSelectedCvFile] = useState<File | null>(null);
 
   const phoneCountries = [
     { code: '+40', country: 'RO', name: 'Romania' },
@@ -27,6 +44,83 @@ const Cariere: React.FC = () => {
     { code: '+44', country: 'GB', name: 'United Kingdom' },
     { code: '+1', country: 'US', name: 'United States' }
   ];
+
+  // Handle input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    // Clear validation error when user starts typing
+    if (validationErrors[name]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  // Handle phone prefix change
+  const handlePhonePrefixChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newPrefix = e.target.value;
+    setSelectedPrefix(newPrefix);
+    setFormData(prev => ({
+      ...prev,
+      phonePrefix: newPrefix
+    }));
+  };
+
+  // Handle CV file selection
+  const handleCvFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setSelectedCvFile(file);
+  };
+
+  // Validate form
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) {
+      errors.name = 'Numele este obligatoriu';
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = 'Email-ul este obligatoriu';
+    } else if (!isValidEmail(formData.email)) {
+      errors.email = 'Formatul email-ului nu este valid';
+    }
+    
+    if (!formData.phone.trim()) {
+      errors.phone = 'Telefonul este obligatoriu';
+    } else if (!isValidPhone(formData.phone)) {
+      errors.phone = 'Formatul telefonului nu este valid';
+    }
+    
+    if (!formData.position.trim()) {
+      errors.position = 'Poziția este obligatorie';
+    }
+    
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
+    const submitData: CareerFormData = {
+      ...formData,
+      cvFile: selectedCvFile
+    };
+    
+    await submitCareerForm(submitData);
+  };
 
   // SEO: Set document title and meta description for careers page
   useEffect(() => {
@@ -239,23 +333,35 @@ const Cariere: React.FC = () => {
             <div className="application-form-box">
               <h3 className="form-title">Formular aplicare</h3>
               
-              <form className="application-form">
+              <form className="application-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
+                    name="name"
                     placeholder="Nume și prenume"
-                    className="form-input"
+                    className={`form-input ${validationErrors.name ? 'error' : ''}`}
+                    value={formData.name}
+                    onChange={handleInputChange}
                     required
                   />
+                  {validationErrors.name && (
+                    <span className="error-message">{validationErrors.name}</span>
+                  )}
                 </div>
                 
                 <div className="form-group">
                   <input
                     type="email"
+                    name="email"
                     placeholder="Email"
-                    className="form-input"
+                    className={`form-input ${validationErrors.email ? 'error' : ''}`}
+                    value={formData.email}
+                    onChange={handleInputChange}
                     required
                   />
+                  {validationErrors.email && (
+                    <span className="error-message">{validationErrors.email}</span>
+                  )}
                 </div>
                 
                 <div className="form-group phone-group">
@@ -263,7 +369,7 @@ const Cariere: React.FC = () => {
                     <select 
                       className="phone-prefix-select"
                       value={selectedPrefix}
-                      onChange={(e) => setSelectedPrefix(e.target.value)}
+                      onChange={handlePhonePrefixChange}
                     >
                       {phoneCountries.map((country) => (
                         <option key={country.code} value={country.code}>
@@ -273,40 +379,82 @@ const Cariere: React.FC = () => {
                     </select>
                     <input
                       type="tel"
+                      name="phone"
                       placeholder="Telefon"
-                      className="form-input phone-input"
+                      className={`form-input phone-input ${validationErrors.phone ? 'error' : ''}`}
+                      value={formData.phone}
+                      onChange={handleInputChange}
                       required
                     />
                   </div>
+                  {validationErrors.phone && (
+                    <span className="error-message">{validationErrors.phone}</span>
+                  )}
                 </div>
                 
                 <div className="form-group">
                   <input
                     type="text"
+                    name="position"
                     placeholder="Poziția"
-                    className="form-input"
+                    className={`form-input ${validationErrors.position ? 'error' : ''}`}
+                    value={formData.position}
+                    onChange={handleInputChange}
                     required
                   />
+                  {validationErrors.position && (
+                    <span className="error-message">{validationErrors.position}</span>
+                  )}
                 </div>
                 
                 <div className="form-group">
                   <textarea
+                    name="message"
                     placeholder="Mesaj..."
                     className="form-textarea"
                     rows={4}
+                    value={formData.message}
+                    onChange={handleInputChange}
                   ></textarea>
                 </div>
                 
+                {/* Success/Error Messages */}
+                {isSuccess && (
+                  <div className="success-message">
+                    ✅ Aplicația a fost trimisă cu succes! Vă vom contacta în curând.
+                  </div>
+                )}
+                
+                {error && (
+                  <div className="error-message-box">
+                    ❌ {error}
+                  </div>
+                )}
+
                 <div className="form-buttons">
-                  <button type="submit" className="submit-btn">
-                    Trimite
+                  <button 
+                    type="submit" 
+                    className={`submit-btn ${isLoading ? 'loading' : ''}`}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'Se trimite...' : 'Trimite'}
                   </button>
-                  <button type="button" className="cv-btn">
+                  <button 
+                    type="button" 
+                    className="cv-btn"
+                    onClick={() => document.querySelector<HTMLInputElement>('input[type="file"]')?.click()}
+                  >
                     <span>CV</span>
                     <span className="cv-icon">
                       <img src="/images/folder-up.webp" alt="Upload CV" />
                     </span>
                   </button>
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    style={{ display: 'none' }}
+                    onChange={handleCvFileChange}
+                  />
                 </div>
               </form>
             </div>

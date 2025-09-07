@@ -126,7 +126,7 @@
   display: block;
   width: 20px;
   height: 2px;
-  background: #333;
+  background: white;
   position: relative;
   transition: all 0.3s ease;
 }
@@ -137,7 +137,7 @@
   position: absolute;
   width: 20px;
   height: 2px;
-  background: #333;
+  background: white;
   transition: all 0.3s ease;
 }
 
@@ -161,6 +161,16 @@
 .hamburger.open::after {
   transform: rotate(-45deg);
   bottom: 0;
+}
+
+/* Scrolled state styles for hamburger */
+.header.scrolled .hamburger {
+  background: #333;
+}
+
+.header.scrolled .hamburger::before,
+.header.scrolled .hamburger::after {
+  background: #333;
 }
 
 /* Responsive Breakpoints */

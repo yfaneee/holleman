@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
               <li><a href="/project-cargo">Transport & Project Cargo</a></li>
               <li><a href="/heavy-lift">Holleman Heavy Lift</a></li>
               <li><a href="/itl">ITL</a></li>
-              <li><a href="/servicii/hagro">Holleman Agro</a></li>
+              <li><a href="/agro">Holleman Agro</a></li>
             </ul>
             
             <h3>Proiecte</h3>

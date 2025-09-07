@@ -8,13 +8,30 @@
 .contact-page .contact-hero {
   height: 100vh;
   width: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.contact-page .contact-hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  object-fit: cover;
+  /* Performance optimizations */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
 .contact-page .contact-hero::before {
@@ -33,7 +50,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -521,6 +538,12 @@
     height: 60vh;
   }
   
+  .contact-page .contact-hero-video {
+    /* Ensure video covers full screen on mobile */
+    min-width: 100%;
+    min-height: 100%;
+  }
+  
   .contact-page .hero-content {
     padding: 0 20px;
   }
@@ -581,6 +604,14 @@
 @media (max-width: 480px) {
   .contact-page .contact-hero {
     height: 100vh;
+  }
+  
+  .contact-page .contact-hero-video {
+    /* For very small screens, ensure proper coverage */
+    width: 100vw;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
   }
   
   .contact-page .hero-content {

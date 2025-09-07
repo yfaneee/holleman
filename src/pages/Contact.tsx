@@ -1,10 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useEmailForm } from '../hooks/useEmailForm';
+import { ContactFormData, isValidEmail, isValidPhone } from '../services/emailService';
 import './Contact.css';
+import '../styles/forms.css';
 
 const Contact: React.FC = () => {
   const [selectedService, setSelectedService] = useState<string | null>(null);
+  const { isLoading, isSuccess, error, submitContactForm, resetForm } = useEmailForm();
+  
+  // Form state
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '',
+    contactPerson: '',
+    phone: '',
+    email: '',
+    website: '',
+    subject: '',
+    message: '',
+    cargoDescription: '',
+    dimensions: '',
+    weight: '',
+    pickupLocation: '',
+    destinationLocation: '',
+    deliveryDate: '',
+    specialRequirements: '',
+    additionalServices: []
+  });
+  
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   // Service data
   const services = [
@@ -61,6 +89,25 @@ const Contact: React.FC = () => {
     
     setTimeout(() => {
       setSelectedService(null);
+      resetForm();
+      setFormData({
+        name: '',
+        contactPerson: '',
+        phone: '',
+        email: '',
+        website: '',
+        subject: '',
+        message: '',
+        cargoDescription: '',
+        dimensions: '',
+        weight: '',
+        pickupLocation: '',
+        destinationLocation: '',
+        deliveryDate: '',
+        specialRequirements: '',
+        additionalServices: []
+      });
+      setValidationErrors({});
       
       // Reset the transition after state change
       setTimeout(() => {
@@ -70,6 +117,99 @@ const Contact: React.FC = () => {
         }
       }, 50);
     }, 200);
+  };
+
+  // Handle input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    // Clear validation error when user starts typing
+    if (validationErrors[name]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  // Handle checkbox changes
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      additionalServices: checked 
+        ? [...(prev.additionalServices || []), id]
+        : (prev.additionalServices || []).filter(service => service !== id)
+    }));
+  };
+
+  // Handle file selection
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFiles(e.target.files);
+  };
+
+  // Validate form
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) {
+      errors.name = 'Numele este obligatoriu';
+    }
+    
+    if (!formData.contactPerson.trim()) {
+      errors.contactPerson = 'Persoana de contact este obligatorie';
+    }
+    
+    if (!formData.phone.trim()) {
+      errors.phone = 'Telefonul este obligatoriu';
+    } else if (!isValidPhone(formData.phone)) {
+      errors.phone = 'Formatul telefonului nu este valid';
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = 'Email-ul este obligatoriu';
+    } else if (!isValidEmail(formData.email)) {
+      errors.email = 'Formatul email-ului nu este valid';
+    }
+    
+    // Service-specific validation
+    if (selectedService) {
+      if (!formData.cargoDescription?.trim()) {
+        errors.cargoDescription = 'Descrierea încărcăturii este obligatorie';
+      }
+      
+      if (!formData.pickupLocation?.trim()) {
+        errors.pickupLocation = 'Punctul de plecare este obligatoriu';
+      }
+      
+      if (!formData.destinationLocation?.trim()) {
+        errors.destinationLocation = 'Punctul de destinație este obligatoriu';
+      }
+    }
+    
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
+    const submitData: ContactFormData = {
+      ...formData,
+      serviceType: selectedService ? services.find(s => s.id === selectedService)?.title : undefined,
+      files: selectedFiles
+    };
+    
+    await submitContactForm(submitData);
   };
 
   // SEO: Set document title and meta description for contact page
@@ -131,12 +271,39 @@ const Contact: React.FC = () => {
       <Header />
       
       {/* Hero Section */}
-      <section 
-        className="contact-hero"
-        style={{
-          backgroundImage: `url('/images/Group8749.webp')`
-        }}
-      >
+      <section className="contact-hero" aria-label="Contact Holleman">
+        <video 
+          className="contact-hero-video"
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplaybook"
+          onLoadStart={() => {
+            console.log('Contact video loading started');
+            setIsVideoLoaded(false);
+            setVideoError(false);
+          }}
+          onCanPlay={() => {
+            console.log('Contact video can start playing');
+            setIsVideoLoaded(true);
+          }}
+          onLoadedData={() => {
+            console.log('Contact video loaded');
+            setIsVideoLoaded(true);
+          }}
+          onError={() => {
+            console.error('Contact video failed to load');
+            setVideoError(true);
+            setIsVideoLoaded(true);
+          }}
+        >
+          <source src="/videos/contact.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">Contact</h1>
@@ -199,7 +366,7 @@ const Contact: React.FC = () => {
                   <h2 className="form-title">Formular de contact general</h2>
                 )}
                 
-                <form className="contact-form">
+                <form className="contact-form" onSubmit={handleSubmit}>
                   {selectedService ? (
                     /* Service-specific form with better layout */
                     <div className="form-columns">
@@ -208,54 +375,87 @@ const Contact: React.FC = () => {
                         <div className="form-group">
                           <input
                             type="text"
+                            name="name"
                             placeholder="Nume și prenume / Companie *"
-                            className="form-input"
+                            className={`form-input ${validationErrors.name ? 'error' : ''}`}
+                            value={formData.name}
+                            onChange={handleInputChange}
                             required
                           />
+                          {validationErrors.name && (
+                            <span className="error-message">{validationErrors.name}</span>
+                          )}
                         </div>
                         
                         <div className="form-group">
                           <input
                             type="text"
+                            name="contactPerson"
                             placeholder="Persoană de contact *"
-                            className="form-input"
+                            className={`form-input ${validationErrors.contactPerson ? 'error' : ''}`}
+                            value={formData.contactPerson}
+                            onChange={handleInputChange}
                             required
                           />
+                          {validationErrors.contactPerson && (
+                            <span className="error-message">{validationErrors.contactPerson}</span>
+                          )}
                         </div>
                         
                         <div className="form-group">
                           <input
                             type="tel"
+                            name="phone"
                             placeholder="Telefon *"
-                            className="form-input"
+                            className={`form-input ${validationErrors.phone ? 'error' : ''}`}
+                            value={formData.phone}
+                            onChange={handleInputChange}
                             required
                           />
+                          {validationErrors.phone && (
+                            <span className="error-message">{validationErrors.phone}</span>
+                          )}
                         </div>
                         
                         <div className="form-group">
                           <input
                             type="email"
+                            name="email"
                             placeholder="Email *"
-                            className="form-input"
+                            className={`form-input ${validationErrors.email ? 'error' : ''}`}
+                            value={formData.email}
+                            onChange={handleInputChange}
                             required
                           />
+                          {validationErrors.email && (
+                            <span className="error-message">{validationErrors.email}</span>
+                          )}
                         </div>
                         
                         <div className="form-group">
                           <input
                             type="url"
+                            name="website"
                             placeholder="Website companie"
                             className="form-input"
+                            value={formData.website}
+                            onChange={handleInputChange}
                           />
                         </div>
 
                         <div className="form-group">
                           <textarea
+                            name="cargoDescription"
                             placeholder="Descrierea încărcăturii/proiect *"
-                            className="form-textarea"
+                            className={`form-textarea ${validationErrors.cargoDescription ? 'error' : ''}`}
                             rows={4}
+                            value={formData.cargoDescription}
+                            onChange={handleInputChange}
                             required
                           />
+                          {validationErrors.cargoDescription && (
+                            <span className="error-message">{validationErrors.cargoDescription}</span>
+                          )}
                         </div>
                       </div>
                       
@@ -263,42 +463,63 @@ const Contact: React.FC = () => {
                         <div className="form-group">
                           <input
                             type="text"
+                            name="dimensions"
                             placeholder="Dimensiuni (L x l x h)"
                             className="form-input"
+                            value={formData.dimensions}
+                            onChange={handleInputChange}
                           />
                         </div>
                         
                         <div className="form-group">
                           <input
-                            type="number"
+                            type="text"
+                            name="weight"
                             placeholder="Greutate (kg)"
                             className="form-input"
+                            value={formData.weight}
+                            onChange={handleInputChange}
                           />
                         </div>
                         
                         <div className="form-group">
                           <input
                             type="text"
+                            name="pickupLocation"
                             placeholder="Punct de plecare (Localitate și țară) *"
-                            className="form-input"
+                            className={`form-input ${validationErrors.pickupLocation ? 'error' : ''}`}
+                            value={formData.pickupLocation}
+                            onChange={handleInputChange}
                             required
                           />
+                          {validationErrors.pickupLocation && (
+                            <span className="error-message">{validationErrors.pickupLocation}</span>
+                          )}
                         </div>
                         
                         <div className="form-group">
                           <input
                             type="text"
+                            name="destinationLocation"
                             placeholder="Punct de destinație (Localitate și țară) *"
-                            className="form-input"
+                            className={`form-input ${validationErrors.destinationLocation ? 'error' : ''}`}
+                            value={formData.destinationLocation}
+                            onChange={handleInputChange}
                             required
                           />
+                          {validationErrors.destinationLocation && (
+                            <span className="error-message">{validationErrors.destinationLocation}</span>
+                          )}
                         </div>
                         
                         <div className="form-group">
                           <input
                             type="date"
+                            name="deliveryDate"
                             placeholder="Termen estimativ pentru livrare"
                             className="form-input"
+                            value={formData.deliveryDate}
+                            onChange={handleInputChange}
                           />
                         </div>
                         
@@ -307,6 +528,7 @@ const Contact: React.FC = () => {
                             type="file"
                             className="form-file-input"
                             multiple
+                            onChange={handleFileChange}
                           />
                           <label className="form-file-label">
                             <span>Documente atașate</span>
@@ -320,41 +542,44 @@ const Contact: React.FC = () => {
                         {/* Checkboxes for additional services */}
                         <div className="form-checkboxes">
                           <div className="checkbox-group">
-                            <input type="checkbox" id="autorizatii" />
+                            <input type="checkbox" id="autorizatii" onChange={handleCheckboxChange} />
                             <label htmlFor="autorizatii">Obținere autorizații speciale</label>
                           </div>
                           
                           <div className="checkbox-group">
-                            <input type="checkbox" id="escorta" />
+                            <input type="checkbox" id="escorta" onChange={handleCheckboxChange} />
                             <label htmlFor="escorta">Escortă tehnică</label>
                           </div>
                           
                           <div className="checkbox-group">
-                            <input type="checkbox" id="inchidere" />
+                            <input type="checkbox" id="inchidere" onChange={handleCheckboxChange} />
                             <label htmlFor="inchidere">Închidere drumuri / poduri</label>
                           </div>
                           
                           <div className="checkbox-group">
-                            <input type="checkbox" id="macarale" />
+                            <input type="checkbox" id="macarale" onChange={handleCheckboxChange} />
                             <label htmlFor="macarale">Manipulare cu macarale</label>
                           </div>
                           
                           <div className="checkbox-group">
-                            <input type="checkbox" id="depozitare" />
+                            <input type="checkbox" id="depozitare" onChange={handleCheckboxChange} />
                             <label htmlFor="depozitare">Depozitare temporară</label>
                           </div>
                           
                           <div className="checkbox-group">
-                            <input type="checkbox" id="consultanta" />
+                            <input type="checkbox" id="consultanta" onChange={handleCheckboxChange} />
                             <label htmlFor="consultanta">Consultanță tehnică</label>
                           </div>
                         </div>
                         
                         <div className="form-group">
                           <textarea
+                            name="specialRequirements"
                             placeholder="Alte mențiuni / cerințe speciale"
                             className="form-textarea"
                             rows={3}
+                            value={formData.specialRequirements}
+                            onChange={handleInputChange}
                           />
                         </div>
                       </div>
@@ -365,60 +590,93 @@ const Contact: React.FC = () => {
                       <div className="form-group">
                         <input
                           type="text"
+                          name="name"
                           placeholder="Nume și prenume / Companie *"
-                          className="form-input"
+                          className={`form-input ${validationErrors.name ? 'error' : ''}`}
+                          value={formData.name}
+                          onChange={handleInputChange}
                           required
                         />
+                        {validationErrors.name && (
+                          <span className="error-message">{validationErrors.name}</span>
+                        )}
                       </div>
                       
                       <div className="form-group">
                         <input
                           type="text"
+                          name="contactPerson"
                           placeholder="Persoană de contact *"
-                          className="form-input"
+                          className={`form-input ${validationErrors.contactPerson ? 'error' : ''}`}
+                          value={formData.contactPerson}
+                          onChange={handleInputChange}
                           required
                         />
+                        {validationErrors.contactPerson && (
+                          <span className="error-message">{validationErrors.contactPerson}</span>
+                        )}
                       </div>
                       
                       <div className="form-group">
                         <input
                           type="tel"
+                          name="phone"
                           placeholder="Telefon *"
-                          className="form-input"
+                          className={`form-input ${validationErrors.phone ? 'error' : ''}`}
+                          value={formData.phone}
+                          onChange={handleInputChange}
                           required
                         />
+                        {validationErrors.phone && (
+                          <span className="error-message">{validationErrors.phone}</span>
+                        )}
                       </div>
                       
                       <div className="form-group">
                         <input
                           type="email"
+                          name="email"
                           placeholder="Email *"
-                          className="form-input"
+                          className={`form-input ${validationErrors.email ? 'error' : ''}`}
+                          value={formData.email}
+                          onChange={handleInputChange}
                           required
                         />
+                        {validationErrors.email && (
+                          <span className="error-message">{validationErrors.email}</span>
+                        )}
                       </div>
                       
                       <div className="form-group">
                         <input
                           type="url"
+                          name="website"
                           placeholder="Website companie"
                           className="form-input"
+                          value={formData.website}
+                          onChange={handleInputChange}
                         />
                       </div>
                       
                       <div className="form-group">
                         <input
                           type="text"
+                          name="subject"
                           placeholder="Subiect"
                           className="form-input"
+                          value={formData.subject}
+                          onChange={handleInputChange}
                         />
                       </div>
                       
                       <div className="form-group">
                         <textarea
+                          name="message"
                           placeholder="Mesaj..."
                           className="form-textarea"
                           rows={5}
+                          value={formData.message}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </>
@@ -432,9 +690,26 @@ const Contact: React.FC = () => {
                     </label>
                   </div>
 
+                  {/* Success/Error Messages */}
+                  {isSuccess && (
+                    <div className="success-message">
+                      ✅ Mesajul a fost trimis cu succes! Vă vom contacta în curând.
+                    </div>
+                  )}
+                  
+                  {error && (
+                    <div className="error-message-box">
+                      ❌ {error}
+                    </div>
+                  )}
+
                   <div className="form-buttons">
-                    <button type="submit" className="submit-btn">
-                      Trimite
+                    <button 
+                      type="submit" 
+                      className={`submit-btn ${isLoading ? 'loading' : ''}`}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'Se trimite...' : 'Trimite'}
                     </button>
                     <button type="button" className="cv-btn">
                       <span className="cv-icon">

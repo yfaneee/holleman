@@ -8,6 +8,8 @@ const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
 
@@ -144,12 +146,33 @@ const Home: React.FC = () => {
           muted 
           loop 
           playsInline
-          poster="/images/Group8723.webp"
+          preload="auto"
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplaybook"
+          onLoadStart={() => {
+            console.log('Video loading started');
+            setIsVideoLoaded(false);
+            setVideoError(false);
+          }}
+          onCanPlay={() => {
+            console.log('Video can start playing');
+            setIsVideoLoaded(true);
+          }}
+          onLoadedData={() => {
+            console.log('Video loaded');
+            setIsVideoLoaded(true);
+          }}
+          onError={() => {
+            console.error('Video failed to load');
+            setVideoError(true);
+            setIsVideoLoaded(true);
+          }}
         >
           <source src="/videos/hero-video.mp4" type="video/mp4" />
           {/* Fallback for browsers that don't support video */}
           Your browser does not support the video tag.
         </video>
+        
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">HOLLEMAN</h1>

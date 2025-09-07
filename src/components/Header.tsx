@@ -93,7 +93,7 @@ const Header: React.FC = () => {
             <div className="nav-item" onClick={navigateToContact}>
               <span>CONTACT</span>
             </div>
-            <div className="nav-item">
+            <div className="nav-item" onClick={() => navigate('/blog')}>
               <span>BLOG</span>
             </div>
           </nav>

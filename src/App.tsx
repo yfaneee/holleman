@@ -11,6 +11,8 @@ import ProjectPage from './pages/ProjectPage';
 import DespreNoi from './pages/DespreNoi';
 import Cariere from './pages/Cariere';
 import Contact from './pages/Contact';
+import Blog from './pages/Blog';
+import ArticlePage from './pages/ArticlePage';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
           <Route path="/contact/formular" element={<Contact />} />
           <Route path="/contact/date" element={<Contact />} />
           <Route path="/contact/cerere" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:articleId" element={<ArticlePage />} />
         </Routes>
       </div>
     </Router>
