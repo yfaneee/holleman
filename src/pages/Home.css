@@ -944,7 +944,7 @@
   .map-container {
     order: 2;
     height: 50vh;
-    min-height: 300px;
+    min-height: 200px;
   }
   
   .map-content {
