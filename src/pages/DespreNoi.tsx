@@ -106,6 +106,30 @@ const DespreNoi: React.FC = () => {
     }
   }, []);
 
+  // Scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animation classes
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach(el => observer.observe(el));
+
+    return () => {
+      animatedElements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+
   return (
     <div className="despre-noi-page">
       <Header />
@@ -153,7 +177,7 @@ const DespreNoi: React.FC = () => {
       </section>
 
       {/* Cine Suntem Section */}
-      <section className="cine-suntem-section" id="prezentare-grup-holleman" ref={cineSuntemRef}>
+      <section className="cine-suntem-section" id="cine-suntem" ref={cineSuntemRef}>
         <div className="cine-suntem-container">
           <h2 className="cine-suntem-title">Cine suntem - Valorile care ne definesc</h2>
           
@@ -210,6 +234,7 @@ const DespreNoi: React.FC = () => {
 
       {/* Istoric și evoluție Section */}
       <section 
+        id="istoric"
         className="istoric-section" 
         ref={istoricRef}
         style={{
@@ -219,9 +244,9 @@ const DespreNoi: React.FC = () => {
         <div className="istoric-overlay"></div>
         <div className="istoric-container">
           <div className="istoric-content">
-            <h2 className="istoric-title">Istoric și evoluție</h2>
+            <h2 className="istoric-title animate-on-scroll fade-up">Istoric și evoluție</h2>
             <div className="istoric-text">
-              <div className="istoric-paragraph">
+              <div className="istoric-paragraph animate-on-scroll fade-up delay-200">
                 <div className="istoric-bullet"></div>
                 <p>
                   Povestea <strong>Holleman</strong> începe în anii 2000, cu o viziune clară: 
@@ -233,7 +258,7 @@ const DespreNoi: React.FC = () => {
                 </p>
               </div>
               
-              <div className="istoric-paragraph">
+              <div className="istoric-paragraph animate-on-scroll fade-up delay-300">
                 <div className="istoric-bullet"></div>
                 <p>
                   Astăzi, Grupul Holleman are sucursale și parteneri în România, 
@@ -248,7 +273,7 @@ const DespreNoi: React.FC = () => {
       </section>
 
       {/* Misiunea și viziunea noastră Section */}
-      <section className="misiune-section" ref={misiuneRef}>
+      <section id="misiune-viziune" className="misiune-section" ref={misiuneRef}>
         <div className="misiune-container">
           <div className="misiune-content">
             <h2 className="misiune-title">Misiunea și viziunea noastră</h2>
@@ -284,6 +309,7 @@ const DespreNoi: React.FC = () => {
 
       {/* Certificări și conformitate Section */}
       <section 
+        id="certificari"
         className="certificari-section" 
         ref={certificariRef}
         style={{
@@ -293,15 +319,15 @@ const DespreNoi: React.FC = () => {
         <div className="certificari-overlay"></div>
         <div className="certificari-container">
           <div className="certificari-content">
-            <h2 className="certificari-title">Certificări și conformitate</h2>
+            <h2 className="certificari-title animate-on-scroll fade-up">Certificări și conformitate</h2>
             
             <div className="certificari-text">
-              <p className="certificari-intro">
+              <p className="certificari-intro animate-on-scroll fade-up delay-200">
                 Activitatea Holleman este certificată la cele mai înalte standarde 
                 internaționale, asigurând calitate și conformitate în toate operațiunile:
               </p>
               
-              <ul className="certificari-list">
+              <ul className="certificari-list animate-on-scroll stagger-children delay-300">
                 <li>ISO 9001 – Sistem de management al calității</li>
                 <li>ISO 14001 – Management de mediu</li>
                 <li>ISO 45001 – Sănătate și securitate ocupațională</li>
@@ -314,7 +340,7 @@ const DespreNoi: React.FC = () => {
       </section>
 
       {/* Conducerea Grupului Holleman Section */}
-      <section className="conducerea-section" id="conducerea-grupului" ref={conducereaRef}>
+      <section className="conducerea-section" id="conducerea" ref={conducereaRef}>
       <div className="conducerea-accent">
               <div className="green-triangle-top"></div>
             </div>
@@ -394,9 +420,9 @@ const DespreNoi: React.FC = () => {
         <div className="leadership-overlay"></div>
         <div className="leadership-container">
           <div className="leadership-content">
-            <h2 className="leadership-title">Ce ne definește ca echipă de leadership</h2>
+            <h2 className="leadership-title animate-on-scroll fade-up">Ce ne definește ca echipă de leadership</h2>
             
-            <div className="leadership-points">
+            <div className="leadership-points animate-on-scroll stagger-children delay-200">
               <div className="leadership-point">
                 <div className="point-bullet"></div>
                 <p>
@@ -436,7 +462,7 @@ const DespreNoi: React.FC = () => {
       </section>
 
       {/* Responsabilitate Socială Corporativă Section */}
-      <section className="responsabilitate-section" id="responsabilitate-sociala-corporativa" ref={responsabilitateRef}>
+      <section className="responsabilitate-section" id="responsabilitate" ref={responsabilitateRef}>
         <div className="responsabilitate-container">
           <h2 className="responsabilitate-title">Responsabilitate Socială Corporativă</h2>
           

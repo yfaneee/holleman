@@ -184,7 +184,7 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    z-index: 1;
+    z-index: 10;
     font-weight: 300;
     font-size: 18px;
     text-transform: uppercase;
@@ -202,7 +202,7 @@
     position: absolute;
     inset: 50%;
     left: 25%;
-    z-index: -1;
+    z-index: 5;
     transition: .5s ease-out;
     background-color: var(--color);
   }

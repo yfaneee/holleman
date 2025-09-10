@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { searchContent, getAutocompleteSuggestions, SearchableItem } from '../data/searchData';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,6 +13,15 @@ const Home: React.FC = () => {
   const [videoError, setVideoError] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<SearchableItem[]>([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
 
 
 
@@ -90,6 +100,126 @@ const Home: React.FC = () => {
   const navigateToHeavyLift = useCallback(() => {
     navigate('/heavy-lift');
   }, [navigate]);
+
+  // Search functionality
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    
+    if (value.length >= 2) {
+      const autocompleteSuggestions = getAutocompleteSuggestions(value);
+      setSuggestions(autocompleteSuggestions);
+      setShowSuggestions(true);
+      setSelectedSuggestionIndex(-1);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, []);
+
+  const handleSearchSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim().length >= 2) {
+      performSearch(searchQuery.trim());
+    }
+  }, [searchQuery]);
+
+  const performSearch = useCallback((query: string) => {
+    const results = searchContent(query);
+    setSearchResults(results);
+    setShowSuggestions(false);
+    
+    if (results.length > 0) {
+      const firstResult = results[0];
+      // Navigate to the page/section
+      if (firstResult.sectionId) {
+        navigate(`${firstResult.route}#${firstResult.sectionId}`);
+        // Scroll to section after navigation
+        setTimeout(() => {
+          const element = document.getElementById(firstResult.sectionId!);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        navigate(firstResult.route);
+      }
+    }
+  }, [navigate]);
+
+  const handleSuggestionClick = useCallback((suggestion: string) => {
+    setSearchQuery(suggestion);
+    setShowSuggestions(false);
+    performSearch(suggestion);
+  }, [performSearch]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedSuggestionIndex(prev => 
+          prev < suggestions.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedSuggestionIndex(prev => prev > 0 ? prev - 1 : -1);
+        break;
+      case 'Enter':
+        if (selectedSuggestionIndex >= 0) {
+          e.preventDefault();
+          handleSuggestionClick(suggestions[selectedSuggestionIndex]);
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        setSelectedSuggestionIndex(-1);
+        break;
+    }
+  }, [showSuggestions, suggestions, selectedSuggestionIndex, handleSuggestionClick]);
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchInputRef.current && 
+        !searchInputRef.current.contains(event.target as Node) &&
+        suggestionsRef.current && 
+        !suggestionsRef.current.contains(event.target as Node)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animation classes
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach(el => observer.observe(el));
+
+    return () => {
+      animatedElements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
 
   // Auto-play effect
   useEffect(() => {
@@ -185,23 +315,45 @@ const Home: React.FC = () => {
       {/* Services Section */}
       <section className="services" aria-labelledby="services-heading">
         <div className="services-container">
-          <h2 id="services-heading" className="services-title">Serviciile noastre</h2>
+          <h2 id="services-heading" className="services-title animate-on-scroll fade-up">Serviciile noastre</h2>
 
           {/* Search Bar */}
           <div className="search-container">
-            <div className="search-bar" role="search">
+            <form className="search-bar" role="search" onSubmit={handleSearchSubmit}>
               <img src="/images/search.webp" alt="" className="search-icon" role="presentation" />
               <input
+                ref={searchInputRef}
                 type="text"
-                placeholder="Caută servicii..."
+                placeholder="Caută servicii, pagini, secțiuni..."
                 className="search-input"
-                aria-label="Căutare servicii Holleman"
+                aria-label="Căutare servicii și conținut Holleman"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onKeyDown={handleKeyDown}
+                autoComplete="off"
               />
-            </div>
+              
+              {/* Autocomplete Suggestions */}
+              {showSuggestions && suggestions.length > 0 && (
+                <div ref={suggestionsRef} className="search-suggestions">
+                  {suggestions.map((suggestion, index) => (
+                    <div
+                      key={suggestion}
+                      className={`search-suggestion ${index === selectedSuggestionIndex ? 'selected' : ''}`}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      role="option"
+                      aria-selected={index === selectedSuggestionIndex}
+                    >
+                      {suggestion}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </form>
           </div>
 
           {/* Service Cards */}
-          <div className="service-cards">
+          <div className="service-cards animate-on-scroll fade-up">
             <article className="service-card" onClick={navigateToProjectCargo} 
                      role="button" tabIndex={0} 
                      aria-label="Servicii Project Cargo - Click pentru detalii"
@@ -266,11 +418,11 @@ const Home: React.FC = () => {
       <section className="section2" style={section2Style} aria-labelledby="discover-heading">
         <div className="section2-overlay">
           <div className="section2-content">
-            <h2 id="discover-heading" className="section2-title">Descoperă serviciile noastre</h2>
-            <p className="section2-description">
+            <h2 id="discover-heading" className="section2-title animate-on-scroll fade-up">Descoperă serviciile noastre</h2>
+            <p className="section2-description animate-on-scroll fade-up delay-200">
               De la transporturi agabaritice și logistică internațională, la Project Cargo, relocări industriale și servicii agricole, suntem partenerul tău de încredere pentru fiecare provocare
             </p>
-            <button className="btn" onClick={() => navigate('/contact')} aria-label="Solicită o ofertă personalizată de la Holleman">
+            <button className="btn animate-on-scroll fade-up delay-400" onClick={() => navigate('/contact')} aria-label="Solicită o ofertă personalizată de la Holleman">
               Cere o oferta
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
             </button>
@@ -281,8 +433,8 @@ const Home: React.FC = () => {
       {/* Sponsors Section */}
       <section className="sponsors" aria-labelledby="partners-heading">
         <div className="sponsors-container">
-          <h3 id="partners-heading" className="sponsors-title">Susținem excelența prin colaborări cu</h3>
-          <div className="sponsors-logos" role="list">
+          <h3 id="partners-heading" className="sponsors-title animate-on-scroll fade-up">Susținem excelența prin colaborări cu</h3>
+          <div className="sponsors-logos animate-on-scroll stagger-children delay-300" role="list">
             <div className="sponsor-logo" role="listitem">
               <img src="/images/Vestas.webp" alt="Vestas - partener Holleman pentru energie eoliană" 
                    className="sponsor-image" loading="lazy" />
@@ -312,14 +464,14 @@ const Home: React.FC = () => {
         <div className="section3-overlay">
           <div className="section3-content">
             <h2 id="project-cargo-heading" className="sr-only">Project Cargo - Transporturi Complexe</h2>
-            <p className="section3-description">
+            <p className="section3-description animate-on-scroll fade-up">
               Transporturile agabaritice și proiectele logistice complexe necesită expertiză, precizie și coordonare impecabilă.
               Project Cargo presupune transportul unor echipamente de mari dimensiuni, greutăți sau valoare, adesea esențiale pentru construcția și funcționarea unor instalații industriale sau energetice.
             </p>
-            <p className="section3-description">
+            <p className="section3-description animate-on-scroll fade-up delay-200">
               Holleman este partenerul ideal pentru acest tip de provocări datorită experienței vaste, echipamentelor specializate și unei echipe dedicate care gestionează fiecare etapă a proiectului cu responsabilitate și viziune.
             </p>
-            <button className="btn" onClick={navigateToProjectCargo} 
+            <button className="btn animate-on-scroll fade-up delay-400" onClick={navigateToProjectCargo} 
                     aria-label="Află mai multe despre serviciile Project Cargo oferite de Holleman">
               Project Cargo
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />

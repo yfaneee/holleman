@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,6 +6,7 @@ import './ITL.css';
 
 const ITL: React.FC = () => {
   const navigate = useNavigate();
+  const truckRef = useRef<HTMLDivElement>(null);
   
   const heroStyle = {
     backgroundImage: `url('/images/ITLbackground.webp')`
@@ -29,6 +30,37 @@ const ITL: React.FC = () => {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', 'https://holleman.ro/itl');
+  }, []);
+
+  // Truck animation on scroll
+  useEffect(() => {
+    const truckElement = truckRef.current;
+    if (!truckElement) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log('Truck section is visible, starting animation!');
+            // Add animation class when truck section comes into view
+            const movingTruck = truckElement.querySelector('.moving-truck');
+            if (movingTruck) {
+              movingTruck.classList.add('animate-truck');
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the section is visible
+        rootMargin: '0px 0px 0px 0px' // Trigger as soon as any part is visible
+      }
+    );
+
+    observer.observe(truckElement);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -186,6 +218,19 @@ const ITL: React.FC = () => {
               Contacteaza-ne pentru o oferta personalizata
               <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Moving Truck Animation Section */}
+      <section className="truck-animation-section" ref={truckRef}>
+        <div className="truck-animation-container">
+          <div className="moving-truck">
+            <img 
+              src="/images/svg/truck.svg" 
+              alt="Holleman Truck" 
+              className="truck-svg"
+            />
           </div>
         </div>
       </section>

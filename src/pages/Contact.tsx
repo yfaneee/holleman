@@ -266,6 +266,30 @@ const Contact: React.FC = () => {
     handleScrollToSection();
   }, []);
 
+  // Scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animation classes
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach(el => observer.observe(el));
+
+    return () => {
+      animatedElements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+
   return (
     <div className="contact-page">
       <Header />
@@ -316,11 +340,11 @@ const Contact: React.FC = () => {
       {/* Service Selection Section */}
       <section id="cerere-oferta" className="service-selection-section">
         <div className="service-selection-container">
-          <h2 className="service-selection-title">
+          <h2 className="service-selection-title animate-on-scroll fade-up">
             Cerere ofertă – trimite solicitarea direct către divizia potrivită:
           </h2>
           
-          <div className="service-cards-grid">
+          <div className="service-cards-grid animate-on-scroll stagger-children delay-200">
             {services.map((service) => (
               <div 
                 key={service.id}
@@ -360,13 +384,13 @@ const Contact: React.FC = () => {
             </div>
           )}
           <div className={`contact-form-content ${selectedService ? 'service-selected' : ''}`}>
-            <div className="form-left">
+            <div className="form-left animate-on-scroll slide-from-left">
               <div className="form-box">
                 {!selectedService && (
-                  <h2 className="form-title">Formular de contact general</h2>
+                  <h2 className="form-title animate-on-scroll fade-up delay-200">Formular de contact general</h2>
                 )}
                 
-                <form className="contact-form" onSubmit={handleSubmit}>
+                <form className="contact-form animate-on-scroll fade-up delay-300" onSubmit={handleSubmit}>
                   {selectedService ? (
                     /* Service-specific form with better layout */
                     <div className="form-columns">
@@ -711,11 +735,34 @@ const Contact: React.FC = () => {
                     >
                       {isLoading ? 'Se trimite...' : 'Trimite'}
                     </button>
-                    <button type="button" className="cv-btn">
-                      <span className="cv-icon">
-                        <img src="/images/folder-up.webp" alt="Upload" />
-                      </span>
-                    </button>
+                    <div className="file-upload-wrapper">
+                      <input
+                        type="file"
+                        id="file-upload"
+                        name="fileUpload"
+                        multiple
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt"
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
+                      />
+                      <button 
+                        type="button" 
+                        className="cv-btn"
+                        onClick={() => document.getElementById('file-upload')?.click()}
+                      >
+                        <span className="cv-icon">
+                          <img src="/images/folder-up.webp" alt="Upload" />
+                        </span>
+                      </button>
+                      {selectedFiles && selectedFiles.length > 0 && (
+                        <div className="selected-files">
+                          <p>{selectedFiles.length} fișier(e) selectat(e):</p>
+                          {Array.from(selectedFiles).map((file, index) => (
+                            <span key={index} className="file-name">{file.name}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </form>
               </div>
@@ -821,18 +868,18 @@ const Contact: React.FC = () => {
       >
         <div className="international-network-container">
           <div className="network-content">
-            <h2 className="network-title">
+            <h2 className="network-title animate-on-scroll fade-up">
               Rețea internațională <span className="highlight">Holleman</span>
             </h2>
             
-            <div className="network-intro">
+            <div className="network-intro animate-on-scroll fade-up delay-200">
               <p>Suntem activi în Europa Centrală și de Est printr-o rețea consolidată de filiale și parteneri strategici:</p>
             </div>
             
             <div className="network-offices">
-              <h3 className="offices-title">Sucursale proprii și birouri reprezentative:</h3>
+              <h3 className="offices-title animate-on-scroll fade-up delay-300">Sucursale proprii și birouri reprezentative:</h3>
               
-              <div className="offices-grid">
+              <div className="offices-grid animate-on-scroll stagger-children delay-400">
                 <div className="office-item">
                   <div className="flag-icon">
                     <img src="/images/icons/BGflag.webp" alt="Bulgaria flag" />
@@ -870,17 +917,17 @@ const Contact: React.FC = () => {
       <section className="unlimited-coverage-section">
         <div className="unlimited-coverage-container">
           <div className="coverage-content">
-            <h2 className="coverage-title">Acoperire fără limite</h2>
-            <p className="coverage-subtitle">
+            <h2 className="coverage-title animate-on-scroll fade-up">Acoperire fără limite</h2>
+            <p className="coverage-subtitle animate-on-scroll fade-up delay-200">
               Indiferent unde se află proiectul tău – în România, în Europa sau în afara granițelor UE 
               – Holleman îți oferă o rețea pregătită să răspundă rapid, eficient și profesionist.
             </p>
             
             <div className="partnerships-section">
-              <h3 className="partnerships-title">Parteneriate internaționale:</h3>
-              <p className="partnerships-intro">Colaborăm cu operatori logistici și transportatori specializați în:</p>
+              <h3 className="partnerships-title animate-on-scroll fade-up delay-300">Parteneriate internaționale:</h3>
+              <p className="partnerships-intro animate-on-scroll fade-up delay-400">Colaborăm cu operatori logistici și transportatori specializați în:</p>
               
-              <ul className="partnerships-list">
+              <ul className="partnerships-list animate-on-scroll stagger-children delay-500">
                 <li>
                   <span className="bullet-point"></span>
                   Germania, Austria, Polonia, Olanda, Italia, Turcia

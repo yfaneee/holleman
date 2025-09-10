@@ -162,6 +162,30 @@ const Cariere: React.FC = () => {
     }
   }, []);
 
+  // Scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animation classes
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach(el => observer.observe(el));
+
+    return () => {
+      animatedElements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+
   return (
     <div className="cariere-page">
       <Header />
@@ -185,10 +209,10 @@ const Cariere: React.FC = () => {
       {/* First Section - Why Choose Holleman */}
       <section className="why-holleman-section">
         <div className="why-holleman-container">
-          <h2 className="section-title">De ce să alegi Holleman?</h2>
+          <h2 className="section-title animate-on-scroll fade-up">De ce să alegi Holleman?</h2>
           
           <div className="why-holleman-content">
-            <p className="intro-text">
+            <p className="intro-text animate-on-scroll fade-up delay-200">
               La Holleman, nu transportăm doar sarcini grele — ci și idei, 
               ambiții și cariere de succes. Suntem lideri în domeniul 
               transportului agabaritic și al soluțiilor logistice complexe, iar 
@@ -196,13 +220,13 @@ const Cariere: React.FC = () => {
               noi.
             </p>
             
-            <p className="intro-text">
+            <p className="intro-text animate-on-scroll fade-up delay-300">
               Fiecare membru al echipei noastre contribuie la proiecte de 
               anvergură națională și internațională, cu impact real în 
               infrastructură, energie, agricultură și industrie.
             </p>
 
-            <p className="intro-text">
+            <p className="intro-text animate-on-scroll fade-up delay-400">
             Alege Holleman dacă îți dorești un mediu în care profesionalismul, siguranța și inovația sunt mai mult decât simple valori — sunt realități zilnice.
             </p>
             
@@ -220,9 +244,9 @@ const Cariere: React.FC = () => {
         <div className="benefits-employees-overlay"></div>
         <div className="benefits-employees-container">
           <div className="benefits-employees-content">
-            <h2 className="benefits-employees-title">Beneficii pentru angajați</h2>
+            <h2 className="benefits-employees-title animate-on-scroll fade-up">Beneficii pentru angajați</h2>
             
-            <div className="benefits-list">
+            <div className="benefits-list animate-on-scroll stagger-children delay-200">
               <div className="benefit-point">
                 <span className="benefit-highlight">Pachet salarial competitiv</span>
                 <span className="benefit-text">și bonusuri de performanță</span>
@@ -329,11 +353,11 @@ const Cariere: React.FC = () => {
       >
         <div className="application-overlay"></div>
         <div className="application-container">
-          <div className="application-form-wrapper">
+          <div className="application-form-wrapper animate-on-scroll slide-from-left">
             <div className="application-form-box">
-              <h3 className="form-title">Formular aplicare</h3>
+              <h3 className="form-title animate-on-scroll fade-up delay-200">Formular aplicare</h3>
               
-              <form className="application-form" onSubmit={handleSubmit}>
+              <form className="application-form animate-on-scroll fade-up delay-300" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
                     type="text"

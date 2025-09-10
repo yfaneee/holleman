@@ -1105,3 +1105,110 @@
     padding: 40px 20px;
   }
 }
+
+/* Moving Truck Animation Section */
+.itl-page .truck-animation-section {
+  background: #136B38; /* Holleman green bar */
+  height: 150px; /* Bigger section - about 20% of services section */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.itl-page .truck-animation-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.itl-page .moving-truck {
+  position: absolute;
+  top: -10%; /* Start as high as possible - above the section */
+  right: -100px; /* Start with only half truck visible - adjusted for bigger truck */
+  animation: none; /* No animation by default */
+  z-index: 10; /* Make sure it's visible */
+}
+
+.itl-page .moving-truck.animate-truck {
+  animation: truckDriveLeft 6s linear forwards; /* Single animation on scroll */
+}
+
+.itl-page .truck-svg {
+  height: 240px; /* Even bigger truck for maximum impact */
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Keyframe animation - truck moves diagonally from right to left */
+@keyframes truckDriveLeft {
+  0% {
+    right: -100px; /* Start with only half truck visible */
+    top: -10%; /* Start as high as possible - above the section */
+  }
+  100% {
+    right: 100vw; /* End completely off-screen left */
+    top: 30%; /* End higher up - less steep diagonal */
+  }
+}
+
+/* Responsive truck animation */
+@media (max-width: 768px) {
+  .itl-page .truck-animation-section {
+    height: 150px; /* Bigger on tablet too */
+  }
+  
+  .itl-page .truck-svg {
+    height: 180px; /* Even bigger on tablet too */
+  }
+  
+  .itl-page .moving-truck {
+    right: -75px; /* Half truck visible on tablet */
+    top: -15%; /* Start as high as possible on tablet */
+  }
+  
+  @keyframes truckDriveLeft {
+    0% {
+      right: -75px;
+      top: -15%; /* Start as high as possible on tablet */
+    }
+    100% {
+      right: 100vw;
+      top: 25%; /* End higher up on tablet - less steep diagonal */
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .itl-page .truck-animation-section {
+    height: 120px; /* Bigger on mobile too */
+  }
+  
+  .itl-page .truck-svg {
+    height: 130px; /* Even bigger on mobile too */
+  }
+  
+  .itl-page .moving-truck {
+    right: -55px; /* Half truck visible on mobile */
+    top: -20%; /* Start as high as possible on mobile */
+  }
+  
+  @keyframes truckDriveLeft {
+    0% {
+      right: -55px;
+      top: -20%; /* Start as high as possible on mobile */
+    }
+    100% {
+      right: 100vw;
+      top: 20%; /* End higher up on mobile - less steep diagonal */
+    }
+  }
+}
+
+/* Pause animation on reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .itl-page .moving-truck {
+    animation: none;
+    right: 20px; /* Static position for accessibility */
+  }
+}

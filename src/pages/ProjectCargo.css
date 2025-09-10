@@ -228,6 +228,8 @@
 
 .services-footer {
   margin-top: 40px;
+  position: relative;
+  z-index: 15; /* Higher than service cards and turbine */
 }
 
 .btn {
@@ -241,7 +243,7 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  z-index: 1;
+  z-index: 20; /* Highest z-index to ensure it's always on top */
   font-weight: 300;
   font-size: 18px;
   text-transform: uppercase;
@@ -1313,5 +1315,227 @@
   .discover-play-button img {
     width: 45px;
     height: 45px;
+  }
+}
+
+/* Spinning Wind Turbine Animation */
+.wind-turbine-background {
+  position: absolute;
+  top: 16%;
+  right: -8%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.turbine-container {
+  position: relative;
+  width: 900px;
+  height: 900px;
+}
+
+/* Static tower - stays in place */
+.turbine-tower {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 900px;
+  height: 900px;
+}
+
+/* Only the blades spin */
+.turbine-blades {
+  position: absolute;
+  top: -20px; /* Move up slightly to spread blades more */
+  left: 10px; /* Move blades more to the right */
+  width: 940px; /* Slightly larger to give blades more room */
+  height: 940px;
+}
+
+.spinning-blades {
+  animation: spinBlades 4s linear infinite;
+  transform-origin: 50% 49%; /* Center point of rotation (hub center) */
+}
+
+/* Static hub on top to cover blade edges */
+.turbine-hub {
+  position: absolute;
+  top: 0;
+  left: 15px; /* Move hub to the right to match blades */
+  width: 900px;
+  height: 900px;
+  z-index: 2; /* Above the spinning blades */
+  pointer-events: none;
+}
+
+/* Keyframe animation for spinning blades only */
+@keyframes spinBlades {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Service cards have higher z-index to appear on top */
+.services-grid {
+  position: relative;
+  z-index: 10;
+}
+
+.service-item {
+  position: relative;
+  z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .wind-turbine-background {
+    top: 5%;
+    right: 3%;
+  }
+  
+  .turbine-container {
+    width: 600px;
+    height: 600px;
+  }
+  
+  .turbine-tower {
+    width: 600px;
+    height: 600px;
+  }
+  
+  .turbine-blades {
+    width: 630px; /* Slightly larger for better blade spread */
+    height: 630px;
+    top: -15px; /* Move up slightly */
+    left: 7px; /* Move blades to the right on tablet */
+  }
+  
+  .turbine-hub {
+    width: 600px;
+    height: 600px;
+    left: 10px; /* Move hub to the right on tablet */
+  }
+  
+  .spinning-blades {
+    animation-duration: 5s; /* Slower on mobile for better performance */
+    transform-origin: 50% 50%; /* Centered for better blade spread */
+  }
+}
+
+@media (max-width: 480px) {
+  .wind-turbine-background {
+    display: none; /* Hide turbine completely on mobile */
+  }
+}
+
+/* Pause animation for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .spinning-blades {
+    animation: none;
+  }
+}
+
+/* Enhanced services section to accommodate the turbine */
+.services-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left-facing Wind Turbine Animation for Case Studies */
+.wind-turbine-background-left {
+  position: absolute;
+  top: 9%;
+  left: -5%;
+  z-index: 0;
+  pointer-events: none;
+  transform: scaleX(-1); /* Mirror horizontally to face left */
+}
+
+.turbine-container-left {
+  position: relative;
+  width: 700px;
+  height: 700px;
+}
+
+/* Static tower - stays in place */
+.turbine-tower-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 700px;
+  height: 700px;
+}
+
+/* Only the blades spin */
+.turbine-blades-left {
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  width: 730px;
+  height: 730px;
+}
+
+.spinning-blades-left {
+  animation: spinBlades 4s linear infinite;
+  transform-origin: 50% 49%;
+}
+
+/* Static hub on top to cover blade edges */
+.turbine-hub-left {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 700px;
+  height: 700px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Enhanced case studies section to accommodate the turbine */
+.case-studies-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Responsive adjustments for left turbine */
+@media (max-width: 768px) {
+  .wind-turbine-background-left {
+    top: 15%;
+    left: -5%;
+  }
+  
+  .turbine-container-left {
+    width: 500px;
+    height: 500px;
+  }
+  
+  .turbine-tower-left {
+    width: 500px;
+    height: 500px;
+  }
+  
+  .turbine-blades-left {
+    width: 520px;
+    height: 520px;
+    top: -10px;
+    left: 7px;
+  }
+  
+  .turbine-hub-left {
+    width: 500px;
+    height: 500px;
+    left: 10px;
+  }
+  
+  .spinning-blades-left {
+    animation-duration: 5s;
+  }
+}
+
+@media (max-width: 480px) {
+  .wind-turbine-background-left {
+    display: none;
   }
 }

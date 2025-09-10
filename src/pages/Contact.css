@@ -50,7 +50,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.35);
   z-index: 1;
 }
 
@@ -1177,4 +1177,130 @@
     gap: 10px;
     margin-bottom: 15px;
   }
+}
+
+/* Scroll Animations for Contact Page */
+.contact-page .animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.contact-page .animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade up animation */
+.contact-page .fade-up {
+  transform: translateY(50px);
+}
+
+.contact-page .fade-up.animate-in {
+  transform: translateY(0);
+}
+
+/* Slide from left animation */
+.contact-page .slide-from-left {
+  transform: translateX(-80px);
+  opacity: 0;
+}
+
+.contact-page .slide-from-left.animate-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Staggered children animations */
+.contact-page .stagger-children.animate-in > * {
+  animation: slideUpFadeContact 0.8s ease-out forwards;
+}
+
+.contact-page .stagger-children.animate-in > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.contact-page .stagger-children.animate-in > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.contact-page .stagger-children.animate-in > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.contact-page .stagger-children.animate-in > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.contact-page .stagger-children.animate-in > *:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.contact-page .stagger-children.animate-in > *:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Delay classes */
+.contact-page .delay-200 {
+  transition-delay: 0.2s;
+}
+
+.contact-page .delay-300 {
+  transition-delay: 0.3s;
+}
+
+.contact-page .delay-400 {
+  transition-delay: 0.4s;
+}
+
+.contact-page .delay-500 {
+  transition-delay: 0.5s;
+}
+
+/* Keyframe animations */
+@keyframes slideUpFadeContact {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced service item animations */
+.contact-page .service-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.contact-page .stagger-children.animate-in .service-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced office item animations */
+.contact-page .office-item {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.6s ease;
+}
+
+.contact-page .stagger-children.animate-in .office-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Enhanced partnerships list animations */
+.contact-page .partnerships-list li {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: all 0.6s ease;
+}
+
+.contact-page .stagger-children.animate-in .partnerships-list li {
+  opacity: 1;
+  transform: translateY(0);
 }

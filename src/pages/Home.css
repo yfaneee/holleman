@@ -140,6 +140,7 @@
 }
 
 .home .search-bar {
+  position: relative;
   display: flex;
   align-items: center;
   border-radius: 50px;
@@ -169,6 +170,135 @@
 .search-input::placeholder {
   color: #999;
 }
+
+/* Search Suggestions */
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-top: 2px;
+}
+
+.search-suggestion {
+  padding: 12px 25px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+  font-size: 14px;
+  color: #333;
+}
+
+.search-suggestion:last-child {
+  border-bottom: none;
+}
+
+.search-suggestion:hover,
+.search-suggestion.selected {
+  background-color: #f8f9fa;
+  color: #136B38;
+}
+
+.search-suggestion.selected {
+  background-color: #e8f5e8;
+}
+
+/* Scroll Animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade up animation */
+.fade-up {
+  transform: translateY(50px);
+}
+
+.fade-up.animate-in {
+  transform: translateY(0);
+}
+
+/* Staggered children animations */
+.stagger-children.animate-in > * {
+  animation: slideUpFade 0.8s ease-out forwards;
+}
+
+.stagger-children.animate-in > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.stagger-children.animate-in > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stagger-children.animate-in > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.stagger-children.animate-in > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.stagger-children.animate-in > *:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.stagger-children.animate-in > *:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Delay classes */
+.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.delay-300 {
+  transition-delay: 0.3s;
+}
+
+.delay-400 {
+  transition-delay: 0.4s;
+}
+
+.delay-500 {
+  transition-delay: 0.5s;
+}
+
+/* Keyframe animations */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Service cards will animate as a group with the container */
+
+/* Enhanced sponsor logo animations */
+.stagger-children.animate-in .sponsor-logo {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Contact info items remain static */
 
 /* Service Cards */
 .service-cards {
@@ -479,6 +609,9 @@
   flex: 1;
   min-width: auto;
   max-width: none;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: all 0.6s ease;
 }
 
 .sponsor-image {
