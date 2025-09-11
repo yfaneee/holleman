@@ -117,9 +117,10 @@ const ProjectCargo: React.FC = () => {
       
       {/* Hero Section */}
       <section className="hero-section" style={heroStyle}>
+        <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">Project Cargo</h1>
-          <p className="hero-subtitle">Nu mutam doar obiecte, ci si limite.</p>
+          <p className="hero-subtitle">Nu mutam doar obiecte, ci si limite</p>
         </div>
       </section>
 

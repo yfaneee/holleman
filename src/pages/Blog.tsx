@@ -56,6 +56,26 @@ const Blog: React.FC = () => {
     canonical.setAttribute('href', 'https://holleman.ro/blog');
   }, []);
 
+  // Handle hash navigation for anchor links
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          const headerHeight = window.innerWidth <= 768 ? 100 : 120;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <div className="blog-page">
       <Header />
@@ -77,7 +97,7 @@ const Blog: React.FC = () => {
       </section>
 
       {/* Articles Slideshow Section */}
-      <section className="articles-section">
+      <section id="articles-section" className="articles-section">
         <div className="articles-container">
           <div className="articles-header">
             <h2 className="articles-title">Dinamic, relevant, mereu în mișcare — exact ca noi.</h2>
@@ -146,6 +166,7 @@ const Blog: React.FC = () => {
 
       {/* Stay Connected Section */}
       <section 
+        id="stay-connected-section"
         className="stay-connected-section"
         style={{
           backgroundImage: `url('/images/Group8750.webp')`

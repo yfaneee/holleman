@@ -12,13 +12,13 @@
   position: relative;
 }
 
-.itl-page .hero-section::before {
-  content: '';
+.itl-page .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 
@@ -1124,7 +1124,7 @@
 
 .itl-page .moving-truck {
   position: absolute;
-  top: -10%; /* Start as high as possible - above the section */
+  top: -30%; /* Start much higher - above the section */
   right: -100px; /* Start with only half truck visible - adjusted for bigger truck */
   animation: none; /* No animation by default */
   z-index: 10; /* Make sure it's visible */
@@ -1140,15 +1140,69 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
+/* Truck text animation */
+.itl-page .truck-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.itl-page .truck-message {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 1.8rem;
+  color: white;
+  text-align: center;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.itl-page .truck-message .word {
+  display: inline-block;
+  margin-right: 0.3em;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.itl-page .truck-text.show-text .word {
+  animation: fadeInWord 0.6s ease-out forwards;
+}
+
+/* Stagger the animation for each word */
+.itl-page .truck-text.show-text .word:nth-child(1) { animation-delay: 0s; }
+.itl-page .truck-text.show-text .word:nth-child(2) { animation-delay: 0.2s; }
+.itl-page .truck-text.show-text .word:nth-child(3) { animation-delay: 0.4s; }
+.itl-page .truck-text.show-text .word:nth-child(4) { animation-delay: 0.6s; }
+.itl-page .truck-text.show-text .word:nth-child(5) { animation-delay: 0.8s; }
+.itl-page .truck-text.show-text .word:nth-child(6) { animation-delay: 1.2s; }
+.itl-page .truck-text.show-text .word:nth-child(7) { animation-delay: 1.4s; }
+.itl-page .truck-text.show-text .word:nth-child(8) { animation-delay: 1.6s; }
+.itl-page .truck-text.show-text .word:nth-child(9) { animation-delay: 1.8s; }
+.itl-page .truck-text.show-text .word:nth-child(10) { animation-delay: 2.0s; }
+
+@keyframes fadeInWord {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Keyframe animation - truck moves diagonally from right to left */
 @keyframes truckDriveLeft {
   0% {
     right: -100px; /* Start with only half truck visible */
-    top: -10%; /* Start as high as possible - above the section */
+    top: -30%; /* Start much higher - above the section */
   }
   100% {
     right: 100vw; /* End completely off-screen left */
-    top: 30%; /* End higher up - less steep diagonal */
+    top: 10%; /* End higher up - less steep diagonal */
   }
 }
 
@@ -1162,19 +1216,27 @@
     height: 180px; /* Even bigger on tablet too */
   }
   
+  .itl-page .truck-message {
+    font-size: 1.4rem; /* Smaller text on tablet */
+  }
+  
+  .itl-page .truck-message .word {
+    margin-right: 0.25em; /* Slightly less spacing on tablet */
+  }
+  
   .itl-page .moving-truck {
     right: -75px; /* Half truck visible on tablet */
-    top: -15%; /* Start as high as possible on tablet */
+    top: -35%; /* Start much higher on tablet */
   }
   
   @keyframes truckDriveLeft {
     0% {
       right: -75px;
-      top: -15%; /* Start as high as possible on tablet */
+      top: -35%; /* Start much higher on tablet */
     }
     100% {
       right: 100vw;
-      top: 25%; /* End higher up on tablet - less steep diagonal */
+      top: 5%; /* End higher up on tablet - less steep diagonal */
     }
   }
 }
@@ -1188,19 +1250,28 @@
     height: 130px; /* Even bigger on mobile too */
   }
   
+  .itl-page .truck-message {
+    font-size: 1.1rem; /* Smaller text on mobile */
+    padding: 0 20px; /* Add padding on mobile */
+  }
+  
+  .itl-page .truck-message .word {
+    margin-right: 0.2em; /* Even less spacing on mobile */
+  }
+  
   .itl-page .moving-truck {
     right: -55px; /* Half truck visible on mobile */
-    top: -20%; /* Start as high as possible on mobile */
+    top: -40%; /* Start much higher on mobile */
   }
   
   @keyframes truckDriveLeft {
     0% {
       right: -55px;
-      top: -20%; /* Start as high as possible on mobile */
+      top: -40%; /* Start much higher on mobile */
     }
     100% {
       right: 100vw;
-      top: 20%; /* End higher up on mobile - less steep diagonal */
+      top: 0%; /* End higher up on mobile - less steep diagonal */
     }
   }
 }

@@ -165,13 +165,13 @@ const HeavyLift: React.FC = () => {
               <h2>Relocări în orice scară</h2>
               <p>
               Indiferent de distanță sau dimensiune, gestionăm relocări:
+              </p>
               <ul>
                 <li>În cadrul aceleiași hale</li>
                 <li>Între secții sau clădiri ale aceleiași firme</li>
                 <li>La nivel local, național sau internațional</li>
                 <li>În interiorul sau în afara Europei</li>
               </ul>
-              </p>
             </div>
           </div>
         </div>
@@ -185,12 +185,14 @@ const HeavyLift: React.FC = () => {
               <h2>Montaj industrial cu echipe specializate</h2>
               <p>
               Punem la dispoziție echipe tehnice specializate în montaj industrial, formate din:
+              </p>
               <ul>
                 <li>Electricieni industriali</li>
                 <li>Mecanici</li>
                 <li>Specialiști în sisteme hidraulice</li>
                 <li>Experți în automatizări și punere în funcțiune</li>
               </ul>
+              <p>
               Ne ocupăm de instalarea și alinierea echipamentelor conform cerințelor tehnologice ale clientului.
               </p>
             </div>
@@ -236,7 +238,7 @@ const HeavyLift: React.FC = () => {
               </ul>
               </div>
               <div className="action-button">
-                <button className="btn" onClick={() => navigate('/')}>
+                <button className="btn" onClick={() => navigate('/fleet')}>
                   Descopera flota
                   <span className="btn-arrow">→</span>
                 </button>

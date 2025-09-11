@@ -346,6 +346,30 @@ const Proiecte: React.FC = () => {
     };
   }, [allProjects]);
 
+  // Scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animation classes
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach(el => observer.observe(el));
+
+    return () => {
+      animatedElements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+
   // Handle hash navigation for footer links
   useEffect(() => {
     const handleHashNavigation = () => {
@@ -508,7 +532,7 @@ const Proiecte: React.FC = () => {
       {/* First Content Section */}
       <section className="content-section" style={{backgroundImage: `url('/images/Group8728.webp')`}}>
         <div className="content-container">
-          <div className="content-text">
+          <div className="content-text animate-on-scroll">
             <h2>Explorează portofoliul nostru</h2>
             <div className="content-paragraphs">
               <p>
@@ -578,7 +602,7 @@ const Proiecte: React.FC = () => {
       {/* Inspiration Section */}
       <section className="cta-section" style={{backgroundImage: `url('/images/Group8733.webp')`}}>
         <div className="cta-container">
-          <div className="cta-content">
+          <div className="cta-content animate-on-scroll">
             <h2 className="cta-title">
               Inspirația pentru proiectul tău
             </h2>

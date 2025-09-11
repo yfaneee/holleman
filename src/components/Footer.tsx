@@ -46,8 +46,8 @@ const Footer: React.FC = () => {
             
             <h3>Blog</h3>
             <ul>
-              <li><a href="/blog/articole">Articole</a></li>
-              <li><a href="/blog/noutati">Noutati</a></li>
+              <li><a href="/blog#articles-section">Articole</a></li>
+              <li><a href="/blog#stay-connected-section">Social Media</a></li>
             </ul>
           </div>
 

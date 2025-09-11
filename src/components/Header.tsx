@@ -64,7 +64,11 @@ const Header: React.FC = () => {
             <div className="nav-item" onClick={navigateToDespreNoi}>
               <span>DESPRE NOI</span>
             </div>
-            
+
+            <div className="nav-item" onClick={navigateToCariere}>
+              <span>CARIERE</span>
+            </div>
+
             <div 
               className="nav-item dropdown"
               onMouseEnter={() => handleDropdownHover('servicii')}
@@ -82,20 +86,18 @@ const Header: React.FC = () => {
               )}
             </div>
             
-            <div className="nav-item" onClick={navigateToCariere}>
-              <span>CARIERE</span>
-            </div>
-            
             <div className="nav-item" onClick={() => navigate('/proiecte')}>
               <span>PROIECTE</span>
+            </div>
+            
+            <div className="nav-item" onClick={() => navigate('/blog')}>
+              <span>BLOG</span>
             </div>
             
             <div className="nav-item" onClick={navigateToContact}>
               <span>CONTACT</span>
             </div>
-            <div className="nav-item" onClick={() => navigate('/blog')}>
-              <span>BLOG</span>
-            </div>
+    
           </nav>
         </div>
         

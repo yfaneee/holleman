@@ -44,8 +44,17 @@ const ITL: React.FC = () => {
             console.log('Truck section is visible, starting animation!');
             // Add animation class when truck section comes into view
             const movingTruck = truckElement.querySelector('.moving-truck');
+            const truckText = truckElement.querySelector('.truck-text');
+            
             if (movingTruck) {
               movingTruck.classList.add('animate-truck');
+              
+              // Show text when truck reaches middle (3 seconds)
+              if (truckText) {
+                setTimeout(() => {
+                  truckText.classList.add('show-text');
+                }, 4000); // Show text when truck is in the middle
+              }
             }
           }
         });
@@ -69,9 +78,10 @@ const ITL: React.FC = () => {
       
       {/* Hero Section */}
       <section className="hero-section" style={heroStyle}>
+        <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">ITL</h1>
-          <p className="hero-subtitle">Ne plimbam mai mult decat GPS-ul tau.</p>
+          <p className="hero-subtitle">Ne plimbam mai mult decat GPS-ul tau</p>
         </div>
       </section>
 
@@ -231,6 +241,20 @@ const ITL: React.FC = () => {
               alt="Holleman Truck" 
               className="truck-svg"
             />
+          </div>
+          <div className="truck-text">
+            <p className="truck-message">
+              <span className="word">Știm</span>
+              <span className="word">să</span>
+              <span className="word">negociem</span>
+              <span className="word">cu</span>
+              <span className="word">drumurile.</span>
+              <span className="word">Și</span>
+              <span className="word">câștigăm</span>
+              <span className="word">de</span>
+              <span className="word">fiecare</span>
+              <span className="word">dată.</span>
+            </p>
           </div>
         </div>
       </section>

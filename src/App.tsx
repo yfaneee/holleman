@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import ProjectCargo from './pages/ProjectCargo';
 import ITL from './pages/ITL';
 import HeavyLift from './pages/HeavyLift';
+import Fleet from './pages/Fleet';
 import Agro from './pages/Agro';
 import Proiecte from './pages/Proiecte';
 import ProjectPage from './pages/ProjectPage';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/project-cargo" element={<ProjectCargo />} />
           <Route path="/itl" element={<ITL />} />
           <Route path="/heavy-lift" element={<HeavyLift />} />
+          <Route path="/fleet" element={<Fleet />} />
           <Route path="/agro" element={<Agro />} />
           <Route path="/proiecte" element={<Proiecte />} />
           <Route path="/proiecte/:projectId" element={<ProjectPage />} />

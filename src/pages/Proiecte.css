@@ -1440,3 +1440,36 @@
     font-size: 14px;
   }
 }
+
+/* Scroll Animations for Proiecte Page */
+.proiecte-page .animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.proiecte-page .animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade up animation */
+.proiecte-page .fade-up {
+  transform: translateY(50px);
+}
+
+.proiecte-page .fade-up.animate-in {
+  transform: translateY(0);
+}
+
+/* Keyframe animations */
+@keyframes slideUpFadeProiecte {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

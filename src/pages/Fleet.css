@@ -1,0 +1,535 @@
+/* Fleet Page Styles */
+.fleet-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Section */
+.fleet-hero {
+  height: 60vh;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.fleet-hero .hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.fleet-hero .hero-content {
+  text-align: center;
+  color: white;
+  z-index: 2;
+  position: relative;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.fleet-hero .hero-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.fleet-hero .hero-subtitle {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Fleet Content */
+.fleet-content {
+  flex: 1;
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+
+.fleet-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Fleet Intro */
+.fleet-intro {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.fleet-intro-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fleet-intro-description {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 1.2rem;
+  color: #666;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Fleet Main Content - Side by Side Layout */
+.fleet-main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 80px;
+}
+
+/* Fleet Images - Left Side */
+.fleet-images-section {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.fleet-image-container {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.fleet-main-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.fleet-details-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 2.2rem;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.fleet-items {
+  display: grid;
+  gap: 1.11rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.fleet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fleet-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.fleet-item-number {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #136B38, #D4A017);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.fleet-item-content {
+  flex: 1;
+}
+
+.fleet-item-description {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  margin: 0;
+}
+
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .fleet-container {
+    max-width: 1000px;
+  }
+  
+  .fleet-intro-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .fleet-hero {
+    height: 50vh;
+    min-height: 350px;
+  }
+  
+  .fleet-hero .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .fleet-hero .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .fleet-content {
+    padding: 60px 0;
+  }
+  
+  .fleet-container {
+    padding: 0 15px;
+  }
+  
+  .fleet-intro {
+    margin-bottom: 60px;
+  }
+  
+  .fleet-intro-title {
+    font-size: 1.8rem;
+  }
+  
+  .fleet-intro-description {
+    font-size: 1.1rem;
+  }
+  
+  /* Stack layout on mobile */
+  .fleet-main-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .fleet-images-section {
+    position: static;
+    order: 1;
+  }
+  
+  .fleet-details {
+    order: 2;
+  }
+  
+  .fleet-details-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .fleet-items {
+    gap: 1.5rem;
+  }
+  
+  .fleet-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .fleet-item-number {
+    align-self: center;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fleet-hero .hero-title {
+    font-size: 2rem;
+  }
+  
+  .fleet-hero .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .fleet-intro-title {
+    font-size: 1.6rem;
+  }
+  
+  .fleet-details-title {
+    font-size: 1.6rem;
+  }
+  
+  .fleet-item {
+    padding: 1.2rem;
+  }
+  
+  .fleet-item-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .fleet-item-description {
+    font-size: 0.95rem;
+  }
+}
+
+/* Related Projects Section */
+.related-projects-section {
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.related-projects-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.related-projects-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.related-projects-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(24px, 4vw, 42px);
+  color: white;
+  margin-bottom: 60px;
+  line-height: 1.2;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Related Projects Slideshow */
+.related-projects-slideshow {
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.related-project-cards {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.related-project-card {
+  flex: 0 0 250px;
+  height: 280px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.related-project-card.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.related-project-card.hidden {
+  opacity: 0;
+  transform: translateX(100%);
+  position: absolute;
+}
+
+.related-project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.related-project-image {
+  height: 150px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.related-project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.related-project-card:hover .related-project-image img {
+  transform: scale(1.1);
+}
+
+.related-project-info {
+  padding: 25px;
+  text-align: left;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.related-project-info h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 47px;
+}
+
+.related-project-division {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Related Projects Navigation */
+.related-projects-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.nav-button {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #D4A017;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+  margin: 0;
+}
+
+.nav-button:hover {
+  background: #D4A017;
+  color: white;
+  border-color: #D4A017;
+  transform: scale(1.15);
+  box-shadow: 0 8px 25px rgba(212, 160, 23, 0.4);
+}
+
+.nav-prev {
+  margin-left: 0;
+}
+
+.nav-next {
+  margin-right: 0;
+}
+
+/* Responsive Design for Related Projects */
+@media (max-width: 768px) {
+  .related-projects-section {
+    padding: 50px 15px;
+  }
+  
+  .related-projects-title {
+    margin-bottom: 40px;
+  }
+  
+  .related-projects-nav {
+    position: static;
+    width: 100%;
+    left: 0;
+    margin-top: 30px;
+    transform: none;
+    justify-content: center;
+    gap: 40px;
+  }
+  
+  .nav-button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .related-project-cards {
+    flex-direction: column;
+    height: auto;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .related-project-card {
+    flex: none;
+    width: 100%;
+    max-width: 300px;
+    height: 250px;
+  }
+  
+  .related-project-image {
+    height: 120px;
+  }
+  
+  .related-project-info {
+    padding: 20px;
+  }
+  
+  .related-project-info h3 {
+    font-size: 16px;
+  }
+}

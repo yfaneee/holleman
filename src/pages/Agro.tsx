@@ -16,7 +16,7 @@ const Agro: React.FC = () => {
         <div className="agro-hero-overlay">
           <div className="agro-hero-content">
             <h1 className="agro-title">AGRO</h1>
-            <p className="agro-subtitle">Unde e nevoie de forta, aducem si finete.</p>
+            <p className="agro-subtitle">Unde e nevoie de forta, aducem si finete</p>
           </div>
         </div>
       </section>

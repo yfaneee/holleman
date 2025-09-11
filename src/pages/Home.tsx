@@ -307,7 +307,7 @@ const Home: React.FC = () => {
         <div className="hero-content">
           <h1 className="hero-title">HOLLEMAN</h1>
           <p className="hero-subtitle">
-            Niciun transport nu e prea ciudat. Promitem.
+          Dincolo de asteptari, cu fiecare proiect
           </p>
         </div>
       </section>
