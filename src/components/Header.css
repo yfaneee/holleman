@@ -99,18 +99,9 @@
   color: #333;
 }
 
-.language-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Language dropdown positioning in header */
+.header .language-dropdown {
   margin-left: clamp(20px, 3vw, 40px);
-}
-
-.flag-image {
-  width: 24px;
-  height: 16px;
-  object-fit: cover;
-  border-radius: 2px;
 }
 
 /* Mobile Menu Button */

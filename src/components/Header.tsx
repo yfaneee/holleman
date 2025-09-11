@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
+import LanguageDropdown from './LanguageDropdown';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -102,10 +103,7 @@ const Header: React.FC = () => {
         </div>
         
         {/* Language Selector */}
-        <div className="nav-item language-selector">
-          <img src="/images/RO.webp" alt="Romania" className="flag-image" />
-          <span className="dropdown-arrow">▼</span>
-        </div>
+        <LanguageDropdown />
 
         {/* Mobile Menu Button */}
         <button className="mobile-menu-btn" onClick={toggleMenu}>
