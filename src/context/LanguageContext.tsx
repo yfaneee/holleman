@@ -6,6 +6,7 @@ interface LanguageContextType {
   changeLanguage: (languageCode: string) => void;
   supportedLanguages: Language[];
   isTranslating: boolean;
+  refreshOriginalTexts: () => void;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -15,14 +16,15 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const { currentLanguage, changeLanguage, isTranslating } = useAITranslation();
+  const { currentLanguage, changeLanguage, isTranslating, refreshOriginalTexts } = useAITranslation();
 
   return (
     <LanguageContext.Provider value={{
       currentLanguage,
       changeLanguage,
       supportedLanguages,
-      isTranslating
+      isTranslating,
+      refreshOriginalTexts
     }}>
       {children}
     </LanguageContext.Provider>

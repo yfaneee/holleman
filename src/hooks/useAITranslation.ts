@@ -27,6 +27,7 @@ export const useAITranslation = () => {
   });
   const [isTranslating, setIsTranslating] = useState(false);
   const [originalTexts, setOriginalTexts] = useState<Map<Element, string>>(new Map());
+  const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
 
   // Store original Romanian text when first loading
   const storeOriginalTexts = useCallback(() => {
@@ -154,6 +155,11 @@ export const useAITranslation = () => {
     }
   }, [originalTexts]);
 
+  // Function to manually trigger re-storage of original texts (for route changes)
+  const refreshOriginalTexts = useCallback(() => {
+    setCurrentPath(window.location.pathname);
+  }, []);
+
   // Change language and trigger translation
   const changeLanguage = useCallback(async (languageCode: string) => {
     const language = supportedLanguages.find(lang => lang.code === languageCode);
@@ -165,15 +171,18 @@ export const useAITranslation = () => {
     await translatePage(languageCode);
   }, [translatePage]);
 
-  // Initialize original texts when component mounts
+  // Initialize original texts when component mounts or route changes
   useEffect(() => {
+    // Clear previous original texts when route changes
+    setOriginalTexts(new Map());
+    
     // Store original texts after a short delay to ensure DOM is ready
     const timer = setTimeout(() => {
       storeOriginalTexts();
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [storeOriginalTexts]);
+  }, [storeOriginalTexts, currentPath]);
 
   // Translate to current language when original texts are ready
   useEffect(() => {
@@ -187,6 +196,7 @@ export const useAITranslation = () => {
     changeLanguage,
     isTranslating,
     supportedLanguages,
-    translatePage
+    translatePage,
+    refreshOriginalTexts
   };
 };

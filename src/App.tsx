@@ -16,12 +16,14 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import ArticlePage from './pages/ArticlePage';
 import ScrollToTop from './components/ScrollToTop';
+import RouteChangeHandler from './components/RouteChangeHandler';
 
 function App() {
   return (
     <LanguageProvider>
       <Router>
         <ScrollToTop />
+        <RouteChangeHandler />
         <div className="App">
           <Routes>
             <Route path="/" element={<Home />} />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { getAllProjects } from '../data/projectsData';
 import './ProjectCargo.css';
 
 const ProjectCargo: React.FC = () => {
@@ -18,45 +19,32 @@ const ProjectCargo: React.FC = () => {
     backgroundImage: `url('/images/Frame-19.webp')`
   };
 
-  // Case studies data (you can replace with real data)
-  const caseStudies = [
-    {
-      id: 1,
-      title: "Transport echipament industrial complex",
-      description: "Fiecare proiect spune o poveste. Vezi exemple concrete din teren și convingerție de amploarea și complexitatea proiectelor gestionate de Holleman.",
-      videoThumbnail: "/images/slide1.webp", // Using existing image as placeholder
-      videoUrl: "#", // Replace with actual video URL
-      caseStudyUrl: "/case-study/1"
-    },
-    {
-      id: 2,
-      title: "Logistică pentru energie regenerabilă",
-      description: "Proiecte specializate în transportul componentelor pentru energia verde, cu focus pe siguranță și eficiență.",
-      videoThumbnail: "/images/slide2.webp", // Using existing image as placeholder
-      videoUrl: "#", // Replace with actual video URL
-      caseStudyUrl: "/case-study/2"
-    },
-    {
-      id: 3,
-      title: "Infrastructure și construcții majore",
-      description: "Soluții complete pentru transportul elementelor de infrastructură în proiecte de anvergură.",
-      videoThumbnail: "/images/slide3.webp", // Using existing image as placeholder
-      videoUrl: "#", // Replace with actual video URL
-      caseStudyUrl: "/case-study/3"
-    }
-  ];
+  // Get Project Cargo projects from the data
+  const allProjects = getAllProjects();
+  const caseStudies = allProjects
+    .filter(project => project.division === 'project-cargo')
+    .map(project => ({
+      id: project.id,
+      title: project.title,
+      description: project.subtitle,
+      videoThumbnail: project.gallery.mainImage,
+      videoUrl: "#", // Keep as placeholder for video functionality
+      caseStudyUrl: `/proiecte/${project.id}`
+    }));
 
   const handleVideoClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click
-    setIsVideoPlaying(!isVideoPlaying);
-    // Here you would implement video play logic
-    // TODO: Implement video modal or navigation
+    // Navigate to project page when play button is clicked
+    if (caseStudies.length > 0) {
+      navigate(caseStudies[currentCaseStudy].caseStudyUrl);
+    }
   };
 
   const handleCardClick = () => {
-    // Navigate to case study page
-    // TODO: Implement navigation to case study detail page
-    // navigate(`/case-study/${caseStudies[currentCaseStudy].id}`);
+    // Navigate to project page
+    if (caseStudies.length > 0) {
+      navigate(caseStudies[currentCaseStudy].caseStudyUrl);
+    }
   };
 
   const nextCaseStudy = () => {
@@ -67,11 +55,18 @@ const ProjectCargo: React.FC = () => {
     setCurrentCaseStudy((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
   };
 
-  const currentCase = caseStudies[currentCaseStudy];
+  // Reset current index if it's out of bounds
+  useEffect(() => {
+    if (caseStudies.length > 0 && currentCaseStudy >= caseStudies.length) {
+      setCurrentCaseStudy(0);
+    }
+  }, [caseStudies.length, currentCaseStudy]);
+
+  const currentCase = caseStudies.length > 0 ? caseStudies[currentCaseStudy] : null;
 
   // Auto-advance slideshow every 5 seconds
   useEffect(() => {
-    if (!isPaused) {
+    if (!isPaused && caseStudies.length > 1) {
       const interval = setInterval(() => {
         setCurrentCaseStudy((prev) => (prev + 1) % caseStudies.length);
       }, 5000); // Change slide every 5 seconds
@@ -353,37 +348,61 @@ const ProjectCargo: React.FC = () => {
         <div className="case-studies-container">
           <h2 className="case-studies-title">Studii de caz și galerii media</h2>
           
-          <div className="case-study-card" onClick={handleCardClick}>
-            <div className="case-study-video">
-              <img 
-                src={currentCase.videoThumbnail} 
-                alt={currentCase.title}
-                className="video-thumbnail"
-              />
-              <div className="video-play-button" onClick={handleVideoClick}>
-                <svg viewBox="0 0 24 24" fill="white">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
+          {currentCase ? (
+            <div className="case-study-card" onClick={handleCardClick}>
+              <div className="case-study-video">
+                <img 
+                  src={currentCase.videoThumbnail} 
+                  alt={currentCase.title}
+                  className="video-thumbnail"
+                />
+                <div className="video-play-button" onClick={handleVideoClick}>
+                  <svg viewBox="0 0 24 24" fill="white">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <div className="case-study-content">
+                <h3>{currentCase.title}</h3>
+                <p>{currentCase.description}</p>
               </div>
             </div>
-            
-            <div className="case-study-content">
-              <h3>{currentCase.title}</h3>
-              <p>{currentCase.description}</p>
-            </div>
-          </div>
-          
-          <div className="case-studies-nav">
-            <div className="nav-dots">
-              {caseStudies.map((_, index) => (
-                <button
-                  key={index}
-                  className={`nav-dot ${index === currentCaseStudy ? 'active' : ''}`}
-                  onClick={() => handleManualNavigation(index)}
+          ) : (
+            <div className="case-study-card" onClick={() => navigate('/proiecte')}>
+              <div className="case-study-video">
+                <img 
+                  src="/images/slide1.webp" 
+                  alt="Holleman Project Cargo"
+                  className="video-thumbnail"
                 />
-              ))}
+                <div className="video-play-button" onClick={() => navigate('/proiecte')}>
+                  <svg viewBox="0 0 24 24" fill="white">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <div className="case-study-content">
+                <h3>Proiecte Project Cargo</h3>
+                <p>Explorează portofoliul nostru complet de proiecte Project Cargo pentru a descoperi soluțiile noastre specializate.</p>
+              </div>
             </div>
-          </div>
+          )}
+          
+          {caseStudies.length > 1 && (
+            <div className="case-studies-nav">
+              <div className="nav-dots">
+                {caseStudies.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`nav-dot ${index === currentCaseStudy ? 'active' : ''}`}
+                    onClick={() => handleManualNavigation(index)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
           
           <div className="case-studies-footer">
           <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
