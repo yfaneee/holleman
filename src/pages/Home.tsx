@@ -13,6 +13,9 @@ const Home: React.FC = () => {
   const [videoError, setVideoError] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
+  
+  // Strapi content state
+  const [projectCargoContent, setProjectCargoContent] = useState<any>(null);
 
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
@@ -195,6 +198,26 @@ const Home: React.FC = () => {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Fetch Project Cargo content from Strapi
+  useEffect(() => {
+    const fetchProjectCargoContent = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/home-project-cargo-section');
+        const data = await response.json();
+        setProjectCargoContent(data.data);
+      } catch (error) {
+        console.error('Error fetching Project Cargo content:', error);
+        // Fallback to default content if Strapi is not available
+        setProjectCargoContent({
+          mainDescription: 'Transporturile agabaritice și proiectele logistice complexe necesită expertiză, precizie și coordonare impecabilă. Project Cargo presupune transportul unor echipamente de mari dimensiuni, greutăți sau valoare, adesea esențiale pentru construcția și funcționarea unor instalații industriale sau energetice.',
+          secondaryDescription: 'Holleman este partenerul ideal pentru acest tip de provocări datorită experienței vaste, echipamentelor specializate și unei echipe dedicate care gestionează fiecare etapă a proiectului cu responsabilitate și viziune.'
+        });
+      }
+    };
+
+    fetchProjectCargoContent();
   }, []);
 
   // Scroll animations
@@ -465,11 +488,10 @@ const Home: React.FC = () => {
           <div className="section3-content">
             <h2 id="project-cargo-heading" className="sr-only">Project Cargo - Transporturi Complexe</h2>
             <p className="section3-description animate-on-scroll fade-up">
-              Transporturile agabaritice și proiectele logistice complexe necesită expertiză, precizie și coordonare impecabilă.
-              Project Cargo presupune transportul unor echipamente de mari dimensiuni, greutăți sau valoare, adesea esențiale pentru construcția și funcționarea unor instalații industriale sau energetice.
+              {projectCargoContent?.mainDescription || 'Loading...'}
             </p>
             <p className="section3-description animate-on-scroll fade-up delay-200">
-              Holleman este partenerul ideal pentru acest tip de provocări datorită experienței vaste, echipamentelor specializate și unei echipe dedicate care gestionează fiecare etapă a proiectului cu responsabilitate și viziune.
+              {projectCargoContent?.secondaryDescription || 'Loading...'}
             </p>
             <button className="btn animate-on-scroll fade-up delay-400" onClick={navigateToProjectCargo} 
                     aria-label="Află mai multe despre serviciile Project Cargo oferite de Holleman">

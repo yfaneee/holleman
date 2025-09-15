@@ -10,6 +10,7 @@ const ProjectCargo: React.FC = () => {
   const [currentCaseStudy, setCurrentCaseStudy] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [whyChooseContent, setWhyChooseContent] = useState<any>(null);
 
   const heroStyle = {
     backgroundImage: `url('/images/projectcargobg.webp')`
@@ -61,6 +62,30 @@ const ProjectCargo: React.FC = () => {
       setCurrentCaseStudy(0);
     }
   }, [caseStudies.length, currentCaseStudy]);
+
+  // Fetch Why Choose content from Strapi
+  useEffect(() => {
+    const fetchWhyChooseContent = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/project-cargo-why-choose');
+        const data = await response.json();
+        setWhyChooseContent(data.data);
+      } catch (error) {
+        console.error('Error fetching Why Choose content:', error);
+        // Set fallback content
+        setWhyChooseContent({
+          Title: 'De ce să alegi Holleman pentru Project Cargo',
+          Reason1: 'Peste 25 de ani de experiență în logistica proiectelor speciale',
+          Reason2: 'Flotă proprie diversificată, adaptată pentru sarcini extreme',
+          Reason3: 'Acoperire internațională, cu expertiză în coridoare logistice din Europa Centrală și de Est',
+          Reason4: 'Inginerie internă – soluții dezvoltate in-house, pentru provocări atipice',
+          Reason5: 'Respect pentru termene și bugete – livrăm la timp, în siguranță, fără compromisuri',
+          Reason6: 'Certificări internaționale și respectarea celor mai înalte standarde de siguranță și calitate'
+        });
+      }
+    };
+    fetchWhyChooseContent();
+  }, []);
 
   const currentCase = caseStudies.length > 0 ? caseStudies[currentCaseStudy] : null;
 
@@ -300,17 +325,25 @@ const ProjectCargo: React.FC = () => {
         <div className="why-choose-container">
           <div className="why-choose-content">
             <h2 className="why-choose-title">
-              De ce să alegi Holleman<br />
-              pentru <span className="highlight">Project Cargo</span>
+              {whyChooseContent?.Title ? (
+                <span dangerouslySetInnerHTML={{ 
+                  __html: whyChooseContent.Title.replace('Project Cargo', '<span class="highlight">Project Cargo</span>') 
+                }} />
+              ) : (
+                <>
+                  De ce să alegi Holleman<br />
+                  pentru <span className="highlight">Project Cargo</span>
+                </>
+              )}
             </h2>
             
             <ul className="why-choose-list">
-              <li>Peste 25 de ani de experiență în logistica proiectelor speciale</li>
-              <li>Flotă proprie diversificată, adaptată pentru sarcini extreme</li>
-              <li>Acoperire internațională, cu expertiză în coridoare logistice din Europa Centrală și de Est</li>
-              <li>Inginerie internă – soluții dezvoltate in-house, pentru provocări atipice</li>
-              <li>Respect pentru termene și bugete – livrăm la timp, în siguranță, fără compromisuri</li>
-              <li>Certificări internaționale și respectarea celor mai înalte standarde de siguranță și calitate</li>
+              <li>{whyChooseContent?.Reason1 || 'Loading...'}</li>
+              <li>{whyChooseContent?.Reason2 || 'Loading...'}</li>
+              <li>{whyChooseContent?.Reason3 || 'Loading...'}</li>
+              <li>{whyChooseContent?.Reason4 || 'Loading...'}</li>
+              <li>{whyChooseContent?.Reason5 || 'Loading...'}</li>
+              <li>{whyChooseContent?.Reason6 || 'Loading...'}</li>
             </ul>
           </div>
         </div>

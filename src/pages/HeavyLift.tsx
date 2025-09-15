@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,6 +7,8 @@ import './HeavyLift.css';
 
 const HeavyLift: React.FC = () => {
   const navigate = useNavigate();
+  const [serviceCardsContent, setServiceCardsContent] = useState<any>(null);
+  const [contentSectionsData, setContentSectionsData] = useState<any>(null);
 
   useEffect(() => {
     // SEO setup
@@ -22,6 +24,30 @@ const HeavyLift: React.FC = () => {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', 'https://holleman.ro/heavy-lift');
+  }, []);
+
+  // Fetch Heavy Lift content from Strapi
+  useEffect(() => {
+    const fetchHeavyLiftContent = async () => {
+      try {
+        const [serviceCardsResponse, contentSectionsResponse] = await Promise.all([
+          fetch('http://localhost:3001/api/heavy-lift-service-card'),
+          fetch('http://localhost:3001/api/heavy-lift-content-section?populate=*')
+        ]);
+
+        const [serviceCardsData, contentSectionsResult] = await Promise.all([
+          serviceCardsResponse.json(),
+          contentSectionsResponse.json()
+        ]);
+
+        setServiceCardsContent(serviceCardsData.data);
+        setContentSectionsData(contentSectionsResult.data);
+      } catch (error) {
+        console.error('Error fetching Heavy Lift content:', error);
+        // Set fallback content if needed
+      }
+    };
+    fetchHeavyLiftContent();
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -48,14 +74,14 @@ const HeavyLift: React.FC = () => {
       {/* Services Grid Section */}
       <section className="services-section">
         <div className="services-container">
-          <h2 className="services-title">Relocari industriale cu echipamente specializate si oameni experimentati in domeniu.</h2>
+          <h2 className="services-title">{serviceCardsContent?.SectionTitle || 'Loading...'}</h2>
           
           <div className="services-grid">
             <div className="service-item clickable" onClick={() => scrollToSection('hydraulic-cranes')}>
               <div className="service-icon">
                 <img src="/images/icons/iconaerian.webp" alt="Acționări speciale cu portale hidraulice mobile de mare tonaj" />
               </div>
-              <h3>Acționări speciale cu portale hidraulice mobile de mare tonaj</h3>
+              <h3>{serviceCardsContent?.Service1Title || 'Loading...'}</h3>
               <div className="service-overlay">
                 <p>Citeste mai mult</p>
               </div>
@@ -65,7 +91,7 @@ const HeavyLift: React.FC = () => {
               <div className="service-icon">
                 <img src="/images/icons/iconlogistice.webp" alt="Soluții inteligente pentru diverse și neașteptate relocări la sediul firmei" />
               </div>
-              <h3>Soluții inteligente pentru diverse și neașteptate relocări la sediul firmei</h3>
+              <h3>{serviceCardsContent?.Service2Title || 'Loading...'}</h3>
               <div className="service-overlay">
                 <p>Citeste mai mult</p>
               </div>
@@ -75,7 +101,7 @@ const HeavyLift: React.FC = () => {
               <div className="service-icon">
                 <img src="/images/icons/iconinternational.webp" alt="Relocări în cadrul acelorași hale, firme, localități, țări, continent" />
               </div>
-              <h3>Relocări în cadrul acelorași hale, firme, localități, țări, continent</h3>
+              <h3>{serviceCardsContent?.Service3Title || 'Loading...'}</h3>
               <div className="service-overlay">
                 <p>Citeste mai mult</p>
               </div>
@@ -85,7 +111,7 @@ const HeavyLift: React.FC = () => {
               <div className="service-icon">
                 <img src="/images/icons/iconnaval.webp" alt="Montaj industrial cu echipaje noastre, folosind și specialiști în echipamente hidraulice și de automatizare" />
               </div>
-              <h3>Montaj industrial cu echipaje noastre, folosind și specialiști în echipamente hidraulice și de automatizare</h3>
+              <h3>{serviceCardsContent?.Service4Title || 'Loading...'}</h3>
               <div className="service-overlay">
                 <p>Citeste mai mult</p>
               </div>
@@ -95,7 +121,7 @@ const HeavyLift: React.FC = () => {
               <div className="service-icon">
                 <img src="/images/icons/heavy.webp" alt="Integrare cu transport agabaritic – activitate door-to-door" />
               </div>
-              <h3>Integrare cu transport agabaritic – activitate door-to-door</h3>
+              <h3>{serviceCardsContent?.Service5Title || 'Loading...'}</h3>
               <div className="service-overlay">
                 <p>Citeste mai mult</p>
               </div>
@@ -105,7 +131,7 @@ const HeavyLift: React.FC = () => {
               <div className="service-icon">
                 <img src="/images/icons/iconvamuire.webp" alt="Flotă de echipamente: Detalii și specificații" />
               </div>
-              <h3>Flotă de echipamente: Detalii și specificații</h3>
+              <h3>{serviceCardsContent?.Service6Title || 'Loading...'}</h3>
               <div className="service-overlay">
                 <p>Citeste mai mult</p>
               </div>
@@ -125,13 +151,14 @@ const HeavyLift: React.FC = () => {
         <div className="content-container">
           <div className="content-grid">
             <div className="content-image">
-              <img src="/images/source/heavyliftex1.webp" alt="Acționări speciale cu portale hidraulice mobile" />
+              <img 
+                src={contentSectionsData?.Section1Image ? `http://localhost:3001${contentSectionsData.Section1Image.url}` : '/images/source/heavyliftex1.webp'} 
+                alt={contentSectionsData?.Section1Title || 'Acționări speciale cu portale hidraulice mobile'} 
+              />
             </div>
             <div className="content-text">
-              <h2>Acționări speciale cu portale hidraulice mobile</h2>
-              <p>
-              Suntem echipați cu portale hidraulice mobile de mare capacitate, ideale pentru ridicarea și manipularea echipamentelor în spații limitate sau în condiții speciale. Aceste sisteme oferă o alternativă eficientă și sigură la macaralele clasice, fiind extrem de utile în hale sau spații închise.
-              </p>
+              <h2>{contentSectionsData?.Section1Title || 'Loading...'}</h2>
+              <p dangerouslySetInnerHTML={{ __html: contentSectionsData?.Section1Content || 'Loading...' }} />
             </div>
           </div>
         </div>
@@ -142,13 +169,14 @@ const HeavyLift: React.FC = () => {
         <div className="content-container">
           <div className="content-grid reverse">
             <div className="content-text">
-              <h2>Soluții inteligente pentru relocări complexe</h2>
-              <p>
-              Fie că este vorba despre o linie de producție, un utilaj individual sau o întreagă instalație industrială, dezvoltăm soluții inteligente pentru relocări neprevăzute sau atipice. Intervenim cu planuri personalizate, gândite pentru realitatea din teren – indiferent de provocări.
-              </p>
+              <h2>{contentSectionsData?.Section2Title || 'Loading...'}</h2>
+              <p dangerouslySetInnerHTML={{ __html: contentSectionsData?.Section2Content || 'Loading...' }} />
             </div>
             <div className="content-image">
-              <img src="/images/source/heavyliftex3.webp" alt="Soluții inteligente pentru relocări" />
+              <img 
+                src={contentSectionsData?.Section2Image ? `http://localhost:3001${contentSectionsData.Section2Image.url}` : '/images/source/heavyliftex3.webp'} 
+                alt={contentSectionsData?.Section2Title || 'Soluții inteligente pentru relocări'} 
+              />
             </div>
           </div>
         </div>
@@ -159,19 +187,31 @@ const HeavyLift: React.FC = () => {
         <div className="content-container">
           <div className="content-grid">
             <div className="content-image">
-              <img src="/images/source/heavyliftex2.webp" alt="Relocări în orice scară" />
+              <img 
+                src={contentSectionsData?.Section3Image ? `http://localhost:3001${contentSectionsData.Section3Image.url}` : '/images/source/heavyliftex2.webp'} 
+                alt={contentSectionsData?.Section3Title || 'Relocări în orice scară'} 
+              />
             </div>
             <div className="content-text">
-              <h2>Relocări în orice scară</h2>
-              <p>
-              Indiferent de distanță sau dimensiune, gestionăm relocări:
-              </p>
-              <ul>
-                <li>În cadrul aceleiași hale</li>
-                <li>Între secții sau clădiri ale aceleiași firme</li>
-                <li>La nivel local, național sau internațional</li>
-                <li>În interiorul sau în afara Europei</li>
-              </ul>
+              <h2>{contentSectionsData?.Section3Title || 'Loading...'}</h2>
+              {contentSectionsData?.Section3Content ? (
+                <div>
+                  <p>
+                    {contentSectionsData.Section3Content.split('\n')[0]}
+                  </p>
+                  <ul>
+                    {contentSectionsData.Section3Content
+                      .split('\n')
+                      .slice(1)
+                      .filter((line: string) => line.trim().startsWith('-'))
+                      .map((item: string, index: number) => (
+                        <li key={index}>{item.replace(/^-\s*/, '').replace(/<br>/g, '')}</li>
+                      ))}
+                  </ul>
+                </div>
+              ) : (
+                <p>Loading...</p>
+              )}
             </div>
           </div>
         </div>
@@ -182,22 +222,40 @@ const HeavyLift: React.FC = () => {
         <div className="content-container">
           <div className="content-grid reverse">
             <div className="content-text">
-              <h2>Montaj industrial cu echipe specializate</h2>
-              <p>
-              Punem la dispoziție echipe tehnice specializate în montaj industrial, formate din:
-              </p>
-              <ul>
-                <li>Electricieni industriali</li>
-                <li>Mecanici</li>
-                <li>Specialiști în sisteme hidraulice</li>
-                <li>Experți în automatizări și punere în funcțiune</li>
-              </ul>
-              <p>
-              Ne ocupăm de instalarea și alinierea echipamentelor conform cerințelor tehnologice ale clientului.
-              </p>
+              <h2>{contentSectionsData?.Section4Title || 'Loading...'}</h2>
+              {contentSectionsData?.Section4Content ? (
+                <div>
+                  {/* First paragraph */}
+                  <p>
+                    {contentSectionsData.Section4Content.split('\n')[0]}
+                  </p>
+                  {/* Bullet points as proper list */}
+                  <ul>
+                    {contentSectionsData.Section4Content
+                      .split('\n')
+                      .slice(1)
+                      .filter((line: string) => line.trim().startsWith('-'))
+                      .map((item: string, index: number) => (
+                        <li key={index}>{item.replace(/^-\s*/, '').replace(/<br>/g, '')}</li>
+                      ))}
+                  </ul>
+                  {/* Last paragraph */}
+                  {contentSectionsData.Section4Content.split('\n').slice(-1)[0].trim() && 
+                   !contentSectionsData.Section4Content.split('\n').slice(-1)[0].startsWith('-') && (
+                    <p>
+                      {contentSectionsData.Section4Content.split('\n').slice(-1)[0]}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p>Loading...</p>
+              )}
             </div>
             <div className="content-image">
-              <img src="/images/source/heavyliftex4.webp" alt="Montaj industrial specializat" />
+              <img 
+                src={contentSectionsData?.Section4Image ? `http://localhost:3001${contentSectionsData.Section4Image.url}` : '/images/source/heavyliftex4.webp'} 
+                alt={contentSectionsData?.Section4Title || 'Montaj industrial specializat'} 
+              />
             </div>
           </div>
         </div>
@@ -208,13 +266,14 @@ const HeavyLift: React.FC = () => {
         <div className="content-container">
           <div className="content-grid">
             <div className="content-image">
-              <img src="/images/source/heavyliftex5.webp" alt="Transport integrat door-to-door" />
+              <img 
+                src={contentSectionsData?.Section5Image ? `http://localhost:3001${contentSectionsData.Section5Image.url}` : '/images/source/heavyliftex5.webp'} 
+                alt={contentSectionsData?.Section5Title || 'Transport integrat door-to-door'} 
+              />
             </div>
             <div className="content-text">
-              <h2>Integrare cu transportul agabaritic – soluții door-to-door</h2>
-              <p>
-              Unul dintre cele mai importante avantaje Holleman este integrarea perfectă între relocare și transport. Beneficiezi de un serviciu complet, de tip door-to-door, cu un singur partener responsabil de întregul proces: demontare, manipulare, transport și remontare.
-              </p>
+              <h2>{contentSectionsData?.Section5Title || 'Loading...'}</h2>
+              <p dangerouslySetInnerHTML={{ __html: contentSectionsData?.Section5Content || 'Loading...' }} />
             </div>
           </div>
         </div>
@@ -225,17 +284,24 @@ const HeavyLift: React.FC = () => {
         <div className="content-container">
           <div className="content-grid reverse">
             <div className="content-text">
-              <h2>Flotă de echipamente</h2>
+              <h2>{contentSectionsData?.Section6Title || 'Loading...'}</h2>
               <div className="equipment-list">
-              <h3>Pentru a oferi cele mai bune soluții, investim constant în echipamente de ultimă generație:</h3>
-              <ul>
-                <li>Sisteme de ridicare hidraulică (portale 100 – 600 tf)</li>
-                <li>Cărucioare modulare cu role de transport și manipulare</li>
-                <li>Sistem tip “skidding” pentru alunecare controlată</li>
-                <li>Macarale mobile de interior</li>
-                <li>Platforme autopropulsate pentru spații înguste</li>
-                <li>Unelte și accesorii specializate pentru ancorare, ridicare și poziționare</li>
-              </ul>
+                {contentSectionsData?.Section6Content ? (
+                  <>
+                    <h3>{contentSectionsData.Section6Content.split('\n')[0]}</h3>
+                    <ul>
+                      {contentSectionsData.Section6Content
+                        .split('\n')
+                        .slice(1)
+                        .filter((line: string) => line.trim().startsWith('-'))
+                        .map((item: string, index: number) => (
+                          <li key={index}>{item.replace(/^-\s*/, '').trim()}</li>
+                        ))}
+                    </ul>
+                  </>
+                ) : (
+                  <p>Loading...</p>
+                )}
               </div>
               <div className="action-button">
                 <button className="btn" onClick={() => navigate('/fleet')}>
@@ -245,7 +311,10 @@ const HeavyLift: React.FC = () => {
               </div>
             </div>
             <div className="content-image">
-              <img src="/images/source/flota.webp" alt="Flotă de echipamente" />
+              <img 
+                src={contentSectionsData?.Section6Image ? `http://localhost:3001${contentSectionsData.Section6Image.url}` : '/images/source/flota.webp'} 
+                alt={contentSectionsData?.Section6Title || 'Flotă de echipamente'} 
+              />
             </div>
           </div>
         </div>
