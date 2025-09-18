@@ -10,6 +10,20 @@ const Contact: React.FC = () => {
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const { isLoading, isSuccess, error, submitContactForm, resetForm } = useEmailForm();
   
+  // State for contact locations from Strapi
+  const [location1, setLocation1] = useState<any>(null);
+  const [location2, setLocation2] = useState<any>(null);
+  const [locationsLoading, setLocationsLoading] = useState(true);
+  
+  // State for network section from Strapi
+  const [networkInfo, setNetworkInfo] = useState<any>(null);
+  const [networkOffices, setNetworkOffices] = useState<any[]>([]);
+  const [networkLoading, setNetworkLoading] = useState(true);
+  
+  // State for coverage section from Strapi
+  const [coverageContent, setCoverageContent] = useState<any>(null);
+  const [coverageLoading, setCoverageLoading] = useState(true);
+  
   // Form state
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
@@ -230,6 +244,79 @@ const Contact: React.FC = () => {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', 'https://holleman.ro/contact');
+  }, []);
+
+  // Fetch contact locations from Strapi
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const [location1Res, location2Res] = await Promise.all([
+          fetch('https://holleman-cms-production.up.railway.app/api/contact-location?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/contact-location2?populate=*')
+        ]);
+
+        const location1Data = await location1Res.json();
+        const location2Data = await location2Res.json();
+
+        console.log('Location 1 Data:', location1Data);
+        console.log('Location 2 Data:', location2Data);
+
+        setLocation1(location1Data.data);
+        setLocation2(location2Data.data);
+      } catch (error) {
+        console.error('Error fetching contact locations:', error);
+      } finally {
+        setLocationsLoading(false);
+      }
+    };
+
+    fetchLocations();
+  }, []);
+
+  // Fetch network content from Strapi
+  useEffect(() => {
+    const fetchNetworkContent = async () => {
+      try {
+        const [networkInfoRes, networkOfficesRes] = await Promise.all([
+          fetch('https://holleman-cms-production.up.railway.app/api/contact-network-info?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/contact-network-offices?populate=*')
+        ]);
+
+        const networkInfoData = await networkInfoRes.json();
+        const networkOfficesData = await networkOfficesRes.json();
+
+        console.log('Network Info Data:', networkInfoData);
+        console.log('Network Offices Data:', networkOfficesData);
+
+        setNetworkInfo(networkInfoData.data);
+        setNetworkOffices(networkOfficesData.data || []);
+      } catch (error) {
+        console.error('Error fetching network content:', error);
+      } finally {
+        setNetworkLoading(false);
+      }
+    };
+
+    fetchNetworkContent();
+  }, []);
+
+  // Fetch coverage content from Strapi
+  useEffect(() => {
+    const fetchCoverageContent = async () => {
+      try {
+        const coverageRes = await fetch('https://holleman-cms-production.up.railway.app/api/contact-acoperire?populate=*');
+        const coverageData = await coverageRes.json();
+
+        console.log('Coverage Data:', coverageData);
+        setCoverageContent(coverageData.data);
+      } catch (error) {
+        console.error('Error fetching coverage content:', error);
+      } finally {
+        setCoverageLoading(false);
+      }
+    };
+
+    fetchCoverageContent();
   }, []);
 
   // Handle scroll to section based on URL path
@@ -813,46 +900,57 @@ const Contact: React.FC = () => {
             
             <div className="contact-info">
               <div className="contact-info-grid">
-                <div className="contact-info-item">
-                  <div className="contact-info-header">
-                    <div className="location-marker">
-                      <img src="/images/icons/location-marker.webp" alt="Location" />
-                    </div>
-                    <h3>Sediul Central București - Ilfov</h3>
-                  </div>
-                  <p className="address">
-                    📍 Șoseaua de Centură nr. 29, Jilava, jud. Ilfov
-                  </p>
-                  <div className="contact-details">
-                    <p className="phone">📞 +40 21 321 38 22 / 321 61 82</p>
-                    <p className="mobile">📱 +40 744 317 713 / +40 745 017 529</p>
-                  </div>
-                  <div className="services">
-                    <p>🔹 Coordonare proiecte sud-est România și relații cu autoritățile</p>
-                    <p>🔹 Dispecerat regional și consultanță logistică</p>
-                  </div>
-                </div>
-                
-                <div className="contact-info-item">
-                  <div className="contact-info-header">
-                    <div className="location-marker">
-                      <img src="/images/icons/location-marker.webp" alt="Location" />
-                    </div>
-                    <h3>Sucursala Constanța</h3>
-                  </div>
-                  <p className="address">
-                    📍 Constanța
-                  </p>
-                  <div className="contact-details">
-                    <p className="phone">
-                      📞 +40 XXX XXX XXX
-                    </p>
-                  </div>
-                  <div className="services">
-                    <p>🔹 Proiecte multimodale (naval – rutier)</p>
-                    <p>🔹 Încărcare/descărcare containere, soluții portuare</p>
-                  </div>
-                </div>
+                {locationsLoading ? (
+                  <div>Loading locations...</div>
+                ) : (
+                  <>
+                    {location1 && (
+                      <div className="contact-info-item">
+                        <div className="contact-info-header">
+                          <div className="location-marker">
+                            <img src="/images/icons/location-marker.webp" alt="Location" />
+                          </div>
+                          <h3>{location1.title}</h3>
+                        </div>
+                        <p className="address">
+                          {location1.address}
+                        </p>
+                        <div className="contact-details">
+                          {location1.phone && <p className="phone">{location1.phone}</p>}
+                          {location1.mobile && <p className="mobile">{location1.mobile}</p>}
+                        </div>
+                        <div className="services">
+                          {location1.services && location1.services.split('\n').filter((service: string) => service.trim()).map((service: string, index: number) => (
+                            <p key={index}>{service.trim()}</p>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {location2 && (
+                      <div className="contact-info-item">
+                        <div className="contact-info-header">
+                          <div className="location-marker">
+                            <img src="/images/icons/location-marker.webp" alt="Location" />
+                          </div>
+                          <h3>{location2.title}</h3>
+                        </div>
+                        <p className="address">
+                          {location2.address}
+                        </p>
+                        <div className="contact-details">
+                          {location2.phone && <p className="phone">{location2.phone}</p>}
+                          {location2.mobile && <p className="mobile">{location2.mobile}</p>}
+                        </div>
+                        <div className="services">
+                          {location2.services && location2.services.split('\n').filter((service: string) => service.trim()).map((service: string, index: number) => (
+                            <p key={index}>{service.trim()}</p>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -868,47 +966,61 @@ const Contact: React.FC = () => {
       >
         <div className="international-network-container">
           <div className="network-content">
-            <h2 className="network-title animate-on-scroll fade-up">
-              Rețea internațională <span className="highlight">Holleman</span>
-            </h2>
-            
-            <div className="network-intro animate-on-scroll fade-up delay-200">
-              <p>Suntem activi în Europa Centrală și de Est printr-o rețea consolidată de filiale și parteneri strategici:</p>
-            </div>
-            
-            <div className="network-offices">
-              <h3 className="offices-title animate-on-scroll fade-up delay-300">Sucursale proprii și birouri reprezentative:</h3>
-              
-              <div className="offices-grid animate-on-scroll stagger-children delay-400">
-                <div className="office-item">
-                  <div className="flag-icon">
-                    <img src="/images/icons/BGflag.webp" alt="Bulgaria flag" />
-                  </div>
-                  <span>Bulgaria – Sofia</span>
+            {networkLoading ? (
+              <div>Loading network content...</div>
+            ) : networkInfo ? (
+              <>
+                <h2 className="network-title" style={{
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  animation: 'slideInUp 0.8s ease-out forwards'
+                }}>
+                  {networkInfo.title} <span className="highlight">
+                    {networkInfo.highlightedTitle || "Holleman"}
+                  </span>
+                </h2>
+                
+                <div className="network-intro" style={{
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  animation: 'slideInUp 0.8s ease-out 0.2s forwards'
+                }}>
+                  <p>{networkInfo.intro}</p>
                 </div>
                 
-                <div className="office-item">
-                  <div className="flag-icon">
-                    <img src="/images/icons/SRflag.webp" alt="Serbia flag" />
+                <div className="network-offices">
+                  <h3 className="offices-title" style={{
+                    opacity: 0,
+                    transform: 'translateY(30px)',
+                    animation: 'slideInUp 0.8s ease-out 0.4s forwards'
+                  }}>
+                    {networkInfo.subtitle || "Sucursale proprii și birouri reprezentative:"}
+                  </h3>
+                  
+                  <div className="offices-grid">
+                    {networkOffices.map((office, index) => (
+                      <div key={index} className="office-item" style={{
+                        opacity: 0,
+                        transform: 'translateY(30px)',
+                        animation: `slideInUp 0.8s ease-out ${0.6 + (index * 0.1)}s forwards`
+                      }}>
+                        <div className="flag-icon">
+                          {office.image && office.image.length > 0 && (
+                            <img 
+                              src={`https://holleman-cms-production.up.railway.app${office.image[0].url}`} 
+                              alt={`${office.country} flag`} 
+                            />
+                          )}
+                        </div>
+                        <span>{office.country} – {office.city}</span>
+                      </div>
+                    ))}
                   </div>
-                  <span>Serbia – Belgrad</span>
                 </div>
-                
-                <div className="office-item">
-                  <div className="flag-icon">
-                    <img src="/images/icons/MDflag.webp" alt="Moldova flag" />
-                  </div>
-                  <span>Republica Moldova – Chișinău</span>
-                </div>
-                
-                <div className="office-item">
-                  <div className="flag-icon">
-                    <img src="/images/icons/HUflag.webp" alt="Hungary flag" />
-                  </div>
-                  <span>Ungaria – Szeged</span>
-                </div>
-              </div>
-            </div>
+              </>
+            ) : (
+              <div>No network content found.</div>
+            )}
           </div>
         </div>
       </section>
@@ -917,31 +1029,103 @@ const Contact: React.FC = () => {
       <section className="unlimited-coverage-section">
         <div className="unlimited-coverage-container">
           <div className="coverage-content">
-            <h2 className="coverage-title animate-on-scroll fade-up">Acoperire fără limite</h2>
-            <p className="coverage-subtitle animate-on-scroll fade-up delay-200">
-              Indiferent unde se află proiectul tău – în România, în Europa sau în afara granițelor UE 
-              – Holleman îți oferă o rețea pregătită să răspundă rapid, eficient și profesionist.
-            </p>
-            
-            <div className="partnerships-section">
-              <h3 className="partnerships-title animate-on-scroll fade-up delay-300">Parteneriate internaționale:</h3>
-              <p className="partnerships-intro animate-on-scroll fade-up delay-400">Colaborăm cu operatori logistici și transportatori specializați în:</p>
-              
-              <ul className="partnerships-list animate-on-scroll stagger-children delay-500">
-                <li>
-                  <span className="bullet-point"></span>
-                  Germania, Austria, Polonia, Olanda, Italia, Turcia
-                </li>
-                <li>
-                  <span className="bullet-point"></span>
-                  Rute comerciale Est–Vest și coridoare multimodale internaționale
-                </li>
-                <li>
-                  <span className="bullet-point"></span>
-                  Acces rapid la porturi maritime și fluviale (Constanța, Rotterdam, Antwerp, etc.)
-                </li>
-              </ul>
-            </div>
+            {coverageLoading ? (
+              <div>Loading coverage content...</div>
+            ) : coverageContent ? (
+              <>
+                <h2 className="coverage-title" style={{
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  animation: 'slideInUp 0.8s ease-out forwards'
+                }}>
+                  {coverageContent.title}
+                </h2>
+                
+                <p className="coverage-subtitle" style={{
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  animation: 'slideInUp 0.8s ease-out 0.2s forwards'
+                }}>
+                  {coverageContent.intro}
+                </p>
+                
+                <div className="partnerships-section">
+                  <h3 className="partnerships-title" style={{
+                    opacity: 0,
+                    transform: 'translateY(30px)',
+                    animation: 'slideInUp 0.8s ease-out 0.4s forwards'
+                  }}>
+                    {coverageContent.subtitle}
+                  </h3>
+                  
+                  <p className="partnerships-intro" style={{
+                    opacity: 0,
+                    transform: 'translateY(30px)',
+                    animation: 'slideInUp 0.8s ease-out 0.6s forwards'
+                  }}>
+                    {coverageContent.introSubtitle}
+                  </p>
+                  
+                  
+                  <ul style={{
+                    opacity: 0,
+                    transform: 'translateY(30px)',
+                    animation: 'slideInUp 0.8s ease-out 0.8s forwards',
+                    display: 'block',
+                    visibility: 'visible',
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0
+                  }}>
+                    {coverageContent.bulletPoints && (() => {
+                      const text = coverageContent.bulletPoints;
+                      let points = [];
+                      
+                      // If it contains line breaks, use them
+                      if (text.includes('\n')) {
+                        points = text.split('\n').filter((point: string) => point.trim());
+                      } else {
+                        // Manual split based on the specific content structure
+                        points = [
+                          "Germania, Austria, Polonia, Olanda, Italia, Turcia",
+                          "Rute comerciale Est–Vest și coridoare multimodale internaționale", 
+                          "Acces rapid la porturi maritime și fluviale (Constanța, Rotterdam, Antwerp, etc.)"
+                        ];
+                      }
+                      
+                      return points.map((point: string, index: number) => (
+                        <li key={index} style={{
+                          opacity: 1,
+                          transform: 'translateY(0px)',
+                          display: 'flex',
+                          visibility: 'visible',
+                          alignItems: 'flex-start',
+                          gap: '15px',
+                          marginBottom: '20px',
+                          fontSize: 'clamp(15px, 2vw, 17px)',
+                          lineHeight: '1.6',
+                          color: '#333'
+                        }}>
+                          <span style={{
+                            opacity: 1,
+                            visibility: 'visible',
+                            width: '12px',
+                            height: '12px',
+                            backgroundColor: '#D4A017',
+                            borderRadius: '50%',
+                            flexShrink: 0,
+                            marginTop: '6px'
+                          }}></span>
+                          {point.trim()}
+                        </li>
+                      ));
+                    })()}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <div>No coverage content found.</div>
+            )}
           </div>
         </div>
       </section>

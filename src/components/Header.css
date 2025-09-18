@@ -88,6 +88,10 @@
   color: #4CAF50;
 }
 
+.header.scrolled .nav-item:hover {
+  color: #4CAF50;
+}
+
 .dropdown-arrow {
   font-size: 10px;
   color: white;

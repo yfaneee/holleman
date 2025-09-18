@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,6 +6,38 @@ import './Agro.css';
 
 const Agro: React.FC = () => {
   const navigate = useNavigate();
+  
+  // State for Strapi content
+  const [agroContentSection, setAgroContentSection] = useState<any>(null);
+  const [agroCtaSection, setAgroCtaSection] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch content from Strapi
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const [agroContentRes, agroCtaRes] = await Promise.all([
+          fetch('https://holleman-cms-production.up.railway.app/api/agro-content-section?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/agro-contact-section?populate=*')
+        ]);
+
+        const agroContentData = await agroContentRes.json();
+        const agroCtaData = await agroCtaRes.json();
+
+        console.log('Agro Content Data:', agroContentData);
+        console.log('Agro CTA Data:', agroCtaData);
+
+        setAgroContentSection(agroContentData.data);
+        setAgroCtaSection(agroCtaData.data);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
 
   return (
     <div className="agro-page">
@@ -122,7 +154,9 @@ const Agro: React.FC = () => {
           </div>
           
           <div className="agro-services-footer">
-            <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
+            <button className="btn" onClick={() => navigate('/contact')}>
+              <span>CONTACT</span>
+            </button>
           </div>
         </div>
       </section>
@@ -130,31 +164,26 @@ const Agro: React.FC = () => {
       {/* Agro Content Section */}
       <section className="agro-content-section">
         <div className="agro-content-container">
-          <div className="agro-content-header">
-            <h2 className="agro-content-title">
-              Solutii integrate pentru <span className="agro-highlight">agricultura performanta</span>
-            </h2>
-          </div>
-          
-          <div className="agro-content-text">
-            <div className="agro-content-point">
-              <div className="agro-bullet"></div>
-              <p>
-                Divizia Holleman Agro oferă un ecosistem complet de servicii dedicate sectorului agricol. 
-                De la producţia vegetală și logistica cerealelor, până la procesare, consultanță și integrarea 
-                lanţului agroalimentar, acţionăm ca un partener de încredere pentru fermieri, cooperative şi 
-                jucători din industria agricolă.
-              </p>
-            </div>
-            
-            <div className="agro-content-point">
-              <div className="agro-bullet"></div>
-              <p>
-                Prin investiţii continue în tehnologie, infrastructură și know-how, contribuim la dezvoltarea 
-                unei agriculturi eficiente, sustenabile și competitive.
-              </p>
-            </div>
-          </div>
+          {loading ? (
+            <div>Loading...</div>
+          ) : agroContentSection && (
+            <>
+              <div className="agro-content-header">
+                <h2 className="agro-content-title">
+                  {agroContentSection.title} <span className="agro-highlight">{agroContentSection.highlightedText}</span>
+                </h2>
+              </div>
+              
+              <div className="agro-content-text">
+                {agroContentSection.bulletPoints && agroContentSection.bulletPoints.split('\n').filter((point: string) => point.trim()).map((point: string, index: number) => (
+                  <div key={index} className="agro-content-point">
+                    <div className="agro-bullet"></div>
+                    <p>{point.trim()}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -162,13 +191,19 @@ const Agro: React.FC = () => {
       <section className="agro-cta-section" style={{backgroundImage: `url('/images/Group8745.webp')`}}>
         <div className="agro-cta-container">
           <div className="agro-cta-content">
-            <h2 className="agro-cta-title">
-              <span className="agro-highlight">Holleman Agro</span> este mai mult decât un furnizor - este un partener activ în dezvoltarea lanțului agroalimentar, de la sămânță până la produsul finit. Punem la dispoziție resursele, infrastructura și expertiza necesare pentru o agricultură modernă și sustenabilă.
-            </h2>
-            <button className="btn cta-btn" onClick={() => navigate('/contact')}>
-              Contacteaza-ne pentru o oferta personalizata
-              <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
-            </button>
+            {loading ? (
+              <div>Loading...</div>
+            ) : agroCtaSection && (
+              <>
+                <h2 className="agro-cta-title">
+                  <span className="agro-highlight">{agroCtaSection.highlightedText}</span> {agroCtaSection.title}
+                </h2>
+                <button className="btn cta-btn" onClick={() => navigate('/contact')}>
+                  <span>Contacteaza-ne pentru o oferta personalizata</span>
+                  <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
+                </button>
+              </>
+            )}
           </div>
         </div>
       </section>

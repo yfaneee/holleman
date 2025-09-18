@@ -132,25 +132,185 @@ export const newsData: NewsArticle[] = [
 ];
 
 // Helper function to get article by ID
-export const getArticleById = (id: string): NewsArticle | undefined => {
-  return newsData.find(article => article.id === id);
+export const getArticleById = async (id: string): Promise<NewsArticle | undefined> => {
+  const articles = await getAllArticles();
+  return articles.find(article => article.id === id);
+};
+
+// Synchronous version that checks cache first
+export const getArticleByIdSync = (id: string): NewsArticle | undefined => {
+  const articles = strapiArticlesCache || newsData;
+  return articles.find(article => article.id === id);
 };
 
 // Helper function to get related articles
-export const getRelatedArticles = (articleId: string): NewsArticle[] => {
-  const article = getArticleById(articleId);
+export const getRelatedArticles = async (articleId: string): Promise<NewsArticle[]> => {
+  const article = await getArticleById(articleId);
+  if (!article || !article.relatedArticles) return [];
+  
+  const articles = await getAllArticles();
+  return article.relatedArticles
+    .map(id => articles.find(a => a.id === id))
+    .filter((article): article is NewsArticle => article !== undefined)
+    .slice(0, 3); // Limit to 3 related articles
+};
+
+// Synchronous version that checks cache first
+export const getRelatedArticlesSync = (articleId: string): NewsArticle[] => {
+  const articles = strapiArticlesCache || newsData;
+  const article = articles.find(a => a.id === articleId);
   if (!article || !article.relatedArticles) return [];
   
   return article.relatedArticles
-    .map(id => getArticleById(id))
+    .map(id => articles.find(a => a.id === id))
     .filter((article): article is NewsArticle => article !== undefined)
     .slice(0, 3); // Limit to 3 related articles
 };
 
 
+// Cache for Strapi articles
+let strapiArticlesCache: NewsArticle[] | null = null;
+let cacheTimestamp = 0;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+// Force clear cache function
+export const clearArticlesCache = () => {
+  strapiArticlesCache = null;
+  cacheTimestamp = 0;
+  console.log('Articles cache cleared!');
+};
+
+// Helper function to transform Strapi article data to our NewsArticle interface
+const transformStrapiArticle = (strapiArticle: any): NewsArticle => {
+  console.log('Transforming Strapi article:', strapiArticle);
+  
+  // Get hero image URL
+          const heroImageUrl = strapiArticle.heroImage 
+            ? `https://holleman-cms-production.up.railway.app${strapiArticle.heroImage.url}` 
+            : '/images/projectslideshow.webp';
+
+  // Use hero image as card image too (or you can add a separate image field)
+          const cardImageUrl = strapiArticle.heroImage 
+            ? `https://holleman-cms-production.up.railway.app${strapiArticle.heroImage.url}` 
+            : '/images/slide1.webp';
+
+  // Use the Content field as introduction (much simpler!)
+  const introduction = strapiArticle.Content || 'Introduction coming soon...';
+  
+  // Only use ContentSection components from Strapi (with images)
+  const sections = strapiArticle.ContentSection ? strapiArticle.ContentSection.map((section: any) => ({
+    title: section.Title || section.title || 'Section',
+    content: section.content || '',
+            image: section.Media && section.Media.length > 0 
+              ? `https://holleman-cms-production.up.railway.app${section.Media[0].url}` 
+              : undefined
+  })) : [];
+  
+  // Use the dedicated conclusion field
+  const conclusion = strapiArticle.Concluzie || strapiArticle.conclusion || 'Conclusion coming soon...';
+
+  // Parse tags
+  const tags = strapiArticle.tags 
+    ? strapiArticle.tags.split(',').map((tag: string) => tag.trim())
+    : [];
+
+  // Format date
+  const formattedDate = strapiArticle.date 
+    ? new Date(strapiArticle.date).toLocaleDateString('ro-RO', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      })
+    : new Date().toLocaleDateString('ro-RO', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+
+  return {
+    id: strapiArticle.slug || strapiArticle.documentId,
+    title: strapiArticle.Title || 'Untitled Article',
+    subtitle: strapiArticle.Subtitle || '',
+    date: formattedDate,
+    author: strapiArticle.Author || 'Echipa Holleman',
+    image: cardImageUrl,
+    heroImage: heroImageUrl,
+    excerpt: strapiArticle.excerpt || '',
+    content: {
+      introduction,
+      sections,
+      conclusion
+    },
+    tags,
+    relatedArticles: [] // We'll populate this separately if needed
+  };
+};
+
+// Function to fetch articles from Strapi
+const fetchStrapiArticles = async (): Promise<NewsArticle[]> => {
+  try {
+            const response = await fetch('https://holleman-cms-production.up.railway.app/api/articles?populate[0]=ContentSection&populate[1]=ContentSection.Media&populate[2]=heroImage&populate[3]=Seo');
+    
+    if (!response.ok) {
+      console.warn('Failed to fetch articles from Strapi, using static data');
+      return newsData;
+    }
+
+    const data = await response.json();
+    console.log('Strapi Articles Data:', data);
+
+    if (data.data && Array.isArray(data.data)) {
+      const transformedArticles = data.data.map(transformStrapiArticle);
+      
+      // Add related articles logic (simple: get other articles)
+      transformedArticles.forEach((article: NewsArticle) => {
+        const relatedArticles = transformedArticles
+          .filter((a: NewsArticle) => a.id !== article.id)
+          .slice(0, 3)
+          .map((a: NewsArticle) => a.id);
+        
+        article.relatedArticles = relatedArticles;
+      });
+
+      return transformedArticles;
+    }
+    
+    console.warn('Invalid Strapi response format, using static data');
+    return newsData;
+  } catch (error) {
+    console.error('Error fetching articles from Strapi:', error);
+    return newsData;
+  }
+};
+
+// Async function to get all articles
+export const getAllArticles = async (): Promise<NewsArticle[]> => {
+  const now = Date.now();
+  
+  // Check if we have cached data and it's still valid
+  if (strapiArticlesCache && (now - cacheTimestamp) < CACHE_DURATION) {
+    return strapiArticlesCache;
+  }
+
+  // Fetch fresh data from Strapi
+  const articles = await fetchStrapiArticles();
+  
+  // Update cache
+  strapiArticlesCache = articles;
+  cacheTimestamp = now;
+  
+  return articles;
+};
+
+// Synchronous version that returns cached data or static data
+export const getAllArticlesSync = (): NewsArticle[] => {
+  return strapiArticlesCache || newsData;
+};
+
 // Helper function to get latest articles
 export const getLatestArticles = (limit: number = 6): NewsArticle[] => {
-  return newsData
+  const articles = getAllArticlesSync();
+  return articles
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, limit);
 };

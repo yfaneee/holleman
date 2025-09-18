@@ -631,16 +631,159 @@ export const projectsData: ProjectData[] = [
   }
 ];
 
-export const getProjectById = (id: string): ProjectData | undefined => {
-  return projectsData.find(project => project.id === id);
+export const getProjectById = async (id: string): Promise<ProjectData | undefined> => {
+  const projects = await getAllProjects();
+  return projects.find(project => project.id === id);
 };
 
-export const getRelatedProjects = (currentProjectId: string, division?: string): ProjectData[] => {
-  return projectsData
+// Synchronous version that checks cache first
+export const getProjectByIdSync = (id: string): ProjectData | undefined => {
+  const projects = strapiProjectsCache || projectsData;
+  return projects.find(project => project.id === id);
+};
+
+export const getRelatedProjects = async (currentProjectId: string, division?: string): Promise<ProjectData[]> => {
+  const projects = await getAllProjects();
+  return projects
     .filter(project => project.id !== currentProjectId)
     .filter(project => !division || project.division === division);
 };
 
-export const getAllProjects = (): ProjectData[] => {
-  return projectsData;
+// Synchronous version that checks cache first
+export const getRelatedProjectsSync = (currentProjectId: string, division?: string): ProjectData[] => {
+  const projects = strapiProjectsCache || projectsData;
+  return projects
+    .filter(project => project.id !== currentProjectId)
+    .filter(project => !division || project.division === division);
+};
+
+// Cache for Strapi projects
+let strapiProjectsCache: ProjectData[] | null = null;
+let cacheTimestamp = 0;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+// Helper function to transform Strapi project data to our ProjectData interface
+const transformStrapiProject = (strapiProject: any): ProjectData => {
+  console.log('Transforming Strapi project:', strapiProject);
+  
+  // Get the main image URL from Strapi (note: Gallery is capitalized in Strapi)
+          const mainImageUrl = strapiProject.Gallery && strapiProject.Gallery.length > 0 
+            ? `https://holleman-cms-production.up.railway.app${strapiProject.Gallery[0].url}` 
+            : '/images/projectcargo.webp'; // fallback
+
+  // Get all gallery images
+          const galleryImages = strapiProject.Gallery && strapiProject.Gallery.length > 0
+            ? strapiProject.Gallery.map((img: any) => `https://holleman-cms-production.up.railway.app${img.url}`)
+            : [mainImageUrl];
+
+  // Transform description from markdown to paragraphs (note: Description is capitalized in Strapi)
+  const descriptionParagraphs = strapiProject.Description 
+    ? strapiProject.Description.split('\n\n').filter((p: string) => p.trim())
+    : ['Project description coming soon...'];
+
+  return {
+    id: strapiProject.slug || strapiProject.documentId,
+    title: strapiProject.Title || 'Untitled Project', // Title is capitalized in Strapi
+    subtitle: strapiProject.Subtitle || '', // Subtitle is capitalized in Strapi
+    division: strapiProject.division as 'heavy-lift' | 'project-cargo' | 'itl' | 'agro',
+    gallery: {
+      mainImage: mainImageUrl,
+      images: galleryImages
+    },
+    description: {
+      paragraphs: descriptionParagraphs
+    },
+    relatedProjects: [], // We'll populate this separately
+    seo: {
+      title: strapiProject.seo?.title || strapiProject.Title || 'Project - Holleman',
+      description: strapiProject.seo?.description || strapiProject.Subtitle || 'Project description',
+      canonicalUrl: strapiProject.seo?.canonicalUrl || `https://holleman.ro/proiecte/${strapiProject.slug || strapiProject.documentId}`
+    }
+  };
+};
+
+// Function to fetch projects from Strapi
+const fetchStrapiProjects = async (): Promise<ProjectData[]> => {
+  try {
+            const response = await fetch('https://holleman-cms-production.up.railway.app/api/projects?populate=*');
+    
+    if (!response.ok) {
+      console.warn('Failed to fetch projects from Strapi, using static data');
+      return projectsData;
+    }
+
+    const data = await response.json();
+    console.log('Strapi Projects Data:', data);
+
+    if (data.data && Array.isArray(data.data)) {
+      const transformedProjects = data.data.map(transformStrapiProject);
+      
+      // Add related projects logic
+      transformedProjects.forEach((project: ProjectData, index: number) => {
+        const relatedProjects = transformedProjects
+          .filter((p: ProjectData) => p.id !== project.id && p.division === project.division)
+          .slice(0, 3)
+          .map((p: ProjectData) => ({
+            id: p.id,
+            title: p.title,
+            image: p.gallery.mainImage,
+            division: p.division === 'heavy-lift' ? 'Heavy Lift' : 
+                     p.division === 'project-cargo' ? 'Project Cargo' :
+                     p.division === 'itl' ? 'ITL' : 
+                     p.division === 'agro' ? 'Agro' : 'Unknown'
+          }));
+        
+        // If we don't have enough from the same division, add from other divisions
+        if (relatedProjects.length < 3) {
+          const otherProjects = transformedProjects
+            .filter((p: ProjectData) => p.id !== project.id && p.division !== project.division)
+            .slice(0, 3 - relatedProjects.length)
+            .map((p: ProjectData) => ({
+              id: p.id,
+              title: p.title,
+              image: p.gallery.mainImage,
+              division: p.division === 'heavy-lift' ? 'Heavy Lift' : 
+                       p.division === 'project-cargo' ? 'Project Cargo' :
+                       p.division === 'itl' ? 'ITL' : 
+                       p.division === 'agro' ? 'Agro' : 'Unknown'
+            }));
+          
+          relatedProjects.push(...otherProjects);
+        }
+        
+        project.relatedProjects = relatedProjects;
+      });
+
+      return transformedProjects;
+    }
+    
+    console.warn('Invalid Strapi response format, using static data');
+    return projectsData;
+  } catch (error) {
+    console.error('Error fetching projects from Strapi:', error);
+    return projectsData;
+  }
+};
+
+export const getAllProjects = async (): Promise<ProjectData[]> => {
+  const now = Date.now();
+  
+  // Check if we have cached data and it's still valid
+  if (strapiProjectsCache && (now - cacheTimestamp) < CACHE_DURATION) {
+    return strapiProjectsCache;
+  }
+
+  // Fetch fresh data from Strapi
+  const projects = await fetchStrapiProjects();
+  
+  // Update cache
+  strapiProjectsCache = projects;
+  cacheTimestamp = now;
+  
+  return projects;
+};
+
+// Synchronous version that returns cached data or static data
+export const getAllProjectsSync = (): ProjectData[] => {
+  return strapiProjectsCache || projectsData;
 };

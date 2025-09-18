@@ -31,8 +31,8 @@ const HeavyLift: React.FC = () => {
     const fetchHeavyLiftContent = async () => {
       try {
         const [serviceCardsResponse, contentSectionsResponse] = await Promise.all([
-          fetch('http://localhost:3001/api/heavy-lift-service-card'),
-          fetch('http://localhost:3001/api/heavy-lift-content-section?populate=*')
+          fetch('https://holleman-cms-production.up.railway.app/api/heavy-lift-service-card'),
+          fetch('https://holleman-cms-production.up.railway.app/api/heavy-lift-content-section?populate=*')
         ]);
 
         const [serviceCardsData, contentSectionsResult] = await Promise.all([
@@ -152,7 +152,7 @@ const HeavyLift: React.FC = () => {
           <div className="content-grid">
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section1Image ? `http://localhost:3001${contentSectionsData.Section1Image.url}` : '/images/source/heavyliftex1.webp'} 
+                src={contentSectionsData?.Section1Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section1Image.url}` : '/images/source/heavyliftex1.webp'} 
                 alt={contentSectionsData?.Section1Title || 'Acționări speciale cu portale hidraulice mobile'} 
               />
             </div>
@@ -174,7 +174,7 @@ const HeavyLift: React.FC = () => {
             </div>
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section2Image ? `http://localhost:3001${contentSectionsData.Section2Image.url}` : '/images/source/heavyliftex3.webp'} 
+                src={contentSectionsData?.Section2Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section2Image.url}` : '/images/source/heavyliftex3.webp'} 
                 alt={contentSectionsData?.Section2Title || 'Soluții inteligente pentru relocări'} 
               />
             </div>
@@ -188,7 +188,7 @@ const HeavyLift: React.FC = () => {
           <div className="content-grid">
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section3Image ? `http://localhost:3001${contentSectionsData.Section3Image.url}` : '/images/source/heavyliftex2.webp'} 
+                src={contentSectionsData?.Section3Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section3Image.url}` : '/images/source/heavyliftex2.webp'} 
                 alt={contentSectionsData?.Section3Title || 'Relocări în orice scară'} 
               />
             </div>
@@ -253,7 +253,7 @@ const HeavyLift: React.FC = () => {
             </div>
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section4Image ? `http://localhost:3001${contentSectionsData.Section4Image.url}` : '/images/source/heavyliftex4.webp'} 
+                src={contentSectionsData?.Section4Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section4Image.url}` : '/images/source/heavyliftex4.webp'} 
                 alt={contentSectionsData?.Section4Title || 'Montaj industrial specializat'} 
               />
             </div>
@@ -267,7 +267,7 @@ const HeavyLift: React.FC = () => {
           <div className="content-grid">
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section5Image ? `http://localhost:3001${contentSectionsData.Section5Image.url}` : '/images/source/heavyliftex5.webp'} 
+                src={contentSectionsData?.Section5Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section5Image.url}` : '/images/source/heavyliftex5.webp'} 
                 alt={contentSectionsData?.Section5Title || 'Transport integrat door-to-door'} 
               />
             </div>
@@ -312,7 +312,7 @@ const HeavyLift: React.FC = () => {
             </div>
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section6Image ? `http://localhost:3001${contentSectionsData.Section6Image.url}` : '/images/source/flota.webp'} 
+                src={contentSectionsData?.Section6Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section6Image.url}` : '/images/source/flota.webp'} 
                 alt={contentSectionsData?.Section6Title || 'Flotă de echipamente'} 
               />
             </div>

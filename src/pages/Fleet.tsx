@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getRelatedProjects } from '../data/projectsData';
+import { getRelatedProjectsSync } from '../data/projectsData';
 import './Fleet.css';
 
 const Fleet: React.FC = () => {
@@ -10,7 +10,7 @@ const Fleet: React.FC = () => {
   const [currentRelatedProject, setCurrentRelatedProject] = useState(0);
   
   // Get Heavy Lift related projects (using a dummy project ID to get Heavy Lift projects)
-  const relatedProjects = getRelatedProjects('heavy-lift-project-1', 'heavy-lift');
+  const relatedProjects = getRelatedProjectsSync('heavy-lift-project-1', 'heavy-lift');
 
   // Related projects navigation
   const nextRelatedProject = useCallback(() => {

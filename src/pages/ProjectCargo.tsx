@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getAllProjects } from '../data/projectsData';
+import { getAllProjects, getAllProjectsSync } from '../data/projectsData';
 import './ProjectCargo.css';
 
 const ProjectCargo: React.FC = () => {
@@ -11,6 +11,10 @@ const ProjectCargo: React.FC = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [whyChooseContent, setWhyChooseContent] = useState<any>(null);
+  
+  // State for projects data
+  const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
+  const [projectsLoading, setProjectsLoading] = useState(true);
 
   const heroStyle = {
     backgroundImage: `url('/images/projectcargobg.webp')`
@@ -21,7 +25,6 @@ const ProjectCargo: React.FC = () => {
   };
 
   // Get Project Cargo projects from the data
-  const allProjects = getAllProjects();
   const caseStudies = allProjects
     .filter(project => project.division === 'project-cargo')
     .map(project => ({
@@ -63,15 +66,23 @@ const ProjectCargo: React.FC = () => {
     }
   }, [caseStudies.length, currentCaseStudy]);
 
-  // Fetch Why Choose content from Strapi
+  // Fetch projects and Why Choose content from Strapi
   useEffect(() => {
-    const fetchWhyChooseContent = async () => {
+    const fetchContent = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/project-cargo-why-choose');
-        const data = await response.json();
-        setWhyChooseContent(data.data);
+        const [whyChooseRes, projectsData] = await Promise.all([
+          fetch('https://holleman-cms-production.up.railway.app/api/project-cargo-why-choose'),
+          getAllProjects()
+        ]);
+
+        const whyChooseData = await whyChooseRes.json();
+        
+        console.log('Projects from Strapi:', projectsData);
+        
+        setWhyChooseContent(whyChooseData.data);
+        setAllProjects(projectsData);
       } catch (error) {
-        console.error('Error fetching Why Choose content:', error);
+        console.error('Error fetching content:', error);
         // Set fallback content
         setWhyChooseContent({
           Title: 'De ce să alegi Holleman pentru Project Cargo',
@@ -82,9 +93,12 @@ const ProjectCargo: React.FC = () => {
           Reason5: 'Respect pentru termene și bugete – livrăm la timp, în siguranță, fără compromisuri',
           Reason6: 'Certificări internaționale și respectarea celor mai înalte standarde de siguranță și calitate'
         });
+      } finally {
+        setProjectsLoading(false);
       }
     };
-    fetchWhyChooseContent();
+
+    fetchContent();
   }, []);
 
   const currentCase = caseStudies.length > 0 ? caseStudies[currentCaseStudy] : null;
@@ -266,7 +280,9 @@ const ProjectCargo: React.FC = () => {
           </div>
           
           <div className="services-footer">
-            <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
+            <button className="btn" onClick={() => navigate('/contact')}>
+              <span>CONTACT</span>
+            </button>
           </div>
         </div>
       </section>
@@ -438,7 +454,9 @@ const ProjectCargo: React.FC = () => {
           )}
           
           <div className="case-studies-footer">
-          <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
+          <button className="btn" onClick={() => navigate('/contact')}>
+            <span>CONTACT</span>
+          </button>
           </div>
         </div>
       </section>

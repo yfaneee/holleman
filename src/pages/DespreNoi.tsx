@@ -122,14 +122,14 @@ const DespreNoi: React.FC = () => {
       try {
         // Fetch all 8 sections in parallel
         const [heroResponse, cineSuntemResponse, istoricResponse, misiuneResponse, certificariResponse, conducereaResponse, ceNeDefinesteResponse, responsabilitateResponse] = await Promise.all([
-          fetch('http://localhost:3001/api/despre-noi-page'),
-          fetch('http://localhost:3001/api/cine-suntem-despre-noi'),
-          fetch('http://localhost:3001/api/istoric-evolutie'),
-          fetch('http://localhost:3001/api/misiune-despre-noi'),
-          fetch('http://localhost:3001/api/despre-noi-certificari'),
-          fetch('http://localhost:3001/api/despre-noi-conducerea?populate=*'),
-          fetch('http://localhost:3001/api/despre-noi-ce-ne-defineste'),
-          fetch('http://localhost:3001/api/despre-noi-responsabilitate')
+          fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-page'),
+          fetch('https://holleman-cms-production.up.railway.app/api/cine-suntem-despre-noi'),
+          fetch('https://holleman-cms-production.up.railway.app/api/istoric-evolutie'),
+          fetch('https://holleman-cms-production.up.railway.app/api/misiune-despre-noi'),
+          fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-certificari'),
+          fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-conducerea?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-ce-ne-defineste'),
+          fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-responsabilitate')
         ]);
 
         const [heroData, cineSuntemData, istoricData, misiuneData, certificariData, conducereaData, ceNeDefinesteData, responsabilitateData] = await Promise.all([
@@ -403,7 +403,7 @@ const DespreNoi: React.FC = () => {
                 <div className="member-avatar">
                   {conducereaContent?.Member1Avatar ? (
                     <img 
-                      src={`http://localhost:3001${conducereaContent.Member1Avatar.url}`} 
+                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member1Avatar.url}`} 
                       alt={conducereaContent.Member1Name || 'Team Member'} 
                     />
                   ) : (
@@ -418,7 +418,7 @@ const DespreNoi: React.FC = () => {
                 <div className="member-avatar">
                   {conducereaContent?.Member2Avatar ? (
                     <img 
-                      src={`http://localhost:3001${conducereaContent.Member2Avatar.url}`} 
+                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member2Avatar.url}`} 
                       alt={conducereaContent.Member2Name || 'Team Member'} 
                     />
                   ) : (
@@ -433,7 +433,7 @@ const DespreNoi: React.FC = () => {
                 <div className="member-avatar">
                   {conducereaContent?.Member3Avatar ? (
                     <img 
-                      src={`http://localhost:3001${conducereaContent.Member3Avatar.url}`} 
+                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member3Avatar.url}`} 
                       alt={conducereaContent.Member3Name || 'Team Member'} 
                     />
                   ) : (
@@ -448,7 +448,7 @@ const DespreNoi: React.FC = () => {
                 <div className="member-avatar">
                   {conducereaContent?.Member4Avatar ? (
                     <img 
-                      src={`http://localhost:3001${conducereaContent.Member4Avatar.url}`} 
+                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member4Avatar.url}`} 
                       alt={conducereaContent.Member4Name || 'Team Member'} 
                     />
                   ) : (
@@ -463,7 +463,7 @@ const DespreNoi: React.FC = () => {
                 <div className="member-avatar">
                   {conducereaContent?.Member5Avatar ? (
                     <img 
-                      src={`http://localhost:3001${conducereaContent.Member5Avatar.url}`} 
+                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member5Avatar.url}`} 
                       alt={conducereaContent.Member5Name || 'Team Member'} 
                     />
                   ) : (

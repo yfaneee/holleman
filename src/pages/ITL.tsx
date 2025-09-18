@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -8,9 +8,41 @@ const ITL: React.FC = () => {
   const navigate = useNavigate();
   const truckRef = useRef<HTMLDivElement>(null);
   
+  // State for Strapi content
+  const [transportLogisticsContent, setTransportLogisticsContent] = useState<any>(null);
+  const [networkCoverageContent, setNetworkCoverageContent] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  
   const heroStyle = {
     backgroundImage: `url('/images/ITLbackground.webp')`
   };
+
+  // Fetch content from Strapi
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const [transportLogisticsRes, networkCoverageRes] = await Promise.all([
+          fetch('https://holleman-cms-production.up.railway.app/api/itl-transport-logistics-section?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/itl-retea?populate=*')
+        ]);
+
+        const transportLogisticsData = await transportLogisticsRes.json();
+        const networkCoverageData = await networkCoverageRes.json();
+
+        console.log('Transport Logistics Data:', transportLogisticsData);
+        console.log('Network Coverage Data:', networkCoverageData);
+
+        setTransportLogisticsContent(transportLogisticsData.data);
+        setNetworkCoverageContent(networkCoverageData.data);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
 
   // SEO: Set document title and meta description for ITL page
   useEffect(() => {
@@ -178,15 +210,21 @@ const ITL: React.FC = () => {
       <section className="transport-logistics-section" style={{backgroundImage: `url('/images/Group8728.webp')`}}>
         <div className="transport-logistics-container">
           <div className="transport-logistics-content">
-            <h2 className="transport-logistics-title">
-              Transport și logistică <span className="highlight">fără granițe</span>
-            </h2>
-            
-            <ul className="transport-logistics-list">
-              <li>Divizia ITL din cadrul Holleman oferă servicii complete de transport și logistică, atât la nivel intern, cât și internațional.</li>
-              <li>Gestionăm volume diverse de marfă – de la transporturi complete cu camioane standard sau specializate, până la grupaje, containere sau livrări aeriene rapide.</li>
-              <li>Asigurăm un flux logistic optim pentru fiecare tip de client, indiferent de destinație sau industrie</li>
-            </ul>
+            {loading ? (
+              <div>Loading...</div>
+            ) : transportLogisticsContent && (
+              <>
+                <h2 className="transport-logistics-title">
+                  {transportLogisticsContent.title} <span className="highlight">{transportLogisticsContent.highlightedText}</span>
+                </h2>
+                
+                <ul className="transport-logistics-list">
+                  {transportLogisticsContent.bulletPoints && transportLogisticsContent.bulletPoints.split('\n').filter((point: string) => point.trim()).map((point: string, index: number) => (
+                    <li key={index}>{point.trim()}</li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -196,21 +234,33 @@ const ITL: React.FC = () => {
         <div className="network-coverage-container">
           <div className="network-coverage-content">
             <div className="network-content-left">
-              <h2 className="network-coverage-title">Rețea și acoperire</h2>
-              <div className="network-description">
-                <p>
-                  Prin parteneriate solide și o rețea extinsă de colaboratori internaționali, asigurăm acoperire la nivel european și global. Holleman ITL gestionează fluxuri logistice între Europa, Asia, Orientul Mijlociu și America de Nord, oferind:
-                </p>
-              </div>
-              <ul className="network-features-list">
-                <li>Puncte de plecare/descărcare în peste 30 de țări</li>
-                <li>Timp de tranzit predictibil și costuri optimizate</li>
-                <li>Trasabilitate completă pentru fiecare transport</li>
-              </ul>
+              {loading ? (
+                <div>Loading...</div>
+              ) : networkCoverageContent && (
+                <>
+                  <h2 className="network-coverage-title">{networkCoverageContent.title}</h2>
+                  <div className="network-description">
+                    <p>{networkCoverageContent.description}</p>
+                  </div>
+                  <ul className="network-features-list">
+                    {networkCoverageContent.featuresList && networkCoverageContent.featuresList.split('\n').filter((feature: string) => feature.trim()).map((feature: string, index: number) => (
+                      <li key={index}>{feature.trim()}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </div>
             <div className="network-content-right">
               <div className="network-map-container">
-                <img src="/images/hartaITL.webp" alt="Harta rețelei ITL Holleman" className="network-map" />
+                {loading ? (
+                  <div>Loading...</div>
+                ) : networkCoverageContent?.mapImage && (
+                  <img 
+                    src={`https://holleman-cms-production.up.railway.app${networkCoverageContent.mapImage.url}`} 
+                    alt={networkCoverageContent.mapImage.alternativeText || "Harta rețelei ITL Holleman"} 
+                    className="network-map" 
+                  />
+                )}
               </div>
             </div>
           </div>

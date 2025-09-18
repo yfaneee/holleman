@@ -1,5 +1,16 @@
 /* Contact Page Styles */
 
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .contact-page {
   font-family: 'Helvetica', Arial, sans-serif;
 }

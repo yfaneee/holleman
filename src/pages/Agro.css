@@ -174,7 +174,7 @@
     min-height: 176px;
 }
 
-.btn {
+  .btn {
     --color: #136B38;
     --color2: rgb(255, 255, 255);
     padding: 0.8em 1.75em;
@@ -192,6 +192,11 @@
     color: var(--color);
     font-family: 'Gotham Bold', sans-serif;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn span {
+    position: relative;
+    z-index: 10;
   }
   
   .btn::after, .btn::before {
@@ -376,6 +381,13 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+/* Only apply z-index fix to the main CTA button with span structure */
+.agro-page .agro-cta-section .cta-btn span,
+.agro-page .agro-cta-section .cta-btn .cta-icon {
+  position: relative;
+  z-index: 10;
 }
 
 .agro-page .cta-icon {

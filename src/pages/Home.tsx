@@ -204,7 +204,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchProjectCargoContent = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/home-project-cargo-section');
+        const response = await fetch('https://holleman-cms-production.up.railway.app/api/home-project-cargo-section');
         const data = await response.json();
         setProjectCargoContent(data.data);
       } catch (error) {

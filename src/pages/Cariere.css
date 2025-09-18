@@ -1142,6 +1142,18 @@
   transition: all 0.6s ease;
 }
 
+/* Custom slideInUp animation for Strapi content */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .cariere-page .stagger-children.animate-in .benefit-point {
   opacity: 1;
   transform: translateY(0);

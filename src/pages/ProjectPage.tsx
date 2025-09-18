@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getProjectById, getRelatedProjects } from '../data/projectsData';
+import { getProjectByIdSync, getRelatedProjectsSync } from '../data/projectsData';
 import './ProjectPage.css';
 
 const ProjectPage: React.FC = () => {
@@ -17,8 +17,8 @@ const ProjectPage: React.FC = () => {
   const socialRef = React.useRef<HTMLDivElement>(null);
 
   // Get project data
-  const project = projectId ? getProjectById(projectId) : null;
-  const relatedProjects = project ? getRelatedProjects(project.id) : [];
+  const project = projectId ? getProjectByIdSync(projectId) : null;
+  const relatedProjects = project ? getRelatedProjectsSync(project.id) : [];
 
   // If project not found, redirect to projects page
   useEffect(() => {

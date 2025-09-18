@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getAllProjects } from '../data/projectsData';
+import { getAllProjects, getAllProjectsSync } from '../data/projectsData';
 import './Proiecte.css';
 
 const Proiecte: React.FC = () => {
@@ -24,8 +24,14 @@ const Proiecte: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const isClickingSuggestionRef = useRef(false);
   
-  // Get all projects data
-  const allProjects = getAllProjects();
+  // State for Strapi content
+  const [portfolioContent, setPortfolioContent] = useState<any>(null);
+  const [inspirationContent, setInspirationContent] = useState<any>(null);
+  const [contentLoading, setContentLoading] = useState(true);
+  
+  // State for projects data
+  const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
+  const [projectsLoading, setProjectsLoading] = useState(true);
 
   // Generate suggestions based on search term (memoized for performance)
   const suggestions = React.useMemo(() => {
@@ -46,9 +52,9 @@ const Proiecte: React.FC = () => {
       }
       
       // Add keywords from descriptions (optimized)
-      project.description.paragraphs.forEach(paragraph => {
+      project.description.paragraphs.forEach((paragraph: string) => {
         const words = paragraph.toLowerCase().split(/\s+/);
-        words.forEach(word => {
+        words.forEach((word: string) => {
           const cleanWord = word.replace(/[^\w]/g, '');
           if (cleanWord.length > 3 && cleanWord.includes(searchLower)) {
             suggestionSet.add(cleanWord);
@@ -68,7 +74,7 @@ const Proiecte: React.FC = () => {
       const matchesSearch = searchTerm === '' || 
         project.title.toLowerCase().includes(searchLower) ||
         project.subtitle.toLowerCase().includes(searchLower) ||
-        project.description.paragraphs.some(paragraph => 
+        project.description.paragraphs.some((paragraph: string) => 
           paragraph.toLowerCase().includes(searchLower)
         );
       
@@ -346,6 +352,37 @@ const Proiecte: React.FC = () => {
     };
   }, [allProjects]);
 
+  // Fetch content and projects from Strapi
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const [portfolioRes, inspirationRes, projectsData] = await Promise.all([
+          fetch('https://holleman-cms-production.up.railway.app/api/proiecte-portfolio-section?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/proiecte-inspiration-section?populate=*'),
+          getAllProjects()
+        ]);
+
+        const portfolioData = await portfolioRes.json();
+        const inspirationData = await inspirationRes.json();
+
+        console.log('Portfolio Data:', portfolioData);
+        console.log('Inspiration Data:', inspirationData);
+        console.log('Projects from Strapi:', projectsData);
+
+        setPortfolioContent(portfolioData.data);
+        setInspirationContent(inspirationData.data);
+        setAllProjects(projectsData);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      } finally {
+        setContentLoading(false);
+        setProjectsLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
   // Scroll animations
   useEffect(() => {
     const observerOptions = {
@@ -533,19 +570,30 @@ const Proiecte: React.FC = () => {
       <section className="content-section" style={{backgroundImage: `url('/images/Group8728.webp')`}}>
         <div className="content-container">
           <div className="content-text animate-on-scroll">
-            <h2>Explorează portofoliul nostru</h2>
-            <div className="content-paragraphs">
-              <p>
-                Fiecare proiect finalizat este o dovadă a angajamentului nostru pentru excelență, 
-                inovație și siguranță.
-              </p>
-              <p>
-                În această secțiune regăsești o galerie centralizată cu proiecte reprezentative, 
-                care reflectă complexitatea, amploarea și diversitatea activității Holleman în cele 
-                patru divizii principale: <strong>Heavy Lift</strong>, <strong>Project Cargo</strong>, 
-                <strong>ITL</strong> și <strong>Agro</strong>.
-              </p>
-            </div>
+            {contentLoading ? (
+              <div>Loading...</div>
+            ) : portfolioContent ? (
+              <>
+                <h2 style={{
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  animation: 'slideInUp 0.8s ease-out forwards'
+                }}>{portfolioContent.title}</h2>
+                <div className="content-paragraphs">
+                  {portfolioContent.bulletPoints && portfolioContent.bulletPoints.split('\n').filter((paragraph: string) => paragraph.trim()).map((paragraph: string, index: number) => (
+                    <p key={index} style={{
+                      opacity: 0,
+                      transform: 'translateY(30px)',
+                      animation: `slideInUp 0.8s ease-out ${0.2 + (index * 0.2)}s forwards`
+                    }}>
+                      {paragraph.trim()}
+                    </p>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div>No portfolio content found.</div>
+            )}
           </div>
         </div>
       </section>
@@ -603,27 +651,41 @@ const Proiecte: React.FC = () => {
       <section className="cta-section" style={{backgroundImage: `url('/images/Group8733.webp')`}}>
         <div className="cta-container">
           <div className="cta-content animate-on-scroll">
-            <h2 className="cta-title">
-              Inspirația pentru proiectul tău
-            </h2>
-            <div className="cta-text">
-              <p>
-                Aceste exemple reale reflectă capacitatea noastră de a 
-                adapta soluții în funcție de nevoile fiecărui client, de a 
-                gestiona riscurile și de a livra valoare adăugată, indiferent de 
-                dimensiunea sau dificultatea proiectului.
-              </p>
-              <p>
-                Indiferent dacă ai în plan un transport special, o relocare 
-                industrială sau un proiect agricol integrat, aici găsești surse 
-                de inspirație, idei și încrederea că <strong>Holleman</strong> este partenerul 
-                potrivit.
-              </p>
-            </div>
-            <button className="btn cta-btn" onClick={() => navigate('/contact')}>
-              Contacteaza-ne pentru o oferta personalizata
-              <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
-            </button>
+            {contentLoading ? (
+              <div>Loading...</div>
+            ) : inspirationContent ? (
+              <>
+                <h2 className="cta-title" style={{
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  animation: 'slideInUp 0.8s ease-out forwards'
+                }}>
+                  {inspirationContent.title}
+                </h2>
+                <div className="cta-text">
+                  {inspirationContent.paragraphs && inspirationContent.paragraphs.split('\n').filter((paragraph: string) => paragraph.trim()).map((paragraph: string, index: number) => (
+                    <p key={index} style={{
+                      opacity: 0,
+                      transform: 'translateY(30px)',
+                      animation: `slideInUp 0.8s ease-out ${0.2 + (index * 0.2)}s forwards`
+                    }} dangerouslySetInnerHTML={{
+                      __html: paragraph.trim().replace(/Holleman/g, '<strong>Holleman</strong>')
+                    }}>
+                    </p>
+                  ))}
+                </div>
+                <button className="btn cta-btn" onClick={() => navigate('/contact')} style={{
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  animation: 'slideInUp 0.8s ease-out 0.6s forwards'
+                }}>
+                  <span>Contacteaza-ne pentru o oferta personalizata</span>
+                  <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
+                </button>
+              </>
+            ) : (
+              <div>No inspiration content found.</div>
+            )}
           </div>
         </div>
       </section>

@@ -12,6 +12,11 @@ const Cariere: React.FC = () => {
   const [selectedPrefix, setSelectedPrefix] = useState('+40');
   const { isLoading, isSuccess, error, submitCareerForm, resetForm } = useEmailForm();
   
+  // State for Strapi content
+  const [whyHollemanContent, setWhyHollemanContent] = useState<any>(null);
+  const [benefitsContent, setBenefitsContent] = useState<any>(null);
+  const [contentLoading, setContentLoading] = useState(true);
+  
   // Form state
   const [formData, setFormData] = useState<CareerFormData>({
     name: '',
@@ -122,6 +127,35 @@ const Cariere: React.FC = () => {
     await submitCareerForm(submitData);
   };
 
+  // Fetch content from Strapi
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const [whyHollemanRes, benefitsRes] = await Promise.all([
+          fetch('https://holleman-cms-production.up.railway.app/api/cariere-de-ce-holleman?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/cariere-beneficii?populate=*')
+        ]);
+
+        const whyHollemanData = await whyHollemanRes.json();
+        const benefitsData = await benefitsRes.json();
+
+        console.log('Why Holleman Data:', whyHollemanData);
+        console.log('Benefits Data:', benefitsData);
+        console.log('Why Holleman Content Set:', whyHollemanData.data);
+        console.log('Benefits Content Set:', benefitsData.data);
+
+        setWhyHollemanContent(whyHollemanData.data);
+        setBenefitsContent(benefitsData.data);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      } finally {
+        setContentLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
   // SEO: Set document title and meta description for careers page
   useEffect(() => {
     document.title = "Cariere - Alătură-te echipei Holleman | Transport Agabaritic România";
@@ -209,28 +243,32 @@ const Cariere: React.FC = () => {
       {/* First Section - Why Choose Holleman */}
       <section className="why-holleman-section">
         <div className="why-holleman-container">
-          <h2 className="section-title animate-on-scroll fade-up">De ce să alegi Holleman?</h2>
-          
-          <div className="why-holleman-content">
-            <p className="intro-text animate-on-scroll fade-up delay-200">
-              La Holleman, nu transportăm doar sarcini grele — ci și idei, 
-              ambiții și cariere de succes. Suntem lideri în domeniul 
-              transportului agabaritic și al soluțiilor logistice complexe, iar 
-              forța noastră stă în oamenii care aleg să construiască alături de 
-              noi.
-            </p>
-            
-            <p className="intro-text animate-on-scroll fade-up delay-300">
-              Fiecare membru al echipei noastre contribuie la proiecte de 
-              anvergură națională și internațională, cu impact real în 
-              infrastructură, energie, agricultură și industrie.
-            </p>
-
-            <p className="intro-text animate-on-scroll fade-up delay-400">
-            Alege Holleman dacă îți dorești un mediu în care profesionalismul, siguranța și inovația sunt mai mult decât simple valori — sunt realități zilnice.
-            </p>
-            
-          </div>
+          {contentLoading ? (
+            <div>Loading...</div>
+          ) : whyHollemanContent ? (
+            <>
+              <h2 className="section-title" style={{
+                opacity: 0,
+                transform: 'translateY(30px)',
+                animation: 'slideInUp 0.8s ease-out forwards'
+              }}>{whyHollemanContent.title}</h2>
+              
+              <div className="why-holleman-content">
+                {whyHollemanContent.Description && whyHollemanContent.Description.split('\n').filter((paragraph: string) => paragraph.trim()).map((paragraph: string, index: number) => (
+                  <p key={index} className="intro-text" style={{
+                    opacity: 0,
+                    transform: 'translateY(30px)',
+                    animation: `slideInUp 0.8s ease-out ${0.2 + (index * 0.2)}s forwards`
+                  }}>
+                    {paragraph.trim()}
+                  </p>
+                ))}
+              </div>
+              
+            </>
+          ) : (
+            <div>No Why Holleman content found. Check console for data.</div>
+          )}
         </div>
       </section>
 
@@ -244,34 +282,77 @@ const Cariere: React.FC = () => {
         <div className="benefits-employees-overlay"></div>
         <div className="benefits-employees-container">
           <div className="benefits-employees-content">
-            <h2 className="benefits-employees-title animate-on-scroll fade-up">Beneficii pentru angajați</h2>
-            
-            <div className="benefits-list animate-on-scroll stagger-children delay-200">
-              <div className="benefit-point">
-                <span className="benefit-highlight">Pachet salarial competitiv</span>
-                <span className="benefit-text">și bonusuri de performanță</span>
-              </div>
-              
-              <div className="benefit-point">
-                <span className="benefit-highlight">Acces la traininguri și certificări</span>
-                <span className="benefit-text">relevante domeniului</span>
-              </div>
-              
-              <div className="benefit-point">
-                <span className="benefit-highlight">Asigurare medicală privată</span>
-                <span className="benefit-text">și alte beneficii extra-salariale</span>
-              </div>
-              
-              <div className="benefit-point">
-                <span className="benefit-highlight">Oportunități de promovare internă</span>
-                <span className="benefit-text">și mobilitate internațională</span>
-              </div>
-              
-              <div className="benefit-point">
-                <span className="benefit-highlight">Mediu de lucru sigur,</span>
-                <span className="benefit-text">profesionist și orientat spre rezultate</span>
-              </div>
-            </div>
+            {contentLoading ? (
+              <div>Loading...</div>
+            ) : benefitsContent ? (
+              <>
+                <h2 className="benefits-employees-title" style={{
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  animation: 'slideInUp 0.8s ease-out 0.8s forwards'
+                }}>{benefitsContent.title}</h2>
+                
+                <div className="benefits-list" style={{opacity: 1}}>
+                  {/* Render benefits from Strapi data */}
+                  {benefitsContent.highlightedTitle1 && benefitsContent.title1 && (
+                    <div className="benefit-point" style={{
+                      opacity: 0,
+                      transform: 'translateY(30px)',
+                      animation: 'slideInUp 0.6s ease-out 1.0s forwards'
+                    }}>
+                      <span className="benefit-highlight">{benefitsContent.highlightedTitle1}</span>
+                      <span className="benefit-text">{benefitsContent.title1}</span>
+                    </div>
+                  )}
+                  
+                  {benefitsContent.highlightedTitle2 && benefitsContent.title2 && (
+                    <div className="benefit-point" style={{
+                      opacity: 0,
+                      transform: 'translateY(30px)',
+                      animation: 'slideInUp 0.6s ease-out 1.1s forwards'
+                    }}>
+                      <span className="benefit-highlight">{benefitsContent.highlightedTitle2}</span>
+                      <span className="benefit-text">{benefitsContent.title2}</span>
+                    </div>
+                  )}
+                  
+                  {benefitsContent.highlightedTitle3 && benefitsContent.title3 && (
+                    <div className="benefit-point" style={{
+                      opacity: 0,
+                      transform: 'translateY(30px)',
+                      animation: 'slideInUp 0.6s ease-out 1.2s forwards'
+                    }}>
+                      <span className="benefit-highlight">{benefitsContent.highlightedTitle3}</span>
+                      <span className="benefit-text">{benefitsContent.title3}</span>
+                    </div>
+                  )}
+                  
+                  {benefitsContent.highlightedTitle4 && benefitsContent.title4 && (
+                    <div className="benefit-point" style={{
+                      opacity: 0,
+                      transform: 'translateY(30px)',
+                      animation: 'slideInUp 0.6s ease-out 1.3s forwards'
+                    }}>
+                      <span className="benefit-highlight">{benefitsContent.highlightedTitle4}</span>
+                      <span className="benefit-text">{benefitsContent.title4}</span>
+                    </div>
+                  )}
+                  
+                  {benefitsContent.highlightedTitle5 && benefitsContent.title5 && (
+                    <div className="benefit-point" style={{
+                      opacity: 0,
+                      transform: 'translateY(30px)',
+                      animation: 'slideInUp 0.6s ease-out 1.4s forwards'
+                    }}>
+                      <span className="benefit-highlight">{benefitsContent.highlightedTitle5}</span>
+                      <span className="benefit-text">{benefitsContent.title5}</span>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div>No Benefits content found. Check console for data.</div>
+            )}
           </div>
         </div>
       </section>

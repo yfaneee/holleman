@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getArticleById, getRelatedArticles } from '../data/newsData';
+import { getArticleByIdSync, getRelatedArticlesSync, getAllArticles, clearArticlesCache } from '../data/newsData';
 import './ArticlePage.css';
 
 const ArticlePage: React.FC = () => {
@@ -11,34 +11,130 @@ const ArticlePage: React.FC = () => {
   const [article, setArticle] = useState<any>(null);
   const [relatedArticles, setRelatedArticles] = useState<any[]>([]);
 
-  useEffect(() => {
-    if (articleId) {
-      const articleData = getArticleById(articleId);
-      if (articleData) {
-        setArticle(articleData);
-        setRelatedArticles(getRelatedArticles(articleId));
+  // Helper function to format content with bullet points and line breaks
+  const formatContent = (content: string) => {
+    if (!content) return '';
+    
+    // Split content into lines for better processing
+    const lines = content.split('\n');
+    const processedLines: string[] = [];
+    let inList = false;
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      
+      if (line.startsWith('- ')) {
+        // Main bullet point
+        if (!inList) {
+          processedLines.push('<ul>');
+          inList = true;
+        }
+        processedLines.push(`<li>${line.substring(2)}`);
         
-        // Update SEO
-        document.title = `${articleData.title} | Blog Holleman`;
-        
-        const metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription) {
-          metaDescription.setAttribute('content', articleData.excerpt);
+        // Check if next lines are sub-bullets (start with spaces and -)
+        let j = i + 1;
+        const subItems: string[] = [];
+        while (j < lines.length && lines[j].match(/^\s+- /)) {
+          subItems.push(lines[j].trim().substring(2));
+          j++;
         }
         
-        // Update canonical URL
-        let canonical = document.querySelector('link[rel="canonical"]');
-        if (!canonical) {
-          canonical = document.createElement('link');
-          canonical.setAttribute('rel', 'canonical');
-          document.head.appendChild(canonical);
+        if (subItems.length > 0) {
+          processedLines.push('<ul>');
+          subItems.forEach(subItem => {
+            processedLines.push(`<li>${subItem}</li>`);
+          });
+          processedLines.push('</ul>');
+          i = j - 1; // Skip the processed sub-items
         }
-        canonical.setAttribute('href', `https://holleman.ro/blog/${articleId}`);
-      } else {
-        // Article not found, redirect to blog
-        navigate('/blog');
+        
+        processedLines.push('</li>');
+      } else if (line === '') {
+        // Empty line - close list if we're in one
+        if (inList) {
+          processedLines.push('</ul>');
+          inList = false;
+        }
+        processedLines.push('<br>');
+      } else if (!line.match(/^\s+- /)) {
+        // Regular text line (not a sub-bullet)
+        if (inList) {
+          processedLines.push('</ul>');
+          inList = false;
+        }
+        if (line) {
+          processedLines.push(line);
+        }
       }
     }
+    
+    // Close any open list
+    if (inList) {
+      processedLines.push('</ul>');
+    }
+    
+    return processedLines
+      .join('')
+      // Clean up multiple consecutive <br> tags
+      .replace(/(<br\s*\/?>){3,}/g, '<br><br>')
+      // Clean up empty paragraphs
+      .replace(/<br>\s*<br>/g, '</p><p>')
+      // Wrap non-list content in paragraphs
+      .replace(/^([^<].*?)(?=<ul>|$)/gm, '<p>$1</p>')
+      .replace(/(<\/ul>)([^<].*?)(?=<ul>|$)/gm, '$1<p>$2</p>');
+  };
+
+  useEffect(() => {
+    const fetchArticleData = async () => {
+      if (articleId) {
+        // First load from cache/static data for immediate display
+        const cachedArticle = getArticleByIdSync(articleId);
+        if (cachedArticle) {
+          setArticle(cachedArticle);
+          setRelatedArticles(getRelatedArticlesSync(articleId));
+        }
+
+        try {
+          // Clear cache and fetch fresh data from Strapi
+          clearArticlesCache();
+          await getAllArticles(); // This will update the cache
+          const articleData = getArticleByIdSync(articleId); // Get from updated cache
+          
+          if (articleData) {
+            setArticle(articleData);
+            setRelatedArticles(getRelatedArticlesSync(articleId));
+            
+            // Update SEO
+            document.title = `${articleData.title} | Blog Holleman`;
+            
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+              metaDescription.setAttribute('content', articleData.excerpt);
+            }
+            
+            // Update canonical URL
+            let canonical = document.querySelector('link[rel="canonical"]');
+            if (!canonical) {
+              canonical = document.createElement('link');
+              canonical.setAttribute('rel', 'canonical');
+              document.head.appendChild(canonical);
+            }
+            canonical.setAttribute('href', `https://holleman.ro/blog/${articleId}`);
+          } else {
+            // Article not found, redirect to blog
+            navigate('/blog');
+          }
+        } catch (error) {
+          console.error('Error fetching article:', error);
+          // If there was an error and no cached article, redirect to blog
+          if (!cachedArticle) {
+            navigate('/blog');
+          }
+        }
+      }
+    };
+
+    fetchArticleData();
   }, [articleId, navigate]);
 
   if (!article) {
@@ -84,7 +180,10 @@ const ArticlePage: React.FC = () => {
             
             {/* Introduction */}
             <div className="article-introduction">
-              <p className="introduction-text">{article.content.introduction}</p>
+              <div 
+                className="introduction-text" 
+                dangerouslySetInnerHTML={{ __html: formatContent(article.content.introduction) }}
+              />
             </div>
 
             {/* Article Sections */}
@@ -97,7 +196,10 @@ const ArticlePage: React.FC = () => {
                       <img src={section.image} alt={section.title} />
                     </div>
                   )}
-                  <p className="section-text">{section.content}</p>
+                  <div 
+                    className="section-text" 
+                    dangerouslySetInnerHTML={{ __html: formatContent(section.content) }}
+                  />
                 </div>
               </section>
             ))}
@@ -105,7 +207,10 @@ const ArticlePage: React.FC = () => {
             {/* Conclusion */}
             <div className="article-conclusion">
               <h2 className="conclusion-title">Concluzie</h2>
-              <p className="conclusion-text">{article.content.conclusion}</p>
+              <div 
+                className="conclusion-text" 
+                dangerouslySetInnerHTML={{ __html: formatContent(article.content.conclusion) }}
+              />
             </div>
 
             {/* Tags */}
