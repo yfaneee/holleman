@@ -16,6 +16,8 @@ const Cariere: React.FC = () => {
   const [whyHollemanContent, setWhyHollemanContent] = useState<any>(null);
   const [benefitsContent, setBenefitsContent] = useState<any>(null);
   const [contentLoading, setContentLoading] = useState(true);
+  const [carriereHeroContent, setCarriereHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
   
   // Form state
   const [formData, setFormData] = useState<CareerFormData>({
@@ -131,25 +133,33 @@ const Cariere: React.FC = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const [whyHollemanRes, benefitsRes] = await Promise.all([
+        const [whyHollemanRes, benefitsRes, carriereHeroRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-de-ce-holleman?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/cariere-beneficii?populate=*')
+          fetch('https://holleman-cms-production.up.railway.app/api/cariere-beneficii?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/cariere-hero')
         ]);
 
         const whyHollemanData = await whyHollemanRes.json();
         const benefitsData = await benefitsRes.json();
+        const carriereHeroData = await carriereHeroRes.json();
 
         console.log('Why Holleman Data:', whyHollemanData);
         console.log('Benefits Data:', benefitsData);
-        console.log('Why Holleman Content Set:', whyHollemanData.data);
-        console.log('Benefits Content Set:', benefitsData.data);
+        console.log('Carriere Hero Data:', carriereHeroData);
 
         setWhyHollemanContent(whyHollemanData.data);
         setBenefitsContent(benefitsData.data);
+        setCarriereHeroContent(carriereHeroData.data);
       } catch (error) {
         console.error('Error fetching content:', error);
+        // Fallback for hero content
+        setCarriereHeroContent({
+          title: 'Cariere',
+          subtitleText: 'Alatura-te echipei care face ca imposibilul sa devina posibil'
+        });
       } finally {
         setContentLoading(false);
+        setHeroLoading(false);
       }
     };
 
@@ -233,9 +243,11 @@ const Cariere: React.FC = () => {
       >
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">Cariere</h1>
+          <h1 className="hero-title">
+            {heroLoading ? 'Cariere' : (carriereHeroContent?.title || 'Cariere')}
+          </h1>
           <p className="hero-subtitle">
-            Alatura-te echipei care face ca imposibilul sa devina posibil
+            {heroLoading ? 'Alatura-te echipei care face ca imposibilul sa devina posibil' : (carriereHeroContent?.subtitleText || 'Alatura-te echipei care face ca imposibilul sa devina posibil')}
           </p>
         </div>
       </section>

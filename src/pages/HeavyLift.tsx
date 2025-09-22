@@ -9,6 +9,8 @@ const HeavyLift: React.FC = () => {
   const navigate = useNavigate();
   const [serviceCardsContent, setServiceCardsContent] = useState<any>(null);
   const [contentSectionsData, setContentSectionsData] = useState<any>(null);
+  const [heavyLiftHeroContent, setHeavyLiftHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
 
   useEffect(() => {
     // SEO setup

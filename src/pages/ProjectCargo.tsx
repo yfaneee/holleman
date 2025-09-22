@@ -11,6 +11,8 @@ const ProjectCargo: React.FC = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [whyChooseContent, setWhyChooseContent] = useState<any>(null);
+  const [projectCargoHeroContent, setProjectCargoHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
   
   // State for projects data
   const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
@@ -70,17 +72,21 @@ const ProjectCargo: React.FC = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const [whyChooseRes, projectsData] = await Promise.all([
+        const [whyChooseRes, projectsData, projectCargoHeroRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/project-cargo-why-choose'),
-          getAllProjects()
+          getAllProjects(),
+          fetch('https://holleman-cms-production.up.railway.app/api/project-cargo-hero')
         ]);
 
         const whyChooseData = await whyChooseRes.json();
+        const projectCargoHeroData = await projectCargoHeroRes.json();
         
         console.log('Projects from Strapi:', projectsData);
+        console.log('Project Cargo Hero Data:', projectCargoHeroData);
         
         setWhyChooseContent(whyChooseData.data);
         setAllProjects(projectsData);
+        setProjectCargoHeroContent(projectCargoHeroData.data);
       } catch (error) {
         console.error('Error fetching content:', error);
         // Set fallback content
@@ -93,8 +99,13 @@ const ProjectCargo: React.FC = () => {
           Reason5: 'Respect pentru termene și bugete – livrăm la timp, în siguranță, fără compromisuri',
           Reason6: 'Certificări internaționale și respectarea celor mai înalte standarde de siguranță și calitate'
         });
+        setProjectCargoHeroContent({
+          title: 'Project Cargo',
+          subtitleText: 'Nu mutam doar obiecte, ci si limite'
+        });
       } finally {
         setProjectsLoading(false);
+        setHeroLoading(false);
       }
     };
 
@@ -153,8 +164,12 @@ const ProjectCargo: React.FC = () => {
       <section className="hero-section" style={heroStyle}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">Project Cargo</h1>
-          <p className="hero-subtitle">Nu mutam doar obiecte, ci si limite</p>
+          <h1 className="hero-title">
+            {heroLoading ? 'Project Cargo' : (projectCargoHeroContent?.title || 'Project Cargo')}
+          </h1>
+          <p className="hero-subtitle">
+            {heroLoading ? 'Nu mutam doar obiecte, ci si limite' : (projectCargoHeroContent?.subtitleText || 'Nu mutam doar obiecte, ci si limite')}
+          </p>
         </div>
       </section>
 
