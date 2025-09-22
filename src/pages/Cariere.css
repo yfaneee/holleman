@@ -1158,3 +1158,53 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Career Quote Styles */
+.cariere-page .career-quote {
+  margin-top: 40px;
+  padding: 30px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  border-left: 4px solid #007bff;
+  position: relative;
+}
+
+.cariere-page .career-quote::before {
+  content: '"';
+  font-size: 4rem;
+  color: #007bff;
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  font-family: Georgia, serif;
+  opacity: 0.3;
+}
+
+.cariere-page .quote-text {
+  font-family: 'Gotham Medium', sans-serif;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .cariere-page .career-quote {
+    margin-top: 30px;
+    padding: 20px;
+  }
+  
+  .cariere-page .quote-text {
+    font-size: 1.1rem;
+  }
+  
+  .cariere-page .career-quote::before {
+    font-size: 3rem;
+    top: -5px;
+    left: 15px;
+  }
+}
