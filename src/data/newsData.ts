@@ -186,12 +186,16 @@ const transformStrapiArticle = (strapiArticle: any): NewsArticle => {
   
   // Get hero image URL
           const heroImageUrl = strapiArticle.heroImage 
-            ? `https://holleman-cms-production.up.railway.app${strapiArticle.heroImage.url}` 
+            ? (strapiArticle.heroImage.url.startsWith('http') 
+              ? strapiArticle.heroImage.url 
+              : `https://holleman-cms-production.up.railway.app${strapiArticle.heroImage.url}`)
             : '/images/projectslideshow.webp';
 
   // Use hero image as card image too (or you can add a separate image field)
           const cardImageUrl = strapiArticle.heroImage 
-            ? `https://holleman-cms-production.up.railway.app${strapiArticle.heroImage.url}` 
+            ? (strapiArticle.heroImage.url.startsWith('http') 
+              ? strapiArticle.heroImage.url 
+              : `https://holleman-cms-production.up.railway.app${strapiArticle.heroImage.url}`)
             : '/images/slide1.webp';
 
   // Use the Content field as introduction (much simpler!)
@@ -202,7 +206,9 @@ const transformStrapiArticle = (strapiArticle: any): NewsArticle => {
     title: section.Title || section.title || 'Section',
     content: section.content || '',
             image: section.Media && section.Media.length > 0 
-              ? `https://holleman-cms-production.up.railway.app${section.Media[0].url}` 
+              ? (section.Media[0].url.startsWith('http') 
+                ? section.Media[0].url 
+                : `https://holleman-cms-production.up.railway.app${section.Media[0].url}`)
               : undefined
   })) : [];
   
