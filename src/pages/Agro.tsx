@@ -11,28 +11,39 @@ const Agro: React.FC = () => {
   const [agroContentSection, setAgroContentSection] = useState<any>(null);
   const [agroCtaSection, setAgroCtaSection] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [agroHeroContent, setAgroHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
 
   // Fetch content from Strapi
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const [agroContentRes, agroCtaRes] = await Promise.all([
+        const [agroContentRes, agroCtaRes, agroHeroRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/agro-content-section?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/agro-contact-section?populate=*')
+          fetch('https://holleman-cms-production.up.railway.app/api/agro-contact-section?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/agro-hero')
         ]);
 
         const agroContentData = await agroContentRes.json();
         const agroCtaData = await agroCtaRes.json();
+        const agroHeroData = await agroHeroRes.json();
 
         console.log('Agro Content Data:', agroContentData);
         console.log('Agro CTA Data:', agroCtaData);
+        console.log('Agro Hero Data:', agroHeroData);
 
         setAgroContentSection(agroContentData.data);
         setAgroCtaSection(agroCtaData.data);
+        setAgroHeroContent(agroHeroData.data);
       } catch (error) {
         console.error('Error fetching content:', error);
+        setAgroHeroContent({
+          title: 'AGRO',
+          subtitleText: 'Unde e nevoie de forta, aducem si finete'
+        });
       } finally {
         setLoading(false);
+        setHeroLoading(false);
       }
     };
 
@@ -47,8 +58,12 @@ const Agro: React.FC = () => {
       <section className="agro-hero" style={{backgroundImage: `url('/images/source/backgroundagro.webp')`}}>
         <div className="agro-hero-overlay">
           <div className="agro-hero-content">
-            <h1 className="agro-title">AGRO</h1>
-            <p className="agro-subtitle">Unde e nevoie de forta, aducem si finete</p>
+            <h1 className="agro-title">
+              {heroLoading ? 'AGRO' : (agroHeroContent?.title || 'AGRO')}
+            </h1>
+            <p className="agro-subtitle">
+              {heroLoading ? 'Unde e nevoie de forta, aducem si finete' : (agroHeroContent?.subtitleText || 'Unde e nevoie de forta, aducem si finete')}
+            </p>
           </div>
         </div>
       </section>

@@ -13,6 +13,8 @@ const Blog: React.FC = () => {
   const [articleSection, setArticleSection] = useState<any>(null);
   const [stayConnectedSection, setStayConnectedSection] = useState<any>(null);
   const [sectionsLoading, setSectionsLoading] = useState(true);
+  const [blogHeroContent, setBlogHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
 
   // State for articles
   const [articles, setArticles] = useState<any[]>(getLatestArticles());
@@ -69,27 +71,36 @@ const Blog: React.FC = () => {
         // Clear cache to force fresh data
         clearArticlesCache();
         
-        const [articleSectionRes, stayConnectedRes, articlesData] = await Promise.all([
+        const [articleSectionRes, stayConnectedRes, articlesData, blogHeroRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/blog-article-section?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/blog-stay-connected?populate=*'),
-          getAllArticles()
+          getAllArticles(),
+          fetch('https://holleman-cms-production.up.railway.app/api/blog-hero')
         ]);
 
         const articleSectionData = await articleSectionRes.json();
         const stayConnectedData = await stayConnectedRes.json();
+        const blogHeroData = await blogHeroRes.json();
 
         console.log('Article Section Data:', articleSectionData);
         console.log('Stay Connected Data:', stayConnectedData);
         console.log('Articles from Strapi:', articlesData);
+        console.log('Blog Hero Data:', blogHeroData);
 
         setArticleSection(articleSectionData.data);
         setStayConnectedSection(stayConnectedData.data);
         setArticles(articlesData.slice(0, 6)); // Get latest 6 articles
+        setBlogHeroContent(blogHeroData.data);
       } catch (error) {
         console.error('Error fetching blog content:', error);
+        setBlogHeroContent({
+          title: 'Noutăți & Blog',
+          subtitleText: 'Descopera cele mai noi tendinte si informatii din lumea transporturilor agabaritice'
+        });
       } finally {
         setSectionsLoading(false);
         setArticlesLoading(false);
+        setHeroLoading(false);
       }
     };
 
@@ -129,9 +140,11 @@ const Blog: React.FC = () => {
       >
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">Noutăți & Blog</h1>
+          <h1 className="hero-title">
+            {heroLoading ? 'Noutăți & Blog' : (blogHeroContent?.title || 'Noutăți & Blog')}
+          </h1>
           <p className="hero-subtitle">
-            Descopera cele mai noi tendinte si informatii din lumea transporturilor agabaritice
+            {heroLoading ? 'Descopera cele mai noi tendinte si informatii din lumea transporturilor agabaritice' : (blogHeroContent?.subtitleText || 'Descopera cele mai noi tendinte si informatii din lumea transporturilor agabaritice')}
           </p>
         </div>
       </section>

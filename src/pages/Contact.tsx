@@ -23,6 +23,8 @@ const Contact: React.FC = () => {
   // State for coverage section from Strapi
   const [coverageContent, setCoverageContent] = useState<any>(null);
   const [coverageLoading, setCoverageLoading] = useState(true);
+  const [contactHeroContent, setContactHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
   
   // Form state
   const [formData, setFormData] = useState<ContactFormData>({
@@ -277,23 +279,32 @@ const Contact: React.FC = () => {
   useEffect(() => {
     const fetchNetworkContent = async () => {
       try {
-        const [networkInfoRes, networkOfficesRes] = await Promise.all([
+        const [networkInfoRes, networkOfficesRes, contactHeroRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/contact-network-info?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/contact-network-offices?populate=*')
+          fetch('https://holleman-cms-production.up.railway.app/api/contact-network-offices?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/contact-hero')
         ]);
 
         const networkInfoData = await networkInfoRes.json();
         const networkOfficesData = await networkOfficesRes.json();
+        const contactHeroData = await contactHeroRes.json();
 
         console.log('Network Info Data:', networkInfoData);
         console.log('Network Offices Data:', networkOfficesData);
+        console.log('Contact Hero Data:', contactHeroData);
 
         setNetworkInfo(networkInfoData.data);
         setNetworkOffices(networkOfficesData.data || []);
+        setContactHeroContent(contactHeroData.data);
       } catch (error) {
         console.error('Error fetching network content:', error);
+        setContactHeroContent({
+          title: 'Contact',
+          subtitleText: 'Suntem aici sa te ajutam cu orice intrebare'
+        });
       } finally {
         setNetworkLoading(false);
+        setHeroLoading(false);
       }
     };
 
@@ -417,9 +428,11 @@ const Contact: React.FC = () => {
         
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">Contact</h1>
+          <h1 className="hero-title">
+            {heroLoading ? 'Contact' : (contactHeroContent?.title || 'Contact')}
+          </h1>
           <p className="hero-subtitle">
-            Suntem aici sa te ajutam cu orice intrebare
+            {heroLoading ? 'Suntem aici sa te ajutam cu orice intrebare' : (contactHeroContent?.subtitleText || 'Suntem aici sa te ajutam cu orice intrebare')}
           </p>
         </div>
       </section>

@@ -32,21 +32,30 @@ const HeavyLift: React.FC = () => {
   useEffect(() => {
     const fetchHeavyLiftContent = async () => {
       try {
-        const [serviceCardsResponse, contentSectionsResponse] = await Promise.all([
+        const [serviceCardsResponse, contentSectionsResponse, heavyLiftHeroResponse] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/heavy-lift-service-card'),
-          fetch('https://holleman-cms-production.up.railway.app/api/heavy-lift-content-section?populate=*')
+          fetch('https://holleman-cms-production.up.railway.app/api/heavy-lift-content-section?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/heavy-lift-hero')
         ]);
 
-        const [serviceCardsData, contentSectionsResult] = await Promise.all([
+        const [serviceCardsData, contentSectionsResult, heavyLiftHeroData] = await Promise.all([
           serviceCardsResponse.json(),
-          contentSectionsResponse.json()
+          contentSectionsResponse.json(),
+          heavyLiftHeroResponse.json()
         ]);
 
         setServiceCardsContent(serviceCardsData.data);
         setContentSectionsData(contentSectionsResult.data);
+        setHeavyLiftHeroContent(heavyLiftHeroData.data);
       } catch (error) {
         console.error('Error fetching Heavy Lift content:', error);
         // Set fallback content if needed
+        setHeavyLiftHeroContent({
+          title: 'Heavy Lift',
+          subtitleText: 'Nu mutam doar obiecte, ci si limite'
+        });
+      } finally {
+        setHeroLoading(false);
       }
     };
     fetchHeavyLiftContent();
@@ -67,8 +76,12 @@ const HeavyLift: React.FC = () => {
       <section className="hero-section" style={{backgroundImage: `url('/images/Group8730.webp')`}}>
         <div className="hero-overlay">
           <div className="hero-content">
-            <h1 className="hero-title">Heavy Lift</h1>
-            <p className="hero-subtitle">Nu mutam doar obiecte, ci si limite</p>
+            <h1 className="hero-title">
+              {heroLoading ? 'Heavy Lift' : (heavyLiftHeroContent?.title || 'Heavy Lift')}
+            </h1>
+            <p className="hero-subtitle">
+              {heroLoading ? 'Nu mutam doar obiecte, ci si limite' : (heavyLiftHeroContent?.subtitleText || 'Nu mutam doar obiecte, ci si limite')}
+            </p>
           </div>
         </div>
       </section>

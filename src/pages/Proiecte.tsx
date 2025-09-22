@@ -28,6 +28,8 @@ const Proiecte: React.FC = () => {
   const [portfolioContent, setPortfolioContent] = useState<any>(null);
   const [inspirationContent, setInspirationContent] = useState<any>(null);
   const [contentLoading, setContentLoading] = useState(true);
+  const [proiecteHeroContent, setProiecteHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
   
   // State for projects data
   const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
@@ -356,27 +358,36 @@ const Proiecte: React.FC = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const [portfolioRes, inspirationRes, projectsData] = await Promise.all([
+        const [portfolioRes, inspirationRes, projectsData, proiecteHeroRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/proiecte-portfolio-section?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/proiecte-inspiration-section?populate=*'),
-          getAllProjects()
+          getAllProjects(),
+          fetch('https://holleman-cms-production.up.railway.app/api/proiecte-hero')
         ]);
 
         const portfolioData = await portfolioRes.json();
         const inspirationData = await inspirationRes.json();
+        const proiecteHeroData = await proiecteHeroRes.json();
 
         console.log('Portfolio Data:', portfolioData);
         console.log('Inspiration Data:', inspirationData);
         console.log('Projects from Strapi:', projectsData);
+        console.log('Proiecte Hero Data:', proiecteHeroData);
 
         setPortfolioContent(portfolioData.data);
         setInspirationContent(inspirationData.data);
         setAllProjects(projectsData);
+        setProiecteHeroContent(proiecteHeroData.data);
       } catch (error) {
         console.error('Error fetching content:', error);
+        setProiecteHeroContent({
+          title: 'Proiecte',
+          subtitleText: 'Am transportat si lucruri care n-au căpătat nume în DEX. Daca intra pe trailer, il ducem.'
+        });
       } finally {
         setContentLoading(false);
         setProjectsLoading(false);
+        setHeroLoading(false);
       }
     };
 
@@ -445,8 +456,12 @@ const Proiecte: React.FC = () => {
        <section className="hero-section" style={{backgroundImage: `url('/images/proiectebckg.webp')`}}>
          <div className="hero-overlay">
            <div className="hero-content">
-             <h1 className="hero-title">Proiecte</h1>
-             <p className="hero-subtitle">Am transportat si lucruri care n-au căpătat nume în DEX. Daca intra pe trailer, il ducem.</p>
+             <h1 className="hero-title">
+               {heroLoading ? 'Proiecte' : (proiecteHeroContent?.title || 'Proiecte')}
+             </h1>
+             <p className="hero-subtitle">
+               {heroLoading ? 'Am transportat si lucruri care n-au căpătat nume în DEX. Daca intra pe trailer, il ducem.' : (proiecteHeroContent?.subtitleText || 'Am transportat si lucruri care n-au căpătat nume în DEX. Daca intra pe trailer, il ducem.')}
+             </p>
            </div>
          </div>
        </section>

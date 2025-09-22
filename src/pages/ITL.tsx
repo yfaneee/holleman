@@ -12,6 +12,8 @@ const ITL: React.FC = () => {
   const [transportLogisticsContent, setTransportLogisticsContent] = useState<any>(null);
   const [networkCoverageContent, setNetworkCoverageContent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [itlHeroContent, setItlHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
   
   const heroStyle = {
     backgroundImage: `url('/images/ITLbackground.webp')`
@@ -21,23 +23,32 @@ const ITL: React.FC = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const [transportLogisticsRes, networkCoverageRes] = await Promise.all([
+        const [transportLogisticsRes, networkCoverageRes, itlHeroRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/itl-transport-logistics-section?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/itl-retea?populate=*')
+          fetch('https://holleman-cms-production.up.railway.app/api/itl-retea?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/itl-hero')
         ]);
 
         const transportLogisticsData = await transportLogisticsRes.json();
         const networkCoverageData = await networkCoverageRes.json();
+        const itlHeroData = await itlHeroRes.json();
 
         console.log('Transport Logistics Data:', transportLogisticsData);
         console.log('Network Coverage Data:', networkCoverageData);
+        console.log('ITL Hero Data:', itlHeroData);
 
         setTransportLogisticsContent(transportLogisticsData.data);
         setNetworkCoverageContent(networkCoverageData.data);
+        setItlHeroContent(itlHeroData.data);
       } catch (error) {
         console.error('Error fetching content:', error);
+        setItlHeroContent({
+          title: 'ITL',
+          subtitleText: 'Ne plimbam mai mult decat GPS-ul tau'
+        });
       } finally {
         setLoading(false);
+        setHeroLoading(false);
       }
     };
 
@@ -112,8 +123,12 @@ const ITL: React.FC = () => {
       <section className="hero-section" style={heroStyle}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">ITL</h1>
-          <p className="hero-subtitle">Ne plimbam mai mult decat GPS-ul tau</p>
+          <h1 className="hero-title">
+            {heroLoading ? 'ITL' : (itlHeroContent?.title || 'ITL')}
+          </h1>
+          <p className="hero-subtitle">
+            {heroLoading ? 'Ne plimbam mai mult decat GPS-ul tau' : (itlHeroContent?.subtitleText || 'Ne plimbam mai mult decat GPS-ul tau')}
+          </p>
         </div>
       </section>
 
