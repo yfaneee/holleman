@@ -294,16 +294,15 @@ const ITL: React.FC = () => {
           </div>
           <div className="truck-text">
             <p className="truck-message">
-              <span className="word">Știm</span>
-              <span className="word">să</span>
-              <span className="word">negociem</span>
-              <span className="word">cu</span>
-              <span className="word">drumurile.</span>
-              <span className="word">Și</span>
-              <span className="word">câștigăm</span>
-              <span className="word">de</span>
-              <span className="word">fiecare</span>
-              <span className="word">dată.</span>
+              {loading ? (
+                <span className="word">Loading...</span>
+              ) : (
+                (transportLogisticsContent?.catchphrase || "Știm să negociem cu drumurile. Și câștigăm de fiecare dată.")
+                  .split(' ')
+                  .map((word: string, index: number) => (
+                    <span key={index} className="word">{word}</span>
+                  ))
+              )}
             </p>
           </div>
         </div>
