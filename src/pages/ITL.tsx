@@ -256,7 +256,10 @@ const ITL: React.FC = () => {
                   <div>Loading...</div>
                 ) : networkCoverageContent?.mapImage && (
                   <img 
-                    src={`https://holleman-cms-production.up.railway.app${networkCoverageContent.mapImage.url}`} 
+                    src={networkCoverageContent.mapImage.url.startsWith('http') 
+                      ? networkCoverageContent.mapImage.url 
+                      : `https://holleman-cms-production.up.railway.app${networkCoverageContent.mapImage.url}`
+                    } 
                     alt={networkCoverageContent.mapImage.alternativeText || "Harta rețelei ITL Holleman"} 
                     className="network-map" 
                   />
