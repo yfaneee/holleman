@@ -16,6 +16,8 @@ const Home: React.FC = () => {
   
   // Strapi content state
   const [projectCargoContent, setProjectCargoContent] = useState<any>(null);
+  const [homeHeroContent, setHomeHeroContent] = useState<any>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
 
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
@@ -220,6 +222,29 @@ const Home: React.FC = () => {
     fetchProjectCargoContent();
   }, []);
 
+  // Fetch Home Hero content from Strapi
+  useEffect(() => {
+    const fetchHomeHeroContent = async () => {
+      try {
+        setHeroLoading(true);
+        const response = await fetch('https://holleman-cms-production.up.railway.app/api/home-hero');
+        const data = await response.json();
+        setHomeHeroContent(data.data);
+      } catch (error) {
+        console.error('Error fetching Home Hero content:', error);
+        // Fallback to default content if Strapi is not available
+        setHomeHeroContent({
+          title: 'HOLLEMAN',
+          subtitleText: 'Dincolo de asteptari, cu fiecare proiect'
+        });
+      } finally {
+        setHeroLoading(false);
+      }
+    };
+
+    fetchHomeHeroContent();
+  }, []);
+
   // Scroll animations
   useEffect(() => {
     const observerOptions = {
@@ -328,9 +353,11 @@ const Home: React.FC = () => {
         
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">HOLLEMAN</h1>
+          <h1 className="hero-title">
+            {heroLoading ? 'HOLLEMAN' : (homeHeroContent?.title || 'HOLLEMAN')}
+          </h1>
           <p className="hero-subtitle">
-          Dincolo de asteptari, cu fiecare proiect
+            {heroLoading ? 'Dincolo de asteptari, cu fiecare proiect' : (homeHeroContent?.subtitleText || 'Dincolo de asteptari, cu fiecare proiect')}
           </p>
         </div>
       </section>
