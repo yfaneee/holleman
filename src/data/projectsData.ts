@@ -668,12 +668,18 @@ const transformStrapiProject = (strapiProject: any): ProjectData => {
   
   // Get the main image URL from Strapi (note: Gallery is capitalized in Strapi)
           const mainImageUrl = strapiProject.Gallery && strapiProject.Gallery.length > 0 
-            ? `https://holleman-cms-production.up.railway.app${strapiProject.Gallery[0].url}` 
+            ? (strapiProject.Gallery[0].url.startsWith('http') 
+              ? strapiProject.Gallery[0].url 
+              : `https://holleman-cms-production.up.railway.app${strapiProject.Gallery[0].url}`)
             : '/images/projectcargo.webp'; // fallback
 
   // Get all gallery images
           const galleryImages = strapiProject.Gallery && strapiProject.Gallery.length > 0
-            ? strapiProject.Gallery.map((img: any) => `https://holleman-cms-production.up.railway.app${img.url}`)
+            ? strapiProject.Gallery.map((img: any) => 
+                img.url.startsWith('http') 
+                  ? img.url 
+                  : `https://holleman-cms-production.up.railway.app${img.url}`
+              )
             : [mainImageUrl];
 
   // Transform description from markdown to paragraphs (note: Description is capitalized in Strapi)

@@ -152,7 +152,12 @@ const HeavyLift: React.FC = () => {
           <div className="content-grid">
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section1Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section1Image.url}` : '/images/source/heavyliftex1.webp'} 
+                src={contentSectionsData?.Section1Image 
+                  ? (contentSectionsData.Section1Image.url.startsWith('http') 
+                    ? contentSectionsData.Section1Image.url 
+                    : `https://holleman-cms-production.up.railway.app${contentSectionsData.Section1Image.url}`)
+                  : '/images/source/heavyliftex1.webp'
+                } 
                 alt={contentSectionsData?.Section1Title || 'Acționări speciale cu portale hidraulice mobile'} 
               />
             </div>
@@ -174,7 +179,12 @@ const HeavyLift: React.FC = () => {
             </div>
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section2Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section2Image.url}` : '/images/source/heavyliftex3.webp'} 
+                src={contentSectionsData?.Section2Image 
+                  ? (contentSectionsData.Section2Image.url.startsWith('http') 
+                    ? contentSectionsData.Section2Image.url 
+                    : `https://holleman-cms-production.up.railway.app${contentSectionsData.Section2Image.url}`)
+                  : '/images/source/heavyliftex3.webp'
+                } 
                 alt={contentSectionsData?.Section2Title || 'Soluții inteligente pentru relocări'} 
               />
             </div>
@@ -188,7 +198,12 @@ const HeavyLift: React.FC = () => {
           <div className="content-grid">
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section3Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section3Image.url}` : '/images/source/heavyliftex2.webp'} 
+                src={contentSectionsData?.Section3Image 
+                  ? (contentSectionsData.Section3Image.url.startsWith('http') 
+                    ? contentSectionsData.Section3Image.url 
+                    : `https://holleman-cms-production.up.railway.app${contentSectionsData.Section3Image.url}`)
+                  : '/images/source/heavyliftex2.webp'
+                } 
                 alt={contentSectionsData?.Section3Title || 'Relocări în orice scară'} 
               />
             </div>
@@ -253,7 +268,12 @@ const HeavyLift: React.FC = () => {
             </div>
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section4Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section4Image.url}` : '/images/source/heavyliftex4.webp'} 
+                src={contentSectionsData?.Section4Image 
+                  ? (contentSectionsData.Section4Image.url.startsWith('http') 
+                    ? contentSectionsData.Section4Image.url 
+                    : `https://holleman-cms-production.up.railway.app${contentSectionsData.Section4Image.url}`)
+                  : '/images/source/heavyliftex4.webp'
+                } 
                 alt={contentSectionsData?.Section4Title || 'Montaj industrial specializat'} 
               />
             </div>
@@ -267,7 +287,12 @@ const HeavyLift: React.FC = () => {
           <div className="content-grid">
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section5Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section5Image.url}` : '/images/source/heavyliftex5.webp'} 
+                src={contentSectionsData?.Section5Image 
+                  ? (contentSectionsData.Section5Image.url.startsWith('http') 
+                    ? contentSectionsData.Section5Image.url 
+                    : `https://holleman-cms-production.up.railway.app${contentSectionsData.Section5Image.url}`)
+                  : '/images/source/heavyliftex5.webp'
+                } 
                 alt={contentSectionsData?.Section5Title || 'Transport integrat door-to-door'} 
               />
             </div>
@@ -312,7 +337,12 @@ const HeavyLift: React.FC = () => {
             </div>
             <div className="content-image">
               <img 
-                src={contentSectionsData?.Section6Image ? `https://holleman-cms-production.up.railway.app${contentSectionsData.Section6Image.url}` : '/images/source/flota.webp'} 
+                src={contentSectionsData?.Section6Image 
+                  ? (contentSectionsData.Section6Image.url.startsWith('http') 
+                    ? contentSectionsData.Section6Image.url 
+                    : `https://holleman-cms-production.up.railway.app${contentSectionsData.Section6Image.url}`)
+                  : '/images/source/flota.webp'
+                } 
                 alt={contentSectionsData?.Section6Title || 'Flotă de echipamente'} 
               />
             </div>

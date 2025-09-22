@@ -1007,7 +1007,10 @@ const Contact: React.FC = () => {
                         <div className="flag-icon">
                           {office.image && office.image.length > 0 && (
                             <img 
-                              src={`https://holleman-cms-production.up.railway.app${office.image[0].url}`} 
+                              src={office.image[0].url.startsWith('http') 
+                                ? office.image[0].url 
+                                : `https://holleman-cms-production.up.railway.app${office.image[0].url}`
+                              } 
                               alt={`${office.country} flag`} 
                             />
                           )}
