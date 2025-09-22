@@ -263,19 +263,6 @@ const Cariere: React.FC = () => {
                     {paragraph.trim()}
                   </p>
                 ))}
-                
-                {/* Career Quote Text */}
-                {whyHollemanContent.careerQuoteText && (
-                  <div className="career-quote" style={{
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    animation: 'slideInUp 0.8s ease-out 0.6s forwards'
-                  }}>
-                    <blockquote className="quote-text">
-                      "{whyHollemanContent.careerQuoteText}"
-                    </blockquote>
-                  </div>
-                )}
               </div>
               
             </>
@@ -433,7 +420,13 @@ const Cariere: React.FC = () => {
       {/* Career Quote Footer */}
       <section className="career-quote-footer">
         <p className="career-quote-text">
-          Pentru noi, 'prea mare' nu e o problemă. E un compliment.
+          {contentLoading ? (
+            "Loading..."
+          ) : whyHollemanContent?.careerQuoteText ? (
+            whyHollemanContent.careerQuoteText
+          ) : (
+            "Pentru noi, 'prea mare' nu e o problemă. E un compliment."
+          )}
         </p>
       </section>
 
