@@ -15,6 +15,7 @@ const Cariere: React.FC = () => {
   // State for Strapi content
   const [whyHollemanContent, setWhyHollemanContent] = useState<any>(null);
   const [benefitsContent, setBenefitsContent] = useState<any>(null);
+  const [availablePositions, setAvailablePositions] = useState<any[]>([]);
   const [contentLoading, setContentLoading] = useState(true);
   const [carriereHeroContent, setCarriereHeroContent] = useState<any>(null);
   
@@ -132,23 +133,27 @@ const Cariere: React.FC = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const [whyHollemanRes, benefitsRes, carriereHeroRes] = await Promise.all([
+        const [whyHollemanRes, benefitsRes, carriereHeroRes, positionsRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-de-ce-holleman?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-beneficii?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/cariere-hero')
+          fetch('https://holleman-cms-production.up.railway.app/api/cariere-hero'),
+          fetch('https://holleman-cms-production.up.railway.app/api/cariere-positions?populate=*')
         ]);
 
         const whyHollemanData = await whyHollemanRes.json();
         const benefitsData = await benefitsRes.json();
         const carriereHeroData = await carriereHeroRes.json();
+        const positionsData = await positionsRes.json();
 
         console.log('Why Holleman Data:', whyHollemanData);
         console.log('Benefits Data:', benefitsData);
         console.log('Carriere Hero Data:', carriereHeroData);
+        console.log('Positions Data:', positionsData);
 
         setWhyHollemanContent(whyHollemanData.data);
         setBenefitsContent(benefitsData.data);
         setCarriereHeroContent(carriereHeroData.data);
+        setAvailablePositions(positionsData.data || []);
       } catch (error) {
         console.error('Error fetching content:', error);
         // Fallback for hero content
@@ -375,47 +380,27 @@ const Cariere: React.FC = () => {
           </div>
           
           <div className="positions-grid">
-            <div className="position-item">
-              <div className="position-icon">
-                <img src="/images/icons/Info.webp" alt="Driver icon" />
-              </div>
-              <h3>Șofer transport agabaritic internațional</h3>
-              <div className="position-overlay">
-                <div className="position-icon-white">
-                  <img src="/images/icons/Info.webp" alt="Driver icon" />
+            {availablePositions.length > 0 ? (
+              availablePositions.map((position, index) => (
+                <div key={position.id || index} className="position-item">
+                  <div className="position-icon">
+                    <img src="/images/icons/Info.webp" alt="Position icon" />
+                  </div>
+                  <h3>{position.title}</h3>
+                  <div className="position-overlay">
+                    <div className="position-icon-white">
+                      <img src="/images/icons/Info.webp" alt="Position icon" />
+                    </div>
+                    <h3>{position.title}</h3>
+                    <p>{position.description}</p>
+                  </div>
                 </div>
-                <h3>Șofer transport agabaritic internațional</h3>
-                <p>Cerinte: permis C+E, experiență în transporturi speciale, cunoștințe ADR – constituie un avantaj</p>
+              ))
+            ) : (
+              <div className="no-positions">
+                <p>Nu există poziții disponibile în acest moment.</p>
               </div>
-            </div>
-            
-            <div className="position-item">
-              <div className="position-icon">
-                <img src="/images/icons/Info.webp" alt="Coordinator icon" />
-              </div>
-              <h3>Coordonator logistică / dispecer</h3>
-              <div className="position-overlay">
-                <div className="position-icon-white">
-                  <img src="/images/icons/Info.webp" alt="Coordinator icon" />
-                </div>
-                <h3>Coordonator logistică / dispecer</h3>
-                <p>Responsabilități: planificarea rutelor, relația cu șoferii și partenerii externi, optimizarea costurilor</p>
-              </div>
-            </div>
-            
-            <div className="position-item">
-              <div className="position-icon">
-                <img src="/images/icons/Info.webp" alt="Engineer icon" />
-              </div>
-              <h3>Inginer proiect transporturi speciale</h3>
-              <div className="position-overlay">
-                <div className="position-icon-white">
-                  <img src="/images/icons/Info.webp" alt="Engineer icon" />
-                </div>
-                <h3>Inginer proiect transporturi speciale</h3>
-                <p>Profil ideal: studii tehnice, experiență în evaluarea traseelor și obținerea autorizațiilor speciale</p>
-              </div>
-            </div>
+            )}
           </div>
           
           <div className="positions-footer">
