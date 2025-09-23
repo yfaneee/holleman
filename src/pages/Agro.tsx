@@ -12,7 +12,6 @@ const Agro: React.FC = () => {
   const [agroCtaSection, setAgroCtaSection] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [agroHeroContent, setAgroHeroContent] = useState<any>(null);
-  const [heroLoading, setHeroLoading] = useState(true);
 
   // Fetch content from Strapi
   useEffect(() => {
@@ -43,7 +42,6 @@ const Agro: React.FC = () => {
         });
       } finally {
         setLoading(false);
-        setHeroLoading(false);
       }
     };
 
@@ -59,10 +57,10 @@ const Agro: React.FC = () => {
         <div className="agro-hero-overlay">
           <div className="agro-hero-content">
             <h1 className="agro-title">
-              {heroLoading ? 'AGRO' : (agroHeroContent?.title || 'AGRO')}
+              {agroHeroContent?.title || ''}
             </h1>
             <p className="agro-subtitle">
-              {heroLoading ? 'Unde e nevoie de forta, aducem si finete' : (agroHeroContent?.subtitleText || 'Unde e nevoie de forta, aducem si finete')}
+              {agroHeroContent?.subtitleText || ''}
             </p>
           </div>
         </div>

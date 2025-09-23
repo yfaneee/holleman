@@ -14,7 +14,6 @@ const Blog: React.FC = () => {
   const [stayConnectedSection, setStayConnectedSection] = useState<any>(null);
   const [sectionsLoading, setSectionsLoading] = useState(true);
   const [blogHeroContent, setBlogHeroContent] = useState<any>(null);
-  const [heroLoading, setHeroLoading] = useState(true);
 
   // State for articles
   const [articles, setArticles] = useState<any[]>(getLatestArticles());
@@ -100,7 +99,6 @@ const Blog: React.FC = () => {
       } finally {
         setSectionsLoading(false);
         setArticlesLoading(false);
-        setHeroLoading(false);
       }
     };
 
@@ -141,10 +139,10 @@ const Blog: React.FC = () => {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">
-            {heroLoading ? 'Noutăți & Blog' : (blogHeroContent?.title || 'Noutăți & Blog')}
+            {blogHeroContent?.title || ''}
           </h1>
           <p className="hero-subtitle">
-            {heroLoading ? 'Descopera cele mai noi tendinte si informatii din lumea transporturilor agabaritice' : (blogHeroContent?.subtitleText || 'Descopera cele mai noi tendinte si informatii din lumea transporturilor agabaritice')}
+            {blogHeroContent?.subtitleText || ''}
           </p>
         </div>
       </section>

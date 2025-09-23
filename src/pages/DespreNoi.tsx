@@ -211,9 +211,9 @@ const DespreNoi: React.FC = () => {
       >
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">{heroContent?.heroTitle || 'Loading...'}</h1>
+          <h1 className="hero-title">{heroContent?.heroTitle || ''}</h1>
           <p className="hero-subtitle">
-            {heroContent?.heroSubtitle || 'Loading...'}
+            {heroContent?.heroSubtitle || ''}
           </p>
         </div>
       </section>

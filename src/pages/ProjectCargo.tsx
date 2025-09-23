@@ -12,7 +12,6 @@ const ProjectCargo: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [whyChooseContent, setWhyChooseContent] = useState<any>(null);
   const [projectCargoHeroContent, setProjectCargoHeroContent] = useState<any>(null);
-  const [heroLoading, setHeroLoading] = useState(true);
   
   // State for projects data
   const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
@@ -105,7 +104,6 @@ const ProjectCargo: React.FC = () => {
         });
       } finally {
         setProjectsLoading(false);
-        setHeroLoading(false);
       }
     };
 
@@ -165,10 +163,10 @@ const ProjectCargo: React.FC = () => {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">
-            {heroLoading ? 'Project Cargo' : (projectCargoHeroContent?.title || 'Project Cargo')}
+            {projectCargoHeroContent?.title || ''}
           </h1>
           <p className="hero-subtitle">
-            {heroLoading ? 'Nu mutam doar obiecte, ci si limite' : (projectCargoHeroContent?.subtitleText || 'Nu mutam doar obiecte, ci si limite')}
+            {projectCargoHeroContent?.subtitleText || ''}
           </p>
         </div>
       </section>

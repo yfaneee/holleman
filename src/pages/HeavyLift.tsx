@@ -10,7 +10,6 @@ const HeavyLift: React.FC = () => {
   const [serviceCardsContent, setServiceCardsContent] = useState<any>(null);
   const [contentSectionsData, setContentSectionsData] = useState<any>(null);
   const [heavyLiftHeroContent, setHeavyLiftHeroContent] = useState<any>(null);
-  const [heroLoading, setHeroLoading] = useState(true);
 
   useEffect(() => {
     // SEO setup
@@ -55,7 +54,6 @@ const HeavyLift: React.FC = () => {
           subtitleText: 'Nu mutam doar obiecte, ci si limite'
         });
       } finally {
-        setHeroLoading(false);
       }
     };
     fetchHeavyLiftContent();
@@ -77,10 +75,10 @@ const HeavyLift: React.FC = () => {
         <div className="hero-overlay">
           <div className="hero-content">
             <h1 className="hero-title">
-              {heroLoading ? 'Heavy Lift' : (heavyLiftHeroContent?.title || 'Heavy Lift')}
+              {heavyLiftHeroContent?.title || ''}
             </h1>
             <p className="hero-subtitle">
-              {heroLoading ? 'Nu mutam doar obiecte, ci si limite' : (heavyLiftHeroContent?.subtitleText || 'Nu mutam doar obiecte, ci si limite')}
+              {heavyLiftHeroContent?.subtitleText || ''}
             </p>
           </div>
         </div>

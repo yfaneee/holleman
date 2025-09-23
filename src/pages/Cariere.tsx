@@ -17,7 +17,6 @@ const Cariere: React.FC = () => {
   const [benefitsContent, setBenefitsContent] = useState<any>(null);
   const [contentLoading, setContentLoading] = useState(true);
   const [carriereHeroContent, setCarriereHeroContent] = useState<any>(null);
-  const [heroLoading, setHeroLoading] = useState(true);
   
   // Form state
   const [formData, setFormData] = useState<CareerFormData>({
@@ -159,7 +158,6 @@ const Cariere: React.FC = () => {
         });
       } finally {
         setContentLoading(false);
-        setHeroLoading(false);
       }
     };
 
@@ -244,10 +242,10 @@ const Cariere: React.FC = () => {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">
-            {heroLoading ? 'Cariere' : (carriereHeroContent?.title || 'Cariere')}
+            {carriereHeroContent?.title || ''}
           </h1>
           <p className="hero-subtitle">
-            {heroLoading ? 'Alatura-te echipei care face ca imposibilul sa devina posibil' : (carriereHeroContent?.subtitleText || 'Alatura-te echipei care face ca imposibilul sa devina posibil')}
+            {carriereHeroContent?.subtitleText || ''}
           </p>
         </div>
       </section>

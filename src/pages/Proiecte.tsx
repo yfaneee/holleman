@@ -29,7 +29,6 @@ const Proiecte: React.FC = () => {
   const [inspirationContent, setInspirationContent] = useState<any>(null);
   const [contentLoading, setContentLoading] = useState(true);
   const [proiecteHeroContent, setProiecteHeroContent] = useState<any>(null);
-  const [heroLoading, setHeroLoading] = useState(true);
   
   // State for projects data
   const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
@@ -387,7 +386,6 @@ const Proiecte: React.FC = () => {
       } finally {
         setContentLoading(false);
         setProjectsLoading(false);
-        setHeroLoading(false);
       }
     };
 
@@ -457,10 +455,10 @@ const Proiecte: React.FC = () => {
          <div className="hero-overlay">
            <div className="hero-content">
              <h1 className="hero-title">
-               {heroLoading ? 'Proiecte' : (proiecteHeroContent?.title || 'Proiecte')}
+               {proiecteHeroContent?.title || ''}
              </h1>
              <p className="hero-subtitle">
-               {heroLoading ? 'Am transportat si lucruri care n-au căpătat nume în DEX. Daca intra pe trailer, il ducem.' : (proiecteHeroContent?.subtitleText || 'Am transportat si lucruri care n-au căpătat nume în DEX. Daca intra pe trailer, il ducem.')}
+               {proiecteHeroContent?.subtitleText || ''}
              </p>
            </div>
          </div>

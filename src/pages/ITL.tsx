@@ -13,7 +13,6 @@ const ITL: React.FC = () => {
   const [networkCoverageContent, setNetworkCoverageContent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [itlHeroContent, setItlHeroContent] = useState<any>(null);
-  const [heroLoading, setHeroLoading] = useState(true);
   
   const heroStyle = {
     backgroundImage: `url('/images/ITLbackground.webp')`
@@ -48,7 +47,6 @@ const ITL: React.FC = () => {
         });
       } finally {
         setLoading(false);
-        setHeroLoading(false);
       }
     };
 
@@ -124,10 +122,10 @@ const ITL: React.FC = () => {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">
-            {heroLoading ? 'ITL' : (itlHeroContent?.title || 'ITL')}
+            {itlHeroContent?.title || ''}
           </h1>
           <p className="hero-subtitle">
-            {heroLoading ? 'Ne plimbam mai mult decat GPS-ul tau' : (itlHeroContent?.subtitleText || 'Ne plimbam mai mult decat GPS-ul tau')}
+            {itlHeroContent?.subtitleText || ''}
           </p>
         </div>
       </section>

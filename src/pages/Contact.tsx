@@ -24,7 +24,6 @@ const Contact: React.FC = () => {
   const [coverageContent, setCoverageContent] = useState<any>(null);
   const [coverageLoading, setCoverageLoading] = useState(true);
   const [contactHeroContent, setContactHeroContent] = useState<any>(null);
-  const [heroLoading, setHeroLoading] = useState(true);
   
   // Form state
   const [formData, setFormData] = useState<ContactFormData>({
@@ -304,7 +303,6 @@ const Contact: React.FC = () => {
         });
       } finally {
         setNetworkLoading(false);
-        setHeroLoading(false);
       }
     };
 
@@ -429,10 +427,10 @@ const Contact: React.FC = () => {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">
-            {heroLoading ? 'Contact' : (contactHeroContent?.title || 'Contact')}
+            {contactHeroContent?.title || ''}
           </h1>
           <p className="hero-subtitle">
-            {heroLoading ? 'Suntem aici sa te ajutam cu orice intrebare' : (contactHeroContent?.subtitleText || 'Suntem aici sa te ajutam cu orice intrebare')}
+            {contactHeroContent?.subtitleText || ''}
           </p>
         </div>
       </section>
