@@ -137,7 +137,7 @@ const Cariere: React.FC = () => {
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-de-ce-holleman?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-beneficii?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-hero'),
-          fetch('https://holleman-cms-production.up.railway.app/api/cariere-joburi?populate=*')
+          fetch('https://holleman-cms-production.up.railway.app/api/cariere-pozitii?populate=*')
         ]);
 
         const whyHollemanData = await whyHollemanRes.json();
