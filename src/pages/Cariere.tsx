@@ -157,12 +157,14 @@ const Cariere: React.FC = () => {
         const positionsArray = [];
         if (positionsData.data) {
           const data = positionsData.data;
+          console.log('Processing positions data:', data);
           if (data.position1Title && data.position1Description) {
             positionsArray.push({
               id: 1,
               title: data.position1Title,
               description: data.position1Description
             });
+            console.log('Added position 1:', data.position1Title);
           }
           if (data.position2Title && data.position2Description) {
             positionsArray.push({
@@ -170,6 +172,7 @@ const Cariere: React.FC = () => {
               title: data.position2Title,
               description: data.position2Description
             });
+            console.log('Added position 2:', data.position2Title);
           }
           if (data.position3Title && data.position3Description) {
             positionsArray.push({
@@ -177,8 +180,10 @@ const Cariere: React.FC = () => {
               title: data.position3Title,
               description: data.position3Description
             });
+            console.log('Added position 3:', data.position3Title);
           }
         }
+        console.log('Final positions array:', positionsArray);
         setAvailablePositions(positionsArray);
       } catch (error) {
         console.error('Error fetching content:', error);
