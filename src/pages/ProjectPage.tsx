@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getProjectByIdSync, getRelatedProjectsSync } from '../data/projectsData';
+import { processParagraphFormatting } from '../utils/textFormatting';
 import './ProjectPage.css';
 
 const ProjectPage: React.FC = () => {
@@ -228,14 +229,12 @@ const ProjectPage: React.FC = () => {
 
             <div className="project-description">
               {project.description.paragraphs.map((paragraph, index) => (
-                <p key={index}>
-                  {paragraph.split('<br/>').map((line, lineIndex) => (
-                    <span key={lineIndex}>
-                      {line}
-                      {lineIndex < paragraph.split('<br/>').length - 1 && <br />}
-                    </span>
-                  ))}
-                </p>
+                <p 
+                  key={index}
+                  dangerouslySetInnerHTML={{
+                    __html: processParagraphFormatting(paragraph)
+                  }}
+                />
               ))}
             </div>
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getAllProjects, getAllProjectsSync } from '../data/projectsData';
+import { convertBasicMarkdown } from '../utils/textFormatting';
 import './Proiecte.css';
 
 const Proiecte: React.FC = () => {
@@ -543,7 +544,11 @@ const Proiecte: React.FC = () => {
                   <div className="project-hover-content">
                     <div className="project-details">
                       <h3>{project.title}</h3>
-                      <p>{project.description.paragraphs[0].substring(0, 120)}...</p>
+                      <p 
+                        dangerouslySetInnerHTML={{
+                          __html: convertBasicMarkdown(project.description.paragraphs[0].substring(0, 120)) + '...'
+                        }}
+                      />
                       <button 
                         className="project-button"
                         onClick={() => handleProjectClick(project.id)}
