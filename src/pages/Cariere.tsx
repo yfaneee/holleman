@@ -137,7 +137,7 @@ const Cariere: React.FC = () => {
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-de-ce-holleman?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-beneficii?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-hero'),
-          fetch('https://holleman-cms-production.up.railway.app/api/positions?populate=*')
+          fetch('https://holleman-cms-production.up.railway.app/api/cariere-positions?populate=*')
         ]);
 
         const whyHollemanData = await whyHollemanRes.json();
@@ -153,7 +153,33 @@ const Cariere: React.FC = () => {
         setWhyHollemanContent(whyHollemanData.data);
         setBenefitsContent(benefitsData.data);
         setCarriereHeroContent(carriereHeroData.data);
-        setAvailablePositions(positionsData.data || []);
+        // Convert single type data to array format for compatibility
+        const positionsArray = [];
+        if (positionsData.data) {
+          const data = positionsData.data;
+          if (data.position1Title && data.position1Description) {
+            positionsArray.push({
+              id: 1,
+              title: data.position1Title,
+              description: data.position1Description
+            });
+          }
+          if (data.position2Title && data.position2Description) {
+            positionsArray.push({
+              id: 2,
+              title: data.position2Title,
+              description: data.position2Description
+            });
+          }
+          if (data.position3Title && data.position3Description) {
+            positionsArray.push({
+              id: 3,
+              title: data.position3Title,
+              description: data.position3Description
+            });
+          }
+        }
+        setAvailablePositions(positionsArray);
       } catch (error) {
         console.error('Error fetching content:', error);
         // Fallback for hero content
