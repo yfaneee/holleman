@@ -149,38 +149,50 @@ const Cariere: React.FC = () => {
         console.log('Benefits Data:', benefitsData);
         console.log('Carriere Hero Data:', carriereHeroData);
         console.log('Positions Data:', positionsData);
+        console.log('API fetch completed successfully');
 
         setWhyHollemanContent(whyHollemanData.data);
         setBenefitsContent(benefitsData.data);
         setCarriereHeroContent(carriereHeroData.data);
-        // Convert single type data to array format for compatibility
-        const positionsArray = [];
+        // Handle both new repeatable component format and old fixed format
+        const positionsArray: Array<{id: number; title: string; description: string}> = [];
         if (positionsData.data) {
           const data = positionsData.data;
           console.log('Processing positions data:', data);
-          if (data.position1Title && data.position1Description) {
-            positionsArray.push({
-              id: 1,
-              title: data.position1Title,
-              description: data.position1Description
+          
+          // New format: Check if positions is a repeatable component array
+          if (data.positions && Array.isArray(data.positions)) {
+            console.log('Using new repeatable component format');
+            data.positions.forEach((position: any, index: number) => {
+              if (position.title && position.description) {
+                positionsArray.push({
+                  id: position.id || index + 1,
+                  title: position.title,
+                  description: position.description
+                });
+                console.log(`Added position ${index + 1}:`, position.title);
+              }
             });
-            console.log('Added position 1:', data.position1Title);
           }
-          if (data.position2Title && data.position2Description) {
-            positionsArray.push({
-              id: 2,
-              title: data.position2Title,
-              description: data.position2Description
+          // Fallback: Old fixed format (for backward compatibility)
+          else {
+            console.log('Using legacy fixed format as fallback');
+            // Dynamically detect any positionNTitle and positionNDescription fields
+            const positionKeys = Object.keys(data).filter(key => key.match(/^position\d+Title$/));
+            
+            positionKeys.forEach(titleKey => {
+              const positionNumber = titleKey.match(/^position(\d+)Title$/)?.[1];
+              const descriptionKey = `position${positionNumber}Description`;
+              
+              if (positionNumber && data[titleKey] && data[descriptionKey]) {
+                positionsArray.push({
+                  id: parseInt(positionNumber),
+                  title: data[titleKey],
+                  description: data[descriptionKey]
+                });
+                console.log(`Added position ${positionNumber}:`, data[titleKey]);
+              }
             });
-            console.log('Added position 2:', data.position2Title);
-          }
-          if (data.position3Title && data.position3Description) {
-            positionsArray.push({
-              id: 3,
-              title: data.position3Title,
-              description: data.position3Description
-            });
-            console.log('Added position 3:', data.position3Title);
           }
         }
         console.log('Final positions array:', positionsArray);
