@@ -546,7 +546,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .contact-page .contact-hero {
-    height: 60vh;
+    height: 100vh;
   }
   
   .contact-page .contact-hero-video {

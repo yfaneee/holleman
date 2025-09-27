@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -10,6 +10,14 @@ const HeavyLift: React.FC = () => {
   const [serviceCardsContent, setServiceCardsContent] = useState<any>(null);
   const [contentSectionsData, setContentSectionsData] = useState<any>(null);
   const [heavyLiftHeroContent, setHeavyLiftHeroContent] = useState<any>(null);
+  
+  // Refs for hook animations
+  const section1Ref = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
+  const section3Ref = useRef<HTMLDivElement>(null);
+  const section4Ref = useRef<HTMLDivElement>(null);
+  const section5Ref = useRef<HTMLDivElement>(null);
+  const section6Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // SEO setup
@@ -57,6 +65,78 @@ const HeavyLift: React.FC = () => {
       }
     };
     fetchHeavyLiftContent();
+  }, []);
+
+  // Hook animation on scroll
+  useEffect(() => {
+    const sections = [
+      { ref: section1Ref, side: 'right' }, // Image on left, hook comes from right
+      { ref: section2Ref, side: 'left' },  // Image on right, hook comes from left
+      { ref: section3Ref, side: 'right' }, // Image on left, hook comes from right
+      { ref: section4Ref, side: 'left' },  // Image on right, hook comes from left
+      { ref: section5Ref, side: 'right' }, // Image on left, hook comes from right
+      { ref: section6Ref, side: 'left' }   // Image on right, hook comes from left
+    ];
+
+    const observers: IntersectionObserver[] = [];
+
+    sections.forEach(({ ref, side }, index) => {
+      if (!ref.current) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              console.log(`Section ${index + 1} is visible, starting hook animation from ${side}!`);
+              
+              const section = entry.target as HTMLElement;
+              const hookContainer = section.querySelector('.hook-container') as HTMLElement;
+              const imageElement = section.querySelector('.content-image img') as HTMLElement;
+              
+              console.log('Hook container found:', !!hookContainer);
+              console.log('Image element found:', !!imageElement);
+              
+              if (hookContainer && imageElement) {
+                console.log(`Starting hook animation from ${side}!`);
+                
+                // 1. Start hook animation
+                hookContainer.classList.add('animate-hook', `hook-from-${side}`);
+                
+                // 2. Hook delivers image when it reaches position (after 3 seconds)
+                setTimeout(() => {
+                  console.log('Hook delivering image!');
+                  const imageContainer = section.querySelector('.content-image') as HTMLElement;
+                  imageElement.classList.add('image-delivered');
+                  if (imageContainer) {
+                    imageContainer.classList.add('image-container-delivered');
+                  }
+                }, 3000); // Hook reaches position and delivers image
+                
+                // 3. Hook retracts after delivering (0.5s later)
+                setTimeout(() => {
+                  console.log('Hook retracting!');
+                  hookContainer.classList.add('hook-retract');
+                }, 3500); // Start retraction after delivery
+              } else {
+                console.log('Missing elements - hookContainer:', !!hookContainer, 'imageElement:', !!imageElement);
+              }
+            }
+          });
+        },
+        {
+          threshold: 0.1, // Trigger when 10% of the section is visible
+          rootMargin: '0px 0px 50px 0px' // Start animation earlier
+        }
+      );
+
+      observer.observe(ref.current);
+      observers.push(observer);
+    });
+
+    // Cleanup
+    return () => {
+      observers.forEach(observer => observer.disconnect());
+    };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -160,7 +240,10 @@ const HeavyLift: React.FC = () => {
       {/* Detailed Content Sections */}
       
       {/* Hydraulic Cranes Section */}
-      <section id="hydraulic-cranes" className="content-section">
+      <section id="hydraulic-cranes" className="content-section" ref={section1Ref}>
+        <div className="hook-container">
+          <img src="/images/hook.webp" alt="Hook" className="hook-image" />
+        </div>
         <div className="content-container">
           <div className="content-grid">
             <div className="content-image">
@@ -183,7 +266,10 @@ const HeavyLift: React.FC = () => {
       </section>
 
       {/* Intelligent Solutions Section */}
-      <section id="intelligent-solutions" className="content-section alternate">
+      <section id="intelligent-solutions" className="content-section alternate" ref={section2Ref}>
+        <div className="hook-container">
+          <img src="/images/hook.webp" alt="Hook" className="hook-image" />
+        </div>
         <div className="content-container">
           <div className="content-grid reverse">
             <div className="content-text">
@@ -206,7 +292,10 @@ const HeavyLift: React.FC = () => {
       </section>
 
       {/* Global Relocations Section */}
-      <section id="global-relocations" className="content-section">
+      <section id="global-relocations" className="content-section" ref={section3Ref}>
+        <div className="hook-container">
+          <img src="/images/hook.webp" alt="Hook" className="hook-image" />
+        </div>
         <div className="content-container">
           <div className="content-grid">
             <div className="content-image">
@@ -246,7 +335,10 @@ const HeavyLift: React.FC = () => {
       </section>
 
       {/* Industrial Assembly Section */}
-      <section id="industrial-assembly" className="content-section alternate">
+      <section id="industrial-assembly" className="content-section alternate" ref={section4Ref}>
+        <div className="hook-container">
+          <img src="/images/hook.webp" alt="Hook" className="hook-image" />
+        </div>
         <div className="content-container">
           <div className="content-grid reverse">
             <div className="content-text">
@@ -295,7 +387,10 @@ const HeavyLift: React.FC = () => {
       </section>
 
       {/* Logistics Integration Section */}
-      <section id="logistics-integration" className="content-section">
+      <section id="logistics-integration" className="content-section" ref={section5Ref}>
+        <div className="hook-container">
+          <img src="/images/hook.webp" alt="Hook" className="hook-image" />
+        </div>
         <div className="content-container">
           <div className="content-grid">
             <div className="content-image">
@@ -318,7 +413,10 @@ const HeavyLift: React.FC = () => {
       </section>
 
       {/* Specialized Equipment Section */}
-      <section id="specialized-equipment" className="content-section alternate">
+      <section id="specialized-equipment" className="content-section alternate" ref={section6Ref}>
+        <div className="hook-container">
+          <img src="/images/hook.webp" alt="Hook" className="hook-image" />
+        </div>
         <div className="content-container">
           <div className="content-grid reverse">
             <div className="content-text">
