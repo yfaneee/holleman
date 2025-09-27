@@ -804,6 +804,21 @@
     width: 60px;
   }
   
+  /* Disable hook animation for right-side images on mobile */
+  .heavy-lift-page .hook-container.hook-from-left {
+    display: none;
+  }
+  
+  /* Keep images visible without hook animation for right-side sections */
+  .heavy-lift-page .content-section:nth-child(even) .content-image img {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+  
+  .heavy-lift-page .content-section:nth-child(even) .content-image {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1) !important;
+  }
+  
   @keyframes hookFromRight {
     0% { right: -80px; top: -20px; opacity: 0; }
     20% { opacity: 1; top: 10px; }
