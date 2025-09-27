@@ -396,6 +396,106 @@
   object-fit: contain;
 }
 
+/* Tractor Animation Section */
+.agro-page .tractor-animation-section {
+  background: #D4A017; /* Agro gold color */
+  height: 150px; /* Same size as truck section */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.agro-page .tractor-animation-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.agro-page .moving-tractor {
+  position: absolute;
+  top: -30%; /* Start much higher - above the section */
+  right: -100px; /* Start with only half tractor visible */
+  animation: none; /* No animation by default */
+  z-index: 10; /* Make sure it's visible */
+}
+
+.agro-page .moving-tractor.animate-tractor {
+  animation: tractorDriveLeft 6s linear forwards; /* Single animation on scroll */
+}
+
+.agro-page .tractor-svg {
+  height: 240px; /* Same size as truck for consistency */
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Tractor text animation */
+.agro-page .tractor-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.agro-page .tractor-message {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 1.8rem;
+  color: white;
+  text-align: center;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.agro-page .tractor-message .word {
+  display: inline-block;
+  margin-right: 0.3em;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.agro-page .tractor-text.show-text .word {
+  animation: fadeInWord 0.6s ease-out forwards;
+}
+
+/* Stagger the animation for each word */
+.agro-page .tractor-text.show-text .word:nth-child(1) { animation-delay: 0s; }
+.agro-page .tractor-text.show-text .word:nth-child(2) { animation-delay: 0.2s; }
+.agro-page .tractor-text.show-text .word:nth-child(3) { animation-delay: 0.4s; }
+.agro-page .tractor-text.show-text .word:nth-child(4) { animation-delay: 0.6s; }
+.agro-page .tractor-text.show-text .word:nth-child(5) { animation-delay: 0.8s; }
+.agro-page .tractor-text.show-text .word:nth-child(6) { animation-delay: 1.2s; }
+.agro-page .tractor-text.show-text .word:nth-child(7) { animation-delay: 1.4s; }
+.agro-page .tractor-text.show-text .word:nth-child(8) { animation-delay: 1.6s; }
+.agro-page .tractor-text.show-text .word:nth-child(9) { animation-delay: 1.8s; }
+.agro-page .tractor-text.show-text .word:nth-child(10) { animation-delay: 2.0s; }
+
+@keyframes fadeInWord {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Keyframe animation - tractor moves diagonally from right to left */
+@keyframes tractorDriveLeft {
+  0% {
+    right: -100px; /* Start with only half tractor visible */
+    top: -30%; /* Start much higher - above the section */
+  }
+  100% {
+    right: 100vw; /* End completely off-screen left */
+    top: 10%; /* End higher up - less steep diagonal */
+  }
+}
+
 /* Services Navigation Section */
 .agro-page .services-nav-section {
   padding: clamp(60px, 8vw, 80px) clamp(40px, 8vw, 80px);
@@ -466,6 +566,85 @@
 }
 
 
+
+/* Responsive Tractor Animation */
+@media (max-width: 768px) {
+  .agro-page .tractor-animation-section {
+    height: 150px; /* Same size on tablet */
+  }
+  
+  .agro-page .tractor-svg {
+    height: 180px; /* Smaller on tablet */
+  }
+  
+  .agro-page .tractor-message {
+    font-size: 1.4rem; /* Smaller text on tablet */
+  }
+  
+  .agro-page .tractor-message .word {
+    margin-right: 0.25em; /* Slightly less spacing on tablet */
+  }
+  
+  .agro-page .moving-tractor {
+    right: -75px; /* Half tractor visible on tablet */
+    top: -35%; /* Start much higher on tablet */
+  }
+  
+  @keyframes tractorDriveLeft {
+    0% {
+      right: -75px;
+      top: -35%; /* Start much higher on tablet */
+    }
+    100% {
+      right: 100vw;
+      top: 5%; /* End higher up on tablet - less steep diagonal */
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .agro-page .tractor-animation-section {
+    height: 120px; /* Smaller on mobile */
+  }
+  
+  .agro-page .tractor-svg {
+    height: 130px; /* Smaller on mobile */
+  }
+  
+  .agro-page .tractor-message {
+    font-size: 1.1rem; /* Smaller text on mobile */
+    padding: 0 20px; /* Add padding on mobile */
+  }
+  
+  .agro-page .tractor-message .word {
+    margin-right: 0.2em; /* Even less spacing on mobile */
+  }
+  
+  .agro-page .moving-tractor {
+    right: -55px; /* Half tractor visible on mobile */
+    top: -40%; /* Start much higher on mobile */
+  }
+  
+  @keyframes tractorDriveLeft {
+    0% {
+      right: -55px;
+      top: -40%; /* Start much higher on mobile */
+    }
+    100% {
+      right: 100vw;
+      top: 0%; /* End higher up on mobile - less steep diagonal */
+    }
+  }
+}
+
+/* Pause animation on reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .agro-page .moving-tractor {
+    animation: none;
+    right: -50px; /* Static position for reduced motion */
+    top: 25%;
+  }
+}
 
 /* Responsive Design */
 @media (max-width: 1380px) and (min-width: 1201px) {

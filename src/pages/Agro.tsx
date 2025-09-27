@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,6 +6,7 @@ import './Agro.css';
 
 const Agro: React.FC = () => {
   const navigate = useNavigate();
+  const tractorRef = useRef<HTMLDivElement>(null);
   
   // State for Strapi content
   const [agroContentSection, setAgroContentSection] = useState<any>(null);
@@ -46,6 +47,49 @@ const Agro: React.FC = () => {
     };
 
     fetchContent();
+  }, []);
+
+  // Tractor animation on scroll
+  useEffect(() => {
+    const tractorElement = tractorRef.current;
+    if (!tractorElement) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log('Tractor section is visible, starting animation!');
+            // Add animation class when tractor section comes into view
+            const movingTractor = tractorElement.querySelector('.moving-tractor');
+            const tractorText = tractorElement.querySelector('.tractor-text');
+            
+            if (movingTractor) {
+              movingTractor.classList.add('animate-tractor');
+              
+              // Show text when tractor reaches middle (4 seconds)
+              if (tractorText) {
+                setTimeout(() => {
+                  tractorText.classList.add('show-text');
+                }, 4000); // Show text when tractor is in the middle
+              }
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the section is visible
+        rootMargin: '0px 0px 0px 0px' // Trigger as soon as any part is visible
+      }
+    );
+
+    observer.observe(tractorElement);
+
+    // Cleanup
+    return () => {
+      if (tractorElement) {
+        observer.unobserve(tractorElement);
+      }
+    };
   }, []);
 
   return (
@@ -217,6 +261,32 @@ const Agro: React.FC = () => {
                 </button>
               </>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Moving Tractor Animation Section */}
+      <section className="tractor-animation-section" ref={tractorRef}>
+        <div className="tractor-animation-container">
+          <div className="moving-tractor">
+            <img 
+              src="/images/svg/tractor.svg" 
+              alt="Holleman Tractor" 
+              className="tractor-svg"
+            />
+          </div>
+          <div className="tractor-text">
+            <p className="tractor-message">
+              {loading ? (
+                <span className="word">Loading...</span>
+              ) : (
+                agroContentSection?.catchphrase
+                  ?.split(' ')
+                  .map((word: string, index: number) => (
+                    <span key={index} className="word">{word}</span>
+                  ))
+              )}
+            </p>
           </div>
         </div>
       </section>
