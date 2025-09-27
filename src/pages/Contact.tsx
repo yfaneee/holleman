@@ -391,7 +391,13 @@ const Contact: React.FC = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="contact-hero" aria-label="Contact Holleman">
+      <section 
+        className="contact-hero" 
+        aria-label="Contact Holleman"
+        style={{
+          backgroundImage: `url('/images/Group8749.webp')`
+        }}
+      >
         <video 
           className="contact-hero-video"
           autoPlay 

@@ -24,8 +24,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* Simple fallback image when video doesn't work */
-  background-image: url('/images/Group8749.webp');
+  /* Simple fallback image when video doesn't work - set in JSX */
   background-size: cover;
   background-position: center;
 }
