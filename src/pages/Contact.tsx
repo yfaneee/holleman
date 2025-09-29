@@ -25,6 +25,28 @@ const Contact: React.FC = () => {
   const [coverageLoading, setCoverageLoading] = useState(true);
   const [contactHeroContent, setContactHeroContent] = useState<any>(null);
   
+  // State for expandable office cards
+  const [expandedOffice, setExpandedOffice] = useState<number | null>(null);
+  
+  // Function to toggle office expansion
+  const toggleOfficeExpansion = (index: number) => {
+    setExpandedOffice(expandedOffice === index ? null : index);
+  };
+  
+  // Get office details from Strapi data
+  const getOfficeDetails = (office: any) => {
+    // Only return details if they exist in Strapi
+    if (office.detailedInfo) {
+      return {
+        address: office.detailedInfo.address,
+        phone: office.detailedInfo.phone,
+        email: office.detailedInfo.email,
+        website: office.detailedInfo.website
+      };
+    }
+    return null;
+  };
+  
   // Form state
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
@@ -1015,26 +1037,91 @@ const Contact: React.FC = () => {
                   </h3>
                   
                   <div className="offices-grid">
-                    {networkOffices.map((office, index) => (
-                      <div key={index} className="office-item" style={{
-                        opacity: 0,
-                        transform: 'translateY(30px)',
-                        animation: `slideInUp 0.8s ease-out ${0.6 + (index * 0.1)}s forwards`
-                      }}>
-                        <div className="flag-icon">
-                          {office.image && office.image.length > 0 && (
-                            <img 
-                              src={office.image[0].url.startsWith('http') 
-                                ? office.image[0].url 
-                                : `https://holleman-cms-production.up.railway.app${office.image[0].url}`
-                              } 
-                              alt={`${office.country} flag`} 
-                            />
+                    {networkOffices.map((office, index) => {
+                      const isExpanded = expandedOffice === index;
+                      const officeDetails = getOfficeDetails(office);
+                      const hasDetails = officeDetails !== null;
+                      
+                      return (
+                        <div key={index} className={`office-item-wrapper ${isExpanded ? 'office-wrapper-expanded' : ''}`}>
+                          <div className={`office-item ${hasDetails ? 'office-item-clickable' : ''} ${isExpanded ? 'office-item-expanded' : ''}`} 
+                               onClick={() => hasDetails && toggleOfficeExpansion(index)}
+                               style={{
+                                 opacity: 0,
+                                 transform: 'translateY(30px)',
+                                 animation: `slideInUp 0.8s ease-out ${0.6 + (index * 0.1)}s forwards`
+                               }}>
+                            <div className="office-main-content">
+                              <div className="flag-icon">
+                                {office.image && office.image.length > 0 && (
+                                  <img 
+                                    src={office.image[0].url.startsWith('http') 
+                                      ? office.image[0].url 
+                                      : `https://holleman-cms-production.up.railway.app${office.image[0].url}`
+                                    } 
+                                    alt={`${office.country} flag`} 
+                                  />
+                                )}
+                              </div>
+                              <span>{office.country} – {office.city}</span>
+                              {hasDetails && (
+                                <div className="office-expand-indicator">
+                                  <svg 
+                                    width="20" 
+                                    height="20" 
+                                    viewBox="0 0 16 16" 
+                                    fill="currentColor"
+                                    className={`expand-icon ${isExpanded ? 'expanded' : ''}`}
+                                  >
+                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                  </svg>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          
+                          {hasDetails && (
+                            <div className={`office-details ${isExpanded ? 'office-details-expanded' : ''}`}>
+                              <div className="office-details-content">
+                                <div className="detail-item">
+                                  <div className="detail-icon">📍</div>
+                                  <div className="detail-text">
+                                    <strong>Adresă:</strong><br/>
+                                    {officeDetails.address}
+                                  </div>
+                                </div>
+                                
+                                <div className="detail-item">
+                                  <div className="detail-icon">📞</div>
+                                  <div className="detail-text">
+                                    <strong>Telefon:</strong><br/>
+                                    <a href={`tel:${officeDetails.phone}`}>{officeDetails.phone}</a>
+                                  </div>
+                                </div>
+                                
+                                <div className="detail-item">
+                                  <div className="detail-icon">✉️</div>
+                                  <div className="detail-text">
+                                    <strong>Email:</strong><br/>
+                                    <a href={`mailto:${officeDetails.email}`}>{officeDetails.email}</a>
+                                  </div>
+                                </div>
+                                
+                                <div className="detail-item">
+                                  <div className="detail-icon">🌐</div>
+                                  <div className="detail-text">
+                                    <strong>Website:</strong><br/>
+                                    <a href={officeDetails.website} target="_blank" rel="noopener noreferrer">
+                                      {officeDetails.website}
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           )}
                         </div>
-                        <span>{office.country} – {office.city}</span>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </>

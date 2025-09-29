@@ -977,21 +977,27 @@
 }
 
 .contact-page .offices-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .contact-page .office-item {
-  display: flex;
+  display: flex !important;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 15px 20px;
+  border-radius: 12px;
+  padding: 18px 22px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
+  flex: 1;
+  min-width: 250px;
+  max-width: 600px;
+  min-height: 60px;
 }
 
 .contact-page .office-item:hover {
@@ -1316,4 +1322,230 @@
 .contact-page .stagger-children.animate-in .partnerships-list li {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Expandable Office Cards - New Vertical Layout */
+.contact-page .office-item-wrapper {
+  transition: all 0.5s ease;
+  width: 100%;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.contact-page .office-wrapper-expanded {
+  width: 100%; /* Take full width */
+  order: -1; /* Move to top */
+}
+
+.contact-page .office-item-clickable {
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  /* Ensure visibility */
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-page .office-item-clickable:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.contact-page .office-main-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  position: relative;
+}
+
+.contact-page .office-expand-indicator {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #D4A017;
+  padding: 5px;
+}
+
+.contact-page .expand-icon {
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.contact-page .expand-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.contact-page .office-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  color: #333;
+  border-radius: 15px;
+  margin-top: 0;
+}
+
+.contact-page .office-details-expanded {
+  max-height: 300px;
+  max-width: 600px;
+  padding: 25px;
+  margin-top: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.contact-page .office-details-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.contact-page .detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 200px;
+  flex: 1;
+  max-width: calc(33.333% - 16px);
+}
+
+.contact-page .detail-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.contact-page .detail-text {
+  font-size: 14px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.contact-page .detail-text strong {
+  font-weight: 600;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.contact-page .detail-text a {
+  color: #D4A017;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.contact-page .detail-text a:hover {
+  color: #B8860B;
+  text-decoration: underline;
+}
+
+.contact-page .office-item-expanded {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(212, 160, 23, 0.3);
+}
+
+/* Enhanced animations */
+.contact-page .office-wrapper-expanded .office-item {
+  animation: expandToTop 0.5s ease-out forwards;
+}
+
+@keyframes expandToTop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Responsive adjustments for expandable cards */
+@media (max-width: 1024px) {
+  .contact-page .detail-item {
+    max-width: calc(50% - 12px);
+    min-width: 180px;
+  }
+  
+  .contact-page .offices-grid {
+    gap: 18px;
+    justify-content: center;
+  }
+  
+  .contact-page .office-item {
+    min-width: 220px;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-page .offices-grid {
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .contact-page .office-item {
+    padding: 16px 18px;
+    min-height: 55px;
+    min-width: 200px;
+    max-width: 100%;
+    flex: 1 1 auto;
+  }
+  
+  .contact-page .office-details-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .contact-page .detail-item {
+    max-width: 100%;
+    min-width: 100%;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-page .detail-item:last-child {
+    border-bottom: none;
+  }
+  
+  .contact-page .detail-text {
+    font-size: 13px;
+  }
+  
+  .contact-page .office-details-expanded {
+    max-height: 400px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-page .office-details-expanded {
+    padding: 15px;
+    margin-top: 10px;
+  }
+  
+  .contact-page .detail-item {
+    gap: 10px;
+    padding: 10px 0;
+  }
+  
+  .contact-page .detail-icon {
+    font-size: 16px;
+  }
+  
+  .contact-page .detail-text {
+    font-size: 12px;
+  }
 }
