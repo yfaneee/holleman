@@ -1,0 +1,215 @@
+/* Privacy Policy Page */
+.privacy-policy-page {
+  min-height: 100vh;
+  background: white;
+}
+
+/* Hero Section */
+.privacy-hero {
+  background: linear-gradient(135deg, #136B38 0%, #0f5129 100%);
+  padding: clamp(120px, 15vh, 180px) clamp(20px, 5vw, 80px) clamp(80px, 10vh, 120px);
+  text-align: center;
+  color: white;
+}
+
+.privacy-hero-content h1 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(28px, 4.5vw, 48px);
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.last-updated {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(14px, 2vw, 16px);
+  opacity: 0.9;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Content Section */
+.privacy-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(60px, 8vh, 80px) clamp(20px, 5vw, 40px);
+}
+
+.privacy-section {
+  margin-bottom: clamp(40px, 6vh, 60px);
+}
+
+.privacy-section h2 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(22px, 3vw, 28px);
+  color: #136B38;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #136B38;
+  line-height: 1.3;
+}
+
+.privacy-section h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  color: #2c3e50;
+  margin: 25px 0 15px 0;
+  line-height: 1.3;
+}
+
+.privacy-section h4 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2vw, 18px);
+  color: #2c3e50;
+  margin: 20px 0 10px 0;
+  line-height: 1.3;
+}
+
+.privacy-section p {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 1.8vw, 17px);
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.privacy-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.privacy-section li {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 1.8vw, 17px);
+  color: #555;
+  padding: 8px 0 8px 30px;
+  position: relative;
+  line-height: 1.7;
+}
+
+.privacy-section li:before {
+  content: "✓";
+  color: #136B38;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+}
+
+.privacy-section a {
+  color: #136B38;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.privacy-section a:hover {
+  color: #0f5129;
+  text-decoration: none;
+}
+
+/* Contact Info Box */
+.contact-info,
+.contact-box {
+  background: #f8f9fa;
+  border-left: 4px solid #136B38;
+  padding: 25px 30px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.contact-info p,
+.contact-box p {
+  margin: 10px 0;
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(14px, 1.6vw, 16px);
+  color: #333;
+  line-height: 1.6;
+}
+
+.contact-info strong,
+.contact-box strong {
+  color: #136B38;
+  font-family: 'Gotham Bold', sans-serif;
+}
+
+/* Cookie Types */
+.cookie-type {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin: 20px 0;
+  border: 1px solid #e0e0e0;
+}
+
+.cookie-type h4 {
+  margin-top: 0;
+  color: #136B38;
+}
+
+.cookie-type p {
+  margin-bottom: 10px;
+}
+
+.cookie-type ul {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.cookie-type li {
+  padding-left: 25px;
+}
+
+.cookie-type li:before {
+  content: "→";
+  color: #136B38;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .privacy-hero {
+    padding: 100px 20px 60px;
+  }
+
+  .privacy-content {
+    padding: 50px 20px;
+  }
+
+  .privacy-section {
+    margin-bottom: 40px;
+  }
+
+  .contact-info,
+  .contact-box {
+    padding: 20px;
+  }
+
+  .cookie-type {
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .privacy-hero {
+    padding: 90px 15px 50px;
+  }
+
+  .privacy-content {
+    padding: 40px 15px;
+  }
+
+  .privacy-section {
+    margin-bottom: 35px;
+  }
+
+  .contact-info,
+  .contact-box {
+    padding: 15px;
+  }
+
+  .cookie-type {
+    padding: 15px;
+  }
+}

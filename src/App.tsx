@@ -15,8 +15,10 @@ import Cariere from './pages/Cariere';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import ArticlePage from './pages/ArticlePage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import ScrollToTop from './components/ScrollToTop';
 import RouteChangeHandler from './components/RouteChangeHandler';
+import CookieConsent from './components/CookieConsent';
 
 function App() {
   return (
@@ -42,7 +44,9 @@ function App() {
             <Route path="/contact/cerere" element={<Contact />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:articleId" element={<ArticlePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Routes>
+          <CookieConsent />
         </div>
       </Router>
     </LanguageProvider>

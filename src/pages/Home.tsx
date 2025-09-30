@@ -27,6 +27,15 @@ const Home: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
+  // Cookie consent state
+  const [cookiesAccepted, setCookiesAccepted] = useState(false);
+
+  // Check cookie consent on mount
+  useEffect(() => {
+    const consent = localStorage.getItem('cookieConsent');
+    setCookiesAccepted(consent === 'accepted');
+  }, []);
+
 
 
   const section2Style = {
@@ -624,17 +633,38 @@ const Home: React.FC = () => {
           </div>
           <div className="map-container">
             <div className="map-content">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1850.318501834485!2d26.102393031937627!3d44.339111155963934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ae019bb55c84a3%3A0x2bc4b1774827add9!2sHolleman%20Special%20Transport%20%26%20Project%20Cargo%20-%20transport%20agabaritic!5e0!3m2!1sro!2snl!4v1755968145616!5m2!1sro!2snl"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Hartă locație Holleman Special Transport & Project Cargo, București"
-                aria-label="Hartă Google Maps cu locația sediului Holleman din București"
-              ></iframe>
+              {cookiesAccepted ? (
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1850.318501834485!2d26.102393031937627!3d44.339111155963934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ae019bb55c84a3%3A0x2bc4b1774827add9!2sHolleman%20Special%20Transport%20%26%20Project%20Cargo%20-%20transport%20agabaritic!5e0!3m2!1sro!2snl!4v1755968145616!5m2!1sro!2snl"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Hartă locație Holleman Special Transport & Project Cargo, București"
+                  aria-label="Hartă Google Maps cu locația sediului Holleman din București"
+                ></iframe>
+              ) : (
+                <div style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  background: '#f0f0f0',
+                  color: '#555',
+                  textAlign: 'center',
+                  padding: '40px',
+                  fontSize: '16px',
+                  fontFamily: 'Gotham Book, sans-serif'
+                }}>
+                  <div>
+                    <p style={{ marginBottom: '15px' }}>📍</p>
+                    <p>Acceptați cookie-urile pentru a vizualiza harta.</p>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="map-overlay" aria-hidden="true"></div>
           </div>

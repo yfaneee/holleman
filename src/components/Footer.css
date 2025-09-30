@@ -12,15 +12,19 @@
 }
 
 .footer {
-  background: #313030;
+  background: #0B4022;
   color: white;
   padding: 20px 0 5px;
+  margin: 0;
+  margin-bottom: 0 !important;
 }
 
 .footer-container {
   max-width: 1920px;
   margin: 0 auto;
   padding: 0 40px;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .footer-content {
@@ -33,6 +37,8 @@
   justify-content: center;
   max-width: 1800px;
   margin: 0 auto;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 /* Company Info Column - First column */

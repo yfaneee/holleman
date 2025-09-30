@@ -798,60 +798,106 @@
   }
 }
 
-/* Responsive Hook Animations */
+/* Disable ALL animations on mobile */
 @media (max-width: 768px) {
+  /* Disable hook animations completely */
+  .heavy-lift-page .hook-container {
+    display: none !important;
+  }
+  
   .heavy-lift-page .hook-image {
-    width: 60px;
+    display: none !important;
   }
   
-  /* Disable hook animation for right-side images on mobile */
-  .heavy-lift-page .hook-container.hook-from-left {
-    display: none;
-  }
-  
-  /* Keep images visible without hook animation for right-side sections */
-  .heavy-lift-page .content-section:nth-child(even) .content-image img {
+  /* Make all images visible immediately without animation */
+  .heavy-lift-page .content-image img {
     opacity: 1 !important;
     transform: scale(1) !important;
+    transition: none !important;
+    animation: none !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
   }
   
-  .heavy-lift-page .content-section:nth-child(even) .content-image {
+  .heavy-lift-page .content-image {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1) !important;
   }
   
-  @keyframes hookFromRight {
-    0% { right: -80px; top: -20px; opacity: 0; }
-    20% { opacity: 1; top: 10px; }
-    50% { right: 40%; top: 20px; }
-    70% { right: 40%; top: 30px; }
-    100% { right: 40%; top: 25px; }
+  .heavy-lift-page .content-image img.image-delivered {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    transition: none !important;
+    animation: none !important;
   }
   
-  @keyframes hookFromLeft {
-    0% { left: -80px; top: -20px; opacity: 0; }
-    20% { opacity: 1; top: 10px; }
-    50% { left: 40%; top: 20px; }
-    70% { left: 40%; top: 30px; }
-    100% { left: 40%; top: 25px; }
+  /* Disable hover animations on service items */
+  .heavy-lift-page .service-item.clickable:hover {
+    transform: none !important;
+    transition: none !important;
   }
   
-  @keyframes hookRetractRight {
-    0% { right: 40%; top: 25px; opacity: 1; }
-    30% { right: 40%; top: 10px; opacity: 1; }
-    100% { right: -80px; top: -20px; opacity: 0; }
+  .heavy-lift-page .service-item {
+    transition: none !important;
   }
   
-  @keyframes hookRetractLeft {
-    0% { left: 40%; top: 25px; opacity: 1; }
-    30% { left: 40%; top: 10px; opacity: 1; }
-    100% { left: -80px; top: -20px; opacity: 0; }
+  /* Disable image hover zoom */
+  .heavy-lift-page .content-image:hover img {
+    transform: scale(1) !important;
+    transition: none !important;
+  }
+  
+  /* Disable service nav hover animations */
+  .heavy-lift-page .service-nav-item:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  .heavy-lift-page .service-nav-item {
+    transition: none !important;
+  }
+  
+  /* Disable button animations */
+  .heavy-lift-page .btn {
+    transition: none !important;
+  }
+  
+  .heavy-lift-page .btn::after,
+  .heavy-lift-page .btn::before {
+    transition: none !important;
+  }
+  
+  .heavy-lift-page .btn:hover::before {
+    transform: skew(90deg) rotate(180deg) translate(-50%, -50%) !important;
+  }
+  
+  .heavy-lift-page .btn:hover::after {
+    transform: skew(90deg) translate(-50%, -50%) !important;
+  }
+  
+  .heavy-lift-page .btn:hover .btn-arrow {
+    transform: translateX(0) !important;
+  }
+  
+  .heavy-lift-page .btn-arrow {
+    transition: none !important;
+  }
+  
+  /* Disable discover section hover */
+  .heavy-lift-page .discover-projects-section {
+    transition: none !important;
+  }
+  
+  .heavy-lift-page .discover-play-button:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  .heavy-lift-page .discover-play-button {
+    transition: none !important;
   }
 }
 
 @media (max-width: 480px) {
-  .heavy-lift-page .hook-image {
-    width: 50px;
-  }
+  /* All animations already disabled at 768px */
 }
 
 /* Pause animations on reduced motion preference */
