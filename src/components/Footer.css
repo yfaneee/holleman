@@ -12,7 +12,7 @@
 }
 
 .footer {
-  background: #0B4022;
+  background: #093019;
   color: white;
   padding: 20px 0 5px;
   margin: 0;
@@ -74,14 +74,14 @@
 }
 
 .company-info .email {
-  color: #27ae60;
+  color: #3dd47a;
   text-decoration: underline;
   font-size: var(--nav-size);
   transition: color 0.3s ease;
 }
 
 .company-info .email:hover {
-  color: #2ecc71;
+  color: #4fe38f;
 }
 
 .footer-logo {

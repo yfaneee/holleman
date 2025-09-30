@@ -541,17 +541,17 @@ const Home: React.FC = () => {
           <h2 id="gallery-heading" className="sr-only">Galerie foto Holleman - Proiecte realizate</h2>
           <div className="slideshow-brand" aria-hidden="true">HOLLEMAN</div>
           <div 
-            className="stacked-slideshow" 
-            role="img" 
-            aria-label={`Imagine ${currentSlide + 1} din ${slides.length} - Proiecte Holleman`}
+            className="stacked-slideshow"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            aria-live="polite"
+            aria-atomic="true"
           >
             <div className="yellow-block" aria-hidden="true" />
             <img
               className="stack-image front"
               src={slides[currentSlide].src}
-              alt={`Proiect Holleman ${slides[currentSlide].title} - imagine ${slides[currentSlide].alt}`}
+              alt={`Imagine ${currentSlide + 1} din ${slides.length} - Proiect Holleman ${slides[currentSlide].title}`}
               loading="eager"
             />
             <img
@@ -561,7 +561,7 @@ const Home: React.FC = () => {
               onClick={handleAdvance}
               role="button"
               tabIndex={0}
-              aria-label="Click pentru următoarea imagine din galerie"
+              aria-label={`Treceți la următoarea imagine (${nextSlideIndex + 1} din ${slides.length})`}
               onKeyDown={(e) => e.key === 'Enter' && handleAdvance()}
               loading="eager"
             />
