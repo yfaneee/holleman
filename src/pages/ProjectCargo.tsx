@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { getAllProjects, getAllProjectsSync } from '../data/projectsData';
 import './ProjectCargo.css';
 
@@ -134,28 +135,15 @@ const ProjectCargo: React.FC = () => {
     }, 10000);
   };
 
-  // SEO: Set document title and meta description for Project Cargo page
-  useEffect(() => {
-    document.title = "Project Cargo - Transport Agabaritic și Relocări Industriale | Holleman";
-    
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Servicii profesionale Project Cargo: transport agabaritic, relocări industriale, managementul proiectelor complexe. Echipamente grele, turbine eoliene, transformatoare. Experți cu peste 25 ani experiență.');
-    }
-    
-    // Update canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', 'https://holleman.ro/project-cargo');
-  }, []);
-
   return (
     <div className="project-cargo-page">
+      <SEO
+        title="Project Cargo - Transport Agabaritic și Relocări Industriale | Holleman"
+        description="Servicii profesionale Project Cargo: transport agabaritic, relocări industriale, managementul proiectelor complexe. Echipamente grele, turbine eoliene, transformatoare. Experți cu peste 25 ani experiență."
+        canonicalUrl="https://holleman.ro/project-cargo"
+        ogImage="https://holleman.ro/images/projectcargobg.webp"
+        keywords="project cargo, transport agabaritic, relocări industriale, echipamente grele, turbine eoliene, transformatoare, heavy transport, managementul proiectelor"
+      />
       <Header />
       
       {/* Hero Section */}

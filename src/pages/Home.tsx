@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { searchContent, getAutocompleteSuggestions, SearchableItem } from '../data/searchData';
 
 const Home: React.FC = () => {
@@ -296,30 +297,16 @@ const Home: React.FC = () => {
 
   const nextSlideIndex = (currentSlide + 1) % slides.length;
 
-  // SEO: Set document title and meta description for home page
-  useEffect(() => {
-    document.title = "Holleman Special Transport & Project Cargo - Transport Agabaritic România";
-    
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Experți în transporturi agabaritice, Project Cargo și relocări industriale cu peste 25 ani experiență. Soluții complete de transport special în România și Europa.');
-    }
-    
-    // Update canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', 'https://holleman.ro');
-  }, []);
-
   return (
     <div className="home">
       {/* Note: Structured data is already included in index.html */}
-      
+      <SEO
+        title="Holleman Special Transport & Project Cargo - Transport Agabaritic România"
+        description="Experți în transporturi agabaritice, Project Cargo și relocări industriale cu peste 25 ani experiență. Soluții complete de transport special în România și Europa."
+        canonicalUrl="https://holleman.ro"
+        ogImage="https://holleman.ro/images/Group8723.webp"
+        keywords="transport agabaritic, project cargo, relocări industriale, transport special, logistică România, holleman, transport echipamente grele, inginerie transport, heavy lift"
+      />
       <Header />
       
       {/* Hero Section */}

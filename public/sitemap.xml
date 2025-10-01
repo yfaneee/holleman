@@ -5,7 +5,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://holleman.ro/</loc>
-    <lastmod>2024-12-27</lastmod>
+    <lastmod>2025-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -17,7 +17,7 @@
   <!-- Project Cargo Page -->
   <url>
     <loc>https://holleman.ro/project-cargo</loc>
-    <lastmod>2024-12-27</lastmod>
+    <lastmod>2025-01-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -29,7 +29,7 @@
   <!-- ITL Page -->
   <url>
     <loc>https://holleman.ro/itl</loc>
-    <lastmod>2024-12-27</lastmod>
+    <lastmod>2025-01-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -37,5 +37,84 @@
       <image:caption>ITL - Transport internațional și logistică</image:caption>
     </image:image>
   </url>
+  
+  <!-- Heavy Lift Page -->
+  <url>
+    <loc>https://holleman.ro/heavy-lift</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://holleman.ro/images/heavyliftbg.webp</image:loc>
+      <image:caption>Heavy Lift - Relocări industriale și echipamente ultra-grele</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Fleet Page -->
+  <url>
+    <loc>https://holleman.ro/fleet</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Agro Page -->
+  <url>
+    <loc>https://holleman.ro/agro</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Projects Page -->
+  <url>
+    <loc>https://holleman.ro/proiecte</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- About Us Page -->
+  <url>
+    <loc>https://holleman.ro/despre-noi</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Careers Page -->
+  <url>
+    <loc>https://holleman.ro/cariere</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Contact Page -->
+  <url>
+    <loc>https://holleman.ro/contact</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog Page -->
+  <url>
+    <loc>https://holleman.ro/blog</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Privacy Policy Page -->
+  <url>
+    <loc>https://holleman.ro/privacy-policy</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Note: Dynamic project and blog article pages should be added via a sitemap generator script -->
+  <!-- or dynamically generated on the server side for better SEO -->
   
 </urlset>

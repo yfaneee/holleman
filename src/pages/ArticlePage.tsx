@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { getArticleByIdSync, getRelatedArticlesSync, getAllArticles, clearArticlesCache } from '../data/newsData';
 import './ArticlePage.css';
 
@@ -103,23 +104,6 @@ const ArticlePage: React.FC = () => {
           if (articleData) {
             setArticle(articleData);
             setRelatedArticles(getRelatedArticlesSync(articleId));
-            
-            // Update SEO
-            document.title = `${articleData.title} | Blog Holleman`;
-            
-            const metaDescription = document.querySelector('meta[name="description"]');
-            if (metaDescription) {
-              metaDescription.setAttribute('content', articleData.excerpt);
-            }
-            
-            // Update canonical URL
-            let canonical = document.querySelector('link[rel="canonical"]');
-            if (!canonical) {
-              canonical = document.createElement('link');
-              canonical.setAttribute('rel', 'canonical');
-              document.head.appendChild(canonical);
-            }
-            canonical.setAttribute('href', `https://holleman.ro/blog/${articleId}`);
           } else {
             // Article not found, redirect to blog
             navigate('/blog');
@@ -149,8 +133,45 @@ const ArticlePage: React.FC = () => {
     );
   }
 
+  // Create structured data for the article
+  const articleStructuredData = article ? {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "description": article.excerpt,
+    "image": article.heroImage,
+    "datePublished": article.date,
+    "author": {
+      "@type": "Person",
+      "name": article.author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Holleman Special Transport & Project Cargo",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://holleman.ro/images/logoholle.svg"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://holleman.ro/blog/${articleId}`
+    }
+  } : undefined;
+
   return (
     <div className="article-page">
+      {article && (
+        <SEO
+          title={`${article.title} | Blog Holleman`}
+          description={article.excerpt}
+          canonicalUrl={`https://holleman.ro/blog/${articleId}`}
+          ogImage={article.heroImage}
+          ogType="article"
+          keywords={`${article.category}, transport agabaritic, project cargo, ${article.title}`}
+          structuredData={articleStructuredData}
+        />
+      )}
       <Header />
       
       {/* Article Hero Section */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import { LanguageProvider } from './context/LanguageContext';
 import Home from './pages/Home';
@@ -22,34 +23,36 @@ import CookieConsent from './components/CookieConsent';
 
 function App() {
   return (
-    <LanguageProvider>
-      <Router>
-        <ScrollToTop />
-        <RouteChangeHandler />
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/project-cargo" element={<ProjectCargo />} />
-            <Route path="/itl" element={<ITL />} />
-            <Route path="/heavy-lift" element={<HeavyLift />} />
-            <Route path="/fleet" element={<Fleet />} />
-            <Route path="/agro" element={<Agro />} />
-            <Route path="/proiecte" element={<Proiecte />} />
-            <Route path="/proiecte/:projectId" element={<ProjectPage />} />
-            <Route path="/despre-noi" element={<DespreNoi />} />
-            <Route path="/cariere" element={<Cariere />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/contact/formular" element={<Contact />} />
-            <Route path="/contact/date" element={<Contact />} />
-            <Route path="/contact/cerere" element={<Contact />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:articleId" element={<ArticlePage />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          </Routes>
-          <CookieConsent />
-        </div>
-      </Router>
-    </LanguageProvider>
+    <HelmetProvider>
+      <LanguageProvider>
+        <Router>
+          <ScrollToTop />
+          <RouteChangeHandler />
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/project-cargo" element={<ProjectCargo />} />
+              <Route path="/itl" element={<ITL />} />
+              <Route path="/heavy-lift" element={<HeavyLift />} />
+              <Route path="/fleet" element={<Fleet />} />
+              <Route path="/agro" element={<Agro />} />
+              <Route path="/proiecte" element={<Proiecte />} />
+              <Route path="/proiecte/:projectId" element={<ProjectPage />} />
+              <Route path="/despre-noi" element={<DespreNoi />} />
+              <Route path="/cariere" element={<Cariere />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/contact/formular" element={<Contact />} />
+              <Route path="/contact/date" element={<Contact />} />
+              <Route path="/contact/cerere" element={<Contact />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:articleId" element={<ArticlePage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            </Routes>
+            <CookieConsent />
+          </div>
+        </Router>
+      </LanguageProvider>
+    </HelmetProvider>
   );
 }
 

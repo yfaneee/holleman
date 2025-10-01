@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import './ITL.css';
 
 const ITL: React.FC = () => {
@@ -115,6 +116,13 @@ const ITL: React.FC = () => {
 
   return (
     <div className="itl-page">
+      <SEO
+        title="ITL - Transport Internațional și Logistică | Holleman"
+        description="Servicii complete de transport rutier internațional și logistică în Europa. Soluții FTL, LTL, distribuție și depozitare. Rețea extinsă și flota modernă pentru transporturi eficiente."
+        canonicalUrl="https://holleman.ro/itl"
+        ogImage="https://holleman.ro/images/ITLbackground.webp"
+        keywords="transport international, logistica Europa, FTL, LTL, distributie, transport rutier, logistica Romania, transport marfa"
+      />
       <Header />
       
       {/* Hero Section */}

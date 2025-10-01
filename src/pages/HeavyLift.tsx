@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import GoUpButton from '../components/GoUpButton';
+import SEO from '../components/SEO';
 import './HeavyLift.css';
 
 const HeavyLift: React.FC = () => {
@@ -148,6 +149,13 @@ const HeavyLift: React.FC = () => {
 
   return (
     <div className="heavy-lift-page">
+      <SEO
+        title="Heavy Lift - Relocări Industriale și Echipamente Ultra-Grele | Holleman"
+        description="Servicii specializate de Heavy Lift: relocări industriale, transport echipamente ultra-grele, macarale hidraulice mobile, soluții turnkey. Expertiză în mutări de fabrici și instalații complexe."
+        canonicalUrl="https://holleman.ro/heavy-lift"
+        ogImage="https://holleman.ro/images/Group8730.webp"
+        keywords="heavy lift, relocari industriale, echipamente ultra-grele, macarale hidraulice, transport utilaje, mutari fabrici, heavy transport"
+      />
       <Header />
       
       {/* Hero Section */}

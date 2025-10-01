@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { getLatestArticles, getAllArticles, clearArticlesCache } from '../data/newsData';
 import './Blog.css';
 
@@ -43,25 +44,6 @@ const Blog: React.FC = () => {
     return currentArticles;
   };
 
-  // SEO: Set document title and meta description for blog page
-  useEffect(() => {
-    document.title = "Blog - Noutăți & Articole Holleman | Transport Agabaritic România";
-    
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Citește cele mai noi articole și noutăți din industria transporturilor agabaritice. Blog Holleman cu informații utile despre Project Cargo și transport special.');
-    }
-    
-    // Update canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', 'https://holleman.ro/blog');
-  }, []);
 
   // Fetch blog sections and articles from Strapi
   useEffect(() => {
@@ -127,6 +109,13 @@ const Blog: React.FC = () => {
 
   return (
     <div className="blog-page">
+      <SEO
+        title="Blog - Noutăți & Articole Holleman | Transport Agabaritic România"
+        description="Citește cele mai noi articole și noutăți din industria transporturilor agabaritice. Blog Holleman cu informații utile despre Project Cargo și transport special."
+        canonicalUrl="https://holleman.ro/blog"
+        ogImage="https://holleman.ro/images/Group8751.webp"
+        keywords="blog transport agabaritic, noutăți logistică, articole project cargo, știri transport special, informații industrie transport"
+      />
       <Header />
       
       {/* Hero Section */}

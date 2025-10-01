@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { getProjectByIdSync, getRelatedProjectsSync } from '../data/projectsData';
 import { processParagraphFormatting } from '../utils/textFormatting';
 import './ProjectPage.css';
@@ -28,25 +29,6 @@ const ProjectPage: React.FC = () => {
     }
   }, [projectId, project, navigate]);
 
-  // SEO setup
-  useEffect(() => {
-    if (project) {
-      document.title = project.seo.title;
-      
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute('content', project.seo.description);
-      }
-      
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonical);
-      }
-      canonical.setAttribute('href', project.seo.canonicalUrl);
-    }
-  }, [project]);
 
   // Gallery navigation
   const nextImage = useCallback(() => {
@@ -167,8 +149,31 @@ const ProjectPage: React.FC = () => {
     return colors[division as keyof typeof colors] || '#136B38';
   };
 
+  // Create structured data for the project
+  const projectStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": project.title,
+    "description": project.subtitle,
+    "image": project.gallery.mainImage,
+    "author": {
+      "@type": "Organization",
+      "name": "Holleman Special Transport & Project Cargo"
+    },
+    "keywords": "project cargo, transport agabaritic, relocări industriale"
+  };
+
   return (
     <div className="project-page project-page-white-header">
+      <SEO
+        title={project.seo.title}
+        description={project.seo.description}
+        canonicalUrl={project.seo.canonicalUrl}
+        ogImage={project.gallery.mainImage}
+        ogType="article"
+        keywords="project cargo, transport agabaritic, relocări industriale, transport special"
+        structuredData={projectStructuredData}
+      />
       <Header />
       
       {/* Project Content Section */}
