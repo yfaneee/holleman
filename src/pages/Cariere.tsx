@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useEmailForm } from '../hooks/useEmailForm';
 import { CareerFormData, isValidEmail, isValidPhone } from '../services/emailService';
+import { useLanguage } from '../context/LanguageContext';
 import './Cariere.css';
 import '../styles/forms.css';
 
@@ -11,6 +12,7 @@ const Cariere: React.FC = () => {
   const navigate = useNavigate();
   const [selectedPrefix, setSelectedPrefix] = useState('+40');
   const { isLoading, isSuccess, error, submitCareerForm, resetForm } = useEmailForm();
+  const { currentLanguage } = useLanguage();
   
   // State for Strapi content
   const [whyHollemanContent, setWhyHollemanContent] = useState<any>(null);
@@ -31,6 +33,80 @@ const Cariere: React.FC = () => {
   
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [selectedCvFile, setSelectedCvFile] = useState<File | null>(null);
+
+  // Static translations for form placeholders
+  const placeholderTranslations = {
+    ro: {
+      name: 'Nume și prenume',
+      email: 'Email',
+      phone: 'Telefon',
+      position: 'Poziția',
+      message: 'Mesaj...'
+    },
+    en: {
+      name: 'Name and surname',
+      email: 'Email',
+      phone: 'Phone',
+      position: 'Position',
+      message: 'Message...'
+    },
+    de: {
+      name: 'Name und Vorname',
+      email: 'E-Mail',
+      phone: 'Telefon',
+      position: 'Position',
+      message: 'Nachricht...'
+    },
+    fr: {
+      name: 'Nom et prénom',
+      email: 'Email',
+      phone: 'Téléphone',
+      position: 'Position',
+      message: 'Message...'
+    },
+    es: {
+      name: 'Nombre y apellido',
+      email: 'Email',
+      phone: 'Teléfono',
+      position: 'Posición',
+      message: 'Mensaje...'
+    },
+    it: {
+      name: 'Nome e cognome',
+      email: 'Email',
+      phone: 'Telefono',
+      position: 'Posizione',
+      message: 'Messaggio...'
+    },
+    hu: {
+      name: 'Név és vezetéknév',
+      email: 'Email',
+      phone: 'Telefon',
+      position: 'Pozíció',
+      message: 'Üzenet...'
+    },
+    bg: {
+      name: 'Име и фамилия',
+      email: 'Имейл',
+      phone: 'Телефон',
+      position: 'Позиция',
+      message: 'Съобщение...'
+    },
+    sr: {
+      name: 'Име и презиме',
+      email: 'Емаил',
+      phone: 'Телефон',
+      position: 'Позиција',
+      message: 'Порука...'
+    }
+  };
+
+  // Helper function to get translated placeholder
+  const getPlaceholder = (key: string): string => {
+    const langCode = currentLanguage.code as keyof typeof placeholderTranslations;
+    const placeholders = placeholderTranslations[langCode] || placeholderTranslations.ro;
+    return placeholders[key as keyof typeof placeholders] || placeholderTranslations.ro[key as keyof typeof placeholderTranslations.ro] || '';
+  };
 
   const phoneCountries = [
     { code: '+40', country: 'RO', name: 'Romania' },
@@ -487,7 +563,7 @@ const Cariere: React.FC = () => {
                   <input
                     type="text"
                     name="name"
-                    placeholder="Nume și prenume"
+                    placeholder={getPlaceholder('name')}
                     className={`form-input ${validationErrors.name ? 'error' : ''}`}
                     value={formData.name}
                     onChange={handleInputChange}
@@ -502,7 +578,7 @@ const Cariere: React.FC = () => {
                   <input
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder={getPlaceholder('email')}
                     className={`form-input ${validationErrors.email ? 'error' : ''}`}
                     value={formData.email}
                     onChange={handleInputChange}
@@ -529,7 +605,7 @@ const Cariere: React.FC = () => {
                     <input
                       type="tel"
                       name="phone"
-                      placeholder="Telefon"
+                      placeholder={getPlaceholder('phone')}
                       className={`form-input phone-input ${validationErrors.phone ? 'error' : ''}`}
                       value={formData.phone}
                       onChange={handleInputChange}
@@ -545,7 +621,7 @@ const Cariere: React.FC = () => {
                   <input
                     type="text"
                     name="position"
-                    placeholder="Poziția"
+                    placeholder={getPlaceholder('position')}
                     className={`form-input ${validationErrors.position ? 'error' : ''}`}
                     value={formData.position}
                     onChange={handleInputChange}
@@ -559,7 +635,7 @@ const Cariere: React.FC = () => {
                 <div className="form-group">
                   <textarea
                     name="message"
-                    placeholder="Mesaj..."
+                    placeholder={getPlaceholder('message')}
                     className="form-textarea"
                     rows={4}
                     value={formData.message}

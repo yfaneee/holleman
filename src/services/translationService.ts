@@ -82,7 +82,7 @@ class TranslationService {
   // LibreTranslate API (free, open source alternative)
   private async translateWithLibre(text: string, targetLang: string): Promise<string> {
     try {
-      const response = await fetch('https://libretranslate.de/translate', {
+      const response = await fetch('https://libretranslate.com/translate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,15 +121,15 @@ class TranslationService {
     }
 
     try {
-      // Try Google Translate first, fallback to LibreTranslate
+      // Try Google Translate first
       let translation = await this.translateWithGoogle(text, targetLang);
       
-      // If Google Translate didn't work, try LibreTranslate
+      // Only try LibreTranslate if Google completely failed (returned original text)
       if (translation === text) {
         translation = await this.translateWithLibre(text, targetLang);
       }
 
-      // Cache the result
+      // Cache the result if it's different from original
       if (translation !== text) {
         this.setCachedTranslation(text, targetLang, translation);
       }

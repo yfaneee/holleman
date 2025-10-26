@@ -3,12 +3,15 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useEmailForm } from '../hooks/useEmailForm';
 import { ContactFormData, isValidEmail, isValidPhone } from '../services/emailService';
+import { useLanguage } from '../context/LanguageContext';
+import { translationService } from '../services/translationService';
 import './Contact.css';
 import '../styles/forms.css';
 
 const Contact: React.FC = () => {
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const { isLoading, isSuccess, error, submitContactForm, resetForm } = useEmailForm();
+  const { currentLanguage } = useLanguage();
   
   // State for contact locations from Strapi
   const [location1, setLocation1] = useState<any>(null);
@@ -70,6 +73,289 @@ const Contact: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+
+  // Static validation messages in multiple languages
+  const validationMessages = {
+    ro: {
+      nameRequired: 'Numele este obligatoriu',
+      contactPersonRequired: 'Persoana de contact este obligatorie',
+      phoneRequired: 'Telefonul este obligatoriu',
+      phoneInvalid: 'Formatul telefonului nu este valid',
+      emailRequired: 'Email-ul este obligatoriu',
+      emailInvalid: 'Formatul email-ului nu este valid',
+      cargoDescriptionRequired: 'Descrierea încărcăturii este obligatorie',
+      pickupLocationRequired: 'Punctul de plecare este obligatoriu',
+      destinationLocationRequired: 'Punctul de destinație este obligatoriu'
+    },
+    en: {
+      nameRequired: 'Name is required',
+      contactPersonRequired: 'Contact person is required',
+      phoneRequired: 'Phone is required',
+      phoneInvalid: 'Phone format is invalid',
+      emailRequired: 'Email is required',
+      emailInvalid: 'Email format is invalid',
+      cargoDescriptionRequired: 'Cargo description is required',
+      pickupLocationRequired: 'Pickup location is required',
+      destinationLocationRequired: 'Destination location is required'
+    },
+    de: {
+      nameRequired: 'Name ist erforderlich',
+      contactPersonRequired: 'Ansprechpartner ist erforderlich',
+      phoneRequired: 'Telefon ist erforderlich',
+      phoneInvalid: 'Telefonformat ist ungültig',
+      emailRequired: 'E-Mail ist erforderlich',
+      emailInvalid: 'E-Mail-Format ist ungültig',
+      cargoDescriptionRequired: 'Ladungsbeschreibung ist erforderlich',
+      pickupLocationRequired: 'Abholort ist erforderlich',
+      destinationLocationRequired: 'Zielort ist erforderlich'
+    },
+    fr: {
+      nameRequired: 'Le nom est requis',
+      contactPersonRequired: 'La personne de contact est requise',
+      phoneRequired: 'Le téléphone est requis',
+      phoneInvalid: 'Le format du téléphone est invalide',
+      emailRequired: 'L\'email est requis',
+      emailInvalid: 'Le format de l\'email est invalide',
+      cargoDescriptionRequired: 'La description du fret est requise',
+      pickupLocationRequired: 'Le lieu de collecte est requis',
+      destinationLocationRequired: 'Le lieu de destination est requis'
+    },
+    es: {
+      nameRequired: 'El nombre es requerido',
+      contactPersonRequired: 'La persona de contacto es requerida',
+      phoneRequired: 'El teléfono es requerido',
+      phoneInvalid: 'El formato del teléfono es inválido',
+      emailRequired: 'El email es requerido',
+      emailInvalid: 'El formato del email es inválido',
+      cargoDescriptionRequired: 'La descripción de la carga es requerida',
+      pickupLocationRequired: 'El lugar de recogida es requerido',
+      destinationLocationRequired: 'El lugar de destino es requerido'
+    },
+    it: {
+      nameRequired: 'Il nome è richiesto',
+      contactPersonRequired: 'La persona di contatto è richiesta',
+      phoneRequired: 'Il telefono è richiesto',
+      phoneInvalid: 'Il formato del telefono non è valido',
+      emailRequired: 'L\'email è richiesta',
+      emailInvalid: 'Il formato dell\'email non è valido',
+      cargoDescriptionRequired: 'La descrizione del carico è richiesta',
+      pickupLocationRequired: 'Il luogo di ritiro è richiesto',
+      destinationLocationRequired: 'Il luogo di destinazione è richiesto'
+    },
+    hu: {
+      nameRequired: 'A név kötelező',
+      contactPersonRequired: 'A kapcsolattartó kötelező',
+      phoneRequired: 'A telefon kötelező',
+      phoneInvalid: 'A telefon formátuma érvénytelen',
+      emailRequired: 'Az email kötelező',
+      emailInvalid: 'Az email formátuma érvénytelen',
+      cargoDescriptionRequired: 'A rakomány leírása kötelező',
+      pickupLocationRequired: 'A felvételi hely kötelező',
+      destinationLocationRequired: 'A célhely kötelező'
+    },
+    bg: {
+      nameRequired: 'Името е задължително',
+      contactPersonRequired: 'Лицето за контакт е задължително',
+      phoneRequired: 'Телефонът е задължителен',
+      phoneInvalid: 'Форматът на телефона е невалиден',
+      emailRequired: 'Имейлът е задължителен',
+      emailInvalid: 'Форматът на имейла е невалиден',
+      cargoDescriptionRequired: 'Описанието на товара е задължително',
+      pickupLocationRequired: 'Мястото за вземане е задължително',
+      destinationLocationRequired: 'Местоназначението е задължително'
+    },
+    sr: {
+      nameRequired: 'Име је обавезно',
+      contactPersonRequired: 'Контакт особа је обавезна',
+      phoneRequired: 'Телефон је обавезан',
+      phoneInvalid: 'Формат телефона није валидан',
+      emailRequired: 'Емаил је обавезан',
+      emailInvalid: 'Формат емаила није валидан',
+      cargoDescriptionRequired: 'Опис терета је обавезан',
+      pickupLocationRequired: 'Место преузимања је обавезно',
+      destinationLocationRequired: 'Одредиште је обавезно'
+    }
+  };
+
+  // Static translations for form placeholders
+  const placeholderTranslations = {
+    ro: {
+      nameCompany: 'Nume și prenume / Companie *',
+      contactPerson: 'Persoană de contact *',
+      phone: 'Telefon *',
+      email: 'Email *',
+      website: 'Website companie',
+      subject: 'Subiect',
+      message: 'Mesaj...',
+      cargoDescription: 'Descrierea încărcăturii/proiect *',
+      dimensions: 'Dimensiuni (L x l x h)',
+      weight: 'Greutate (kg)',
+      pickupLocation: 'Punct de plecare (Localitate și țară) *',
+      destinationLocation: 'Punct de destinație (Localitate și țară) *',
+      deliveryDate: 'Termen estimativ pentru livrare',
+      specialRequirements: 'Alte mențiuni / cerințe speciale',
+      attachedDocuments: 'Documente atașate',
+      gdprConsent: 'Consimțământ prelucrare date personale (GDPR) *'
+    },
+    en: {
+      nameCompany: 'Name and surname / Company *',
+      contactPerson: 'Contact person *',
+      phone: 'Phone *',
+      email: 'Email *',
+      website: 'Company website',
+      subject: 'Subject',
+      message: 'Message...',
+      cargoDescription: 'Cargo/project description *',
+      dimensions: 'Dimensions (L x W x H)',
+      weight: 'Weight (kg)',
+      pickupLocation: 'Pickup location (City and country) *',
+      destinationLocation: 'Destination location (City and country) *',
+      deliveryDate: 'Estimated delivery date',
+      specialRequirements: 'Other mentions / special requirements',
+      attachedDocuments: 'Attached documents',
+      gdprConsent: 'Personal data processing consent (GDPR) *'
+    },
+    de: {
+      nameCompany: 'Name und Vorname / Unternehmen *',
+      contactPerson: 'Ansprechpartner *',
+      phone: 'Telefon *',
+      email: 'E-Mail *',
+      website: 'Firmen-Website',
+      subject: 'Betreff',
+      message: 'Nachricht...',
+      cargoDescription: 'Fracht-/Projektbeschreibung *',
+      dimensions: 'Abmessungen (L x B x H)',
+      weight: 'Gewicht (kg)',
+      pickupLocation: 'Abholort (Stadt und Land) *',
+      destinationLocation: 'Zielort (Stadt und Land) *',
+      deliveryDate: 'Voraussichtliches Lieferdatum',
+      specialRequirements: 'Sonstige Hinweise / besondere Anforderungen',
+      attachedDocuments: 'Angehängte Dokumente',
+      gdprConsent: 'Einverständnis zur Verarbeitung personenbezogener Daten (DSGVO) *'
+    },
+    fr: {
+      nameCompany: 'Nom et prénom / Entreprise *',
+      contactPerson: 'Personne de contact *',
+      phone: 'Téléphone *',
+      email: 'Email *',
+      website: 'Site web de l\'entreprise',
+      subject: 'Sujet',
+      message: 'Message...',
+      cargoDescription: 'Description du fret/projet *',
+      dimensions: 'Dimensions (L x l x h)',
+      weight: 'Poids (kg)',
+      pickupLocation: 'Lieu de collecte (Ville et pays) *',
+      destinationLocation: 'Lieu de destination (Ville et pays) *',
+      deliveryDate: 'Date de livraison estimée',
+      specialRequirements: 'Autres mentions / exigences spéciales',
+      attachedDocuments: 'Documents joints',
+      gdprConsent: 'Consentement au traitement des données personnelles (RGPD) *'
+    },
+    es: {
+      nameCompany: 'Nombre y apellido / Empresa *',
+      contactPerson: 'Persona de contacto *',
+      phone: 'Teléfono *',
+      email: 'Email *',
+      website: 'Sitio web de la empresa',
+      subject: 'Asunto',
+      message: 'Mensaje...',
+      cargoDescription: 'Descripción de la carga/proyecto *',
+      dimensions: 'Dimensiones (L x A x H)',
+      weight: 'Peso (kg)',
+      pickupLocation: 'Lugar de recogida (Ciudad y país) *',
+      destinationLocation: 'Lugar de destino (Ciudad y país) *',
+      deliveryDate: 'Fecha estimada de entrega',
+      specialRequirements: 'Otras menciones / requisitos especiales',
+      attachedDocuments: 'Documentos adjuntos',
+      gdprConsent: 'Consentimiento para el procesamiento de datos personales (RGPD) *'
+    },
+    it: {
+      nameCompany: 'Nome e cognome / Azienda *',
+      contactPerson: 'Persona di contatto *',
+      phone: 'Telefono *',
+      email: 'Email *',
+      website: 'Sito web aziendale',
+      subject: 'Oggetto',
+      message: 'Messaggio...',
+      cargoDescription: 'Descrizione del carico/progetto *',
+      dimensions: 'Dimensioni (L x l x h)',
+      weight: 'Peso (kg)',
+      pickupLocation: 'Luogo di ritiro (Città e paese) *',
+      destinationLocation: 'Luogo di destinazione (Città e paese) *',
+      deliveryDate: 'Data di consegna stimata',
+      specialRequirements: 'Altre menzioni / requisiti speciali',
+      attachedDocuments: 'Documenti allegati',
+      gdprConsent: 'Consenso al trattamento dei dati personali (GDPR) *'
+    },
+    hu: {
+      nameCompany: 'Név és vezetéknév / Vállalat *',
+      contactPerson: 'Kapcsolattartó *',
+      phone: 'Telefon *',
+      email: 'Email *',
+      website: 'Vállalati weboldal',
+      subject: 'Tárgy',
+      message: 'Üzenet...',
+      cargoDescription: 'Rakomány/projekt leírása *',
+      dimensions: 'Méretek (H x Sz x M)',
+      weight: 'Súly (kg)',
+      pickupLocation: 'Felvételi hely (Város és ország) *',
+      destinationLocation: 'Célhely (Város és ország) *',
+      deliveryDate: 'Becsült szállítási dátum',
+      specialRequirements: 'Egyéb megjegyzések / különleges követelmények',
+      attachedDocuments: 'Csatolt dokumentumok',
+      gdprConsent: 'Személyes adatok kezelésének hozzájárulása (GDPR) *'
+    },
+    bg: {
+      nameCompany: 'Име и фамилия / Компания *',
+      contactPerson: 'Лице за контакт *',
+      phone: 'Телефон *',
+      email: 'Имейл *',
+      website: 'Уебсайт на компанията',
+      subject: 'Тема',
+      message: 'Съобщение...',
+      cargoDescription: 'Описание на товара/проекта *',
+      dimensions: 'Размери (Д x Ш x В)',
+      weight: 'Тегло (кг)',
+      pickupLocation: 'Място за вземане (Град и страна) *',
+      destinationLocation: 'Местоназначение (Град и страна) *',
+      deliveryDate: 'Очаквана дата на доставка',
+      specialRequirements: 'Други бележки / специални изисквания',
+      attachedDocuments: 'Прикачени документи',
+      gdprConsent: 'Съгласие за обработка на лични данни (GDPR) *'
+    },
+    sr: {
+      nameCompany: 'Име и презиме / Компанија *',
+      contactPerson: 'Контакт особа *',
+      phone: 'Телефон *',
+      email: 'Емаил *',
+      website: 'Веб сајт компаније',
+      subject: 'Предмет',
+      message: 'Порука...',
+      cargoDescription: 'Опис терета/пројекта *',
+      dimensions: 'Димензије (Д x Ш x В)',
+      weight: 'Тежина (кг)',
+      pickupLocation: 'Место преузимања (Град и земља) *',
+      destinationLocation: 'Одредиште (Град и земља) *',
+      deliveryDate: 'Процењени датум испоруке',
+      specialRequirements: 'Остале напомене / посебни захтеви',
+      attachedDocuments: 'Приложени документи',
+      gdprConsent: 'Сагласност за обраду личних података (GDPR) *'
+    }
+  };
+
+  // Helper function to get translated placeholder
+  const getPlaceholder = (key: string): string => {
+    const langCode = currentLanguage.code as keyof typeof placeholderTranslations;
+    const placeholders = placeholderTranslations[langCode] || placeholderTranslations.ro;
+    return placeholders[key as keyof typeof placeholders] || placeholderTranslations.ro[key as keyof typeof placeholderTranslations.ro] || '';
+  };
+
+  // Helper function to get translated validation message
+  const getValidationMessage = (key: string): string => {
+    const langCode = currentLanguage.code as keyof typeof validationMessages;
+    const messages = validationMessages[langCode] || validationMessages.ro;
+    return messages[key as keyof typeof messages] || validationMessages.ro[key as keyof typeof validationMessages.ro] || '';
+  };
 
   // Service data
   const services = [
@@ -194,37 +480,37 @@ const Contact: React.FC = () => {
     const errors: Record<string, string> = {};
     
     if (!formData.name.trim()) {
-      errors.name = 'Numele este obligatoriu';
+      errors.name = getValidationMessage('nameRequired');
     }
     
     if (!formData.contactPerson.trim()) {
-      errors.contactPerson = 'Persoana de contact este obligatorie';
+      errors.contactPerson = getValidationMessage('contactPersonRequired');
     }
     
     if (!formData.phone.trim()) {
-      errors.phone = 'Telefonul este obligatoriu';
+      errors.phone = getValidationMessage('phoneRequired');
     } else if (!isValidPhone(formData.phone)) {
-      errors.phone = 'Formatul telefonului nu este valid';
+      errors.phone = getValidationMessage('phoneInvalid');
     }
     
     if (!formData.email.trim()) {
-      errors.email = 'Email-ul este obligatoriu';
+      errors.email = getValidationMessage('emailRequired');
     } else if (!isValidEmail(formData.email)) {
-      errors.email = 'Formatul email-ului nu este valid';
+      errors.email = getValidationMessage('emailInvalid');
     }
     
     // Service-specific validation
     if (selectedService) {
       if (!formData.cargoDescription?.trim()) {
-        errors.cargoDescription = 'Descrierea încărcăturii este obligatorie';
+        errors.cargoDescription = getValidationMessage('cargoDescriptionRequired');
       }
       
       if (!formData.pickupLocation?.trim()) {
-        errors.pickupLocation = 'Punctul de plecare este obligatoriu';
+        errors.pickupLocation = getValidationMessage('pickupLocationRequired');
       }
       
       if (!formData.destinationLocation?.trim()) {
-        errors.destinationLocation = 'Punctul de destinație este obligatoriu';
+        errors.destinationLocation = getValidationMessage('destinationLocationRequired');
       }
     }
     
@@ -248,6 +534,7 @@ const Contact: React.FC = () => {
     
     await submitContactForm(submitData);
   };
+
 
   // SEO: Set document title and meta description for contact page
   useEffect(() => {
@@ -526,7 +813,7 @@ const Contact: React.FC = () => {
                           <input
                             type="text"
                             name="name"
-                            placeholder="Nume și prenume / Companie *"
+                            placeholder={getPlaceholder('nameCompany')}
                             className={`form-input ${validationErrors.name ? 'error' : ''}`}
                             value={formData.name}
                             onChange={handleInputChange}
@@ -541,7 +828,7 @@ const Contact: React.FC = () => {
                           <input
                             type="text"
                             name="contactPerson"
-                            placeholder="Persoană de contact *"
+                            placeholder={getPlaceholder('contactPerson')}
                             className={`form-input ${validationErrors.contactPerson ? 'error' : ''}`}
                             value={formData.contactPerson}
                             onChange={handleInputChange}
@@ -556,7 +843,7 @@ const Contact: React.FC = () => {
                           <input
                             type="tel"
                             name="phone"
-                            placeholder="Telefon *"
+                            placeholder={getPlaceholder('phone')}
                             className={`form-input ${validationErrors.phone ? 'error' : ''}`}
                             value={formData.phone}
                             onChange={handleInputChange}
@@ -571,7 +858,7 @@ const Contact: React.FC = () => {
                           <input
                             type="email"
                             name="email"
-                            placeholder="Email *"
+                            placeholder={getPlaceholder('email')}
                             className={`form-input ${validationErrors.email ? 'error' : ''}`}
                             value={formData.email}
                             onChange={handleInputChange}
@@ -586,7 +873,7 @@ const Contact: React.FC = () => {
                           <input
                             type="url"
                             name="website"
-                            placeholder="Website companie"
+                            placeholder={getPlaceholder('website')}
                             className="form-input"
                             value={formData.website}
                             onChange={handleInputChange}
@@ -596,7 +883,7 @@ const Contact: React.FC = () => {
                         <div className="form-group">
                           <textarea
                             name="cargoDescription"
-                            placeholder="Descrierea încărcăturii/proiect *"
+                            placeholder={getPlaceholder('cargoDescription')}
                             className={`form-textarea ${validationErrors.cargoDescription ? 'error' : ''}`}
                             rows={4}
                             value={formData.cargoDescription}
@@ -614,7 +901,7 @@ const Contact: React.FC = () => {
                           <input
                             type="text"
                             name="dimensions"
-                            placeholder="Dimensiuni (L x l x h)"
+                            placeholder={getPlaceholder('dimensions')}
                             className="form-input"
                             value={formData.dimensions}
                             onChange={handleInputChange}
@@ -625,7 +912,7 @@ const Contact: React.FC = () => {
                           <input
                             type="text"
                             name="weight"
-                            placeholder="Greutate (kg)"
+                            placeholder={getPlaceholder('weight')}
                             className="form-input"
                             value={formData.weight}
                             onChange={handleInputChange}
@@ -636,7 +923,7 @@ const Contact: React.FC = () => {
                           <input
                             type="text"
                             name="pickupLocation"
-                            placeholder="Punct de plecare (Localitate și țară) *"
+                            placeholder={getPlaceholder('pickupLocation')}
                             className={`form-input ${validationErrors.pickupLocation ? 'error' : ''}`}
                             value={formData.pickupLocation}
                             onChange={handleInputChange}
@@ -651,7 +938,7 @@ const Contact: React.FC = () => {
                           <input
                             type="text"
                             name="destinationLocation"
-                            placeholder="Punct de destinație (Localitate și țară) *"
+                            placeholder={getPlaceholder('destinationLocation')}
                             className={`form-input ${validationErrors.destinationLocation ? 'error' : ''}`}
                             value={formData.destinationLocation}
                             onChange={handleInputChange}
@@ -666,7 +953,7 @@ const Contact: React.FC = () => {
                           <input
                             type="date"
                             name="deliveryDate"
-                            placeholder="Termen estimativ pentru livrare"
+                            placeholder={getPlaceholder('deliveryDate')}
                             className="form-input"
                             value={formData.deliveryDate}
                             onChange={handleInputChange}
@@ -681,7 +968,7 @@ const Contact: React.FC = () => {
                             onChange={handleFileChange}
                           />
                           <label className="form-file-label">
-                            <span>Documente atașate</span>
+                            <span>{getPlaceholder('attachedDocuments')}</span>
                             <img src="/images/folder-up.webp" alt="Upload" />
                           </label>
                         </div>
@@ -725,7 +1012,7 @@ const Contact: React.FC = () => {
                         <div className="form-group">
                           <textarea
                             name="specialRequirements"
-                            placeholder="Alte mențiuni / cerințe speciale"
+                            placeholder={getPlaceholder('specialRequirements')}
                             className="form-textarea"
                             rows={3}
                             value={formData.specialRequirements}
@@ -741,7 +1028,7 @@ const Contact: React.FC = () => {
                         <input
                           type="text"
                           name="name"
-                          placeholder="Nume și prenume / Companie *"
+                          placeholder={getPlaceholder('nameCompany')}
                           className={`form-input ${validationErrors.name ? 'error' : ''}`}
                           value={formData.name}
                           onChange={handleInputChange}
@@ -756,7 +1043,7 @@ const Contact: React.FC = () => {
                         <input
                           type="text"
                           name="contactPerson"
-                          placeholder="Persoană de contact *"
+                          placeholder={getPlaceholder('contactPerson')}
                           className={`form-input ${validationErrors.contactPerson ? 'error' : ''}`}
                           value={formData.contactPerson}
                           onChange={handleInputChange}
@@ -771,7 +1058,7 @@ const Contact: React.FC = () => {
                         <input
                           type="tel"
                           name="phone"
-                          placeholder="Telefon *"
+                          placeholder={getPlaceholder('phone')}
                           className={`form-input ${validationErrors.phone ? 'error' : ''}`}
                           value={formData.phone}
                           onChange={handleInputChange}
@@ -786,7 +1073,7 @@ const Contact: React.FC = () => {
                         <input
                           type="email"
                           name="email"
-                          placeholder="Email *"
+                          placeholder={getPlaceholder('email')}
                           className={`form-input ${validationErrors.email ? 'error' : ''}`}
                           value={formData.email}
                           onChange={handleInputChange}
@@ -801,7 +1088,7 @@ const Contact: React.FC = () => {
                         <input
                           type="url"
                           name="website"
-                          placeholder="Website companie"
+                          placeholder={getPlaceholder('website')}
                           className="form-input"
                           value={formData.website}
                           onChange={handleInputChange}
@@ -812,7 +1099,7 @@ const Contact: React.FC = () => {
                         <input
                           type="text"
                           name="subject"
-                          placeholder="Subiect"
+                          placeholder={getPlaceholder('subject')}
                           className="form-input"
                           value={formData.subject}
                           onChange={handleInputChange}
@@ -822,7 +1109,7 @@ const Contact: React.FC = () => {
                       <div className="form-group">
                         <textarea
                           name="message"
-                          placeholder="Mesaj..."
+                          placeholder={getPlaceholder('message')}
                           className="form-textarea"
                           rows={5}
                           value={formData.message}
@@ -836,7 +1123,7 @@ const Contact: React.FC = () => {
                   <div className="checkbox-group gdpr-consent">
                     <input type="checkbox" id="gdpr" required />
                     <label htmlFor="gdpr">
-                      Consimțământ prelucrare date personale (GDPR) *
+                      {getPlaceholder('gdprConsent')}
                     </label>
                   </div>
 
