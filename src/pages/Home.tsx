@@ -477,26 +477,99 @@ const Home: React.FC = () => {
       <section className="sponsors" aria-labelledby="partners-heading">
         <div className="sponsors-container">
           <h3 id="partners-heading" className="sponsors-title animate-on-scroll fade-up">Susținem excelența prin colaborări cu</h3>
-          <div className="sponsors-logos animate-on-scroll stagger-children delay-300" role="list">
-            <div className="sponsor-logo" role="listitem">
-              <img src="/images/Vestas.webp" alt="Vestas - partener Holleman pentru energie eoliană" 
-                   className="sponsor-image" loading="lazy" />
-            </div>
-            <div className="sponsor-logo" role="listitem">
-              <img src="/images/Nordex.webp" alt="Nordex - partener pentru turbine eoliene" 
-                   className="sponsor-image" loading="lazy" />
-            </div>
-            <div className="sponsor-logo" role="listitem">
-              <img src="/images/Liebherr.webp" alt="Liebherr - partener pentru echipamente de construcții" 
-                   className="sponsor-image" loading="lazy" />
-            </div>
-            <div className="sponsor-logo" role="listitem">
-              <img src="/images/Caterpillar.webp" alt="Caterpillar - partener pentru utilaje industriale" 
-                   className="sponsor-image" loading="lazy" />
-            </div>
-            <div className="sponsor-logo" role="listitem">
-              <img src="/images/agro.webp" alt="Agro Concept - partener pentru sector agricol" 
-                   className="sponsor-image" loading="lazy" />
+          <div className="sponsors-carousel" role="list">
+            <div className="sponsors-track">
+              {/* First set of logos */}
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/Vestas.webp" alt="Vestas - partener Holleman pentru energie eoliană" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/Nordex.webp" alt="Nordex - partener pentru turbine eoliene" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/Liebherr.webp" alt="Liebherr - partener pentru echipamente de construcții" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/Caterpillar.webp" alt="Caterpillar - partener pentru utilaje industriale" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/agro.webp" alt="Agro Concept - partener pentru sector agricol" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/CNHlogo.webp" alt="CNH - partener pentru utilaje agricole și industriale" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/egs-logo.webp" alt="EGS - partener pentru soluții energetice" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/EnerconLogo.webp" alt="Enercon - partener pentru energie eoliană" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/COSCOlogo.webp" alt="COSCO - partener pentru transport maritim" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/opengraphlogo.webp" alt="OpenGraph - partener tehnologic" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/siemens-logo.webp" alt="Siemens - partener pentru tehnologie industrială" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              
+              {/* Duplicate set for seamless loop */}
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/Vestas.webp" alt="Vestas - partener Holleman pentru energie eoliană" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/Nordex.webp" alt="Nordex - partener pentru turbine eoliene" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/Liebherr.webp" alt="Liebherr - partener pentru echipamente de construcții" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/Caterpillar.webp" alt="Caterpillar - partener pentru utilaje industriale" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/agro.webp" alt="Agro Concept - partener pentru sector agricol" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/CNHlogo.webp" alt="CNH - partener pentru utilaje agricole și industriale" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/egs-logo.webp" alt="EGS - partener pentru soluții energetice" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/EnerconLogo.webp" alt="Enercon - partener pentru energie eoliană" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/COSCOlogo.webp" alt="COSCO - partener pentru transport maritim" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/opengraphlogo.webp" alt="OpenGraph - partener tehnologic" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
+              <div className="sponsor-logo" role="listitem">
+                <img src="/images/siemens-logo.webp" alt="Siemens - partener pentru tehnologie industrială" 
+                     className="sponsor-image" loading="lazy" />
+              </div>
             </div>
           </div>
         </div>

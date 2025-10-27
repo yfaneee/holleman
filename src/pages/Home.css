@@ -583,7 +583,7 @@
 }
 
 .sponsors-container {
-  max-width: 1400px;
+  max-width: 1920px;
   margin: 0 auto;
   padding: 0 40px;
   width: 100%;
@@ -597,6 +597,33 @@
   text-align: center;
   margin-bottom: 60px;
   letter-spacing: 0.5px;
+}
+
+/* Infinite scrolling carousel */
+.sponsors-carousel {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.sponsors-track {
+  display: flex;
+  align-items: center;
+  animation: scroll-infinite 30s linear infinite;
+  width: calc(200% + 40px); /* Double width for seamless loop */
+}
+
+.sponsors-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .sponsors-logos {
@@ -614,12 +641,14 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  flex: 1;
-  min-width: auto;
-  max-width: none;
-  opacity: 0;
-  transform: translateY(20px) scale(0.9);
-  transition: all 0.6s ease;
+  flex: 0 0 auto;
+  min-width: 180px;
+  max-width: 200px;
+  opacity: 0.7;
+  transform: scale(1);
+  transition: all 0.3s ease;
+  margin: 0 20px;
+  filter: grayscale(100%);
 }
 
 .sponsor-image {
@@ -628,6 +657,12 @@
   object-fit: contain;
   margin-bottom: 10px;
   transition: transform 0.3s ease;
+}
+
+.sponsor-logo:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: grayscale(0%);
 }
 
 .sponsor-logo:hover .sponsor-image {
@@ -897,6 +932,73 @@
 
 .indicator.active {
   background: #136B38;
+}
+
+/* Responsive styles for sponsors carousel */
+@media (max-width: 1200px) {
+  .sponsors-track {
+    animation-duration: 25s; /* Slightly faster on smaller screens */
+  }
+  
+  .sponsor-logo {
+    min-width: 150px;
+    max-width: 170px;
+    margin: 0 15px;
+  }
+  
+  .sponsor-image {
+    width: 120px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sponsors {
+    padding: 40px 0;
+    height: 200px;
+  }
+  
+  .sponsors-title {
+    font-size: clamp(16px, 4vw, 24px);
+    margin-bottom: 40px;
+  }
+  
+  .sponsors-track {
+    animation-duration: 20s; /* Faster on mobile */
+  }
+  
+  .sponsor-logo {
+    min-width: 120px;
+    max-width: 140px;
+    margin: 0 10px;
+  }
+  
+  .sponsor-image {
+    width: 100px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sponsors {
+    padding: 30px 0;
+    height: 150px;
+  }
+  
+  .sponsors-title {
+    margin-bottom: 30px;
+  }
+  
+  .sponsor-logo {
+    min-width: 100px;
+    max-width: 120px;
+    margin: 0 8px;
+  }
+  
+  .sponsor-image {
+    width: 80px;
+    height: 50px;
+  }
 }
 
 /* Responsive adjustments for new sections */

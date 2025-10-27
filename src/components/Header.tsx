@@ -79,10 +79,10 @@ const Header: React.FC = () => {
               <span className="dropdown-arrow">▼</span>
               {activeDropdown === 'servicii' && (
                 <div className="dropdown-menu" role="menu">
-                  <a href="/project-cargo" role="menuitem" aria-label="Servicii Project Cargo - transport agabaritic">Project Cargo</a>
-                  <a href="/heavy-lift" role="menuitem" aria-label="Servicii Heavy Lift - relocări industriale">Heavy Lift</a>
-                  <a href="/itl" role="menuitem" aria-label="Inter Trans Logistics - transport internațional">ITL</a>
-                  <a href="/agro" role="menuitem" aria-label="Holleman Agro - servicii agricole">Holleman Agro</a>
+                  <a href="/project-cargo" role="menuitem" aria-label="Servicii Project Cargo - transport agabaritic">HOLLEMAN SPECIAL TRANSPORT & PROJECT CARGO</a>
+                  <a href="/heavy-lift" role="menuitem" aria-label="Servicii Heavy Lift - relocări industriale">HOLLEMAN HEAVY LIFT</a>
+                  <a href="/itl" role="menuitem" aria-label="Inter Trans Logistics - transport internațional">INTER TRANS LOGISTICS</a>
+                  <a href="/agro" role="menuitem" aria-label="Holleman Agro - servicii agricole">HOLLEMAN AGRO</a>
                 </div>
               )}
             </div>

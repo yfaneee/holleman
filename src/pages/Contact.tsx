@@ -361,22 +361,22 @@ const Contact: React.FC = () => {
   const services = [
     {
       id: 'project-cargo',
-      title: 'Project Cargo',
+      title: 'HOLLEMAN SPECIAL TRANSPORT & PROJECT CARGO',
       icon: '/images/icons/iconprojectcargo.webp'
     },
     {
       id: 'itl',
-      title: 'ITL',
+      title: 'INTER TRANS LOGISTICS',
       icon: '/images/icons/iconinternational.webp'
     },
     {
       id: 'heavy-lift',
-      title: 'Heavy Lift',
+      title: 'HOLLEMAN HEAVY LIFT',
       icon: '/images/icons/heavy.webp'
     },
     {
       id: 'agro',
-      title: 'Agro',
+      title: 'HOLLEMAN AGRO',
       icon: '/images/icons/agro.webp'
     }
   ];
