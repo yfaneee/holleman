@@ -1,4 +1,4 @@
-/* Agro Page Styles */
+/* Agro/PortOps Page Styles */
 .agro-page {
   min-height: 100vh;
   background-color: #ffffff;
@@ -25,7 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .agro-hero-content {
@@ -56,67 +56,7 @@
   margin: 0 auto;
 }
 
-/* Agro Content Section */
-.agro-content-section {
-  background-color: #ffffff;
-  padding: 80px 20px;
-  position: relative;
-}
-
-.agro-content-container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.agro-content-header {
-  margin-bottom: 50px;
-  text-align: left;
-}
-
-.agro-content-title {
-  font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(32px, 5vw, 48px);
-  color: #333;
-  margin: 0;
-  line-height: 1.2;
-  font-weight: 700;
-}
-
-.agro-highlight {
-  color: #D4A017;
-  font-weight: 700;
-}
-
-.agro-content-text {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.agro-content-point {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.agro-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: #D4A017;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 8px;
-}
-
-.agro-content-point p {
-  font-family: 'Gotham Book', sans-serif;
-  font-size: clamp(16px, 1.8vw, 18px);
-  color: #555;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* Agro Services Section */
+/* PortOps Services Section */
 .agro-services-section {
   padding: 60px 20px;
   background: #f8f9fa;
@@ -142,9 +82,10 @@
   font-weight: 700;
 }
 
-.agro-services-grid {
+/* PortOps Services Grid - 6 cards in 3x2 grid */
+.portops-services-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(430px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 25px;
   margin-bottom: 60px;
   justify-content: center;
@@ -153,97 +94,34 @@
   margin-right: auto;
 }
 
-
-
-.agro-services-grid .agro-service-item:nth-child(7) {
-  grid-column: 2;
+/* PortOps Service Item - Simple hover (color change only) */
+.portops-service-item {
+  background: white;
+  padding: 35px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  min-height: 176px;
+  cursor: pointer;
 }
 
-.agro-service-item {
-    background: white;
-    padding: 35px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    min-height: 176px;
-}
-
-  .btn {
-    --color: #136B38;
-    --color2: rgb(255, 255, 255);
-    padding: 0.8em 1.75em;
-    background-color: transparent;
-    border-radius: 6px;
-    border: .3px solid var(--color);
-    transition: .5s;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    z-index: 10;
-    font-weight: 300;
-    font-size: 18px;
-    text-transform: uppercase;
-    color: var(--color);
-    font-family: 'Gotham Bold', sans-serif;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  .btn span {
-    position: relative;
-    z-index: 10;
-  }
-  
-  .btn::after, .btn::before {
-    content: '';
-    display: block;
-    height: 100%;
-    width: 100%;
-    transform: skew(90deg) translate(-50%, -50%);
-    position: absolute;
-    inset: 50%;
-    left: 25%;
-    z-index: 5;
-    transition: .5s ease-out;
-    background-color: var(--color);
-  }
-  
-  .btn::before {
-    top: -50%;
-    left: -25%;
-    transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
-  }
-  
-  .btn:hover::before {
-    transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
-  }
-  
-  .btn:hover::after {
-    transform: skew(45deg) translate(-50%, -50%);
-  }
-  
-  .btn:hover {
-    color: var(--color2);
-  }
-  
-  .btn:active {
-    filter: brightness(.7);
-    transform: scale(.98);
-  }
-  
-.agro-service-item:hover {
+.portops-service-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  background-color: #136B38;
 }
 
-.agro-service-item:hover .agro-service-overlay {
-  opacity: 1;
-  visibility: visible;
+.portops-service-item:hover h3 {
+  color: white;
+}
+
+.portops-service-item:hover .agro-service-icon img {
+  filter: brightness(0) invert(1);
 }
 
 .agro-service-icon {
@@ -261,239 +139,223 @@
   width: 50px;
   height: 50px;
   object-fit: contain;
+  transition: filter 0.3s ease;
 }
 
-.agro-service-item h3 {
+.agro-service-item h3,
+.portops-service-item h3 {
   font-family: 'Gotham Bold', sans-serif;
   font-size: clamp(16px, 2vw, 18px);
   color: #2c3e50;
   margin: 0;
   line-height: 1.4;
+  transition: color 0.3s ease;
 }
 
-/* Agro Service Overlay */
-.agro-service-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #136B38;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  border-radius: 12px;
-}
-
-.agro-service-overlay h3 {
-  color: white;
-  margin-bottom: 15px;
-  font-size: clamp(16px, 2.2vw, 20px);
+.btn {
+  --color: #136B38;
+  --color2: rgb(255, 255, 255);
+  padding: 0.8em 1.75em;
+  background-color: transparent;
+  border-radius: 6px;
+  border: .3px solid var(--color);
+  transition: .5s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 10;
+  font-weight: 300;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--color);
   font-family: 'Gotham Bold', sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.agro-service-overlay p {
-  color: white;
-  font-size: clamp(13px, 1.6vw, 15px);
-  line-height: 1.5;
-  margin: 0;
-  opacity: 0.9;
-  text-align: center;
+.btn span {
+  position: relative;
+  z-index: 10;
 }
 
-.agro-service-icon-white img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+.btn::after, .btn::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: skew(90deg) translate(-50%, -50%);
+  position: absolute;
+  inset: 50%;
+  left: 25%;
+  z-index: 5;
+  transition: .5s ease-out;
+  background-color: var(--color);
+}
+
+.btn::before {
+  top: -50%;
+  left: -25%;
+  transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn:hover::before {
+  transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn:hover::after {
+  transform: skew(45deg) translate(-50%, -50%);
+}
+
+.btn:hover {
+  color: var(--color2);
+}
+
+.btn:active {
+  filter: brightness(.7);
+  transform: scale(.98);
 }
 
 .agro-services-footer {
   text-align: center;
 }
 
-/* Call to Action Section */
-.agro-cta-section {
+/* PortOps Content Sections */
+.portops-section {
+  padding: 80px 20px;
+  position: relative;
+}
+
+.portops-section-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.portops-section-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 0 0 30px 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.portops-section-text {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+.portops-section-text p {
+  margin: 0;
+}
+
+/* Section 1 - White background */
+.portops-section-1 {
+  background-color: #ffffff;
+}
+
+.portops-section-1 .portops-section-title {
+  color: #2c3e50;
+}
+
+.portops-section-1 .portops-section-text {
+  color: #555;
+}
+
+/* Section 2 - Background image */
+.portops-section-2 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: scroll;
-  padding: 120px 20px;
-  position: relative;
   min-height: 500px;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.agro-cta-section::before {
-  content: '';
+.portops-section-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
-.agro-cta-container {
-  max-width: 1200px;
-  margin: 0 auto;
+.portops-section-2 .portops-section-container {
   z-index: 2;
   position: relative;
+  text-align: center;
 }
 
-.agro-cta-content {
-  text-align: center;
+.portops-section-2 .portops-section-title {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.portops-section-2 .portops-section-text {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Section 3 - Title, text, bullets, final text */
+.portops-section-3 {
+  background-color: #f8f9fa;
+}
+
+.portops-section-3 .portops-section-title {
+  color: #2c3e50;
+}
+
+.portops-section-3 .portops-section-text {
+  color: #555;
+}
+
+.portops-bullet-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
+  gap: 15px;
+  margin: 30px 0;
+  padding-left: 10px;
 }
 
-.agro-cta-title {
-  font-family: 'Gotham Bold', sans-serif;
-  font-size: var(--section-title-large);
-  color: white;
-  line-height: 1.3;
-  max-width: 900px;
-  margin: 0;
-  text-align: center;
-}
-
-.agro-highlight {
-  color: #D4A017;
-}
-
-/* Yellow CTA button styling */
-.agro-page .cta-btn {
-  --color: #D4A017;
-  --color2: rgb(255, 255, 255);
+.portops-bullet-item {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 15px;
 }
 
-/* Only apply z-index fix to the main CTA button with span structure */
-.agro-page .agro-cta-section .cta-btn span,
-.agro-page .agro-cta-section .cta-btn .cta-icon {
-  position: relative;
-  z-index: 10;
+.portops-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #136B38;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
 }
 
-.agro-page .cta-icon {
-  width: 25px;
-  height: 25px;
-  object-fit: contain;
-}
-
-/* Tractor Animation Section */
-.agro-page .tractor-animation-section {
-  background: #D4A017; /* Agro gold color */
-  height: 150px; /* Same size as truck section */
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-.agro-page .tractor-animation-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.agro-page .moving-tractor {
-  position: absolute;
-  top: -30%; /* Start much higher - above the section */
-  right: -100px; /* Start with only half tractor visible */
-  animation: none; /* No animation by default */
-  z-index: 10; /* Make sure it's visible */
-}
-
-.agro-page .moving-tractor.animate-tractor {
-  animation: tractorDriveLeft 6s linear forwards; /* Single animation on scroll */
-}
-
-.agro-page .tractor-svg {
-  height: 240px; /* Same size as truck for consistency */
-  width: auto;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-/* Tractor text animation */
-.agro-page .tractor-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-}
-
-.agro-page .tractor-message {
-  font-family: 'Gotham Bold', sans-serif;
-  font-size: 1.8rem;
-  color: white;
-  text-align: center;
+.portops-bullet-item p {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: #555;
+  line-height: 1.6;
   margin: 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  font-weight: bold;
-  line-height: 1.4;
 }
 
-.agro-page .tractor-message .word {
-  display: inline-block;
-  margin-right: 0.3em;
-  opacity: 0;
-  transform: translateY(20px);
+.portops-final-text {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
 }
 
-.agro-page .tractor-text.show-text .word {
-  animation: fadeInWord 0.6s ease-out forwards;
-}
-
-/* Stagger the animation for each word */
-.agro-page .tractor-text.show-text .word:nth-child(1) { animation-delay: 0s; }
-.agro-page .tractor-text.show-text .word:nth-child(2) { animation-delay: 0.2s; }
-.agro-page .tractor-text.show-text .word:nth-child(3) { animation-delay: 0.4s; }
-.agro-page .tractor-text.show-text .word:nth-child(4) { animation-delay: 0.6s; }
-.agro-page .tractor-text.show-text .word:nth-child(5) { animation-delay: 0.8s; }
-.agro-page .tractor-text.show-text .word:nth-child(6) { animation-delay: 1.2s; }
-.agro-page .tractor-text.show-text .word:nth-child(7) { animation-delay: 1.4s; }
-.agro-page .tractor-text.show-text .word:nth-child(8) { animation-delay: 1.6s; }
-.agro-page .tractor-text.show-text .word:nth-child(9) { animation-delay: 1.8s; }
-.agro-page .tractor-text.show-text .word:nth-child(10) { animation-delay: 2.0s; }
-
-@keyframes fadeInWord {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Keyframe animation - tractor moves diagonally from right to left */
-@keyframes tractorDriveLeft {
-  0% {
-    right: -100px; /* Start with only half tractor visible */
-    top: -30%; /* Start much higher - above the section */
-  }
-  100% {
-    right: 100vw; /* End completely off-screen left */
-    top: 10%; /* End higher up - less steep diagonal */
-  }
+/* Loading placeholder */
+.loading-placeholder {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-family: 'Gotham Book', sans-serif;
 }
 
 /* Services Navigation Section */
@@ -565,99 +427,7 @@
   color: #333;
 }
 
-
-
-/* Responsive Tractor Animation */
-@media (max-width: 768px) {
-  .agro-page .tractor-animation-section {
-    height: 150px; /* Same size on tablet */
-  }
-  
-  .agro-page .tractor-svg {
-    height: 180px; /* Smaller on tablet */
-  }
-  
-  .agro-page .tractor-message {
-    font-size: 1.4rem; /* Smaller text on tablet */
-  }
-  
-  .agro-page .tractor-message .word {
-    margin-right: 0.25em; /* Slightly less spacing on tablet */
-  }
-  
-  .agro-page .moving-tractor {
-    right: -75px; /* Half tractor visible on tablet */
-    top: -35%; /* Start much higher on tablet */
-  }
-  
-  @keyframes tractorDriveLeft {
-    0% {
-      right: -75px;
-      top: -35%; /* Start much higher on tablet */
-    }
-    100% {
-      right: 100vw;
-      top: 5%; /* End higher up on tablet - less steep diagonal */
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .agro-page .tractor-animation-section {
-    height: 120px; /* Smaller on mobile */
-  }
-  
-  .agro-page .tractor-svg {
-    height: 130px; /* Smaller on mobile */
-  }
-  
-  .agro-page .tractor-message {
-    font-size: 1.1rem; /* Smaller text on mobile */
-    padding: 0 20px; /* Add padding on mobile */
-  }
-  
-  .agro-page .tractor-message .word {
-    margin-right: 0.2em; /* Even less spacing on mobile */
-  }
-  
-  .agro-page .moving-tractor {
-    right: -55px; /* Half tractor visible on mobile */
-    top: -40%; /* Start much higher on mobile */
-  }
-  
-  @keyframes tractorDriveLeft {
-    0% {
-      right: -55px;
-      top: -40%; /* Start much higher on mobile */
-    }
-    100% {
-      right: 100vw;
-      top: 0%; /* End higher up on mobile - less steep diagonal */
-    }
-  }
-}
-
-/* Pause animation on reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  .agro-page .moving-tractor {
-    animation: none;
-    right: -50px; /* Static position for reduced motion */
-    top: 25%;
-  }
-}
-
 /* Responsive Design */
-@media (max-width: 1380px) and (min-width: 1201px) {
-  .agro-services-section {
-    padding: 80px 60px;
-  }
-  
-  .agro-services-grid {
-    max-width: 1200px;
-    margin: 0 auto 60px auto;
-  }
-}
-
 @media (max-width: 1200px) and (min-width: 769px) {
   .agro-hero {
     height: 90vh;
@@ -665,22 +435,6 @@
   
   .agro-title {
     margin-bottom: 15px;
-  }
-  
-  .agro-content-section {
-    padding: 60px 20px;
-  }
-  
-  .agro-content-header {
-    margin-bottom: 40px;
-  }
-  
-  .agro-content-text {
-    gap: 25px;
-  }
-  
-  .agro-content-point {
-    gap: 15px;
   }
   
   .agro-services-section {
@@ -692,17 +446,13 @@
     line-height: 1.2;
   }
   
-  .agro-services-grid {
+  .portops-services-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     margin-bottom: 50px;
   }
   
-  .agro-services-grid .agro-service-item:nth-child(7) {
-    grid-column: 1;
-  }
-  
-  .agro-service-item {
+  .portops-service-item {
     padding: 30px 15px;
   }
   
@@ -717,36 +467,16 @@
     height: 45px;
   }
   
-  .agro-service-item h3 {
+  .portops-service-item h3 {
     font-size: clamp(14px, 1.8vw, 18px);
   }
   
-  .agro-service-overlay p {
-    font-size: clamp(12px, 1.4vw, 14px);
+  .portops-section {
+    padding: 60px 20px;
   }
   
-  .agro-service-icon-white {
-    width: 65px;
-    height: 65px;
-    margin-bottom: 15px;
-  }
-  
-  .agro-service-icon-white img {
-    width: 45px;
-    height: 45px;
-  }
-  
-  .agro-cta-section {
-    padding: 80px 20px;
+  .portops-section-2 {
     min-height: 400px;
-  }
-  
-  .agro-cta-content {
-    gap: 30px;
-  }
-  
-  .agro-cta-title {
-    font-size: clamp(20px, 4vw, 32px);
   }
   
   .agro-page .services-nav-section {
@@ -779,36 +509,6 @@
     font-size: clamp(16px, 4vw, 22px);
   }
   
-  .agro-content-section {
-    padding: 50px 15px;
-  }
-  
-  .agro-content-header {
-    margin-bottom: 35px;
-  }
-  
-  .agro-content-title {
-    font-size: clamp(28px, 6vw, 40px);
-  }
-  
-  .agro-content-text {
-    gap: 20px;
-  }
-  
-  .agro-content-point {
-    gap: 12px;
-  }
-  
-  .agro-bullet {
-    width: 10px;
-    height: 10px;
-    margin-top: 6px;
-  }
-  
-  .agro-content-point p {
-    font-size: clamp(15px, 3.5vw, 17px);
-  }
-  
   .agro-services-section {
     padding: 50px 20px;
   }
@@ -818,17 +518,13 @@
     margin-bottom: 40px;
   }
   
-  .agro-services-grid {
+  .portops-services-grid {
     grid-template-columns: 1fr;
     gap: 25px;
     margin-bottom: 40px;
   }
   
-  .agro-services-grid .agro-service-item:nth-child(7) {
-    grid-column: 1;
-  }
-  
-  .agro-service-item {
+  .portops-service-item {
     padding: 25px 15px;
   }
   
@@ -843,23 +539,34 @@
     height: 40px;
   }
   
-  .agro-service-item h3 {
+  .portops-service-item h3 {
     font-size: clamp(14px, 2vw, 16px);
   }
   
-  .agro-service-overlay p {
-    font-size: clamp(11px, 1.2vw, 13px);
+  .portops-section {
+    padding: 50px 15px;
   }
   
-  .agro-service-icon-white {
-    width: 55px;
-    height: 55px;
-    margin-bottom: 10px;
+  .portops-section-title {
+    font-size: clamp(24px, 5vw, 36px);
   }
   
-  .agro-service-icon-white img {
-    width: 40px;
-    height: 40px;
+  .portops-section-2 {
+    min-height: 350px;
+  }
+  
+  .portops-bullet-list {
+    gap: 12px;
+  }
+  
+  .portops-bullet-item {
+    gap: 12px;
+  }
+  
+  .portops-bullet {
+    width: 8px;
+    height: 8px;
+    margin-top: 7px;
   }
 }
 
@@ -881,51 +588,17 @@
     font-size: clamp(14px, 5vw, 20px);
   }
   
-  .agro-content-section {
-    padding: 40px 30px;
-  }
-  
-  .agro-content-header {
-    margin-bottom: 30px;
-  }
-  
-  .agro-content-title {
-    font-size: clamp(24px, 7vw, 32px);
-  }
-  
-  .agro-content-text {
-    gap: 18px;
-  }
-  
-  .agro-content-point {
-    gap: 10px;
-  }
-  
-  .agro-bullet {
-    width: 8px;
-    height: 8px;
-    margin-top: 5px;
-  }
-  
-  .agro-content-point p {
-    font-size: clamp(14px, 4vw, 16px);
-  }
-  
   .agro-services-section {
     padding: 60px 20px;
   }
   
-  .agro-services-grid {
+  .portops-services-grid {
     grid-template-columns: 1fr;
     gap: 25px;
     margin-bottom: 40px;
   }
   
-  .agro-services-grid .agro-service-item:nth-child(7) {
-    grid-column: 1;
-  }
-  
-  .agro-service-item {
+  .portops-service-item {
     padding: 30px 20px;
   }
   
@@ -940,18 +613,25 @@
     height: 45px;
   }
   
-  .agro-cta-section {
-    padding: 60px 15px;
-    min-height: 350px;
+  .portops-section {
+    padding: 40px 20px;
   }
   
-  .agro-cta-content {
-    gap: 25px;
+  .portops-section-title {
+    font-size: clamp(22px, 6vw, 32px);
+    margin-bottom: 20px;
   }
   
-  .agro-cta-title {
-    font-size: clamp(18px, 5vw, 24px);
-    line-height: 1.4;
+  .portops-section-text {
+    font-size: clamp(15px, 4vw, 17px);
+  }
+  
+  .portops-section-2 {
+    min-height: 300px;
+  }
+  
+  .portops-bullet-item p {
+    font-size: clamp(14px, 3.5vw, 16px);
   }
   
   .agro-page .services-nav-section {

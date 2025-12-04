@@ -355,6 +355,33 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Partner Companies Bar */}
+      <section className="partner-bar" aria-label="Companiile partenere Holleman">
+        <div className="partner-bar-container">
+          <a href="https://holleman.bg/" target="_blank" rel="noopener noreferrer" className="partner-link">
+            Holleman Bulgaria
+          </a>
+          <a href="http://www.holleman.rs/sr/" target="_blank" rel="noopener noreferrer" className="partner-link">
+            Holleman Serbia
+          </a>
+          <a href="https://www.holleman.org.ua/" target="_blank" rel="noopener noreferrer" className="partner-link">
+            Holleman Ucraina
+          </a>
+          <a href="https://mutariindustriale.ro/" target="_blank" rel="noopener noreferrer" className="partner-link">
+            Holleman Heavy Lift
+          </a>
+          <a href="https://www.itl.ro/ro" target="_blank" rel="noopener noreferrer" className="partner-link">
+            ITL
+          </a>
+          <a href="https://holleman-agro.ro/" target="_blank" rel="noopener noreferrer" className="partner-link">
+            Holleman Agro
+          </a>
+          <a href="https://www.schwandner-logistik.de/" target="_blank" rel="noopener noreferrer" className="partner-link">
+            P. Schwandner
+          </a>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section className="services" aria-labelledby="services-heading">
         <div className="services-container">

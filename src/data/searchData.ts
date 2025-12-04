@@ -37,10 +37,10 @@ export const searchableContent: SearchableItem[] = [
   },
   {
     id: 'agro',
-    title: 'Agro',
+    title: 'Port Operations',
     description: 'Servicii specializate pentru sectorul agricol',
     keywords: ['agro', 'agricol', 'agricultura', 'servicii agricole'],
-    route: '/agro',
+    route: '/portops',
     category: 'service'
   },
 

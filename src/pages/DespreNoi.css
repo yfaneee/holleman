@@ -1461,3 +1461,159 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* =====================================================
+   COD DE CONDUITA SECTION STYLES
+   ===================================================== */
+
+.cod-conduita-section {
+  background-color: #ffffff;
+  padding: 80px 20px;
+  position: relative;
+}
+
+.cod-conduita-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cod-conduita-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.cod-conduita-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  color: #136B38;
+  margin: 0;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cod-conduita-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.cod-conduita-intro {
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 1.8;
+  color: #444;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.cod-conduita-intro p {
+  margin: 0;
+}
+
+.cod-conduita-section-block {
+  margin-bottom: 30px;
+}
+
+.cod-conduita-subtitle {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(20px, 2.5vw, 26px);
+  color: #136B38;
+  margin: 0 0 25px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #D4A017;
+  display: inline-block;
+}
+
+.cod-conduita-text {
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.8;
+  color: #444;
+}
+
+.cod-conduita-text p {
+  margin: 0 0 15px 0;
+}
+
+.cod-conduita-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cod-conduita-text ul li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  line-height: 1.7;
+}
+
+.cod-conduita-text ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  background-color: #D4A017;
+  border-radius: 50%;
+}
+
+.cod-conduita-text strong {
+  color: #136B38;
+  font-weight: 600;
+}
+
+.cod-conduita-final {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  border-left: 4px solid #136B38;
+}
+
+.cod-conduita-final .cod-conduita-text {
+  margin: 0;
+}
+
+.cod-conduita-final .cod-conduita-text p {
+  margin-bottom: 15px;
+}
+
+.cod-conduita-final .cod-conduita-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive styles for Cod de Conduita */
+@media (max-width: 992px) {
+  .cod-conduita-section {
+    padding: 60px 20px;
+  }
+  
+  .cod-conduita-header {
+    margin-bottom: 40px;
+  }
+  
+  .cod-conduita-content {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cod-conduita-section {
+    padding: 40px 15px;
+  }
+  
+  .cod-conduita-intro {
+    padding: 0 10px;
+  }
+  
+  .cod-conduita-subtitle {
+    display: block;
+    text-align: center;
+  }
+  
+  .cod-conduita-final {
+    padding: 20px;
+  }
+}

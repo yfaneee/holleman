@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
         <div className="footer-content">
           {/* Left Column - Company Info */}
           <section className="footer-column company-info" aria-labelledby="company-info-heading">
-            <h3 id="company-info-heading">BIROU CENTRAL</h3>
+            <h3 id="company-info-heading">BIROU BUCURESTI</h3>
             <address itemScope itemType="https://schema.org/PostalAddress">
               <p itemProp="streetAddress">Soseaua de Centura, Bucuresti nr. 29, Comuna Jilava</p>
               <p>
@@ -16,14 +16,19 @@ const Footer: React.FC = () => {
                 <span itemProp="addressRegion">Judetul Ilfov</span>
               </p>
               <p className="phone">
-                <a href="tel:+40744678100" itemProp="telephone" aria-label="Telefon birou central">+40 744 678 100</a>
+                <a href="tel:+40744678100" itemProp="telephone" aria-label="Telefon birou Bucuresti">+40 744 678 100</a>
               </p>
               <a href="mailto:info@holleman.ro" className="email" itemProp="email" aria-label="Email contact principal">info@holleman.ro</a>
             </address>
             
-            <div className="footer-logo">
-              <img src="/images/Rectangle.webp" alt="Logo Holleman - Transport Special și Project Cargo" className="footer-logo-image" />
-            </div>
+            <h3 className="constanta-heading">BIROU CONSTANTA</h3>
+            <address itemScope itemType="https://schema.org/PostalAddress">
+              <p itemProp="streetAddress">Port Agigea Sud CT, cladirea TLS, parter, Biroul 1, Constanta</p>
+              <p>
+                <span translate="yes">Cod postal</span> <span itemProp="postalCode">907015</span>, 
+                <span itemProp="addressRegion">Judetul Constanta</span>
+              </p>
+            </address>
           </section>
 
           {/* Cariere Column */}
@@ -71,10 +76,10 @@ const Footer: React.FC = () => {
             <h3 id="services-projects-heading" translate="yes">Servicii</h3>
             <nav aria-label="Navigare servicii oferite">
               <ul>
-                <li><a href="/project-cargo" translate="yes">Transport & <span translate="no">Project Cargo</span></a></li>
-                <li><a href="/heavy-lift"><span translate="no">Holleman Heavy Lift</span></a></li>
-                <li><a href="/itl" translate="no">ITL</a></li>
-                <li><a href="/agro" translate="no">Holleman Agro</a></li>
+                <li><a href="/project-cargo" translate="yes">Transport & <span translate="no">Project Cargo & Special Transport</span></a></li>
+                <li><a href="/heavy-lift"><span translate="no">Heavy Lift & Industrial Relocations</span></a></li>
+                <li><a href="/itl" translate="no">ITL Standard Transport</a></li>
+                <li><a href="/portops" translate="no">Port Operations</a></li>
               </ul>
             </nav>
             
@@ -120,6 +125,10 @@ const Footer: React.FC = () => {
                 <span className="sr-only">LinkedIn</span>
               </a>
             </nav>
+            
+            <div className="footer-logo">
+              <img src="/images/Rectangle.webp" alt="Logo Holleman - Transport Special și Project Cargo" className="footer-logo-image" />
+            </div>
           </section>
         </div>
       </div>

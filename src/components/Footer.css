@@ -96,6 +96,26 @@
   filter: contrast(1.2) brightness(1.1);
 }
 
+/* Constanta office heading */
+.company-info .constanta-heading {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-small);
+  color: white;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Social column logo */
+.social-column .footer-logo {
+  margin-top: 25px;
+}
+
+.social-column .footer-logo-image {
+  height: clamp(70px, 10vw, 100px);
+}
+
 /* Other Columns */
 .footer-column {
   display: flex;
@@ -198,13 +218,13 @@
 .social-icon {
   width: 40px;
   height: 40px;
-  background: #34495e;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
   color: white;
+  border: 1px solid white;
 }
 
 .social-icon:hover {

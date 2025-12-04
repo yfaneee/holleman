@@ -31,6 +31,10 @@ const Proiecte: React.FC = () => {
   const [contentLoading, setContentLoading] = useState(true);
   const [proiecteHeroContent, setProiecteHeroContent] = useState<any>(null);
   
+  // Video state
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  
   // State for projects data
   const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
   const [projectsLoading, setProjectsLoading] = useState(true);
@@ -453,6 +457,33 @@ const Proiecte: React.FC = () => {
       
              {/* Hero Section */}
        <section className="hero-section" style={{backgroundImage: `url('/images/proiectebckg.webp')`}}>
+         <video 
+           className="hero-video"
+           autoPlay 
+           muted 
+           loop 
+           playsInline
+           preload="auto"
+           disablePictureInPicture
+           controlsList="nodownload nofullscreen noremoteplaybook"
+           onLoadStart={() => {
+             setIsVideoLoaded(false);
+             setVideoError(false);
+           }}
+           onCanPlay={() => {
+             setIsVideoLoaded(true);
+           }}
+           onLoadedData={() => {
+             setIsVideoLoaded(true);
+           }}
+           onError={() => {
+             setVideoError(true);
+             setIsVideoLoaded(true);
+           }}
+         >
+           <source src="/videos/contact.mp4" type="video/mp4" />
+           Your browser does not support the video tag.
+         </video>
          <div className="hero-overlay">
            <div className="hero-content">
              <h1 className="hero-title">

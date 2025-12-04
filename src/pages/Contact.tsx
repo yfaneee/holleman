@@ -375,9 +375,9 @@ const Contact: React.FC = () => {
       icon: '/images/icons/heavy.webp'
     },
     {
-      id: 'agro',
-      title: 'HOLLEMAN AGRO',
-      icon: '/images/icons/agro.webp'
+      id: 'portops',
+      title: 'PORT OPERATIONS',
+      icon: '/images/icons/Anchor.webp'
     }
   ];
 
@@ -707,38 +707,6 @@ const Contact: React.FC = () => {
           backgroundImage: `url('/images/Group8749.webp')`
         }}
       >
-        <video 
-          className="contact-hero-video"
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          preload="auto"
-          disablePictureInPicture
-          controlsList="nodownload nofullscreen noremoteplaybook"
-          onLoadStart={() => {
-            console.log('Contact video loading started');
-            setIsVideoLoaded(false);
-            setVideoError(false);
-          }}
-          onCanPlay={() => {
-            console.log('Contact video can start playing');
-            setIsVideoLoaded(true);
-          }}
-          onLoadedData={() => {
-            console.log('Contact video loaded');
-            setIsVideoLoaded(true);
-          }}
-          onError={() => {
-            console.error('Contact video failed to load');
-            setVideoError(true);
-            setIsVideoLoaded(true);
-          }}
-        >
-          <source src="/videos/contact.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">

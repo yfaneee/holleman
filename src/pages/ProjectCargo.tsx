@@ -617,11 +617,11 @@ const ProjectCargo: React.FC = () => {
               </div>
               <h3>ITL</h3>
             </div>
-            <div className="service-nav-item" onClick={() => navigate('/agro')}>
+            <div className="service-nav-item" onClick={() => navigate('/portops')}>
               <div className="service-nav-icon">
-                <img src="/images/icons/agro.webp" alt="Agro icon" />
+                <img src="/images/icons/Anchor.webp" alt="Port Operations icon" />
               </div>
-              <h3>Agro</h3>
+              <h3>Port Ops</h3>
             </div>
           </div>
         </div>

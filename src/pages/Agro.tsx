@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,40 +6,44 @@ import './Agro.css';
 
 const Agro: React.FC = () => {
   const navigate = useNavigate();
-  const tractorRef = useRef<HTMLDivElement>(null);
   
   // State for Strapi content
-  const [agroContentSection, setAgroContentSection] = useState<any>(null);
-  const [agroCtaSection, setAgroCtaSection] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [agroHeroContent, setAgroHeroContent] = useState<any>(null);
+  const [portOpsHeroContent, setPortOpsHeroContent] = useState<any>(null);
+  const [portOpsSection1, setPortOpsSection1] = useState<any>(null);
+  const [portOpsSection2, setPortOpsSection2] = useState<any>(null);
+  const [portOpsSection3, setPortOpsSection3] = useState<any>(null);
 
   // Fetch content from Strapi
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const [agroContentRes, agroCtaRes, agroHeroRes] = await Promise.all([
-          fetch('https://holleman-cms-production.up.railway.app/api/agro-content-section?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/agro-contact-section?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/agro-hero')
+        const [heroRes, section1Res, section2Res, section3Res] = await Promise.all([
+          fetch('https://holleman-cms-production.up.railway.app/api/port-ops-hero'),
+          fetch('https://holleman-cms-production.up.railway.app/api/port-ops-section1'),
+          fetch('https://holleman-cms-production.up.railway.app/api/port-ops-section2'),
+          fetch('https://holleman-cms-production.up.railway.app/api/port-ops-section3')
         ]);
 
-        const agroContentData = await agroContentRes.json();
-        const agroCtaData = await agroCtaRes.json();
-        const agroHeroData = await agroHeroRes.json();
+        const heroData = await heroRes.json();
+        const section1Data = await section1Res.json();
+        const section2Data = await section2Res.json();
+        const section3Data = await section3Res.json();
 
-        console.log('Agro Content Data:', agroContentData);
-        console.log('Agro CTA Data:', agroCtaData);
-        console.log('Agro Hero Data:', agroHeroData);
+        console.log('PortOps Hero Data:', heroData);
+        console.log('PortOps Section1 Data:', section1Data);
+        console.log('PortOps Section2 Data:', section2Data);
+        console.log('PortOps Section3 Data:', section3Data);
 
-        setAgroContentSection(agroContentData.data);
-        setAgroCtaSection(agroCtaData.data);
-        setAgroHeroContent(agroHeroData.data);
+        setPortOpsHeroContent(heroData.data);
+        setPortOpsSection1(section1Data.data);
+        setPortOpsSection2(section2Data.data);
+        setPortOpsSection3(section3Data.data);
       } catch (error) {
         console.error('Error fetching content:', error);
-        setAgroHeroContent({
-          title: 'AGRO',
-          subtitleText: 'Unde e nevoie de forta, aducem si finete'
+        setPortOpsHeroContent({
+          title: 'OPERATIUNI PORTUARE',
+          subtitleText: 'Solutii complete pentru operatiuni portuare'
         });
       } finally {
         setLoading(false);
@@ -49,165 +53,68 @@ const Agro: React.FC = () => {
     fetchContent();
   }, []);
 
-  // Tractor animation on scroll
-  useEffect(() => {
-    const tractorElement = tractorRef.current;
-    if (!tractorElement) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            console.log('Tractor section is visible, starting animation!');
-            // Add animation class when tractor section comes into view
-            const movingTractor = tractorElement.querySelector('.moving-tractor');
-            const tractorText = tractorElement.querySelector('.tractor-text');
-            
-            if (movingTractor) {
-              movingTractor.classList.add('animate-tractor');
-              
-              // Show text when tractor reaches middle (4 seconds)
-              if (tractorText) {
-                setTimeout(() => {
-                  tractorText.classList.add('show-text');
-                }, 4000); // Show text when tractor is in the middle
-              }
-            }
-          }
-        });
-      },
-      {
-        threshold: 0.1, // Trigger when 10% of the section is visible
-        rootMargin: '0px 0px 0px 0px' // Trigger as soon as any part is visible
-      }
-    );
-
-    observer.observe(tractorElement);
-
-    // Cleanup
-    return () => {
-      if (tractorElement) {
-        observer.unobserve(tractorElement);
-      }
-    };
-  }, []);
+  // Service cards data for Port Operations
+  const serviceCards = [
+    {
+      icon: '/images/icons/heavy.webp',
+      title: 'Operare si manipulare Heavy Lift'
+    },
+    {
+      icon: '/images/icons/iconlogistice.webp',
+      title: 'Incarcare/descărcare nave si barje'
+    },
+    {
+      icon: '/images/icons/iconprojectcargo.webp',
+      title: 'Servicii de lashing, securing & lifting plan'
+    },
+    {
+      icon: '/images/icons/Info.webp',
+      title: 'Supervizare tehnica pe intregul flux logistic'
+    },
+    {
+      icon: '/images/icons/iconinternational.webp',
+      title: 'Coordonare formalitati si documentatie portuara'
+    },
+    {
+      icon: '/images/icons/iconprojectcargo.webp',
+      title: 'Solutii complete pentru Project Cargo si transporturi speciale'
+    }
+  ];
 
   return (
-    <div className="agro-page">
+    <div className="agro-page portops-page">
       <Header />
       
       {/* Hero Section */}
-      <section className="agro-hero" style={{backgroundImage: `url('/images/source/backgroundagro.webp')`}}>
+      <section className="agro-hero portops-hero" style={{backgroundImage: `url('/images/portoperationsbg.webp')`}}>
         <div className="agro-hero-overlay">
           <div className="agro-hero-content">
             <h1 className="agro-title">
-              {agroHeroContent?.title || ''}
+              {portOpsHeroContent?.title || ''}
             </h1>
             <p className="agro-subtitle">
-              {agroHeroContent?.subtitleText || ''}
+              {portOpsHeroContent?.subtitleText || ''}
             </p>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="agro-services-section">
+      <section className="agro-services-section portops-services-section">
         <div className="agro-services-container">
           <div className="agro-services-header">
-            <h2 className="agro-services-title">Servicii complete pentru agricultura modernă - descopera Holleman Agro</h2>
+            <h2 className="agro-services-title">Servicii specializate</h2>
           </div>
           
-          <div className="agro-services-grid">
-            <div className="agro-service-item">
-              <div className="agro-service-icon">
-                <img src="/images/icons/agro.webp" alt="Agricultural production icon" />
-              </div>
-              <h3>Producție cereale</h3>
-              <div className="agro-service-overlay">
-                <div className="agro-service-icon-white">
-                  <img src="/images/icons/agro.webp" alt="Agricultural production icon" />
+          <div className="agro-services-grid portops-services-grid">
+            {serviceCards.map((card, index) => (
+              <div key={index} className="agro-service-item portops-service-item">
+                <div className="agro-service-icon">
+                  <img src={card.icon} alt={`${card.title} icon`} />
                 </div>
-                <p>Dezvoltăm și implementăm soluții complete pentru producția de cereale, de la pregătirea solului și semănat, până la recoltă și post-recoltă. Utilizăm tehnologii moderne și varietăți performante pentru a maximiza randamentul și calitatea producției.</p>
+                <h3>{card.title}</h3>
               </div>
-            </div>
-            
-            <div className="agro-service-item">
-              <div className="agro-service-icon">
-                <img src="/images/icons/iconlogistice.webp" alt="Grain logistics icon" />
-              </div>
-              <h3>Recepție și depozitare cereale</h3>
-              <div className="agro-service-overlay">
-                <div className="agro-service-icon-white">
-                  <img src="/images/icons/iconlogistice.webp" alt="Grain logistics icon" />
-                </div>
-                <p>Oferim servicii de recepție rapidă și corectă a cerealelor, cu infrastructură dedicată: silozuri moderne, echipamente de preluare automatizate, sistem de uscare și curățare. Capacitățile noastre de stocare sunt dotate cu monitorizare digitală a condițiilor de păstrare.</p>
-              </div>
-            </div>
-            
-            <div className="agro-service-item">
-              <div className="agro-service-icon">
-                <img src="/images/icons/Info.webp" alt="Processing icon" />
-              </div>
-              <h3>Transport cereale</h3>
-              <div className="agro-service-overlay">
-                <div className="agro-service-icon-white">
-                  <img src="/images/icons/Info.webp" alt="Processing icon" />
-                </div>
-                <p>Asigurăm transportul cerealelor în condiții optime, cu mijloace proprii sau partenere, respectând toate standardele de siguranță și igienă. Operăm atât pe plan intern, cât și internațional, cu capacitate adaptată oricărei cantități.</p>
-              </div>
-            </div>
-            
-            <div className="agro-service-item">
-              <div className="agro-service-icon">
-                <img src="/images/icons/iconlogistice.webp" alt="Fodder factory icon" />
-              </div>
-              <h3>Fabrică de furaje</h3>
-              <div className="agro-service-overlay">
-                <div className="agro-service-icon-white">
-                  <img src="/images/icons/iconlogistice.webp" alt="Fodder factory icon" />
-                </div>
-                <p>Procesăm și producem furaje de înaltă calitate pentru animale, folosind tehnologii avansate de amestecare și granulare. Furajele noastre sunt formulate pe bază de cereale proprii și suplimente nutritive, asigurând o alimentație optimă pentru creșterea animalelor.</p>
-              </div>
-            </div>
-            
-            <div className="agro-service-item">
-              <div className="agro-service-icon">
-                <img src="/images/icons/agro.webp" alt="Seed processing icon" />
-              </div>
-              <h3>Stație de selectare și tărtărare semințe</h3>
-              <div className="agro-service-overlay">
-                <div className="agro-service-icon-white">
-                  <img src="/images/icons/agro.webp" alt="Seed processing icon" />
-                </div>
-                <p>Oferim servicii profesionale de prelucrare a semințelor: curățare, sortare, tratare și ambalare. Utilizăm echipamente moderne pentru a asigura calitatea și germinabilitatea semințelor, respectând standardele internaționale de calitate.</p>
-              </div>
-            </div>
-            
-            <div className="agro-service-item">
-              <div className="agro-service-icon">
-                <img src="/images/icons/iconlogistice.webp" alt="Grain acquisition icon" />
-              </div>
-              <h3>Achiziții cereale</h3>
-              <div className="agro-service-overlay">
-                <div className="agro-service-icon-white">
-                  <img src="/images/icons/iconlogistice.webp" alt="Grain acquisition icon" />
-                </div>
-                <p>Realizăm achiziții directe de cereale de la producători, oferind prețuri competitive și condiții de plată avantajoase. Colaborăm cu fermieri și cooperative din toată țara, asigurând un lanț de aprovizionare stabil și de încredere.</p>
-              </div>
-            </div>
-            
-            <div className="agro-service-item">
-              <div className="agro-service-icon">
-                <img src="/images/icons/Info.webp" alt="Agricultural consulting icon" />
-              </div>
-              <h3>Consultanță agricolă</h3>
-              <div className="agro-service-overlay">
-                <div className="agro-service-icon-white">
-                  <img src="/images/icons/Info.webp" alt="Agricultural consulting icon" />
-                </div>
-                <p>Oferim consultanță specializată în domeniul agricol, de la planificarea culturilor și managementul fermei, până la optimizarea proceselor de producție. Echipa noastră de experți oferă soluții personalizate pentru a maximiza eficiența și profitabilitatea activității agricole.</p>
-              </div>
-            </div>
+            ))}
           </div>
           
           <div className="agro-services-footer">
@@ -218,76 +125,68 @@ const Agro: React.FC = () => {
         </div>
       </section>
 
-      {/* Agro Content Section */}
-      <section className="agro-content-section">
-        <div className="agro-content-container">
+      {/* Section 1 - White background with title and text */}
+      <section className="portops-section portops-section-1">
+        <div className="portops-section-container">
           {loading ? (
-            <div>Loading...</div>
-          ) : agroContentSection && (
+            <div className="loading-placeholder">Loading...</div>
+          ) : portOpsSection1 && (
             <>
-              <div className="agro-content-header">
-                <h2 className="agro-content-title">
-                  {agroContentSection.title} <span className="agro-highlight">{agroContentSection.highlightedText}</span>
-                </h2>
-              </div>
-              
-              <div className="agro-content-text">
-                {agroContentSection.bulletPoints && agroContentSection.bulletPoints.split('\n').filter((point: string) => point.trim()).map((point: string, index: number) => (
-                  <div key={index} className="agro-content-point">
-                    <div className="agro-bullet"></div>
-                    <p>{point.trim()}</p>
-                  </div>
-                ))}
+              <h2 className="portops-section-title">{portOpsSection1.title || 'Titlu sectiune 1'}</h2>
+              <div className="portops-section-text">
+                <p>{portOpsSection1.text || 'Text pentru sectiunea 1...'}</p>
               </div>
             </>
           )}
         </div>
       </section>
 
-      {/* Call to Action Section */}
-      <section className="agro-cta-section" style={{backgroundImage: `url('/images/Group8745.webp')`}}>
-        <div className="agro-cta-container">
-          <div className="agro-cta-content">
+      {/* Section 2 - Background image with title and text */}
+      <section className="portops-section portops-section-2" style={{backgroundImage: `url('/images/portopsplit.webp')`}}>
+        <div className="portops-section-overlay">
+          <div className="portops-section-container">
             {loading ? (
-              <div>Loading...</div>
-            ) : agroCtaSection && (
+              <div className="loading-placeholder">Loading...</div>
+            ) : portOpsSection2 && (
               <>
-                <h2 className="agro-cta-title">
-                  <span className="agro-highlight">{agroCtaSection.highlightedText}</span> {agroCtaSection.title}
-                </h2>
-                <button className="btn cta-btn" onClick={() => navigate('/contact')}>
-                  <span>Contacteaza-ne pentru o oferta personalizata</span>
-                  <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
-                </button>
+                <h2 className="portops-section-title">{portOpsSection2.title || 'Titlu sectiune 2'}</h2>
+                <div className="portops-section-text">
+                  <p>{portOpsSection2.text || 'Text pentru sectiunea 2...'}</p>
+                </div>
               </>
             )}
           </div>
         </div>
       </section>
 
-      {/* Moving Tractor Animation Section */}
-      <section className="tractor-animation-section" ref={tractorRef}>
-        <div className="tractor-animation-container">
-          <div className="moving-tractor">
-            <img 
-              src="/images/svg/tractor.svg" 
-              alt="Holleman Tractor" 
-              className="tractor-svg"
-            />
-          </div>
-          <div className="tractor-text">
-            <p className="tractor-message">
-              {loading ? (
-                <span className="word">Loading...</span>
-              ) : (
-                agroContentSection?.catchphrase
-                  ?.split(' ')
-                  .map((word: string, index: number) => (
-                    <span key={index} className="word">{word}</span>
-                  ))
+      {/* Section 3 - Title, text, bullet points list, and final text */}
+      <section className="portops-section portops-section-3">
+        <div className="portops-section-container">
+          {loading ? (
+            <div className="loading-placeholder">Loading...</div>
+          ) : portOpsSection3 && (
+            <>
+              <h2 className="portops-section-title">{portOpsSection3.title || 'Titlu sectiune 3'}</h2>
+              <div className="portops-section-text">
+                <p>{portOpsSection3.introText || 'Text introductiv pentru sectiunea 3...'}</p>
+              </div>
+              
+              {portOpsSection3.bulletPoints && (
+                <div className="portops-bullet-list">
+                  {portOpsSection3.bulletPoints.split('\n').filter((point: string) => point.trim()).map((point: string, index: number) => (
+                    <div key={index} className="portops-bullet-item">
+                      <div className="portops-bullet"></div>
+                      <p>{point.trim()}</p>
+                    </div>
+                  ))}
+                </div>
               )}
-            </p>
-          </div>
+              
+              <div className="portops-section-text portops-final-text">
+                <p>{portOpsSection3.finalText || 'Text final pentru sectiunea 3...'}</p>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

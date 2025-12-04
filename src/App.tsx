@@ -35,7 +35,7 @@ function App() {
               <Route path="/itl" element={<ITL />} />
               <Route path="/heavy-lift" element={<HeavyLift />} />
               <Route path="/fleet" element={<Fleet />} />
-              <Route path="/agro" element={<Agro />} />
+              <Route path="/portops" element={<Agro />} />
               <Route path="/proiecte" element={<Proiecte />} />
               <Route path="/proiecte/:projectId" element={<ProjectPage />} />
               <Route path="/despre-noi" element={<DespreNoi />} />

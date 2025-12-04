@@ -20,7 +20,7 @@ const DespreNoi: React.FC = () => {
   const [istoricContent, setIstoricContent] = useState<any>(null);
   const [misiuneContent, setMisiuneContent] = useState<any>(null);
   const [certificariContent, setCertificariContent] = useState<any>(null);
-  const [conducereaContent, setConducereaContent] = useState<any>(null);
+  const [codDeConduitaContent, setCodDeConduitaContent] = useState<any>(null);
   const [ceNeDefinesteContent, setCeNeDefinesteContent] = useState<any>(null);
   const [responsabilitateContent, setResponsabilitateContent] = useState<any>(null);
   
@@ -47,7 +47,7 @@ const DespreNoi: React.FC = () => {
     },
     {
       id: 'conducerea',
-      title: 'Conducerea grupului',
+      title: 'Codul de conduita',
       icon: '/images/icons/icondpn4.webp'
     },
     {
@@ -121,24 +121,24 @@ const DespreNoi: React.FC = () => {
     const fetchContent = async () => {
       try {
         // Fetch all 8 sections in parallel
-        const [heroResponse, cineSuntemResponse, istoricResponse, misiuneResponse, certificariResponse, conducereaResponse, ceNeDefinesteResponse, responsabilitateResponse] = await Promise.all([
+        const [heroResponse, cineSuntemResponse, istoricResponse, misiuneResponse, certificariResponse, codDeConduitaResponse, ceNeDefinesteResponse, responsabilitateResponse] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-page'),
           fetch('https://holleman-cms-production.up.railway.app/api/cine-suntem-despre-noi'),
           fetch('https://holleman-cms-production.up.railway.app/api/istoric-evolutie'),
           fetch('https://holleman-cms-production.up.railway.app/api/misiune-despre-noi'),
           fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-certificari'),
-          fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-conducerea?populate=*'),
+          fetch('https://holleman-cms-production.up.railway.app/api/cod-de-conduita'),
           fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-ce-ne-defineste'),
           fetch('https://holleman-cms-production.up.railway.app/api/despre-noi-responsabilitate')
         ]);
 
-        const [heroData, cineSuntemData, istoricData, misiuneData, certificariData, conducereaData, ceNeDefinesteData, responsabilitateData] = await Promise.all([
+        const [heroData, cineSuntemData, istoricData, misiuneData, certificariData, codDeConduitaData, ceNeDefinesteData, responsabilitateData] = await Promise.all([
           heroResponse.json(),
           cineSuntemResponse.json(),
           istoricResponse.json(),
           misiuneResponse.json(),
           certificariResponse.json(),
-          conducereaResponse.json(),
+          codDeConduitaResponse.json(),
           ceNeDefinesteResponse.json(),
           responsabilitateResponse.json()
         ]);
@@ -148,7 +148,7 @@ const DespreNoi: React.FC = () => {
         setIstoricContent(istoricData.data);
         setMisiuneContent(misiuneData.data);
         setCertificariContent(certificariData.data);
-        setConducereaContent(conducereaData.data);
+        setCodDeConduitaContent(codDeConduitaData.data);
         setCeNeDefinesteContent(ceNeDefinesteData.data);
         setResponsabilitateContent(responsabilitateData.data);
       } catch (error) {
@@ -381,98 +381,37 @@ const DespreNoi: React.FC = () => {
         
       </section>
 
-      {/* Conducerea Grupului Holleman Section */}
-      <section className="conducerea-section" id="conducerea" ref={conducereaRef}>
-      <div className="conducerea-accent">
-              <div className="green-triangle-top"></div>
-            </div>
-        <div className="conducerea-container">
-          <div className="conducerea-header">
-            <h2 className="conducerea-title">{conducereaContent?.title || 'Loading...'}</h2>
+      {/* Cod de Conduita Section */}
+      <section className="cod-conduita-section" id="conducerea" ref={conducereaRef}>
+        <div className="conducerea-accent">
+          <div className="green-triangle-top"></div>
+        </div>
+        <div className="cod-conduita-container">
+          <div className="cod-conduita-header">
+            <h2 className="cod-conduita-title">{codDeConduitaContent?.title || 'Cod de Conduita'}</h2>
           </div>
           
-          <div className="conducerea-content">
-            <div className="management-info">
-              <h3 className="management-subtitle">{conducereaContent?.subtitle || 'Loading...'}</h3>
-              <p className="management-description" dangerouslySetInnerHTML={{ __html: conducereaContent?.description1 || 'Loading...' }} />
-              <p className="management-description" dangerouslySetInnerHTML={{ __html: conducereaContent?.description2 || 'Loading...' }} />
+          <div className="cod-conduita-content">
+            {/* Intro Text */}
+            <div className="cod-conduita-intro">
+              <p dangerouslySetInnerHTML={{ __html: codDeConduitaContent?.introText || 'Loading...' }} />
             </div>
             
-            <div className="team-grid">
-              <div className="team-member">
-                <div className="member-avatar">
-                  {conducereaContent?.Member1Avatar ? (
-                    <img 
-                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member1Avatar.url}`} 
-                      alt={conducereaContent.Member1Name || 'Team Member'} 
-                    />
-                  ) : (
-                    <div className="avatar-placeholder"></div>
-                  )}
-                </div>
-                <h4 className="member-name">{conducereaContent?.Member1Name || 'Loading...'}</h4>
-                <p className="member-position">{conducereaContent?.Member1Position || 'Loading...'}</p>
-              </div>
-              
-              <div className="team-member">
-                <div className="member-avatar">
-                  {conducereaContent?.Member2Avatar ? (
-                    <img 
-                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member2Avatar.url}`} 
-                      alt={conducereaContent.Member2Name || 'Team Member'} 
-                    />
-                  ) : (
-                    <div className="avatar-placeholder"></div>
-                  )}
-                </div>
-                <h4 className="member-name">{conducereaContent?.Member2Name || 'Loading...'}</h4>
-                <p className="member-position">{conducereaContent?.Member2Position || 'Loading...'}</p>
-              </div>
-              
-              <div className="team-member">
-                <div className="member-avatar">
-                  {conducereaContent?.Member3Avatar ? (
-                    <img 
-                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member3Avatar.url}`} 
-                      alt={conducereaContent.Member3Name || 'Team Member'} 
-                    />
-                  ) : (
-                    <div className="avatar-placeholder"></div>
-                  )}
-                </div>
-                <h4 className="member-name">{conducereaContent?.Member3Name || 'Loading...'}</h4>
-                <p className="member-position">{conducereaContent?.Member3Position || 'Loading...'}</p>
-              </div>
-              
-              <div className="team-member">
-                <div className="member-avatar">
-                  {conducereaContent?.Member4Avatar ? (
-                    <img 
-                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member4Avatar.url}`} 
-                      alt={conducereaContent.Member4Name || 'Team Member'} 
-                    />
-                  ) : (
-                    <div className="avatar-placeholder"></div>
-                  )}
-                </div>
-                <h4 className="member-name">{conducereaContent?.Member4Name || 'Loading...'}</h4>
-                <p className="member-position">{conducereaContent?.Member4Position || 'Loading...'}</p>
-              </div>
-              
-              <div className="team-member">
-                <div className="member-avatar">
-                  {conducereaContent?.Member5Avatar ? (
-                    <img 
-                      src={`https://holleman-cms-production.up.railway.app${conducereaContent.Member5Avatar.url}`} 
-                      alt={conducereaContent.Member5Name || 'Team Member'} 
-                    />
-                  ) : (
-                    <div className="avatar-placeholder"></div>
-                  )}
-                </div>
-                <h4 className="member-name">{conducereaContent?.Member5Name || 'Loading...'}</h4>
-                <p className="member-position">{conducereaContent?.Member5Position || 'Loading...'}</p>
-              </div>
+            {/* Valorile noastre fundamentale */}
+            <div className="cod-conduita-section-block">
+              <h3 className="cod-conduita-subtitle">{codDeConduitaContent?.subtitle1 || 'Valorile noastre fundamentale'}</h3>
+              <div className="cod-conduita-text" dangerouslySetInnerHTML={{ __html: codDeConduitaContent?.valuesText || 'Loading...' }} />
+            </div>
+            
+            {/* Comportament asteptat */}
+            <div className="cod-conduita-section-block">
+              <h3 className="cod-conduita-subtitle">{codDeConduitaContent?.subtitle2 || 'Comportament asteptat'}</h3>
+              <div className="cod-conduita-text" dangerouslySetInnerHTML={{ __html: codDeConduitaContent?.behaviorText || 'Loading...' }} />
+            </div>
+            
+            {/* Final Text - Implementare si Angajament */}
+            <div className="cod-conduita-final">
+              <div className="cod-conduita-text" dangerouslySetInnerHTML={{ __html: codDeConduitaContent?.finalText || 'Loading...' }} />
             </div>
           </div>
         </div>

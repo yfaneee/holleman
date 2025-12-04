@@ -78,6 +78,29 @@
   letter-spacing: 0.6px;
   transition: all 0.3s ease;
   white-space: nowrap;
+  position: relative;
+  padding-bottom: 6px;
+}
+
+/* Active underline indicator */
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #4CAF50;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-item.active::after {
+  width: 100%;
+}
+
+.nav-item:hover::after {
+  width: 100%;
 }
 
 .header.scrolled .nav-item {
