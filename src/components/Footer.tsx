@@ -77,9 +77,9 @@ const Footer: React.FC = () => {
             <nav aria-label="Navigare servicii oferite">
               <ul>
                 <li><a href="/project-cargo" translate="yes">Transport & <span translate="no">Project Cargo & Special Transport</span></a></li>
+                <li><a href="/portops" translate="no">Port Operations</a></li>
                 <li><a href="/heavy-lift"><span translate="no">Heavy Lift & Industrial Relocations</span></a></li>
                 <li><a href="/itl" translate="no">ITL Standard Transport</a></li>
-                <li><a href="/portops" translate="no">Port Operations</a></li>
               </ul>
             </nav>
             

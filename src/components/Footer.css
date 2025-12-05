@@ -99,7 +99,7 @@
 /* Constanta office heading */
 .company-info .constanta-heading {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: var(--section-title-small);
+  font-size: var(--content-medium);
   color: white;
   margin-top: 30px;
   margin-bottom: 20px;

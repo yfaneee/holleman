@@ -96,9 +96,9 @@ const Header: React.FC = () => {
               {activeDropdown === 'servicii' && (
                 <div className="dropdown-menu" role="menu">
                   <a href="/project-cargo" role="menuitem" aria-label="Servicii Project Cargo - transport agabaritic">Project Cargo & Special Transport</a>
+                  <a href="/portops" role="menuitem" aria-label="Holleman Port Operations - operatiuni portuare">Port Operations</a>
                   <a href="/heavy-lift" role="menuitem" aria-label="Servicii Heavy Lift - relocări industriale">Heavy Lift & Industrial Relocations</a>
                   <a href="/itl" role="menuitem" aria-label="Inter Trans Logistics - transport internațional">ITL Standard Transport</a>
-                  <a href="/portops" role="menuitem" aria-label="Holleman Port Operations - operatiuni portuare">Port Operations</a>
                 </div>
               )}
             </div>
