@@ -1,7 +1,7 @@
 /* Global CSS Custom Properties for Typography */
 :root {
   /* Hero Typography */
-  --hero-title-size: clamp(29px, 4.8vw, 70px);
+  --hero-title-size: clamp(29px, 4.8vw, 60px);
   --hero-subtitle-size: clamp(14px, 2.4vw, 30px);
   
   /* Page Titles */

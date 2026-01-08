@@ -38,7 +38,7 @@
 .logo-nav-group {
   display: flex;
   align-items: center;
-  gap: clamp(60px, 8vw, 120px);
+  gap: clamp(30px, 4vw, 60px);
 }
 
 /* Logo Styles */
@@ -72,7 +72,7 @@
   gap: 8px;
   cursor: pointer;
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(13px, 2vw, 22px);
+  font-size: clamp(10px, 1.5vw, 17px);
   color: white;
   text-transform: uppercase;
   letter-spacing: 0.6px;
@@ -80,6 +80,17 @@
   white-space: nowrap;
   position: relative;
   padding-bottom: 6px;
+}
+
+.nav-item-multiline {
+  white-space: normal;
+  text-align: center;
+  justify-content: center;
+}
+
+.nav-item-multiline span {
+  text-align: center;
+  line-height: 1.2;
 }
 
 /* Active underline indicator */

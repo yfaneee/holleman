@@ -437,14 +437,14 @@
   transform: translateX(0) translateY(0);
 }
 
-/* Second card overlay (blue) */
+/* Second card overlay (gold) */
 .service-card:nth-child(2) .hover-overlay {
-  background: rgba(19, 80, 145, 0.7);
+  background: rgba(212, 160, 23, 0.7);
 }
 
-/* Third card overlay (gold) */
+/* Third card overlay (blue) */
 .service-card:nth-child(3) .hover-overlay {
-  background: rgba(212, 160, 23, 0.7);
+  background: rgba(19, 80, 145, 0.7);
 }
 
 /* Hover Text Overlay */
@@ -488,14 +488,14 @@
   opacity: 1;
 }
 
-/* Second card triangle (blue) */
+/* Second card triangle (gold) */
 .service-card:nth-child(2) .hover-triangle {
-  border-color: #135091 transparent transparent transparent;
+  border-color: #D4A017 transparent transparent transparent;
 }
 
-/* Third card triangle (gold) */
+/* Third card triangle (blue) */
 .service-card:nth-child(3) .hover-triangle {
-  border-color: #D4A017 transparent transparent transparent;
+  border-color: #135091 transparent transparent transparent;
 }
 
 .accent-triangle {

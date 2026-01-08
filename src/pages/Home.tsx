@@ -438,28 +438,9 @@ const Home: React.FC = () => {
                 <p>Ce înseamnă Project Cargo și de ce Holleman este partenerul ideal pentru transporturi complexe</p>
               </div>
               <div className="hover-overlay" aria-hidden="true"></div>
-              <div className="hover-text" aria-hidden="true">Project Cargo</div>
+              <div className="hover-text" aria-hidden="true">Transport Marfuri Agabaritice si Grele</div>
               <div className="hover-triangle" aria-hidden="true"></div>
               <div className="accent-triangle top-right" aria-hidden="true"></div>
-            </article>
-
-            <article className="service-card" onClick={navigateToITL}
-                     role="button" tabIndex={0} 
-                     aria-label="Servicii ITL - Transport internațional - Click pentru detalii"
-                     onKeyDown={(e) => e.key === 'Enter' && navigateToITL()}>
-              <div className="card-image">
-                <img src="/images/itl.webp" 
-                     alt="Servicii de transport și logistică internațională" 
-                     loading="lazy" />
-              </div>
-              <div className="card-content">
-                <h3>Servicii complete de transport și logistică internă și internațională</h3>
-                <p>Transport rutier internațional (FTL, LTL), transport naval și soluții logistice integrate</p>
-              </div>
-              <div className="hover-overlay" aria-hidden="true"></div>
-              <div className="hover-text" aria-hidden="true">ITL</div>
-              <div className="hover-triangle" aria-hidden="true"></div>
-              <div className="accent-triangle top-right second" aria-hidden="true"></div>
             </article>
 
             <article className="service-card" onClick={navigateToHeavyLift}
@@ -476,9 +457,28 @@ const Home: React.FC = () => {
                 <p>Soluții inteligente pentru diverse și neașteptate relocări la sediul clienților</p>
               </div>
               <div className="hover-overlay" aria-hidden="true"></div>
-              <div className="hover-text" aria-hidden="true">Heavy Lift</div>
+              <div className="hover-text" aria-hidden="true">Relocari Industriale - Manipulare, Montaje</div>
               <div className="hover-triangle" aria-hidden="true"></div>
               <div className="accent-triangle top-right third" aria-hidden="true"></div>
+            </article>
+
+            <article className="service-card" onClick={navigateToITL}
+                     role="button" tabIndex={0} 
+                     aria-label="Servicii ITL - Transport internațional - Click pentru detalii"
+                     onKeyDown={(e) => e.key === 'Enter' && navigateToITL()}>
+              <div className="card-image">
+                <img src="/images/itl.webp" 
+                     alt="Servicii de transport și logistică internațională" 
+                     loading="lazy" />
+              </div>
+              <div className="card-content">
+                <h3>Servicii complete de transport și logistică internă și internațională</h3>
+                <p>Transport rutier internațional (FTL, LTL), transport naval și soluții logistice integrate</p>
+              </div>
+              <div className="hover-overlay" aria-hidden="true"></div>
+              <div className="hover-text" aria-hidden="true">Transport Marfuri generale</div>
+              <div className="hover-triangle" aria-hidden="true"></div>
+              <div className="accent-triangle top-right second" aria-hidden="true"></div>
             </article>
           </div>
         </div>

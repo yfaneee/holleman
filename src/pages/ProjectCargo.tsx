@@ -609,13 +609,13 @@ const ProjectCargo: React.FC = () => {
               <div className="service-nav-icon">
                 <img src="/images/icons/heavy.webp" alt="Heavy Lift icon" />
               </div>
-              <h3>Heavy Lift</h3>
+              <h3>Relocari Industriale</h3>
             </div>
             <div className="service-nav-item" onClick={() => navigate('/itl')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/iconinternational.webp" alt="ITL icon" />
               </div>
-              <h3>ITL</h3>
+              <h3>Transport marfuri generale</h3>
             </div>
             <div className="service-nav-item" onClick={() => navigate('/portops')}>
               <div className="service-nav-icon">

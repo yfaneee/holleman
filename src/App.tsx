@@ -46,6 +46,8 @@ function App() {
               <Route path="/contact/cerere" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:articleId" element={<ArticlePage />} />
+              <Route path="/comunicare" element={<Blog />} />
+              <Route path="/comunicare/:articleId" element={<ArticlePage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>
             <CookieConsent />

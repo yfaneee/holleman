@@ -14,12 +14,13 @@ const Header: React.FC = () => {
   const getActiveNav = () => {
     const path = location.pathname;
     if (path === '/') return 'acasa';
+    if (path === '/sectoare-economice-deservite' || path.startsWith('/sectoare-economice-deservite/')) return 'sectoare-economice-deservite';
     if (path === '/despre-noi') return 'despre-noi';
-    if (path === '/cariere') return 'cariere';
-    if (path === '/project-cargo' || path === '/heavy-lift' || path === '/itl' || path === '/portops') return 'servicii';
+    if (path === '/project-cargo' || path === '/heavy-lift' || path === '/itl' || path === '/portops') return 'cum-va-sprijinim';
     if (path === '/proiecte' || path.startsWith('/proiecte/')) return 'proiecte';
-    if (path === '/blog' || path.startsWith('/blog/')) return 'blog';
-    if (path === '/contact') return 'contact';
+    if (path === '/flota-transport' || path === '/echipamente-manutanta') return 'echipamente-resurse';
+    if (path === '/comunicare' || path.startsWith('/comunicare/')) return 'comunicare';
+    if (path === '/contact' || path === '/cariere') return 'contact';
     return '';
   };
 
@@ -63,6 +64,10 @@ const Header: React.FC = () => {
     navigate('/contact');
   };
 
+  const navigateToSectoareEconomiceDeservite = () => {
+    navigate('/sectoare-economice-deservite');
+  };
+
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
@@ -78,41 +83,80 @@ const Header: React.FC = () => {
             <div className={`nav-item ${activeNav === 'acasa' ? 'active' : ''}`} onClick={navigateToHome}>
               <span>ACASA</span>
             </div>
-            <div className={`nav-item ${activeNav === 'despre-noi' ? 'active' : ''}`} onClick={navigateToDespreNoi}>
-              <span>DESPRE NOI</span>
-            </div>
 
-            <div className={`nav-item ${activeNav === 'cariere' ? 'active' : ''}`} onClick={navigateToCariere}>
-              <span>CARIERE</span>
+            <div className={`nav-item nav-item-multiline ${activeNav === 'sectoare-economice-deservite' ? 'active' : ''}`} onClick={navigateToSectoareEconomiceDeservite}>
+              <span>SECTOARE ECONOMICE<br />DESERVITE</span>
             </div>
 
             <div 
-              className={`nav-item dropdown ${activeNav === 'servicii' ? 'active' : ''}`}
-              onMouseEnter={() => handleDropdownHover('servicii')}
+              className={`nav-item dropdown ${activeNav === 'cum-va-sprijinim' ? 'active' : ''}`}
+              onMouseEnter={() => handleDropdownHover('cum-va-sprijinim')}
               onMouseLeave={handleDropdownLeave}
             >
-              <span>SERVICII</span>
+              <span>CUM VA SPRIJINIM</span>
               <span className="dropdown-arrow">▼</span>
-              {activeDropdown === 'servicii' && (
+              {activeDropdown === 'cum-va-sprijinim' && (
                 <div className="dropdown-menu" role="menu">
-                  <a href="/project-cargo" role="menuitem" aria-label="Servicii Project Cargo - transport agabaritic">Project Cargo & Special Transport</a>
-                  <a href="/portops" role="menuitem" aria-label="Holleman Port Operations - operatiuni portuare">Port Operations</a>
-                  <a href="/heavy-lift" role="menuitem" aria-label="Servicii Heavy Lift - relocări industriale">Heavy Lift & Industrial Relocations</a>
-                  <a href="/itl" role="menuitem" aria-label="Inter Trans Logistics - transport internațional">ITL Standard Transport</a>
+                  <a href="/project-cargo" role="menuitem" aria-label="Transport Marfuri Agabaritice si Grele">Transport Marfuri Agabaritice si Grele</a>
+                  <a href="/heavy-lift" role="menuitem" aria-label="Relocari Industriale -Manipulare, Montaje">Relocari Industriale - Manipulare, Montaje</a>
+                  <a href="/portops" role="menuitem" aria-label="Operatiuni Porturare">Operatiuni Porturare</a>
+                  <a href="#" role="menuitem" aria-label="Permise si Insotire Agabaritice">Permise si Insotire Agabaritice</a>
+                  <a href="/itl" role="menuitem" aria-label="Transport Marfuri generale">Transport Marfuri generale</a>
                 </div>
               )}
             </div>
-            
-            <div className={`nav-item ${activeNav === 'proiecte' ? 'active' : ''}`} onClick={() => navigate('/proiecte')}>
+
+            <div 
+              className={`nav-item dropdown ${activeNav === 'proiecte' ? 'active' : ''}`}
+              onMouseEnter={() => handleDropdownHover('proiecte')}
+              onMouseLeave={handleDropdownLeave}
+            >
               <span>PROIECTE</span>
+              <span className="dropdown-arrow">▼</span>
+              {activeDropdown === 'proiecte' && (
+                <div className="dropdown-menu" role="menu">
+                  <a href="#" role="menuitem" aria-label="Logistica Parcuri Eoline">Logistica Parcuri Eoline</a>
+                  <a href="/proiecte" role="menuitem" aria-label="Proiecte Transport Complex">Proiecte Transport Complex</a>
+                </div>
+              )}
+            </div>
+
+            <div 
+              className={`nav-item dropdown ${activeNav === 'echipamente-resurse' ? 'active' : ''}`}
+              onMouseEnter={() => handleDropdownHover('echipamente-resurse')}
+              onMouseLeave={handleDropdownLeave}
+            >
+              <span>ECHIPAMENTE & RESURSE</span>
+              <span className="dropdown-arrow">▼</span>
+              {activeDropdown === 'echipamente-resurse' && (
+                <div className="dropdown-menu" role="menu">
+                  <a href="#" role="menuitem" aria-label="Flota Transport">Flota Transport</a>
+                  <a href="#" role="menuitem" aria-label="Echipamente Manutanta">Echipamente Manutanta</a>
+                </div>
+              )}
+            </div>
+
+            <div className={`nav-item ${activeNav === 'despre-noi' ? 'active' : ''}`} onClick={navigateToDespreNoi}>
+              <span>DESPRE NOI</span>
             </div>
             
-            <div className={`nav-item ${activeNav === 'blog' ? 'active' : ''}`} onClick={() => navigate('/blog')}>
-              <span>BLOG</span>
+            <div className={`nav-item ${activeNav === 'comunicare' ? 'active' : ''}`} onClick={() => navigate('/comunicare')}>
+              <span>COMUNICARE</span>
             </div>
             
-            <div className={`nav-item ${activeNav === 'contact' ? 'active' : ''}`} onClick={navigateToContact}>
+            <div 
+              className={`nav-item dropdown ${activeNav === 'contact' ? 'active' : ''}`}
+              onMouseEnter={() => handleDropdownHover('contact')}
+              onMouseLeave={handleDropdownLeave}
+            >
               <span>CONTACT</span>
+              <span className="dropdown-arrow">▼</span>
+              {activeDropdown === 'contact' && (
+                <div className="dropdown-menu" role="menu">
+                  <a href="/contact" role="menuitem" aria-label="Contacteaza-ne">Contacteaza-ne</a>
+                  <a href="/cariere" role="menuitem" aria-label="Cariere">Cariere</a>
+                </div>
+              )}
             </div>
     
           </nav>
