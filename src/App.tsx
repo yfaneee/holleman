@@ -31,9 +31,9 @@ function App() {
           <div className="App">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/project-cargo" element={<ProjectCargo />} />
+              <Route path="/transport-marfuri-agabaritice" element={<ProjectCargo />} />
               <Route path="/itl" element={<ITL />} />
-              <Route path="/heavy-lift" element={<HeavyLift />} />
+              <Route path="/relocari-industriale" element={<HeavyLift />} />
               <Route path="/fleet" element={<Fleet />} />
               <Route path="/portops" element={<Agro />} />
               <Route path="/proiecte" element={<Proiecte />} />

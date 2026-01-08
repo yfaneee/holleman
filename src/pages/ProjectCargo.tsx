@@ -14,92 +14,10 @@ const ProjectCargo: React.FC = () => {
   const [whyChooseContent, setWhyChooseContent] = useState<any>(null);
   const [projectCargoHeroContent, setProjectCargoHeroContent] = useState<any>(null);
   
-  // Expertise slideshow state
-  const [currentExpertiseSlide, setCurrentExpertiseSlide] = useState(0);
-  const [isExpertisePaused, setIsExpertisePaused] = useState(false);
-  
   // State for projects data
   const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
   const [projectsLoading, setProjectsLoading] = useState(true);
 
-  // Expertise domains data
-  const expertiseDomains = [
-    {
-      id: 1,
-      icon: "/images/icons/Group.webp",
-      title: "Energie",
-      description: "turbine eoliene, generatoare, transformatoare, containere cu baterii pentru stocare energie BESS (proiecte eoliene, hidro, termo)"
-    },
-    {
-      id: 2,
-      icon: "/images/icons/Group-1.webp",
-      title: "Petrochimie",
-      description: "coloane, rezervoare, schimbătoare de căldură"
-    },
-    {
-      id: 3,
-      icon: "/images/icons/Group-2.webp",
-      title: "Minerit",
-      description: "concasoare, stații de sortare, echipamente voluminoase"
-    },
-    {
-      id: 4,
-      icon: "/images/icons/Group-3.webp",
-      title: "Industrial",
-      description: "linii de producție, prese industriale, roboți de mare capacitate"
-    },
-    {
-      id: 5,
-      icon: "/images/icons/Group-4.webp",
-      title: "Infrastructura",
-      description: "poduri, grinzi, structuri metalice"
-    },
-    {
-      id: 6,
-      icon: "/images/icons/agro.webp",
-      title: "Agricultura",
-      description: "distributie si depozitare utilaje agricole noi, lant logistic complet de la preluarea utilajelor noi din fabrica, manipulare si depozitare in depozit propriu securizat si pana la livrarea utilajelor catre fermieri, beneficiarii finali"
-    },
-    {
-      id: 7,
-      icon: "/images/icons/Group-3.webp",
-      title: "Constructii",
-      description: "distributie utilaje de constructii noi in Europa, de la preluarea utilajelor noi din fabrici/porturi din Europa si pana la livrarea utilajelor catre dealeri/beneficiarii finali"
-    },
-    {
-      id: 8,
-      icon: "/images/icons/Chield_check.webp",
-      title: "Defense",
-      description: "transport de echipamente militare, organizare de proiecte de mari dimensiuni, necesitand capacitate ridicata de transport in termene scurte, clare."
-    },
-    {
-      id: 9,
-      icon: "/images/icons/Anchor.webp",
-      title: "Ambarcatiuni",
-      description: "transport de ambarcatiuni, matrite ambarcatiuni care se preteaza la transport rutier"
-    }
-  ];
-
-  // Calculate how many items to show per slide (responsive)
-  const getItemsPerSlide = () => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth <= 480) return 1;
-      if (window.innerWidth <= 768) return 2;
-      if (window.innerWidth <= 1200) return 3;
-      return 5;
-    }
-    return 5;
-  };
-
-  const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
-  const totalSlides = Math.ceil(expertiseDomains.length / itemsPerSlide);
-
-  // Get current slide items
-  const getCurrentSlideItems = () => {
-    const startIndex = currentExpertiseSlide * itemsPerSlide;
-    const endIndex = startIndex + itemsPerSlide;
-    return expertiseDomains.slice(startIndex, endIndex);
-  };
 
   const heroStyle = {
     backgroundImage: `url('/images/projectcargobg.webp')`
@@ -144,24 +62,6 @@ const ProjectCargo: React.FC = () => {
     setCurrentCaseStudy((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
   };
 
-  // Expertise slideshow navigation
-  const nextExpertiseSlide = () => {
-    setCurrentExpertiseSlide((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prevExpertiseSlide = () => {
-    setCurrentExpertiseSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  const handleExpertiseManualNavigation = (index: number) => {
-    setCurrentExpertiseSlide(index);
-    setIsExpertisePaused(true);
-    
-    // Resume auto-advance after 10 seconds of no interaction
-    setTimeout(() => {
-      setIsExpertisePaused(false);
-    }, 10000);
-  };
 
   // Reset current index if it's out of bounds
   useEffect(() => {
@@ -170,30 +70,6 @@ const ProjectCargo: React.FC = () => {
     }
   }, [caseStudies.length, currentCaseStudy]);
 
-  // Handle window resize for responsive items per slide
-  useEffect(() => {
-    const handleResize = () => {
-      const newItemsPerSlide = getItemsPerSlide();
-      if (newItemsPerSlide !== itemsPerSlide) {
-        setItemsPerSlide(newItemsPerSlide);
-        setCurrentExpertiseSlide(0); // Reset to first slide on resize
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [itemsPerSlide]);
-
-  // Auto-advance expertise slideshow every 4 seconds
-  useEffect(() => {
-    if (!isExpertisePaused && totalSlides > 1) {
-      const interval = setInterval(() => {
-        setCurrentExpertiseSlide((prev) => (prev + 1) % totalSlides);
-      }, 4000); // Change slide every 4 seconds
-
-      return () => clearInterval(interval);
-    }
-  }, [totalSlides, isExpertisePaused]);
 
   // Fetch projects and Why Choose content from Strapi
   useEffect(() => {
@@ -267,7 +143,7 @@ const ProjectCargo: React.FC = () => {
       <SEO
         title="Project Cargo - Transport Agabaritic și Relocări Industriale | Holleman"
         description="Servicii profesionale Project Cargo: transport agabaritic, relocări industriale, managementul proiectelor complexe. Echipamente grele, turbine eoliene, transformatoare. Experți cu peste 25 ani experiență."
-        canonicalUrl="https://holleman.ro/project-cargo"
+        canonicalUrl="https://holleman.ro/transport-marfuri-agabaritice"
         ogImage="https://holleman.ro/images/projectcargobg.webp"
         keywords="project cargo, transport agabaritic, relocări industriale, echipamente grele, turbine eoliene, transformatoare, heavy transport, managementul proiectelor"
       />
@@ -415,66 +291,6 @@ const ProjectCargo: React.FC = () => {
         </div>
       </section>
 
-      {/* Expertise Domains Section */}
-      <section id="expertise-section" className="expertise-section">
-        <div className="expertise-container">
-          <h2 className="expertise-title">Domenii de expertiză</h2>
-          
-          <div className="expertise-slideshow-wrapper">
-            <button 
-              className="expertise-nav-arrow expertise-nav-prev" 
-              onClick={prevExpertiseSlide}
-              aria-label="Previous expertise domains"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-              </svg>
-            </button>
-            
-            <div 
-              className="expertise-slideshow"
-              onMouseEnter={() => setIsExpertisePaused(true)}
-              onMouseLeave={() => setIsExpertisePaused(false)}
-            >
-              <div className="expertise-grid">
-                {getCurrentSlideItems().map((domain) => (
-                  <div key={domain.id} className="expertise-item">
-                    <div className="expertise-icon">
-                      <img src={domain.icon} alt={`${domain.title} icon`} />
-                    </div>
-                    <h3>{domain.title}</h3>
-                    <p>{domain.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <button 
-              className="expertise-nav-arrow expertise-nav-next" 
-              onClick={nextExpertiseSlide}
-              aria-label="Next expertise domains"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
-              </svg>
-            </button>
-          </div>
-          
-          {totalSlides > 1 && (
-            <div className="expertise-nav-dots">
-              {Array.from({ length: totalSlides }, (_, index) => (
-                <button
-                  key={index}
-                  className={`expertise-nav-dot ${index === currentExpertiseSlide ? 'active' : ''}`}
-                  onClick={() => handleExpertiseManualNavigation(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* Why Choose Holleman Section */}
       <section className="why-choose-section" style={whyChooseStyle}>
         <div className="why-choose-container">
@@ -605,7 +421,7 @@ const ProjectCargo: React.FC = () => {
         <div className="services-nav-container">
           <h2 className="services-nav-title">Afla despre mai multe servicii</h2>
           <div className="services-nav-grid">
-            <div className="service-nav-item" onClick={() => navigate('/heavy-lift')}>
+            <div className="service-nav-item" onClick={() => navigate('/relocari-industriale')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/heavy.webp" alt="Heavy Lift icon" />
               </div>

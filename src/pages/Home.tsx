@@ -104,7 +104,7 @@ const Home: React.FC = () => {
   }, [isPlaying, startSlideInterval]);
 
   const navigateToProjectCargo = useCallback(() => {
-    navigate('/project-cargo');
+    navigate('/transport-marfuri-agabaritice');
   }, [navigate]);
 
   const navigateToITL = useCallback(() => {
@@ -112,7 +112,7 @@ const Home: React.FC = () => {
   }, [navigate]);
 
   const navigateToHeavyLift = useCallback(() => {
-    navigate('/heavy-lift');
+    navigate('/relocari-industriale');
   }, [navigate]);
 
   // Search functionality

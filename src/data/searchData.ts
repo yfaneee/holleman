@@ -16,7 +16,7 @@ export const searchableContent: SearchableItem[] = [
     title: 'Project Cargo',
     description: 'Management de proiect, inginerie de transport, transport multimodal, logistica site',
     keywords: ['project cargo', 'management proiect', 'inginerie transport', 'multimodal', 'logistica site', 'echipamente industriale'],
-    route: '/project-cargo',
+    route: '/transport-marfuri-agabaritice',
     category: 'service'
   },
   {
@@ -32,7 +32,7 @@ export const searchableContent: SearchableItem[] = [
     title: 'Heavy Lift',
     description: 'Relocări industriale cu echipamente specializate și oameni experimentați în domeniu',
     keywords: ['heavy lift', 'relocari industriale', 'echipamente specializate', 'relocari', 'mutari industriale'],
-    route: '/heavy-lift',
+    route: '/relocari-industriale',
     category: 'service'
   },
   {
@@ -50,7 +50,7 @@ export const searchableContent: SearchableItem[] = [
     title: 'Servicii Project Cargo',
     description: 'Management de proiect, inginerie de transport, autorizații, transport multimodal',
     keywords: ['servicii project cargo', 'management proiect', 'inginerie transport', 'autorizatii', 'asigurari', 'multimodal', 'logistica site', 'gestiune riscuri'],
-    route: '/project-cargo',
+    route: '/transport-marfuri-agabaritice',
     sectionId: 'services-section',
     category: 'section'
   },
@@ -59,7 +59,7 @@ export const searchableContent: SearchableItem[] = [
     title: 'Domenii de expertiză',
     description: 'Energie, petrochimie, infrastructură, industrie, construcții',
     keywords: ['domenii expertiza', 'energie', 'turbine eoliene', 'petrochimie', 'infrastructura', 'industrie', 'constructii', 'generatoare', 'transformatoare'],
-    route: '/project-cargo',
+    route: '/transport-marfuri-agabaritice',
     sectionId: 'expertise-section',
     category: 'section'
   },
@@ -160,7 +160,7 @@ export const searchableContent: SearchableItem[] = [
     title: 'Energie eoliană',
     description: 'Transport turbine eoliene și componente pentru energia verde',
     keywords: ['energie eoliana', 'turbine eoliene', 'generatoare', 'energie verde', 'regenerabila', 'vestas', 'nordex'],
-    route: '/project-cargo',
+    route: '/transport-marfuri-agabaritice',
     sectionId: 'expertise-section',
     category: 'section'
   },
@@ -169,7 +169,7 @@ export const searchableContent: SearchableItem[] = [
     title: 'Petrochimie',
     description: 'Transport echipamente petrochimice - coloane, rezervoare, schimbătoare',
     keywords: ['petrochimie', 'coloane', 'rezervoare', 'schimbatoare caldura', 'industrie petroliera'],
-    route: '/project-cargo',
+    route: '/transport-marfuri-agabaritice',
     sectionId: 'expertise-section',
     category: 'section'
   },
@@ -178,7 +178,7 @@ export const searchableContent: SearchableItem[] = [
     title: 'Infrastructură',
     description: 'Transport pentru proiecte de infrastructură și construcții majore',
     keywords: ['infrastructura', 'constructii', 'poduri', 'drumuri', 'proiecte majore'],
-    route: '/project-cargo',
+    route: '/transport-marfuri-agabaritice',
     sectionId: 'expertise-section',
     category: 'section'
   }

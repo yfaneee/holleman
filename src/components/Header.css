@@ -22,33 +22,45 @@
 }
 
 .header-container {
-  width: 90%;
-  max-width: 1700px;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 3vw, 40px);
+  width: 100%; /* Full width edge-to-edge */
+  max-width: 100%;
+  margin: 0;
+  padding: 10px clamp(20px, 3vw, 50px); /* Proper padding on both sides */
   display: flex;
+  flex-direction: row; /* Everything in ONE row */
   align-items: center;
-  justify-content: center;
-  height: clamp(80px, 15vh, 199px);
-  min-height: 80px;
-  gap: 20px;
+  justify-content: space-between;
+  min-height: 70px;
+  gap: 15px;
+  box-sizing: border-box; /* Ensure padding is included */
 }
 
-/* Logo and Navigation Group */
-.logo-nav-group {
+/* Main row with logo and navigation */
+.header-main-row {
   display: flex;
   align-items: center;
-  gap: clamp(30px, 4vw, 60px);
+  flex: 1; /* Take all available space */
+  gap: 75px;
+  min-width: 0; /* Allow shrinking */
+}
+
+/* Language selector on right */
+.header-second-row {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Don't shrink language selector */
+  margin-right: 5px; /* Small buffer from edge */
 }
 
 /* Logo Styles */
 .logo {
   display: flex;
   align-items: center;
+  flex-shrink: 0; /* Don't shrink the logo */
 }
 
 .logo-image {
-  height: clamp(60px, 11vh, 120px);
+  height: clamp(45px, 7vh, 90px); /* Compact but visible */
   width: auto;
   object-fit: contain;
   transition: all 0.3s ease;
@@ -63,34 +75,44 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: clamp(20px, 3vw, 50px);
+  flex: 1; /* Take remaining space */
+  gap: clamp(9px, 1.2vw, 22px); /* Slightly more breathing room */
+  flex-wrap: nowrap;
+  min-width: 0; /* Allow shrinking */
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   cursor: pointer;
   font-family: 'Gotham Bold', sans-serif;
-  font-size: clamp(10px, 1.5vw, 17px);
+  font-size: clamp(10px, 1.3vw, 16px); /* Increased font size */
   color: white;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.3px;
   transition: all 0.3s ease;
   white-space: nowrap;
   position: relative;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
+  flex-shrink: 1; /* Allow shrinking when needed */
 }
 
 .nav-item-multiline {
   white-space: normal;
   text-align: center;
   justify-content: center;
+  align-self: center; /* Force vertical centering */
+  /* No max-width - let it spread naturally */
 }
 
 .nav-item-multiline span {
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.1;
+  word-wrap: break-word;
+  display: inline-block;
+  hyphens: auto;
+  vertical-align: middle; /* Align with other nav items */
 }
 
 /* Active underline indicator */
@@ -127,10 +149,11 @@
 }
 
 .dropdown-arrow {
-  font-size: 10px;
+  font-size: 9px;
   color: white;
   margin-left: 4px;
   transition: color 0.3s ease;
+  flex-shrink: 0;
 }
 
 .header.scrolled .dropdown-arrow {
@@ -139,7 +162,8 @@
 
 /* Language dropdown positioning in header */
 .header .language-dropdown {
-  margin-left: clamp(20px, 3vw, 40px);
+  margin: 0;
+  flex-shrink: 0; /* Never shrink */
 }
 
 /* Mobile Menu Button */
@@ -202,50 +226,71 @@
   background: #333;
 }
 
-/* Responsive Breakpoints */
+/* Responsive Breakpoints - Keep everything in ONE row */
+@media (max-width: 1600px) {
+  .header-container {
+    padding: 8px clamp(12px, 1.5vw, 25px);
+    gap: 8px;
+  }
+  .header-main-row { gap: 12px; }
+  .nav { gap: clamp(5px, 0.9vw, 15px); }
+  .nav-item { 
+    font-size: clamp(9px, 1.2vw, 15px);
+    letter-spacing: 0.25px;
+    gap: 3px;
+  }
+  .logo-image { height: clamp(40px, 6vh, 80px); }
+}
+
 @media (max-width: 1400px) {
   .header-container {
-    width: 95%;
+    padding: 8px clamp(10px, 1.2vw, 20px);
+    gap: 6px;
   }
-  
-  .nav {
-    gap: clamp(15px, 2.5vw, 40px);
+  .header-main-row { gap: 10px; }
+  .nav { gap: clamp(4px, 0.8vw, 12px); }
+  .nav-item { 
+    font-size: clamp(8px, 1.1vw, 14px);
+    letter-spacing: 0.2px;
+    gap: 3px;
   }
+  .logo-image { height: clamp(38px, 5.5vh, 70px); }
+  .dropdown-arrow { font-size: 7px; margin-left: 2px; }
 }
 
 @media (max-width: 1200px) {
   .header-container {
-    width: 98%;
-    padding: 0 clamp(15px, 2vw, 30px);
+    padding: 6px clamp(8px, 1vw, 15px);
+    gap: 5px;
   }
-  
-  .nav-item {
-    font-size: clamp(11px, 1.6vw, 26px);
+  .header-main-row { gap: 8px; }
+  .nav { gap: clamp(3px, 0.7vw, 10px); }
+  .nav-item { 
+    font-size: clamp(7px, 1vw, 13px);
+    letter-spacing: 0.1px;
+    gap: 2px;
   }
+  .logo-image { height: clamp(35px, 5vh, 60px); }
+  .dropdown-arrow { font-size: 6px; margin-left: 1px; }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .header-container {
-    height: clamp(70px, 12vh, 150px);
+    padding: 5px clamp(6px, 0.8vw, 12px);
+    gap: 4px;
   }
-  
-  .logo-image {
-    height: clamp(50px, 6vh, 100px);
+  .header-main-row { gap: 6px; }
+  .nav { gap: clamp(2px, 0.5vw, 8px); }
+  .nav-item { 
+    font-size: clamp(6.5px, 0.9vw, 12px);
+    padding-bottom: 2px;
   }
-  
-  .nav {
-    gap: clamp(12px, 2vw, 30px);
-  }
-  
-  .nav-item {
-    font-size: clamp(10px, 1.4vw, 22px);
-  }
+  .logo-image { height: clamp(32px, 4.5vh, 55px); }
 }
 
+/* Mobile - hamburger menu */
 @media (max-width: 768px) {
-  .nav {
-    display: none;
-  }
+  .nav { display: none; }
   
   .nav.nav-open {
     display: flex;
@@ -256,42 +301,32 @@
     right: 0;
     background: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: clamp(15px, 4vw, 25px);
-    gap: clamp(10px, 3vw, 20px);
+    padding: 15px;
+    gap: 12px;
   }
   
-  .mobile-menu-btn {
-    display: block;
-  }
+  .mobile-menu-btn { display: block; }
   
   .header-container {
-    height: clamp(60px, 10vh, 100px);
-    padding: 0 clamp(10px, 3vw, 20px);
+    padding: 8px 15px;
   }
   
-  .logo-image {
-    height: clamp(40px, 5vh, 70px);
-  }
+  .logo-image { height: clamp(35px, 5vh, 60px); }
   
   .nav-item {
-    font-size: clamp(13px, 3.2vw, 19px);
+    font-size: 14px;
     text-align: center;
   }
 }
 
 @media (max-width: 480px) {
   .header-container {
-    height: clamp(50px, 8vh, 80px);
-    padding: 0 15px;
+    padding: 6px 10px;
   }
   
-  .logo-image {
-    height: clamp(35px, 4vh, 60px);
-  }
+  .logo-image { height: clamp(30px, 4vh, 50px); }
   
-  .nav-item {
-    font-size: clamp(11px, 2.8vw, 16px);
-  }
+  .nav-item { font-size: 12px; }
 }
 
 /* Dropdown Styling */
@@ -339,10 +374,3 @@
   padding-left: 25px;
 }
 
-@media (max-width: 1366px) {
-  .header-container { height: clamp(70px, 12vh, 150px); gap: 14px; }
-  .logo-nav-group { gap: clamp(40px, 5vw, 80px); }
-  .logo-image { height: clamp(48px, 7vh, 90px); }
-  .nav { gap: clamp(14px, 2.2vw, 28px); }
-  .nav-item { font-size: clamp(11px, 1.3vw, 18px); }
-}

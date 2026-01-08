@@ -16,9 +16,9 @@ const Header: React.FC = () => {
     if (path === '/') return 'acasa';
     if (path === '/sectoare-economice-deservite' || path.startsWith('/sectoare-economice-deservite/')) return 'sectoare-economice-deservite';
     if (path === '/despre-noi') return 'despre-noi';
-    if (path === '/project-cargo' || path === '/heavy-lift' || path === '/itl' || path === '/portops') return 'cum-va-sprijinim';
+    if (path === '/transport-marfuri-agabaritice' || path === '/relocari-industriale' || path === '/itl' || path === '/portops') return 'cum-va-sprijinim';
     if (path === '/proiecte' || path.startsWith('/proiecte/')) return 'proiecte';
-    if (path === '/flota-transport' || path === '/echipamente-manutanta') return 'echipamente-resurse';
+    if (path === '/fleet' || path === '/flota-transport' || path === '/echipamente-manutanta') return 'echipamente-resurse';
     if (path === '/comunicare' || path.startsWith('/comunicare/')) return 'comunicare';
     if (path === '/contact' || path === '/cariere') return 'contact';
     return '';
@@ -71,8 +71,8 @@ const Header: React.FC = () => {
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
-        {/* Logo and Navigation Group */}
-        <div className="logo-nav-group">
+        {/* Main Row: Logo and Navigation */}
+        <div className="header-main-row">
           {/* Logo Section */}
           <div className="logo" onClick={navigateToHome} style={{ cursor: 'pointer' }}>
             <img src="/images/Rectangle.webp" alt="HOLLEMAN Logo" className="logo-image" />
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
             </div>
 
             <div className={`nav-item nav-item-multiline ${activeNav === 'sectoare-economice-deservite' ? 'active' : ''}`} onClick={navigateToSectoareEconomiceDeservite}>
-              <span>SECTOARE ECONOMICE<br />DESERVITE</span>
+              <span>SECTOARE ECONOMICE DESERVITE</span>
             </div>
 
             <div 
@@ -97,8 +97,8 @@ const Header: React.FC = () => {
               <span className="dropdown-arrow">▼</span>
               {activeDropdown === 'cum-va-sprijinim' && (
                 <div className="dropdown-menu" role="menu">
-                  <a href="/project-cargo" role="menuitem" aria-label="Transport Marfuri Agabaritice si Grele">Transport Marfuri Agabaritice si Grele</a>
-                  <a href="/heavy-lift" role="menuitem" aria-label="Relocari Industriale -Manipulare, Montaje">Relocari Industriale - Manipulare, Montaje</a>
+                  <a href="/transport-marfuri-agabaritice" role="menuitem" aria-label="Transport Marfuri Agabaritice si Grele">Transport Marfuri Agabaritice si Grele</a>
+                  <a href="/relocari-industriale" role="menuitem" aria-label="Relocari Industriale -Manipulare, Montaje">Relocari Industriale - Manipulare, Montaje</a>
                   <a href="/portops" role="menuitem" aria-label="Operatiuni Porturare">Operatiuni Porturare</a>
                   <a href="#" role="menuitem" aria-label="Permise si Insotire Agabaritice">Permise si Insotire Agabaritice</a>
                   <a href="/itl" role="menuitem" aria-label="Transport Marfuri generale">Transport Marfuri generale</a>
@@ -130,7 +130,7 @@ const Header: React.FC = () => {
               <span className="dropdown-arrow">▼</span>
               {activeDropdown === 'echipamente-resurse' && (
                 <div className="dropdown-menu" role="menu">
-                  <a href="#" role="menuitem" aria-label="Flota Transport">Flota Transport</a>
+                  <a href="/fleet" role="menuitem" aria-label="Flota Transport">Flota Transport</a>
                   <a href="#" role="menuitem" aria-label="Echipamente Manutanta">Echipamente Manutanta</a>
                 </div>
               )}
@@ -162,8 +162,10 @@ const Header: React.FC = () => {
           </nav>
         </div>
         
-        {/* Language Selector */}
-        <LanguageDropdown />
+        {/* Second Row: Language Selector */}
+        <div className="header-second-row">
+          <LanguageDropdown />
+        </div>
 
         {/* Mobile Menu Button */}
         <button className="mobile-menu-btn" onClick={toggleMenu}>

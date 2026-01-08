@@ -18,7 +18,6 @@ const HeavyLift: React.FC = () => {
   const section3Ref = useRef<HTMLDivElement>(null);
   const section4Ref = useRef<HTMLDivElement>(null);
   const section5Ref = useRef<HTMLDivElement>(null);
-  const section6Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // SEO setup
@@ -33,7 +32,7 @@ const HeavyLift: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://holleman.ro/heavy-lift');
+    canonical.setAttribute('href', 'https://holleman.ro/relocari-industriale');
   }, []);
 
   // Fetch Heavy Lift content from Strapi
@@ -75,8 +74,7 @@ const HeavyLift: React.FC = () => {
       { ref: section2Ref, side: 'left' },  // Image on right, hook comes from left
       { ref: section3Ref, side: 'right' }, // Image on left, hook comes from right
       { ref: section4Ref, side: 'left' },  // Image on right, hook comes from left
-      { ref: section5Ref, side: 'right' }, // Image on left, hook comes from right
-      { ref: section6Ref, side: 'left' }   // Image on right, hook comes from left
+      { ref: section5Ref, side: 'right' }  // Image on left, hook comes from right
     ];
 
     const observers: IntersectionObserver[] = [];
@@ -152,7 +150,7 @@ const HeavyLift: React.FC = () => {
       <SEO
         title="Heavy Lift - Relocări Industriale și Echipamente Ultra-Grele | Holleman"
         description="Servicii specializate de Heavy Lift: relocări industriale, transport echipamente ultra-grele, macarale hidraulice mobile, soluții turnkey. Expertiză în mutări de fabrici și instalații complexe."
-        canonicalUrl="https://holleman.ro/heavy-lift"
+        canonicalUrl="https://holleman.ro/relocari-industriale"
         ogImage="https://holleman.ro/images/Group8730.webp"
         keywords="heavy lift, relocari industriale, echipamente ultra-grele, macarale hidraulice, transport utilaje, mutari fabrici, heavy transport"
       />
@@ -223,16 +221,6 @@ const HeavyLift: React.FC = () => {
                 <img src="/images/icons/heavy.webp" alt="Integrare cu transport agabaritic – activitate door-to-door" />
               </div>
               <h3>{serviceCardsContent?.Service5Title || 'Loading...'}</h3>
-              <div className="service-overlay">
-                <p>Citeste mai mult</p>
-              </div>
-            </div>
-
-            <div className="service-item clickable" onClick={() => scrollToSection('specialized-equipment')}>
-              <div className="service-icon">
-                <img src="/images/icons/iconvamuire.webp" alt="Flotă de echipamente: Detalii și specificații" />
-              </div>
-              <h3>{serviceCardsContent?.Service6Title || 'Loading...'}</h3>
               <div className="service-overlay">
                 <p>Citeste mai mult</p>
               </div>
@@ -420,61 +408,12 @@ const HeavyLift: React.FC = () => {
         </div>
       </section>
 
-      {/* Specialized Equipment Section */}
-      <section id="specialized-equipment" className="content-section alternate" ref={section6Ref}>
-        <div className="hook-container">
-          <img src="/images/hook.webp" alt="Hook" className="hook-image" />
-        </div>
-        <div className="content-container">
-          <div className="content-grid reverse">
-            <div className="content-text">
-              <h2>{contentSectionsData?.Section6Title || 'Loading...'}</h2>
-              <div className="equipment-list">
-                {contentSectionsData?.Section6Content ? (
-                  <>
-                    <h3>{contentSectionsData.Section6Content.split('\n')[0]}</h3>
-                    <ul>
-                      {contentSectionsData.Section6Content
-                        .split('\n')
-                        .slice(1)
-                        .filter((line: string) => line.trim().startsWith('-'))
-                        .map((item: string, index: number) => (
-                          <li key={index}>{item.replace(/^-\s*/, '').trim()}</li>
-                        ))}
-                    </ul>
-                  </>
-                ) : (
-                  <p>Loading...</p>
-                )}
-              </div>
-              <div className="action-button">
-                <button className="btn" onClick={() => navigate('/fleet')}>
-                  Descopera flota
-                  <span className="btn-arrow">→</span>
-                </button>
-              </div>
-            </div>
-            <div className="content-image">
-              <img 
-                src={contentSectionsData?.Section6Image 
-                  ? (contentSectionsData.Section6Image.url.startsWith('http') 
-                    ? contentSectionsData.Section6Image.url 
-                    : `https://holleman-cms-production.up.railway.app${contentSectionsData.Section6Image.url}`)
-                  : '/images/source/flota.webp'
-                } 
-                alt={contentSectionsData?.Section6Title || 'Flotă de echipamente'} 
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Services Navigation Section */}
       <section className="services-nav-section">
         <div className="services-nav-container">
           <h2 className="services-nav-title">Afla despre mai multe servicii</h2>
           <div className="services-nav-grid">
-            <div className="service-nav-item" onClick={() => navigate('/project-cargo')}>
+            <div className="service-nav-item" onClick={() => navigate('/transport-marfuri-agabaritice')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/iconprojectcargo.webp" alt="Project Cargo icon" />
               </div>

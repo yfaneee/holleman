@@ -73,13 +73,14 @@ const Footer: React.FC = () => {
 
           {/* Servicii Column */}
           <section className="footer-column" aria-labelledby="services-projects-heading">
-            <h3 id="services-projects-heading" translate="yes">Servicii</h3>
+            <h3 id="services-projects-heading" translate="yes">Cum va sprijinim</h3>
             <nav aria-label="Navigare servicii oferite">
               <ul>
-                <li><a href="/project-cargo" translate="yes">Transport & <span translate="no">Project Cargo & Special Transport</span></a></li>
-                <li><a href="/portops" translate="no">Port Operations</a></li>
-                <li><a href="/heavy-lift"><span translate="no">Heavy Lift & Industrial Relocations</span></a></li>
-                <li><a href="/itl" translate="no">ITL Standard Transport</a></li>
+                <li><a href="/transport-marfuri-agabaritice" translate="yes">Trannsporturi marfuri agabaritice si grele</a></li>
+                <li><a href="/relocari-industriale" translate="yes">Relocari industriale - manipulare, montaje</a></li>
+                <li><a href="/portops"><span translate="yes">Operatiuni portuare</span></a></li>
+                <li><a href="/..." translate="yes">Pemise si insotire agabaritice</a></li>
+                <li><a href="/itl" translate="yes">Transport marfuri generale</a></li>
               </ul>
             </nav>
             
