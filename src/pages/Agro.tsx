@@ -199,19 +199,19 @@ const Agro: React.FC = () => {
               <div className="service-nav-icon">
                 <img src="/images/icons/heavy.webp" alt="Heavy Lift icon" />
               </div>
-              <h3>Heavy Lift</h3>
+              <h3>Relocari industriale</h3>
             </div>
             <div className="service-nav-item" onClick={() => navigate('/transport-marfuri-agabaritice')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/iconprojectcargo.webp" alt="Project Cargo icon" />
               </div>
-              <h3>Project Cargo</h3>
+              <h3>Transport marfuri agabaritice</h3>
             </div>
-            <div className="service-nav-item" onClick={() => navigate('/itl')}>
+            <div className="service-nav-item" onClick={() => navigate('/transport-marfuri-generale')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/iconinternational.webp" alt="ITL icon" />
               </div>
-              <h3>ITL</h3>
+              <h3>Transport marfuri generale</h3>
             </div>
           </div>
         </div>

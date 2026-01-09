@@ -108,7 +108,7 @@ const Home: React.FC = () => {
   }, [navigate]);
 
   const navigateToITL = useCallback(() => {
-    navigate('/itl');
+    navigate('/transport-marfuri-generale');
   }, [navigate]);
 
   const navigateToHeavyLift = useCallback(() => {

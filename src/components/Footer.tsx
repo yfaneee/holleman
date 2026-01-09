@@ -76,11 +76,11 @@ const Footer: React.FC = () => {
             <h3 id="services-projects-heading" translate="yes">Cum va sprijinim</h3>
             <nav aria-label="Navigare servicii oferite">
               <ul>
-                <li><a href="/transport-marfuri-agabaritice" translate="yes">Trannsporturi marfuri agabaritice si grele</a></li>
+                <li><a href="/transport-marfuri-agabaritice" translate="yes">Transporturi marfuri agabaritice si grele</a></li>
                 <li><a href="/relocari-industriale" translate="yes">Relocari industriale - manipulare, montaje</a></li>
                 <li><a href="/portops"><span translate="yes">Operatiuni portuare</span></a></li>
                 <li><a href="/..." translate="yes">Pemise si insotire agabaritice</a></li>
-                <li><a href="/itl" translate="yes">Transport marfuri generale</a></li>
+                <li><a href="/transport-marfuri-generale" translate="yes">Transport marfuri generale</a></li>
               </ul>
             </nav>
             

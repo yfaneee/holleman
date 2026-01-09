@@ -425,9 +425,9 @@ const ProjectCargo: React.FC = () => {
               <div className="service-nav-icon">
                 <img src="/images/icons/heavy.webp" alt="Heavy Lift icon" />
               </div>
-              <h3>Relocari Industriale</h3>
+              <h3>Relocari industriale</h3>
             </div>
-            <div className="service-nav-item" onClick={() => navigate('/itl')}>
+            <div className="service-nav-item" onClick={() => navigate('/transport-marfuri-generale')}>
               <div className="service-nav-icon">
                 <img src="/images/icons/iconinternational.webp" alt="ITL icon" />
               </div>
@@ -437,7 +437,7 @@ const ProjectCargo: React.FC = () => {
               <div className="service-nav-icon">
                 <img src="/images/icons/Anchor.webp" alt="Port Operations icon" />
               </div>
-              <h3>Port Ops</h3>
+              <h3>Operatiuni portuare</h3>
             </div>
           </div>
         </div>

@@ -32,7 +32,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/transport-marfuri-agabaritice" element={<ProjectCargo />} />
-              <Route path="/itl" element={<ITL />} />
+              <Route path="/transport-marfuri-generale" element={<ITL />} />
               <Route path="/relocari-industriale" element={<HeavyLift />} />
               <Route path="/fleet" element={<Fleet />} />
               <Route path="/portops" element={<Agro />} />

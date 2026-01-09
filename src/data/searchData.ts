@@ -24,7 +24,7 @@ export const searchableContent: SearchableItem[] = [
     title: 'ITL - Transport Internațional',
     description: 'Servicii complete de transport și logistică internă și internațională',
     keywords: ['itl', 'transport international', 'logistica', 'FTL', 'LTL', 'transport rutier', 'transport naval'],
-    route: '/itl',
+    route: '/transport-marfuri-generale',
     category: 'service'
   },
   {
