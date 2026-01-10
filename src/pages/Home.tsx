@@ -16,7 +16,6 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   
   // Strapi content state
-  const [projectCargoContent, setProjectCargoContent] = useState<any>(null);
   const [homeHeroContent, setHomeHeroContent] = useState<any>(null);
 
   // Search state
@@ -41,10 +40,6 @@ const Home: React.FC = () => {
 
   const section2Style = {
     backgroundImage: `url('/images/section2.webp')`
-  };
-
-  const section3Style = {
-    backgroundImage: `url('/images/section3.webp')`
   };
 
   const contactStyle = {
@@ -209,26 +204,6 @@ const Home: React.FC = () => {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  // Fetch Project Cargo content from Strapi
-  useEffect(() => {
-    const fetchProjectCargoContent = async () => {
-      try {
-        const response = await fetch('https://holleman-cms-production.up.railway.app/api/home-project-cargo-section');
-        const data = await response.json();
-        setProjectCargoContent(data.data);
-      } catch (error) {
-        console.error('Error fetching Project Cargo content:', error);
-        // Fallback to default content if Strapi is not available
-        setProjectCargoContent({
-          mainDescription: 'Transporturile agabaritice și proiectele logistice complexe necesită expertiză, precizie și coordonare impecabilă. Project Cargo presupune transportul unor echipamente de mari dimensiuni, greutăți sau valoare, adesea esențiale pentru construcția și funcționarea unor instalații industriale sau energetice.',
-          secondaryDescription: 'Holleman este partenerul ideal pentru acest tip de provocări datorită experienței vaste, echipamentelor specializate și unei echipe dedicate care gestionează fiecare etapă a proiectului cu responsabilitate și viziune.'
-        });
-      }
-    };
-
-    fetchProjectCargoContent();
   }, []);
 
   // Fetch Home Hero content from Strapi
@@ -598,26 +573,6 @@ const Home: React.FC = () => {
                      className="sponsor-image" loading="lazy" />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3 - Project Cargo Highlight */}
-      <section className="section3" style={section3Style} aria-labelledby="project-cargo-heading">
-        <div className="section3-overlay">
-          <div className="section3-content">
-            <h2 id="project-cargo-heading" className="sr-only">Project Cargo - Transporturi Complexe</h2>
-            <p className="section3-description animate-on-scroll fade-up">
-              {projectCargoContent?.mainDescription || 'Loading...'}
-            </p>
-            <p className="section3-description animate-on-scroll fade-up delay-200">
-              {projectCargoContent?.secondaryDescription || 'Loading...'}
-            </p>
-            <button className="btn animate-on-scroll fade-up delay-400" onClick={navigateToProjectCargo} 
-                    aria-label="Află mai multe despre serviciile Project Cargo oferite de Holleman">
-              Project Cargo
-              <img src="/images/gobttn.webp" alt="" className="cta-icon" role="presentation" />
-            </button>
           </div>
         </div>
       </section>
