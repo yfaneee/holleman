@@ -62,14 +62,13 @@ const Permise: React.FC = () => {
       {/* Hero Section */}
       <section
         className="permise-hero"
-        style={{ backgroundImage: `url('/images/portoperationsbg.webp')` }}
+        style={{ backgroundImage: `url('/images/Group8758.webp')` }}
       >
         <div className="permise-hero-overlay">
           <div className="permise-hero-content">
             <h1 className="permise-hero-title">
               INSOTIRE TRANSPORT AGABARITIC SI PERMISE SPECIALE
             </h1>
-            <p className="permise-hero-subtitle">...</p>
           </div>
         </div>
       </section>
