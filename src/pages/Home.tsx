@@ -72,7 +72,7 @@ const Home: React.FC = () => {
         setCurrentSlide((prev) => (prev + 1) % slides.length);
       }, 4000); // Change slide every 4 seconds
     }
-  }, [isPlaying, isPaused, slides.length, clearSlideInterval]);
+  }, [isPlaying, isPaused, clearSlideInterval]);
 
   // Manual advance function
   const handleAdvance = useCallback(() => {
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
     if (isPlaying) {
       startSlideInterval();
     }
-  }, [slides.length, isPlaying, startSlideInterval]);
+  }, [isPlaying, startSlideInterval]);
 
   // Pause slideshow on hover
   const handleMouseEnter = useCallback(() => {
@@ -125,14 +125,6 @@ const Home: React.FC = () => {
     }
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleSearchSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim().length >= 2) {
-      performSearch(searchQuery.trim());
-    }
-  }, [searchQuery]);
-
   const performSearch = useCallback((query: string) => {
     const results = searchContent(query);
     setSearchResults(results);
@@ -155,6 +147,13 @@ const Home: React.FC = () => {
       }
     }
   }, [navigate]);
+
+  const handleSearchSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim().length >= 2) {
+      performSearch(searchQuery.trim());
+    }
+  }, [searchQuery, performSearch]);
 
   const handleSuggestionClick = useCallback((suggestion: string) => {
     setSearchQuery(suggestion);
@@ -268,7 +267,7 @@ const Home: React.FC = () => {
       });
     };
     preloadImages();
-  }, [currentSlide, slides]);
+  }, [currentSlide]);
 
   const nextSlideIndex = (currentSlide + 1) % slides.length;
 

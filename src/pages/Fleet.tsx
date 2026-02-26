@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getRelatedProjectsSync } from '../data/projectsData';
 import './Fleet.css';
 
 const Fleet: React.FC = () => {
-  const navigate = useNavigate();
   const [, setCurrentRelatedProject] = useState(0);
   
   // Get Heavy Lift related projects (using a dummy project ID to get Heavy Lift projects)

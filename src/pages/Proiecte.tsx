@@ -210,7 +210,7 @@ const Proiecte: React.FC = () => {
         setCurrentSlide((prev) => (prev + 1) % slides.length);
       }, 4000); // Change slide every 4 seconds
     }
-  }, [isPlaying, isPaused, slides.length, clearSlideInterval]);
+  }, [isPlaying, isPaused, clearSlideInterval]);
 
   // Manual advance function
   const handleAdvance = useCallback(() => {
@@ -219,7 +219,7 @@ const Proiecte: React.FC = () => {
     if (isPlaying) {
       startSlideInterval();
     }
-  }, [slides.length, isPlaying, startSlideInterval]);
+  }, [isPlaying, startSlideInterval]);
 
   // Pause slideshow on hover
   const handleMouseEnter = useCallback(() => {
@@ -252,7 +252,7 @@ const Proiecte: React.FC = () => {
       });
     };
     preloadImages();
-  }, [currentSlide, slides]);
+  }, [currentSlide]);
 
   const nextSlideIndex = (currentSlide + 1) % slides.length;
 
