@@ -496,6 +496,19 @@ const Proiecte: React.FC = () => {
          </div>
        </section>
 
+      {/* Intro Text Section */}
+      <section className="proiecte-intro-section">
+        <div className="proiecte-intro-container">
+          <p className="proiecte-intro-text">
+            Pagina de proiecte prezintă lucrări reprezentative realizate de Holleman în
+            transporturi agabaritice, project cargo și mutări industriale. De la planificare și
+            autorizare, până la transport și poziționare finală, fiecare proiect reflectă
+            experiența noastră tehnică, capacitatea de coordonare și standardele de siguranță
+            aplicate în operațiuni complexe, în România și la nivel internațional.
+          </p>
+        </div>
+      </section>
+
       {/* Project Gallery Section */}
       <section className="project-gallery-section" aria-labelledby="projects-heading">
         <div className="gallery-container">
