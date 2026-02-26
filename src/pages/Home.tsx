@@ -6,12 +6,21 @@ import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { searchContent, getAutocompleteSuggestions, SearchableItem } from '../data/searchData';
 
+const slides = [
+  { src: '/images/slide1.webp', title: 'Holleman', alt: '1' },
+  { src: '/images/slide2.webp', title: 'Holleman', alt: '2' },
+  { src: '/images/slide3.webp', title: 'Holleman', alt: '3' },
+  { src: '/images/slide4.webp', title: 'Holleman', alt: '4' },
+  { src: '/images/slide5.webp', title: 'Holleman', alt: '5' },
+  { src: '/images/slide6.webp', title: 'Holleman', alt: '6' },
+];
+
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [videoError, setVideoError] = useState(false);
+  const [, setIsVideoLoaded] = useState(false);
+  const [, setVideoError] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
   
@@ -20,7 +29,7 @@ const Home: React.FC = () => {
 
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<SearchableItem[]>([]);
+  const [, setSearchResults] = useState<SearchableItem[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
@@ -46,16 +55,6 @@ const Home: React.FC = () => {
     backgroundImage: `url('/images/contact-bg.webp')`
   };
 
-  // Slideshow images (add as many as you like)
-  const slides = [
-    { src: '/images/slide1.webp', title: 'Holleman', alt: '1' },
-    { src: '/images/slide2.webp', title: 'Holleman', alt: '2' },
-    { src: '/images/slide3.webp', title: 'Holleman', alt: '3' },
-    { src: '/images/slide4.webp', title: 'Holleman', alt: '4' },
-    { src: '/images/slide5.webp', title: 'Holleman', alt: '5' },
-    { src: '/images/slide6.webp', title: 'Holleman', alt: '6' },
-    
-  ];
 
   // Clear interval function
   const clearSlideInterval = useCallback(() => {
@@ -126,6 +125,7 @@ const Home: React.FC = () => {
     }
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSearchSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim().length >= 2) {

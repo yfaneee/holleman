@@ -6,12 +6,21 @@ import { getAllProjects, getAllProjectsSync } from '../data/projectsData';
 import { convertBasicMarkdown } from '../utils/textFormatting';
 import './Proiecte.css';
 
+const slides = [
+  { src: '/images/slide1.webp', title: 'Holleman', alt: '1' },
+  { src: '/images/slide2.webp', title: 'Holleman', alt: '2' },
+  { src: '/images/slide3.webp', title: 'Holleman', alt: '3' },
+  { src: '/images/slide4.webp', title: 'Holleman', alt: '4' },
+  { src: '/images/slide5.webp', title: 'Holleman', alt: '5' },
+  { src: '/images/slide6.webp', title: 'Holleman', alt: '6' },
+];
+
 const Proiecte: React.FC = () => {
   const navigate = useNavigate();
   
   // Slideshow state
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   
@@ -32,12 +41,12 @@ const Proiecte: React.FC = () => {
   const [proiecteHeroContent, setProiecteHeroContent] = useState<any>(null);
   
   // Video state
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [videoError, setVideoError] = useState(false);
+  const [, setIsVideoLoaded] = useState(false);
+  const [, setVideoError] = useState(false);
   
   // State for projects data
   const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
-  const [projectsLoading, setProjectsLoading] = useState(true);
+  const [, setProjectsLoading] = useState(true);
 
   // Generate suggestions based on search term (memoized for performance)
   const suggestions = React.useMemo(() => {
@@ -184,15 +193,6 @@ const Proiecte: React.FC = () => {
     return () => document.removeEventListener('mouseup', handleClickOutside);
   }, []);
 
-  // Slideshow images
-  const slides = [
-    { src: '/images/slide1.webp', title: 'Holleman', alt: '1' },
-    { src: '/images/slide2.webp', title: 'Holleman', alt: '2' },
-    { src: '/images/slide3.webp', title: 'Holleman', alt: '3' },
-    { src: '/images/slide4.webp', title: 'Holleman', alt: '4' },
-    { src: '/images/slide5.webp', title: 'Holleman', alt: '5' },
-    { src: '/images/slide6.webp', title: 'Holleman', alt: '6' },
-  ];
 
   // Clear interval function
   const clearSlideInterval = useCallback(() => {

@@ -18,7 +18,7 @@ const Blog: React.FC = () => {
 
   // State for articles
   const [articles, setArticles] = useState<any[]>(getLatestArticles());
-  const [articlesLoading, setArticlesLoading] = useState(true);
+  const [, setArticlesLoading] = useState(true);
 
   // Navigation functions
   const nextSlide = () => {

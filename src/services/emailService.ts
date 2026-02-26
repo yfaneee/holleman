@@ -156,6 +156,6 @@ export const isValidEmail = (email: string): boolean => {
 
 // Validate phone format
 export const isValidPhone = (phone: string): boolean => {
-  const phoneRegex = /^[0-9\s\-\+\(\)]{7,15}$/;
+  const phoneRegex = /^[0-9\s\-+()]{7,15}$/;
   return phoneRegex.test(phone.replace(/\s/g, ''));
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,28 +7,10 @@ import './Fleet.css';
 
 const Fleet: React.FC = () => {
   const navigate = useNavigate();
-  const [currentRelatedProject, setCurrentRelatedProject] = useState(0);
+  const [, setCurrentRelatedProject] = useState(0);
   
   // Get Heavy Lift related projects (using a dummy project ID to get Heavy Lift projects)
   const relatedProjects = getRelatedProjectsSync('heavy-lift-project-1', 'heavy-lift');
-
-  // Related projects navigation
-  const nextRelatedProject = useCallback(() => {
-    if (relatedProjects.length > 3) {
-      setCurrentRelatedProject((prev) => (prev + 1) % relatedProjects.length);
-    }
-  }, [relatedProjects.length]);
-
-  const prevRelatedProject = useCallback(() => {
-    if (relatedProjects.length > 3) {
-      setCurrentRelatedProject((prev) => (prev - 1 + relatedProjects.length) % relatedProjects.length);
-    }
-  }, [relatedProjects.length]);
-
-  // Handle related project click
-  const handleRelatedProjectClick = useCallback((projectId: string) => {
-    navigate(`/proiecte/${projectId}`);
-  }, [navigate]);
 
   // Auto-advance related projects slideshow
   useEffect(() => {

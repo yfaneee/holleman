@@ -11,7 +11,7 @@ import '../styles/forms.css';
 const Cariere: React.FC = () => {
   const navigate = useNavigate();
   const [selectedPrefix, setSelectedPrefix] = useState('+40');
-  const { isLoading, isSuccess, error, submitCareerForm, resetForm } = useEmailForm();
+  const { isLoading, isSuccess, error, submitCareerForm } = useEmailForm();
   const { currentLanguage } = useLanguage();
   
   // State for Strapi content

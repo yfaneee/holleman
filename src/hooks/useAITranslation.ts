@@ -58,7 +58,7 @@ export const useAITranslation = () => {
       
       let textContent = '';
       let node;
-      while (node = walker.nextNode()) {
+      while ((node = walker.nextNode())) {
         textContent += node.textContent || '';
       }
       
@@ -89,7 +89,7 @@ export const useAITranslation = () => {
         );
         
         let node;
-        while (node = walker.nextNode()) {
+        while ((node = walker.nextNode())) {
           if (node.textContent) {
             node.textContent = originalText;
             break;
@@ -134,7 +134,7 @@ export const useAITranslation = () => {
             );
             
             let node;
-            while (node = walker.nextNode()) {
+            while ((node = walker.nextNode())) {
               if (node.textContent) {
                 node.textContent = translation;
                 break;

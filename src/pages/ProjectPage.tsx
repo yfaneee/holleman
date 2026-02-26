@@ -91,8 +91,8 @@ const ProjectPage: React.FC = () => {
       const containerHeight = container.offsetHeight;
       const content = contentRef.current;
       const contentRect = content ? content.getBoundingClientRect() : containerRect;
-      const contentTop = window.scrollY + (content ? contentRect.top : containerRect.top);
-      const contentHeight = content ? content.offsetHeight : containerHeight;
+      const _contentTop = window.scrollY + (content ? contentRect.top : containerRect.top);
+      const _contentHeight = content ? content.offsetHeight : containerHeight;
       const social = socialRef.current;
       const socialRect = social ? social.getBoundingClientRect() : null;
       const socialTopY = socialRect ? window.scrollY + socialRect.top : Number.POSITIVE_INFINITY;

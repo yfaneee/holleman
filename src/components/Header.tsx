@@ -56,14 +56,6 @@ const Header: React.FC = () => {
     navigate('/despre-noi');
   };
 
-  const navigateToCariere = () => {
-    navigate('/cariere');
-  };
-
-  const navigateToContact = () => {
-    navigate('/contact');
-  };
-
   const navigateToSectoareEconomiceDeservite = () => {
     navigate('/sectoare-economice-deservite');
   };
@@ -115,6 +107,7 @@ const Header: React.FC = () => {
               <span className="dropdown-arrow">▼</span>
               {activeDropdown === 'proiecte' && (
                 <div className="dropdown-menu" role="menu">
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a href="#" role="menuitem" aria-label="Logistica Parcuri Eoline">Logistica Parcuri Eoline</a>
                   <a href="/proiecte" role="menuitem" aria-label="Proiecte Transport Complex">Proiecte Transport Complex</a>
                 </div>
@@ -131,6 +124,7 @@ const Header: React.FC = () => {
               {activeDropdown === 'echipamente-resurse' && (
                 <div className="dropdown-menu" role="menu">
                   <a href="/fleet" role="menuitem" aria-label="Flota Transport">Flota Transport</a>
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a href="#" role="menuitem" aria-label="Echipamente Manutanta">Echipamente Manutanta</a>
                 </div>
               )}

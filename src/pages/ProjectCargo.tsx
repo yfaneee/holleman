@@ -9,14 +9,13 @@ import './ProjectCargo.css';
 const ProjectCargo: React.FC = () => {
   const navigate = useNavigate();
   const [currentCaseStudy, setCurrentCaseStudy] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [whyChooseContent, setWhyChooseContent] = useState<any>(null);
   const [projectCargoHeroContent, setProjectCargoHeroContent] = useState<any>(null);
   
   // State for projects data
   const [allProjects, setAllProjects] = useState<any[]>(getAllProjectsSync());
-  const [projectsLoading, setProjectsLoading] = useState(true);
+  const [, setProjectsLoading] = useState(true);
 
 
   const heroStyle = {
@@ -54,13 +53,6 @@ const ProjectCargo: React.FC = () => {
     }
   };
 
-  const nextCaseStudy = () => {
-    setCurrentCaseStudy((prev) => (prev + 1) % caseStudies.length);
-  };
-
-  const prevCaseStudy = () => {
-    setCurrentCaseStudy((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
-  };
 
 
   // Reset current index if it's out of bounds

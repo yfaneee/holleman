@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import { useEmailForm } from '../hooks/useEmailForm';
 import { ContactFormData, isValidEmail, isValidPhone } from '../services/emailService';
 import { useLanguage } from '../context/LanguageContext';
-import { translationService } from '../services/translationService';
 import './Contact.css';
 import '../styles/forms.css';
 
@@ -71,8 +70,6 @@ const Contact: React.FC = () => {
   
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [videoError, setVideoError] = useState(false);
 
   // Static validation messages in multiple languages
   const validationMessages = {
