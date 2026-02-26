@@ -1,0 +1,674 @@
+/* ============================================================
+   PERMISE PAGE
+   ============================================================ */
+
+.permise-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.permise-hero {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.permise-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.permise-hero-content {
+  text-align: center;
+  color: white;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.permise-hero-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-title-size);
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.permise-hero-subtitle {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-subtitle-size);
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .permise-hero-title {
+    font-size: clamp(22px, 7vw, 40px);
+    letter-spacing: 1px;
+  }
+  .permise-hero-subtitle {
+    font-size: clamp(14px, 4vw, 20px);
+  }
+}
+
+/* ============================================================
+   SECTION 1 – INTRO
+   ============================================================ */
+
+.permise-intro-section {
+  background: #ffffff;
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.permise-intro-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.permise-intro-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #136B38;
+  margin-bottom: 30px;
+  line-height: 1.2;
+}
+
+.permise-intro-text {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.8;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .permise-intro-section {
+    padding: 50px 25px;
+  }
+  .permise-intro-title {
+    font-size: clamp(20px, 5vw, 30px);
+  }
+  .permise-intro-text {
+    font-size: clamp(14px, 3.5vw, 17px);
+    text-align: left;
+  }
+}
+
+/* ============================================================
+   SECTION 2 – ACCORDION ON BG IMAGE
+   ============================================================ */
+
+.permise-services-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.permise-services-overlay {
+  background: rgba(0, 0, 0, 0.65);
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.permise-services-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.permise-services-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: white;
+  text-align: center;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+}
+
+/* Accordion */
+.permise-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.permise-accordion-item {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease;
+}
+
+.permise-accordion-item.open {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #D4A017;
+}
+
+.permise-accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.permise-accordion-header:hover .permise-accordion-title {
+  color: #D4A017;
+}
+
+.permise-accordion-item.open .permise-accordion-title {
+  color: #D4A017;
+}
+
+.permise-accordion-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--content-large);
+  color: white;
+  line-height: 1.3;
+  transition: color 0.2s ease;
+}
+
+.permise-accordion-icon {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 24px;
+  color: #D4A017;
+  flex-shrink: 0;
+  line-height: 1;
+  width: 28px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.permise-accordion-item.open .permise-accordion-icon {
+  transform: rotate(0deg);
+}
+
+/* Accordion body (animated expand) */
+.permise-accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.permise-accordion-item.open .permise-accordion-body {
+  max-height: 600px;
+}
+
+.permise-accordion-list {
+  list-style: none;
+  padding: 0 28px 24px 28px;
+  margin: 0;
+}
+
+.permise-accordion-list li {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-medium);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  padding-left: 22px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.permise-accordion-list li:last-child {
+  margin-bottom: 0;
+}
+
+.permise-accordion-list li::before {
+  content: '●';
+  color: #D4A017;
+  font-size: 10px;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+.permise-services-footer {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.permise-services-footer .btn {
+  --color: #D4A017;
+}
+
+@media (max-width: 768px) {
+  .permise-services-title {
+    font-size: clamp(20px, 5vw, 30px);
+    margin-bottom: 35px;
+  }
+  .permise-accordion-header {
+    padding: 18px 20px;
+  }
+  .permise-accordion-title {
+    font-size: clamp(14px, 3.5vw, 17px);
+  }
+  .permise-accordion-list {
+    padding: 0 20px 20px 20px;
+  }
+  .permise-accordion-list li {
+    font-size: clamp(13px, 3vw, 15px);
+  }
+}
+
+/* ============================================================
+   SECTION 3 – DE CE ESTE IMPORTANT
+   ============================================================ */
+
+.permise-why-section {
+  background: #f8f9fa;
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.permise-why-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.permise-why-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #136B38;
+  margin-bottom: 40px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.permise-why-content p {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.permise-why-content p::before {
+  content: '●';
+  color: #D4A017;
+  font-size: 14px;
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+
+.permise-why-content p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .permise-why-title {
+    font-size: clamp(18px, 5vw, 28px);
+    text-align: left;
+  }
+  .permise-why-content p {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+}
+
+/* ============================================================
+   SECTION 4 – ROUTE SURVEY
+   ============================================================ */
+
+.permise-route-section {
+  background: #ffffff;
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.permise-route-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.permise-route-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #136B38;
+  margin-bottom: 40px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.permise-route-content p {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.permise-route-content p::before {
+  content: '●';
+  color: #D4A017;
+  font-size: 14px;
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+
+.permise-route-content p:last-child {
+  margin-bottom: 0;
+}
+
+.permise-route-question {
+  font-family: 'Gotham Bold', sans-serif !important;
+  color: #2c3e50 !important;
+  font-size: var(--content-large) !important;
+}
+
+@media (max-width: 768px) {
+  .permise-route-title {
+    font-size: clamp(18px, 5vw, 28px);
+    text-align: left;
+  }
+  .permise-route-content p {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+}
+
+/* ============================================================
+   SECTION 5 – ROUTE SURVEY INCLUDES (BG IMAGE)
+   ============================================================ */
+
+.permise-includes-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.permise-includes-overlay {
+  background: rgba(0, 0, 0, 0.65);
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.permise-includes-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.permise-includes-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: white;
+  margin-bottom: 40px;
+  line-height: 1.3;
+}
+
+.permise-includes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.permise-includes-list li {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.7;
+  padding-left: 30px;
+  position: relative;
+}
+
+.permise-includes-list li::before {
+  content: '●';
+  color: #D4A017;
+  font-size: 14px;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+@media (max-width: 768px) {
+  .permise-includes-title {
+    font-size: clamp(18px, 5vw, 28px);
+  }
+  .permise-includes-list li {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+}
+
+/* ============================================================
+   SHARED: SERVICES NAV SECTION
+   ============================================================ */
+
+.services-nav-section {
+  padding: clamp(60px, 8vw, 80px) clamp(40px, 8vw, 80px);
+  background: white;
+}
+
+.services-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.services-nav-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--page-title-size);
+  margin-bottom: clamp(40px, 6vw, 60px);
+  color: #333;
+}
+
+.services-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.service-nav-item {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: clamp(30px, 4vw, 40px);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-nav-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  filter: drop-shadow(0 10px 25px rgba(19, 107, 56, 0.6));
+  background: white;
+}
+
+.service-nav-icon {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.service-nav-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.service-nav-item h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2.2vw, 20px);
+  margin: 0;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .services-nav-section {
+    padding: 50px 25px;
+  }
+  .services-nav-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 300px;
+  }
+}
+
+/* ============================================================
+   SHARED: DISCOVER PROJECTS CTA
+   ============================================================ */
+
+.discover-projects-section {
+  background: #136B38;
+  padding: 35px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.discover-projects-section:hover {
+  background: #115830;
+}
+
+.discover-projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.discover-projects-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  text-align: center;
+}
+
+.discover-projects-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2.4vw, 26px);
+  color: white;
+  margin: 0;
+  font-weight: bold;
+}
+
+.discover-play-button {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.discover-play-button:hover {
+  transform: scale(1.1);
+}
+
+.discover-play-button img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .discover-projects-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .discover-projects-title {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+}
+
+/* ============================================================
+   SHARED: BTN
+   ============================================================ */
+
+.btn {
+  --color: #136B38;
+  --color2: rgb(255, 255, 255);
+  padding: 0.8em 1.75em;
+  background-color: transparent;
+  border-radius: 6px;
+  border: 0.3px solid var(--color);
+  transition: 0.5s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  font-weight: 300;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--color);
+  font-family: 'Gotham Bold', sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn span {
+  position: relative;
+  z-index: 10;
+}
+
+.btn::after,
+.btn::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: skew(90deg) translate(-50%, -50%);
+  position: absolute;
+  inset: 50%;
+  left: 25%;
+  z-index: -1;
+  transition: 0.5s ease-out;
+  background-color: var(--color);
+}
+
+.btn::before {
+  top: -50%;
+  left: -25%;
+  transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn:hover::before {
+  transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn:hover::after {
+  transform: skew(45deg) translate(-50%, -50%);
+}
+
+.btn:hover {
+  color: var(--color2);
+}
+
+.btn:active {
+  filter: brightness(0.7);
+  transform: scale(0.98);
+}

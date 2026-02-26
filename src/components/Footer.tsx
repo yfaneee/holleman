@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
                 <li><a href="/transport-marfuri-agabaritice" translate="yes">Transporturi marfuri agabaritice si grele</a></li>
                 <li><a href="/relocari-industriale" translate="yes">Relocari industriale - manipulare, montaje</a></li>
                 <li><a href="/portops"><span translate="yes">Operatiuni portuare</span></a></li>
-                <li><a href="/..." translate="yes">Pemise si insotire agabaritice</a></li>
+                <li><a href="/permise-si-insotire-agabaritice" translate="yes">Permise si insotire agabaritice</a></li>
                 <li><a href="/transport-marfuri-generale" translate="yes">Transport marfuri generale</a></li>
               </ul>
             </nav>

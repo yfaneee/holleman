@@ -17,6 +17,7 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import ArticlePage from './pages/ArticlePage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Permise from './pages/Permise';
 import ScrollToTop from './components/ScrollToTop';
 import RouteChangeHandler from './components/RouteChangeHandler';
 import CookieConsent from './components/CookieConsent';
@@ -48,6 +49,7 @@ function App() {
               <Route path="/blog/:articleId" element={<ArticlePage />} />
               <Route path="/comunicare" element={<Blog />} />
               <Route path="/comunicare/:articleId" element={<ArticlePage />} />
+              <Route path="/permise-si-insotire-agabaritice" element={<Permise />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>
             <CookieConsent />
