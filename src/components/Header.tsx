@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   const getActiveNav = () => {
     const path = location.pathname;
     if (path === '/') return 'acasa';
-    if (path === '/sectoare-economice-deservite' || path.startsWith('/sectoare-economice-deservite/')) return 'sectoare-economice-deservite';
+    if (path === '/industrii-deservite' || path.startsWith('/industrii-deservite/')) return 'industrii-deservite';
     if (path === '/despre-noi') return 'despre-noi';
     if (path === '/transport-marfuri-agabaritice' || path === '/relocari-industriale' || path === '/transport-marfuri-generale' || path === '/portops' || path === '/permise-si-insotire-agabaritice') return 'cum-va-sprijinim';
     if (path === '/proiecte' || path.startsWith('/proiecte/')) return 'proiecte';
@@ -56,8 +56,12 @@ const Header: React.FC = () => {
     navigate('/despre-noi');
   };
 
-  const navigateToSectoareEconomiceDeservite = () => {
-    navigate('/sectoare-economice-deservite');
+  const navigateToContact = () => {
+    navigate('/contact');
+  };
+
+  const navigateToIndustriiDeservite = () => {
+    navigate('/industrii-deservite');
   };
 
   return (
@@ -76,8 +80,8 @@ const Header: React.FC = () => {
               <span>ACASA</span>
             </div>
 
-            <div className={`nav-item nav-item-multiline ${activeNav === 'sectoare-economice-deservite' ? 'active' : ''}`} onClick={navigateToSectoareEconomiceDeservite}>
-              <span>SECTOARE ECONOMICE DESERVITE</span>
+            <div className={`nav-item nav-item-multiline ${activeNav === 'industrii-deservite' ? 'active' : ''}`} onClick={navigateToIndustriiDeservite}>
+              <span>INDUSTRII DESERVITE</span>
             </div>
 
             <div 
@@ -85,7 +89,7 @@ const Header: React.FC = () => {
               onMouseEnter={() => handleDropdownHover('cum-va-sprijinim')}
               onMouseLeave={handleDropdownLeave}
             >
-              <span>CUM VA SPRIJINIM</span>
+              <span>SERVICII</span>
               <span className="dropdown-arrow">▼</span>
               {activeDropdown === 'cum-va-sprijinim' && (
                 <div className="dropdown-menu" role="menu">
@@ -114,20 +118,8 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            <div 
-              className={`nav-item dropdown ${activeNav === 'echipamente-resurse' ? 'active' : ''}`}
-              onMouseEnter={() => handleDropdownHover('echipamente-resurse')}
-              onMouseLeave={handleDropdownLeave}
-            >
-              <span>ECHIPAMENTE & RESURSE</span>
-              <span className="dropdown-arrow">▼</span>
-              {activeDropdown === 'echipamente-resurse' && (
-                <div className="dropdown-menu" role="menu">
-                  <a href="/fleet" role="menuitem" aria-label="Flota Transport">Flota Transport</a>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#" role="menuitem" aria-label="Echipamente Manutanta">Echipamente Manutanta</a>
-                </div>
-              )}
+            <div className={`nav-item ${activeNav === 'echipamente-resurse' ? 'active' : ''}`} onClick={() => navigate('/fleet')}>
+              <span>FLOTA & UTILAJE</span>
             </div>
 
             <div className={`nav-item ${activeNav === 'despre-noi' ? 'active' : ''}`} onClick={navigateToDespreNoi}>
@@ -138,19 +130,8 @@ const Header: React.FC = () => {
               <span>COMUNICARE</span>
             </div>
             
-            <div 
-              className={`nav-item dropdown ${activeNav === 'contact' ? 'active' : ''}`}
-              onMouseEnter={() => handleDropdownHover('contact')}
-              onMouseLeave={handleDropdownLeave}
-            >
+            <div className={`nav-item ${activeNav === 'contact' ? 'active' : ''}`} onClick={navigateToContact}>
               <span>CONTACT</span>
-              <span className="dropdown-arrow">▼</span>
-              {activeDropdown === 'contact' && (
-                <div className="dropdown-menu" role="menu">
-                  <a href="/contact" role="menuitem" aria-label="Contacteaza-ne">Contacteaza-ne</a>
-                  <a href="/cariere" role="menuitem" aria-label="Cariere">Cariere</a>
-                </div>
-              )}
             </div>
     
           </nav>

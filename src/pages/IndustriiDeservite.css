@@ -1,0 +1,394 @@
+/* ============================================================
+   INDUSTRII DESERVITE PAGE
+   ============================================================ */
+
+.industrii-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.industrii-hero {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.industrii-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.industrii-hero-content {
+  text-align: center;
+  color: white;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.industrii-hero-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-title-size);
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   MAIN CONTENT SECTION
+   ============================================================ */
+
+.industrii-content-section {
+  background: #fff;
+  padding: 80px 40px;
+}
+
+.industrii-content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.industrii-section-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #136B38;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.industrii-section-text {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.8;
+  max-width: 860px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+
+/* ============================================================
+   TRANSPORT GRID
+   ============================================================ */
+
+.industrii-transport-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 32px;
+  border-top: 2px solid #e8e8e8;
+  padding-top: 48px;
+}
+
+.industrii-transport-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.industrii-transport-icon {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.industrii-transport-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.industrii-transport-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--content-medium, 15px);
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.industrii-transport-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.industrii-transport-list li {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--content-small, 13px);
+  color: #555;
+  line-height: 2;
+}
+
+/* ============================================================
+   SERVICII CHEIE SECTION
+   ============================================================ */
+
+.industrii-servicii-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.industrii-servicii-overlay {
+  background: rgba(0, 0, 0, 0.60);
+  padding: 80px 40px;
+}
+
+.industrii-servicii-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.industrii-servicii-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+}
+
+.industrii-servicii-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.industrii-servicii-list li {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: var(--content-large);
+  color: #fff;
+  line-height: 1.7;
+  padding-left: 28px;
+  position: relative;
+}
+
+.industrii-servicii-list li::before {
+  content: '●';
+  color: #D4A017;
+  font-size: 12px;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+/* ============================================================
+   UNDE LIVRAM VALOARE SECTION
+   ============================================================ */
+
+.industrii-unde-section {
+  background: #fff;
+  padding: 80px 40px;
+}
+
+.industrii-unde-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.industrii-unde-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #136B38;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.industrii-unde-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 280px);
+  gap: 0;
+}
+
+.industrii-unde-card {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.industrii-unde-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(19, 107, 56, 0.70);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  transition: opacity 0.35s ease;
+}
+
+.industrii-unde-card:hover .industrii-unde-overlay {
+  opacity: 0;
+}
+
+.industrii-unde-card-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--content-medium, 16px);
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.industrii-unde-card-text {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: var(--content-small, 13px);
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================================
+   CTA SECTION
+   ============================================================ */
+
+.industrii-cta-section {
+  background-color: #136B38;
+  padding: 40px 40px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.industrii-cta-section:hover {
+  background-color: #0f5530;
+}
+
+.industrii-cta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.industrii-cta-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.industrii-cta-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-medium, 28px);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.industrii-cta-button img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .industrii-transport-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .industrii-unde-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 240px);
+  }
+}
+
+@media (max-width: 768px) {
+  .industrii-hero-title {
+    font-size: clamp(24px, 6vw, 48px);
+    letter-spacing: 1px;
+  }
+
+  .industrii-content-section {
+    padding: 60px 24px;
+  }
+
+  .industrii-transport-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding-top: 32px;
+  }
+
+  .industrii-section-text {
+    margin-bottom: 40px;
+  }
+
+  .industrii-servicii-overlay {
+    padding: 60px 24px;
+  }
+
+  .industrii-unde-section {
+    padding: 60px 24px;
+  }
+
+  .industrii-unde-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 200px);
+  }
+
+  .industrii-cta-section {
+    padding: 32px 24px;
+  }
+
+  .industrii-cta-title {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+
+  .industrii-cta-button img {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .industrii-transport-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .industrii-transport-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .industrii-unde-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, 200px);
+  }
+}

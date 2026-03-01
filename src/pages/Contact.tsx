@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import HollemanMap from '../components/HollemanMap';
 import { useEmailForm } from '../hooks/useEmailForm';
 import { ContactFormData, isValidEmail, isValidPhone } from '../services/emailService';
 import { useLanguage } from '../context/LanguageContext';
@@ -1177,16 +1178,7 @@ const Contact: React.FC = () => {
         <div className="location-container">
           <div className="location-content">
             <div className="map-container">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1850.318501834485!2d26.102393031937627!3d44.339111155963934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ae019bb55c84a3%3A0x2bc4b1774827add9!2sHolleman%20Special%20Transport%20%26%20Project%20Cargo%20-%20transport%20agabaritic!5e0!3m2!1sro!2snl!4v1755968145616!5m2!1sro!2snl"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Hartă locație Holleman Special Transport & Project Cargo, București"
-              ></iframe>
+              <HollemanMap />
             </div>
             
             <div className="contact-info">
