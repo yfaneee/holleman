@@ -4,14 +4,11 @@ import Footer from '../components/Footer';
 import HollemanMap from '../components/HollemanMap';
 import { useEmailForm } from '../hooks/useEmailForm';
 import { ContactFormData, isValidEmail, isValidPhone } from '../services/emailService';
-import { useLanguage } from '../context/LanguageContext';
 import './Contact.css';
 import '../styles/forms.css';
 
 const Contact: React.FC = () => {
-  const [selectedService, setSelectedService] = useState<string | null>(null);
   const { isLoading, isSuccess, error, submitContactForm, resetForm } = useEmailForm();
-  const { currentLanguage } = useLanguage();
   
   // State for contact locations from Strapi
   const [location1, setLocation1] = useState<any>(null);
@@ -26,464 +23,67 @@ const Contact: React.FC = () => {
   // Form state
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
-    contactPerson: '',
     phone: '',
     email: '',
-    website: '',
-    subject: '',
-    message: '',
-    cargoDescription: '',
-    dimensions: '',
-    weight: '',
+    description: '',
     pickupLocation: '',
     destinationLocation: '',
-    deliveryDate: '',
-    specialRequirements: '',
-    additionalServices: []
+    additionalServices: [],
   });
-  
+
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [gdprAccepted, setGdprAccepted] = useState(false);
 
-  // Static validation messages in multiple languages
-  const validationMessages = {
-    ro: {
-      nameRequired: 'Numele este obligatoriu',
-      contactPersonRequired: 'Persoana de contact este obligatorie',
-      phoneRequired: 'Telefonul este obligatoriu',
-      phoneInvalid: 'Formatul telefonului nu este valid',
-      emailRequired: 'Email-ul este obligatoriu',
-      emailInvalid: 'Formatul email-ului nu este valid',
-      cargoDescriptionRequired: 'Descrierea încărcăturii este obligatorie',
-      pickupLocationRequired: 'Punctul de plecare este obligatoriu',
-      destinationLocationRequired: 'Punctul de destinație este obligatoriu'
-    },
-    en: {
-      nameRequired: 'Name is required',
-      contactPersonRequired: 'Contact person is required',
-      phoneRequired: 'Phone is required',
-      phoneInvalid: 'Phone format is invalid',
-      emailRequired: 'Email is required',
-      emailInvalid: 'Email format is invalid',
-      cargoDescriptionRequired: 'Cargo description is required',
-      pickupLocationRequired: 'Pickup location is required',
-      destinationLocationRequired: 'Destination location is required'
-    },
-    de: {
-      nameRequired: 'Name ist erforderlich',
-      contactPersonRequired: 'Ansprechpartner ist erforderlich',
-      phoneRequired: 'Telefon ist erforderlich',
-      phoneInvalid: 'Telefonformat ist ungültig',
-      emailRequired: 'E-Mail ist erforderlich',
-      emailInvalid: 'E-Mail-Format ist ungültig',
-      cargoDescriptionRequired: 'Ladungsbeschreibung ist erforderlich',
-      pickupLocationRequired: 'Abholort ist erforderlich',
-      destinationLocationRequired: 'Zielort ist erforderlich'
-    },
-    fr: {
-      nameRequired: 'Le nom est requis',
-      contactPersonRequired: 'La personne de contact est requise',
-      phoneRequired: 'Le téléphone est requis',
-      phoneInvalid: 'Le format du téléphone est invalide',
-      emailRequired: 'L\'email est requis',
-      emailInvalid: 'Le format de l\'email est invalide',
-      cargoDescriptionRequired: 'La description du fret est requise',
-      pickupLocationRequired: 'Le lieu de collecte est requis',
-      destinationLocationRequired: 'Le lieu de destination est requis'
-    },
-    es: {
-      nameRequired: 'El nombre es requerido',
-      contactPersonRequired: 'La persona de contacto es requerida',
-      phoneRequired: 'El teléfono es requerido',
-      phoneInvalid: 'El formato del teléfono es inválido',
-      emailRequired: 'El email es requerido',
-      emailInvalid: 'El formato del email es inválido',
-      cargoDescriptionRequired: 'La descripción de la carga es requerida',
-      pickupLocationRequired: 'El lugar de recogida es requerido',
-      destinationLocationRequired: 'El lugar de destino es requerido'
-    },
-    it: {
-      nameRequired: 'Il nome è richiesto',
-      contactPersonRequired: 'La persona di contatto è richiesta',
-      phoneRequired: 'Il telefono è richiesto',
-      phoneInvalid: 'Il formato del telefono non è valido',
-      emailRequired: 'L\'email è richiesta',
-      emailInvalid: 'Il formato dell\'email non è valido',
-      cargoDescriptionRequired: 'La descrizione del carico è richiesta',
-      pickupLocationRequired: 'Il luogo di ritiro è richiesto',
-      destinationLocationRequired: 'Il luogo di destinazione è richiesto'
-    },
-    hu: {
-      nameRequired: 'A név kötelező',
-      contactPersonRequired: 'A kapcsolattartó kötelező',
-      phoneRequired: 'A telefon kötelező',
-      phoneInvalid: 'A telefon formátuma érvénytelen',
-      emailRequired: 'Az email kötelező',
-      emailInvalid: 'Az email formátuma érvénytelen',
-      cargoDescriptionRequired: 'A rakomány leírása kötelező',
-      pickupLocationRequired: 'A felvételi hely kötelező',
-      destinationLocationRequired: 'A célhely kötelező'
-    },
-    bg: {
-      nameRequired: 'Името е задължително',
-      contactPersonRequired: 'Лицето за контакт е задължително',
-      phoneRequired: 'Телефонът е задължителен',
-      phoneInvalid: 'Форматът на телефона е невалиден',
-      emailRequired: 'Имейлът е задължителен',
-      emailInvalid: 'Форматът на имейла е невалиден',
-      cargoDescriptionRequired: 'Описанието на товара е задължително',
-      pickupLocationRequired: 'Мястото за вземане е задължително',
-      destinationLocationRequired: 'Местоназначението е задължително'
-    },
-    sr: {
-      nameRequired: 'Име је обавезно',
-      contactPersonRequired: 'Контакт особа је обавезна',
-      phoneRequired: 'Телефон је обавезан',
-      phoneInvalid: 'Формат телефона није валидан',
-      emailRequired: 'Емаил је обавезан',
-      emailInvalid: 'Формат емаила није валидан',
-      cargoDescriptionRequired: 'Опис терета је обавезан',
-      pickupLocationRequired: 'Место преузимања је обавезно',
-      destinationLocationRequired: 'Одредиште је обавезно'
-    }
-  };
-
-  // Static translations for form placeholders
-  const placeholderTranslations = {
-    ro: {
-      nameCompany: 'Nume și prenume / Companie *',
-      contactPerson: 'Persoană de contact *',
-      phone: 'Telefon *',
-      email: 'Email *',
-      website: 'Website companie',
-      subject: 'Subiect',
-      message: 'Mesaj...',
-      cargoDescription: 'Descrierea încărcăturii/proiect *',
-      dimensions: 'Dimensiuni (L x l x h)',
-      weight: 'Greutate (kg)',
-      pickupLocation: 'Punct de plecare (Localitate și țară) *',
-      destinationLocation: 'Punct de destinație (Localitate și țară) *',
-      deliveryDate: 'Termen estimativ pentru livrare',
-      specialRequirements: 'Alte mențiuni / cerințe speciale',
-      attachedDocuments: 'Documente atașate',
-      gdprConsent: 'Consimțământ prelucrare date personale (GDPR) *'
-    },
-    en: {
-      nameCompany: 'Name and surname / Company *',
-      contactPerson: 'Contact person *',
-      phone: 'Phone *',
-      email: 'Email *',
-      website: 'Company website',
-      subject: 'Subject',
-      message: 'Message...',
-      cargoDescription: 'Cargo/project description *',
-      dimensions: 'Dimensions (L x W x H)',
-      weight: 'Weight (kg)',
-      pickupLocation: 'Pickup location (City and country) *',
-      destinationLocation: 'Destination location (City and country) *',
-      deliveryDate: 'Estimated delivery date',
-      specialRequirements: 'Other mentions / special requirements',
-      attachedDocuments: 'Attached documents',
-      gdprConsent: 'Personal data processing consent (GDPR) *'
-    },
-    de: {
-      nameCompany: 'Name und Vorname / Unternehmen *',
-      contactPerson: 'Ansprechpartner *',
-      phone: 'Telefon *',
-      email: 'E-Mail *',
-      website: 'Firmen-Website',
-      subject: 'Betreff',
-      message: 'Nachricht...',
-      cargoDescription: 'Fracht-/Projektbeschreibung *',
-      dimensions: 'Abmessungen (L x B x H)',
-      weight: 'Gewicht (kg)',
-      pickupLocation: 'Abholort (Stadt und Land) *',
-      destinationLocation: 'Zielort (Stadt und Land) *',
-      deliveryDate: 'Voraussichtliches Lieferdatum',
-      specialRequirements: 'Sonstige Hinweise / besondere Anforderungen',
-      attachedDocuments: 'Angehängte Dokumente',
-      gdprConsent: 'Einverständnis zur Verarbeitung personenbezogener Daten (DSGVO) *'
-    },
-    fr: {
-      nameCompany: 'Nom et prénom / Entreprise *',
-      contactPerson: 'Personne de contact *',
-      phone: 'Téléphone *',
-      email: 'Email *',
-      website: 'Site web de l\'entreprise',
-      subject: 'Sujet',
-      message: 'Message...',
-      cargoDescription: 'Description du fret/projet *',
-      dimensions: 'Dimensions (L x l x h)',
-      weight: 'Poids (kg)',
-      pickupLocation: 'Lieu de collecte (Ville et pays) *',
-      destinationLocation: 'Lieu de destination (Ville et pays) *',
-      deliveryDate: 'Date de livraison estimée',
-      specialRequirements: 'Autres mentions / exigences spéciales',
-      attachedDocuments: 'Documents joints',
-      gdprConsent: 'Consentement au traitement des données personnelles (RGPD) *'
-    },
-    es: {
-      nameCompany: 'Nombre y apellido / Empresa *',
-      contactPerson: 'Persona de contacto *',
-      phone: 'Teléfono *',
-      email: 'Email *',
-      website: 'Sitio web de la empresa',
-      subject: 'Asunto',
-      message: 'Mensaje...',
-      cargoDescription: 'Descripción de la carga/proyecto *',
-      dimensions: 'Dimensiones (L x A x H)',
-      weight: 'Peso (kg)',
-      pickupLocation: 'Lugar de recogida (Ciudad y país) *',
-      destinationLocation: 'Lugar de destino (Ciudad y país) *',
-      deliveryDate: 'Fecha estimada de entrega',
-      specialRequirements: 'Otras menciones / requisitos especiales',
-      attachedDocuments: 'Documentos adjuntos',
-      gdprConsent: 'Consentimiento para el procesamiento de datos personales (RGPD) *'
-    },
-    it: {
-      nameCompany: 'Nome e cognome / Azienda *',
-      contactPerson: 'Persona di contatto *',
-      phone: 'Telefono *',
-      email: 'Email *',
-      website: 'Sito web aziendale',
-      subject: 'Oggetto',
-      message: 'Messaggio...',
-      cargoDescription: 'Descrizione del carico/progetto *',
-      dimensions: 'Dimensioni (L x l x h)',
-      weight: 'Peso (kg)',
-      pickupLocation: 'Luogo di ritiro (Città e paese) *',
-      destinationLocation: 'Luogo di destinazione (Città e paese) *',
-      deliveryDate: 'Data di consegna stimata',
-      specialRequirements: 'Altre menzioni / requisiti speciali',
-      attachedDocuments: 'Documenti allegati',
-      gdprConsent: 'Consenso al trattamento dei dati personali (GDPR) *'
-    },
-    hu: {
-      nameCompany: 'Név és vezetéknév / Vállalat *',
-      contactPerson: 'Kapcsolattartó *',
-      phone: 'Telefon *',
-      email: 'Email *',
-      website: 'Vállalati weboldal',
-      subject: 'Tárgy',
-      message: 'Üzenet...',
-      cargoDescription: 'Rakomány/projekt leírása *',
-      dimensions: 'Méretek (H x Sz x M)',
-      weight: 'Súly (kg)',
-      pickupLocation: 'Felvételi hely (Város és ország) *',
-      destinationLocation: 'Célhely (Város és ország) *',
-      deliveryDate: 'Becsült szállítási dátum',
-      specialRequirements: 'Egyéb megjegyzések / különleges követelmények',
-      attachedDocuments: 'Csatolt dokumentumok',
-      gdprConsent: 'Személyes adatok kezelésének hozzájárulása (GDPR) *'
-    },
-    bg: {
-      nameCompany: 'Име и фамилия / Компания *',
-      contactPerson: 'Лице за контакт *',
-      phone: 'Телефон *',
-      email: 'Имейл *',
-      website: 'Уебсайт на компанията',
-      subject: 'Тема',
-      message: 'Съобщение...',
-      cargoDescription: 'Описание на товара/проекта *',
-      dimensions: 'Размери (Д x Ш x В)',
-      weight: 'Тегло (кг)',
-      pickupLocation: 'Място за вземане (Град и страна) *',
-      destinationLocation: 'Местоназначение (Град и страна) *',
-      deliveryDate: 'Очаквана дата на доставка',
-      specialRequirements: 'Други бележки / специални изисквания',
-      attachedDocuments: 'Прикачени документи',
-      gdprConsent: 'Съгласие за обработка на лични данни (GDPR) *'
-    },
-    sr: {
-      nameCompany: 'Име и презиме / Компанија *',
-      contactPerson: 'Контакт особа *',
-      phone: 'Телефон *',
-      email: 'Емаил *',
-      website: 'Веб сајт компаније',
-      subject: 'Предмет',
-      message: 'Порука...',
-      cargoDescription: 'Опис терета/пројекта *',
-      dimensions: 'Димензије (Д x Ш x В)',
-      weight: 'Тежина (кг)',
-      pickupLocation: 'Место преузимања (Град и земља) *',
-      destinationLocation: 'Одредиште (Град и земља) *',
-      deliveryDate: 'Процењени датум испоруке',
-      specialRequirements: 'Остале напомене / посебни захтеви',
-      attachedDocuments: 'Приложени документи',
-      gdprConsent: 'Сагласност за обраду личних података (GDPR) *'
-    }
-  };
-
-  // Helper function to get translated placeholder
-  const getPlaceholder = (key: string): string => {
-    const langCode = currentLanguage.code as keyof typeof placeholderTranslations;
-    const placeholders = placeholderTranslations[langCode] || placeholderTranslations.ro;
-    return placeholders[key as keyof typeof placeholders] || placeholderTranslations.ro[key as keyof typeof placeholderTranslations.ro] || '';
-  };
-
-  // Helper function to get translated validation message
-  const getValidationMessage = (key: string): string => {
-    const langCode = currentLanguage.code as keyof typeof validationMessages;
-    const messages = validationMessages[langCode] || validationMessages.ro;
-    return messages[key as keyof typeof messages] || validationMessages.ro[key as keyof typeof validationMessages.ro] || '';
-  };
-
-  // Service data
-  const services = [
-    {
-      id: 'project-cargo',
-      title: 'HOLLEMAN SPECIAL TRANSPORT & PROJECT CARGO',
-      icon: '/images/icons/iconprojectcargo.webp'
-    },
-    {
-      id: 'itl',
-      title: 'INTER TRANS LOGISTICS',
-      icon: '/images/icons/iconinternational.webp'
-    },
-    {
-      id: 'heavy-lift',
-      title: 'HOLLEMAN HEAVY LIFT',
-      icon: '/images/icons/heavy.webp'
-    },
-    {
-      id: 'portops',
-      title: 'PORT OPERATIONS',
-      icon: '/images/icons/Anchor.webp'
-    }
-  ];
-
-  // Handle return to general form with smooth transition
-  const handleReturnToGeneral = () => {
-    // Add a slight fade effect before changing
-    const formContent = document.querySelector('.contact-form-content') as HTMLElement;
-    if (formContent) {
-      formContent.style.opacity = '0.7';
-      formContent.style.transform = 'translateY(-10px)';
-    }
-    
-    setTimeout(() => {
-      setSelectedService(null);
-      resetForm();
-      setFormData({
-        name: '',
-        contactPerson: '',
-        phone: '',
-        email: '',
-        website: '',
-        subject: '',
-        message: '',
-        cargoDescription: '',
-        dimensions: '',
-        weight: '',
-        pickupLocation: '',
-        destinationLocation: '',
-        deliveryDate: '',
-        specialRequirements: '',
-        additionalServices: []
-      });
-      setValidationErrors({});
-      
-      // Reset the transition after state change
-      setTimeout(() => {
-        if (formContent) {
-          formContent.style.opacity = '1';
-          formContent.style.transform = 'translateY(0)';
-        }
-      }, 50);
-    }, 200);
-  };
-
-  // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear validation error when user starts typing
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (validationErrors[name]) {
-      setValidationErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+      setValidationErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
-  // Handle checkbox changes
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, checked } = e.target;
+    const { value, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      additionalServices: checked 
-        ? [...(prev.additionalServices || []), id]
-        : (prev.additionalServices || []).filter(service => service !== id)
+      additionalServices: checked
+        ? [...(prev.additionalServices || []), value]
+        : (prev.additionalServices || []).filter(s => s !== value),
     }));
   };
 
-  // Handle file selection
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFiles(e.target.files);
-  };
-
-  // Validate form
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
-    
-    if (!formData.name.trim()) {
-      errors.name = getValidationMessage('nameRequired');
-    }
-    
-    if (!formData.contactPerson.trim()) {
-      errors.contactPerson = getValidationMessage('contactPersonRequired');
-    }
-    
+    if (!formData.name.trim()) errors.name = 'Numele este obligatoriu';
     if (!formData.phone.trim()) {
-      errors.phone = getValidationMessage('phoneRequired');
+      errors.phone = 'Telefonul este obligatoriu';
     } else if (!isValidPhone(formData.phone)) {
-      errors.phone = getValidationMessage('phoneInvalid');
+      errors.phone = 'Formatul telefonului nu este valid';
     }
-    
     if (!formData.email.trim()) {
-      errors.email = getValidationMessage('emailRequired');
+      errors.email = 'Email-ul este obligatoriu';
     } else if (!isValidEmail(formData.email)) {
-      errors.email = getValidationMessage('emailInvalid');
+      errors.email = 'Formatul email-ului nu este valid';
     }
-    
-    // Service-specific validation
-    if (selectedService) {
-      if (!formData.cargoDescription?.trim()) {
-        errors.cargoDescription = getValidationMessage('cargoDescriptionRequired');
-      }
-      
-      if (!formData.pickupLocation?.trim()) {
-        errors.pickupLocation = getValidationMessage('pickupLocationRequired');
-      }
-      
-      if (!formData.destinationLocation?.trim()) {
-        errors.destinationLocation = getValidationMessage('destinationLocationRequired');
-      }
-    }
-    
+    if (!formData.description.trim()) errors.description = 'Descrierea este obligatorie';
+    if (!gdprAccepted) errors.gdpr = 'Trebuie să acceptați prelucrarea datelor personale';
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
-    const submitData: ContactFormData = {
-      ...formData,
-      serviceType: selectedService ? services.find(s => s.id === selectedService)?.title : undefined,
-      files: selectedFiles
-    };
-    
-    await submitContactForm(submitData);
+    if (!validateForm()) return;
+    await submitContactForm({ ...formData, files: selectedFiles });
+  };
+
+  const handleReset = () => {
+    resetForm();
+    setFormData({ name: '', phone: '', email: '', description: '', pickupLocation: '', destinationLocation: '', additionalServices: [] });
+    setValidationErrors({});
+    setSelectedFiles(null);
+    setGdprAccepted(false);
   };
 
 
@@ -653,450 +253,156 @@ const Contact: React.FC = () => {
         </div>
       </section>
 
-      {/* Service Selection Section — hidden per client request */}
-      {/* <section id="cerere-oferta" className="service-selection-section">
-        <div className="service-selection-container">
-          <h2 className="service-selection-title animate-on-scroll fade-up">
-            Cerere ofertă – trimite solicitarea direct către divizia potrivită:
-          </h2>
-          
-          <div className="service-cards-grid animate-on-scroll stagger-children delay-200">
-            {services.map((service) => (
-              <div 
-                key={service.id}
-                className="service-item"
-                onClick={() => handleServiceSelection(service.id)}
-              >
-                <div className="service-icon">
-                  <img src={service.icon} alt={`${service.title} icon`} />
-                </div>
-                <h3>{service.title}</h3>
-                <p>cerere ofertă</p>
-                
-                <div className="service-overlay">
-                  <div className="service-icon-white">
-                    <img src={service.icon} alt={`${service.title} icon`} />
-                  </div>
-                  <h3>Cere o oferta</h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
       {/* Contact Form Section */}
-      <section 
+      <section
         id="formular-contact"
         className="contact-form-section"
       >
         <div className="contact-form-container">
-          {selectedService && (
-            <div className="form-section-title">
-              <h2>Formular de contact {services.find(s => s.id === selectedService)?.title}</h2>
-            </div>
-          )}
-          <div className={`contact-form-content ${selectedService ? 'service-selected' : ''}`}>
+          <div className="contact-form-content">
             <div className="form-left animate-on-scroll slide-from-left">
               <div className="form-box">
-                {!selectedService && (
-                  <h2 className="form-title animate-on-scroll fade-up delay-200">Formular de contact general</h2>
-                )}
-                
-                <form className="contact-form animate-on-scroll fade-up delay-300" onSubmit={handleSubmit}>
-                  {selectedService ? (
-                    /* Service-specific form with better layout */
-                    <div className="form-columns">
-                      <div className="form-column-left">
-                        {/* Basic Information */}
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            name="name"
-                            placeholder={getPlaceholder('nameCompany')}
-                            className={`form-input ${validationErrors.name ? 'error' : ''}`}
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {validationErrors.name && (
-                            <span className="error-message">{validationErrors.name}</span>
-                          )}
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            name="contactPerson"
-                            placeholder={getPlaceholder('contactPerson')}
-                            className={`form-input ${validationErrors.contactPerson ? 'error' : ''}`}
-                            value={formData.contactPerson}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {validationErrors.contactPerson && (
-                            <span className="error-message">{validationErrors.contactPerson}</span>
-                          )}
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="tel"
-                            name="phone"
-                            placeholder={getPlaceholder('phone')}
-                            className={`form-input ${validationErrors.phone ? 'error' : ''}`}
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {validationErrors.phone && (
-                            <span className="error-message">{validationErrors.phone}</span>
-                          )}
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="email"
-                            name="email"
-                            placeholder={getPlaceholder('email')}
-                            className={`form-input ${validationErrors.email ? 'error' : ''}`}
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {validationErrors.email && (
-                            <span className="error-message">{validationErrors.email}</span>
-                          )}
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="url"
-                            name="website"
-                            placeholder={getPlaceholder('website')}
-                            className="form-input"
-                            value={formData.website}
-                            onChange={handleInputChange}
-                          />
-                        </div>
+                <h2 className="form-title">Cerere de contact</h2>
 
-                        <div className="form-group">
-                          <textarea
-                            name="cargoDescription"
-                            placeholder={getPlaceholder('cargoDescription')}
-                            className={`form-textarea ${validationErrors.cargoDescription ? 'error' : ''}`}
-                            rows={4}
-                            value={formData.cargoDescription}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {validationErrors.cargoDescription && (
-                            <span className="error-message">{validationErrors.cargoDescription}</span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="form-column-right">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            name="dimensions"
-                            placeholder={getPlaceholder('dimensions')}
-                            className="form-input"
-                            value={formData.dimensions}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            name="weight"
-                            placeholder={getPlaceholder('weight')}
-                            className="form-input"
-                            value={formData.weight}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            name="pickupLocation"
-                            placeholder={getPlaceholder('pickupLocation')}
-                            className={`form-input ${validationErrors.pickupLocation ? 'error' : ''}`}
-                            value={formData.pickupLocation}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {validationErrors.pickupLocation && (
-                            <span className="error-message">{validationErrors.pickupLocation}</span>
-                          )}
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            name="destinationLocation"
-                            placeholder={getPlaceholder('destinationLocation')}
-                            className={`form-input ${validationErrors.destinationLocation ? 'error' : ''}`}
-                            value={formData.destinationLocation}
-                            onChange={handleInputChange}
-                            required
-                          />
-                          {validationErrors.destinationLocation && (
-                            <span className="error-message">{validationErrors.destinationLocation}</span>
-                          )}
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="date"
-                            name="deliveryDate"
-                            placeholder={getPlaceholder('deliveryDate')}
-                            className="form-input"
-                            value={formData.deliveryDate}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="file"
-                            className="form-file-input"
-                            multiple
-                            onChange={handleFileChange}
-                          />
-                          <label className="form-file-label">
-                            <span>{getPlaceholder('attachedDocuments')}</span>
-                            <img src="/images/folder-up.webp" alt="Upload" />
-                          </label>
-                        </div>
-                      </div>
-                      
-                      {/* Full width sections */}
-                      <div className="form-full-width">
-                        {/* Checkboxes for additional services */}
-                        <div className="form-checkboxes">
-                          <div className="checkbox-group">
-                            <input type="checkbox" id="autorizatii" onChange={handleCheckboxChange} />
-                            <label htmlFor="autorizatii">Obținere autorizații speciale</label>
-                          </div>
-                          
-                          <div className="checkbox-group">
-                            <input type="checkbox" id="escorta" onChange={handleCheckboxChange} />
-                            <label htmlFor="escorta">Escortă tehnică</label>
-                          </div>
-                          
-                          <div className="checkbox-group">
-                            <input type="checkbox" id="inchidere" onChange={handleCheckboxChange} />
-                            <label htmlFor="inchidere">Închidere drumuri / poduri</label>
-                          </div>
-                          
-                          <div className="checkbox-group">
-                            <input type="checkbox" id="macarale" onChange={handleCheckboxChange} />
-                            <label htmlFor="macarale">Manipulare cu macarale</label>
-                          </div>
-                          
-                          <div className="checkbox-group">
-                            <input type="checkbox" id="depozitare" onChange={handleCheckboxChange} />
-                            <label htmlFor="depozitare">Depozitare temporară</label>
-                          </div>
-                          
-                          <div className="checkbox-group">
-                            <input type="checkbox" id="consultanta" onChange={handleCheckboxChange} />
-                            <label htmlFor="consultanta">Consultanță tehnică</label>
-                          </div>
-                        </div>
-                        
-                        <div className="form-group">
-                          <textarea
-                            name="specialRequirements"
-                            placeholder={getPlaceholder('specialRequirements')}
-                            className="form-textarea"
-                            rows={3}
-                            value={formData.specialRequirements}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    /* General contact form */
-                    <>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder={getPlaceholder('nameCompany')}
-                          className={`form-input ${validationErrors.name ? 'error' : ''}`}
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        {validationErrors.name && (
-                          <span className="error-message">{validationErrors.name}</span>
-                        )}
-                      </div>
-                      
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name="contactPerson"
-                          placeholder={getPlaceholder('contactPerson')}
-                          className={`form-input ${validationErrors.contactPerson ? 'error' : ''}`}
-                          value={formData.contactPerson}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        {validationErrors.contactPerson && (
-                          <span className="error-message">{validationErrors.contactPerson}</span>
-                        )}
-                      </div>
-                      
-                      <div className="form-group">
-                        <input
-                          type="tel"
-                          name="phone"
-                          placeholder={getPlaceholder('phone')}
-                          className={`form-input ${validationErrors.phone ? 'error' : ''}`}
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        {validationErrors.phone && (
-                          <span className="error-message">{validationErrors.phone}</span>
-                        )}
-                      </div>
-                      
-                      <div className="form-group">
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder={getPlaceholder('email')}
-                          className={`form-input ${validationErrors.email ? 'error' : ''}`}
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                        />
-                        {validationErrors.email && (
-                          <span className="error-message">{validationErrors.email}</span>
-                        )}
-                      </div>
-                      
-                      <div className="form-group">
-                        <input
-                          type="url"
-                          name="website"
-                          placeholder={getPlaceholder('website')}
-                          className="form-input"
-                          value={formData.website}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                      
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name="subject"
-                          placeholder={getPlaceholder('subject')}
-                          className="form-input"
-                          value={formData.subject}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                      
-                      <div className="form-group">
-                        <textarea
-                          name="message"
-                          placeholder={getPlaceholder('message')}
-                          className="form-textarea"
-                          rows={5}
-                          value={formData.message}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {/* GDPR Consent */}
-                  <div className="checkbox-group gdpr-consent">
-                    <input type="checkbox" id="gdpr" required />
-                    <label htmlFor="gdpr">
-                      {getPlaceholder('gdprConsent')}
-                    </label>
-                  </div>
-
-                  {/* Success/Error Messages */}
-                  {isSuccess && (
-                    <div className="success-message">
-                      ✅ Mesajul a fost trimis cu succes! Vă vom contacta în curând.
-                    </div>
-                  )}
-                  
-                  {error && (
-                    <div className="error-message-box">
-                      ❌ {error}
-                    </div>
-                  )}
-
-                  <div className="form-buttons">
-                    <button 
-                      type="submit" 
-                      className={`submit-btn ${isLoading ? 'loading' : ''}`}
-                      disabled={isLoading}
-                    >
-                      {isLoading ? 'Se trimite...' : 'Trimite'}
+                {isSuccess ? (
+                  <div className="success-message">
+                    ✅ Mesajul a fost trimis cu succes! Vă vom contacta în curând.
+                    <button className="submit-btn" style={{ marginTop: '16px' }} onClick={handleReset}>
+                      Trimite o nouă cerere
                     </button>
-                    <div className="file-upload-wrapper">
-                      <input
-                        type="file"
-                        id="file-upload"
-                        name="fileUpload"
-                        multiple
-                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt"
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }}
-                      />
-                      <button 
-                        type="button" 
-                        className="cv-btn"
-                        onClick={() => document.getElementById('file-upload')?.click()}
-                      >
-                        <span className="cv-icon">
-                          <img src="/images/folder-up.webp" alt="Upload" />
-                        </span>
-                      </button>
-                      {selectedFiles && selectedFiles.length > 0 && (
-                        <div className="selected-files">
-                          <p>{selectedFiles.length} fișier(e) selectat(e):</p>
-                          {Array.from(selectedFiles).map((file, index) => (
-                            <span key={index} className="file-name">{file.name}</span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
                   </div>
-                </form>
+                ) : (
+                  <form className="contact-form" onSubmit={handleSubmit} noValidate>
+                    {/* Mandatory fields */}
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Nume / Companie *"
+                        className={`form-input ${validationErrors.name ? 'error' : ''}`}
+                        value={formData.name}
+                        onChange={handleInputChange}
+                      />
+                      {validationErrors.name && <span className="error-message">{validationErrors.name}</span>}
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Telefon *"
+                        className={`form-input ${validationErrors.phone ? 'error' : ''}`}
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                      />
+                      {validationErrors.phone && <span className="error-message">{validationErrors.phone}</span>}
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email *"
+                        className={`form-input ${validationErrors.email ? 'error' : ''}`}
+                        value={formData.email}
+                        onChange={handleInputChange}
+                      />
+                      {validationErrors.email && <span className="error-message">{validationErrors.email}</span>}
+                    </div>
+
+                    <div className="form-group">
+                      <textarea
+                        name="description"
+                        placeholder="Descriere scurtă a cererii *"
+                        className={`form-textarea ${validationErrors.description ? 'error' : ''}`}
+                        rows={4}
+                        value={formData.description}
+                        onChange={handleInputChange}
+                      />
+                      {validationErrors.description && <span className="error-message">{validationErrors.description}</span>}
+                    </div>
+
+                    {/* Optional fields */}
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        name="pickupLocation"
+                        placeholder="Punct de încărcare"
+                        className="form-input"
+                        value={formData.pickupLocation}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        name="destinationLocation"
+                        placeholder="Punct de livrare"
+                        className="form-input"
+                        value={formData.destinationLocation}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+
+                    {/* Optional checkboxes */}
+                    <div className="form-checkboxes">
+                      {[
+                        'Obținere autorizații speciale',
+                        'Escortă tehnică',
+                        'Închidere drumuri / poduri',
+                        'Manipulare cu macarale',
+                        'Depozitare temporară',
+                        'Consultanță tehnică',
+                      ].map((label) => (
+                        <div className="checkbox-group" key={label}>
+                          <input
+                            type="checkbox"
+                            id={label}
+                            value={label}
+                            checked={(formData.additionalServices || []).includes(label)}
+                            onChange={handleCheckboxChange}
+                          />
+                          <label htmlFor={label}>{label}</label>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* GDPR */}
+                    <div className="checkbox-group gdpr-consent">
+                      <input
+                        type="checkbox"
+                        id="gdpr"
+                        checked={gdprAccepted}
+                        onChange={e => {
+                          setGdprAccepted(e.target.checked);
+                          if (e.target.checked) setValidationErrors(prev => ({ ...prev, gdpr: '' }));
+                        }}
+                      />
+                      <label htmlFor="gdpr">Consimțământ prelucrare date personale (GDPR) *</label>
+                    </div>
+                    {validationErrors.gdpr && <span className="error-message">{validationErrors.gdpr}</span>}
+
+                    {error && <div className="error-message-box">❌ {error}</div>}
+
+                    <div className="form-buttons">
+                      <button
+                        type="submit"
+                        className={`submit-btn ${isLoading ? 'loading' : ''}`}
+                        disabled={isLoading}
+                      >
+                        {isLoading ? 'Se trimite...' : 'Trimite'}
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
             </div>
-            
+
             <div className="form-right">
-              <h2 className="form-right-title">Scrie-ne si iti propunem rapid o solutie, transport intern sau international, cu suport operational complet pentru incarcaturi grele si agabaritice.</h2>
-              
-              {selectedService && (
-                <div className="return-to-general">
-                  <p className="return-text">
-                    Preferi să folosești formularul general de contact?
-                  </p>
-                  <button 
-                    className="btn return-btn"
-                    onClick={handleReturnToGeneral}
-                  >
-                    Revino la formularul general
-                  </button>
-                </div>
-              )}
+              <h2 className="form-right-title">
+                Scrie-ne si iti propunem rapid o solutie - transport intern sau international, cu suport operational complet pentru incarcaturi grele si agabaritice.
+              </h2>
             </div>
           </div>
         </div>

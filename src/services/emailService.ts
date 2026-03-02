@@ -15,32 +15,19 @@ emailjs.init(EMAIL_CONFIG.PUBLIC_KEY);
 // Contact Form Data Interface
 export interface ContactFormData {
   name: string;
-  contactPerson: string;
   phone: string;
   email: string;
-  website?: string;
-  subject?: string;
-  message?: string;
-  // Service-specific fields
-  serviceType?: string;
-  cargoDescription?: string;
-  dimensions?: string;
-  weight?: string;
+  description: string;
   pickupLocation?: string;
   destinationLocation?: string;
-  deliveryDate?: string;
   additionalServices?: string[];
-  specialRequirements?: string;
   files?: FileList | null;
 }
 
 // Career Form Data Interface
 export interface CareerFormData {
   name: string;
-  email: string;
   phone: string;
-  phonePrefix: string;
-  position: string;
   message?: string;
   cvFile?: File | null;
 }
@@ -48,36 +35,29 @@ export interface CareerFormData {
 // Send Contact Form Email
 export const sendContactEmail = async (formData: ContactFormData): Promise<boolean> => {
   try {
-    // Format message for the pre-built template
-    let detailedMessage = `📧 CERERE DE CONTACT\n\n`;
-    detailedMessage += `👤 Informații Contact:\n`;
-    detailedMessage += `• Nume/Companie: ${formData.name}\n`;
-    detailedMessage += `• Persoană contact: ${formData.contactPerson}\n`;
-    detailedMessage += `• Email: ${formData.email}\n`;
-    detailedMessage += `• Telefon: ${formData.phone}\n`;
-    if (formData.website) detailedMessage += `• Website: ${formData.website}\n`;
-    
-    if (formData.serviceType) {
-      detailedMessage += `\n🚛 Detalii Serviciu: ${formData.serviceType}\n`;
-      if (formData.cargoDescription) detailedMessage += `• Descriere: ${formData.cargoDescription}\n`;
-      if (formData.dimensions) detailedMessage += `• Dimensiuni: ${formData.dimensions}\n`;
-      if (formData.weight) detailedMessage += `• Greutate: ${formData.weight}\n`;
-      if (formData.pickupLocation) detailedMessage += `• Plecare: ${formData.pickupLocation}\n`;
-      if (formData.destinationLocation) detailedMessage += `• Destinație: ${formData.destinationLocation}\n`;
-      if (formData.deliveryDate) detailedMessage += `• Termen: ${formData.deliveryDate}\n`;
-      if (formData.additionalServices?.length) detailedMessage += `• Servicii extra: ${formData.additionalServices.join(', ')}\n`;
-    }
-    
-    if (formData.subject) detailedMessage += `\n📋 Subiect: ${formData.subject}\n`;
-    if (formData.message) detailedMessage += `\n💬 Mesaj:\n${formData.message}\n`;
-    if (formData.specialRequirements) detailedMessage += `\n⚠️ Cerințe speciale:\n${formData.specialRequirements}\n`;
+    let msg = `📧 CERERE DE CONTACT\n\n`;
+    msg += `👤 Date de contact:\n`;
+    msg += `• Nume/Companie: ${formData.name}\n`;
+    msg += `• Telefon: ${formData.phone}\n`;
+    msg += `• Email: ${formData.email}\n`;
+    msg += `\n📋 Descriere cerere:\n${formData.description}\n`;
 
-    // Template parameters matching the pre-built structure
+    if (formData.pickupLocation || formData.destinationLocation) {
+      msg += `\n📍 Traseu:\n`;
+      if (formData.pickupLocation) msg += `• Punct de încărcare: ${formData.pickupLocation}\n`;
+      if (formData.destinationLocation) msg += `• Punct de livrare: ${formData.destinationLocation}\n`;
+    }
+
+    if (formData.additionalServices?.length) {
+      msg += `\n🔧 Servicii solicitate:\n`;
+      formData.additionalServices.forEach(s => { msg += `• ${s}\n`; });
+    }
+
     const templateParams = {
       name: formData.name,
-      message: detailedMessage,
+      message: msg,
       time: new Date().toLocaleString('ro-RO'),
-      title: formData.serviceType || formData.subject || 'Cerere de contact',
+      title: 'Cerere de contact',
       to_email: EMAIL_CONFIG.TEST_EMAIL
     };
 
@@ -97,28 +77,18 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<boole
 // Send Career Form Email
 export const sendCareerEmail = async (formData: CareerFormData): Promise<boolean> => {
   try {
-    // Format message for the pre-built template
     let careerMessage = `💼 APLICAȚIE CARIERĂ\n\n`;
     careerMessage += `👤 Informații Candidat:\n`;
     careerMessage += `• Nume: ${formData.name}\n`;
-    careerMessage += `• Email: ${formData.email}\n`;
-    careerMessage += `• Telefon: ${formData.phonePrefix} ${formData.phone}\n`;
-    careerMessage += `• Poziția dorită: ${formData.position}\n`;
-    
-    if (formData.message) {
-      careerMessage += `\n💬 Mesaj candidat:\n${formData.message}\n`;
-    }
-    
-    if (formData.cvFile) {
-      careerMessage += `\n📄 CV atașat: ${formData.cvFile.name}\n`;
-    }
+    careerMessage += `• Telefon: ${formData.phone}\n`;
+    if (formData.message) careerMessage += `\n💬 Mesaj:\n${formData.message}\n`;
+    if (formData.cvFile) careerMessage += `\n📄 CV atașat: ${formData.cvFile.name}\n`;
 
-    // Template parameters matching the pre-built structure
     const templateParams = {
       name: formData.name,
       message: careerMessage,
       time: new Date().toLocaleString('ro-RO'),
-      title: `Aplicație pentru poziția: ${formData.position}`,
+      title: 'Aplicație carieră',
       to_email: EMAIL_CONFIG.TEST_EMAIL
     };
 

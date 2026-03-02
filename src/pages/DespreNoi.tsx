@@ -390,29 +390,31 @@ const DespreNoi: React.FC = () => {
           <div className="cod-conduita-header">
             <h2 className="cod-conduita-title">{codDeConduitaContent?.title || 'Cod de Conduita'}</h2>
           </div>
-          
+
           <div className="cod-conduita-content">
             {/* Intro Text */}
-            <div className="cod-conduita-intro">
-              <p dangerouslySetInnerHTML={{ __html: codDeConduitaContent?.introText || 'Loading...' }} />
-            </div>
-            
-            {/* Valorile noastre fundamentale */}
-            <div className="cod-conduita-section-block">
-              <h3 className="cod-conduita-subtitle">{codDeConduitaContent?.subtitle1 || 'Valorile noastre fundamentale'}</h3>
-              <div className="cod-conduita-text" dangerouslySetInnerHTML={{ __html: codDeConduitaContent?.valuesText || 'Loading...' }} />
-            </div>
-            
-            {/* Comportament asteptat */}
-            <div className="cod-conduita-section-block">
-              <h3 className="cod-conduita-subtitle">{codDeConduitaContent?.subtitle2 || 'Comportament asteptat'}</h3>
-              <div className="cod-conduita-text" dangerouslySetInnerHTML={{ __html: codDeConduitaContent?.behaviorText || 'Loading...' }} />
-            </div>
-            
-            {/* Final Text - Implementare si Angajament */}
-            <div className="cod-conduita-final">
-              <div className="cod-conduita-text" dangerouslySetInnerHTML={{ __html: codDeConduitaContent?.finalText || 'Loading...' }} />
-            </div>
+            {codDeConduitaContent?.introText && (
+              <div className="cod-conduita-intro">
+                <p dangerouslySetInnerHTML={{ __html: codDeConduitaContent.introText }} />
+              </div>
+            )}
+
+            {/* 6 subtitle + text blocks */}
+            {[1, 2, 3, 4, 5, 6].map((n) => {
+              const subtitle = codDeConduitaContent?.[`subtitle${n}`];
+              const text = codDeConduitaContent?.[`text${n}`];
+              if (!subtitle && !text) return null;
+              return (
+                <div key={n} className="cod-conduita-section-block">
+                  {subtitle && (
+                    <h3 className="cod-conduita-subtitle">{subtitle}</h3>
+                  )}
+                  {text && (
+                    <div className="cod-conduita-text" dangerouslySetInnerHTML={{ __html: text }} />
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

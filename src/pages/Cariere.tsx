@@ -3,279 +3,78 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useEmailForm } from '../hooks/useEmailForm';
-import { CareerFormData, isValidEmail, isValidPhone } from '../services/emailService';
-import { useLanguage } from '../context/LanguageContext';
+import { CareerFormData, isValidPhone } from '../services/emailService';
 import './Cariere.css';
 import '../styles/forms.css';
 
 const Cariere: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedPrefix, setSelectedPrefix] = useState('+40');
   const { isLoading, isSuccess, error, submitCareerForm } = useEmailForm();
-  const { currentLanguage } = useLanguage();
-  
+
   // State for Strapi content
   const [whyHollemanContent, setWhyHollemanContent] = useState<any>(null);
   const [benefitsContent, setBenefitsContent] = useState<any>(null);
-  const [availablePositions, setAvailablePositions] = useState<any[]>([]);
   const [contentLoading, setContentLoading] = useState(true);
   const [carriereHeroContent, setCarriereHeroContent] = useState<any>(null);
-  
+
   // Form state
   const [formData, setFormData] = useState<CareerFormData>({
     name: '',
-    email: '',
     phone: '',
-    phonePrefix: '+40',
-    position: '',
-    message: ''
+    message: '',
   });
-  
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [selectedCvFile, setSelectedCvFile] = useState<File | null>(null);
+  const [gdprAccepted, setGdprAccepted] = useState(false);
 
-  // Static translations for form placeholders
-  const placeholderTranslations = {
-    ro: {
-      name: 'Nume și prenume',
-      email: 'Email',
-      phone: 'Telefon',
-      position: 'Poziția',
-      message: 'Mesaj...'
-    },
-    en: {
-      name: 'Name and surname',
-      email: 'Email',
-      phone: 'Phone',
-      position: 'Position',
-      message: 'Message...'
-    },
-    de: {
-      name: 'Name und Vorname',
-      email: 'E-Mail',
-      phone: 'Telefon',
-      position: 'Position',
-      message: 'Nachricht...'
-    },
-    fr: {
-      name: 'Nom et prénom',
-      email: 'Email',
-      phone: 'Téléphone',
-      position: 'Position',
-      message: 'Message...'
-    },
-    es: {
-      name: 'Nombre y apellido',
-      email: 'Email',
-      phone: 'Teléfono',
-      position: 'Posición',
-      message: 'Mensaje...'
-    },
-    it: {
-      name: 'Nome e cognome',
-      email: 'Email',
-      phone: 'Telefono',
-      position: 'Posizione',
-      message: 'Messaggio...'
-    },
-    hu: {
-      name: 'Név és vezetéknév',
-      email: 'Email',
-      phone: 'Telefon',
-      position: 'Pozíció',
-      message: 'Üzenet...'
-    },
-    bg: {
-      name: 'Име и фамилия',
-      email: 'Имейл',
-      phone: 'Телефон',
-      position: 'Позиция',
-      message: 'Съобщение...'
-    },
-    sr: {
-      name: 'Име и презиме',
-      email: 'Емаил',
-      phone: 'Телефон',
-      position: 'Позиција',
-      message: 'Порука...'
-    }
-  };
-
-  // Helper function to get translated placeholder
-  const getPlaceholder = (key: string): string => {
-    const langCode = currentLanguage.code as keyof typeof placeholderTranslations;
-    const placeholders = placeholderTranslations[langCode] || placeholderTranslations.ro;
-    return placeholders[key as keyof typeof placeholders] || placeholderTranslations.ro[key as keyof typeof placeholderTranslations.ro] || '';
-  };
-
-  const phoneCountries = [
-    { code: '+40', country: 'RO', name: 'Romania' },
-    { code: '+49', country: 'DE', name: 'Germany' },
-    { code: '+33', country: 'FR', name: 'France' },
-    { code: '+39', country: 'IT', name: 'Italy' },
-    { code: '+34', country: 'ES', name: 'Spain' },
-    { code: '+31', country: 'NL', name: 'Netherlands' },
-    { code: '+32', country: 'BE', name: 'Belgium' },
-    { code: '+43', country: 'AT', name: 'Austria' },
-    { code: '+41', country: 'CH', name: 'Switzerland' },
-    { code: '+48', country: 'PL', name: 'Poland' },
-    { code: '+36', country: 'HU', name: 'Hungary' },
-    { code: '+420', country: 'CZ', name: 'Czech Republic' },
-    { code: '+421', country: 'SK', name: 'Slovakia' },
-    { code: '+359', country: 'BG', name: 'Bulgaria' },
-    { code: '+381', country: 'RS', name: 'Serbia' },
-    { code: '+44', country: 'GB', name: 'United Kingdom' },
-    { code: '+1', country: 'US', name: 'United States' }
-  ];
-
-  // Handle input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear validation error when user starts typing
-    if (validationErrors[name]) {
-      setValidationErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (validationErrors[name]) setValidationErrors(prev => ({ ...prev, [name]: '' }));
   };
 
-  // Handle phone prefix change
-  const handlePhonePrefixChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newPrefix = e.target.value;
-    setSelectedPrefix(newPrefix);
-    setFormData(prev => ({
-      ...prev,
-      phonePrefix: newPrefix
-    }));
-  };
-
-  // Handle CV file selection
   const handleCvFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setSelectedCvFile(file);
+    setSelectedCvFile(e.target.files?.[0] || null);
   };
 
-  // Validate form
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
-    
-    if (!formData.name.trim()) {
-      errors.name = 'Numele este obligatoriu';
-    }
-    
-    if (!formData.email.trim()) {
-      errors.email = 'Email-ul este obligatoriu';
-    } else if (!isValidEmail(formData.email)) {
-      errors.email = 'Formatul email-ului nu este valid';
-    }
-    
+    if (!formData.name.trim()) errors.name = 'Numele este obligatoriu';
     if (!formData.phone.trim()) {
       errors.phone = 'Telefonul este obligatoriu';
     } else if (!isValidPhone(formData.phone)) {
       errors.phone = 'Formatul telefonului nu este valid';
     }
-    
-    if (!formData.position.trim()) {
-      errors.position = 'Poziția este obligatorie';
-    }
-    
+    if (!gdprAccepted) errors.gdpr = 'Trebuie să acceptați prelucrarea datelor personale';
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
-    const submitData: CareerFormData = {
-      ...formData,
-      cvFile: selectedCvFile
-    };
-    
-    await submitCareerForm(submitData);
+    if (!validateForm()) return;
+    await submitCareerForm({ ...formData, cvFile: selectedCvFile });
   };
 
   // Fetch content from Strapi
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const [whyHollemanRes, benefitsRes, carriereHeroRes, positionsRes] = await Promise.all([
+        const [whyHollemanRes, benefitsRes, carriereHeroRes] = await Promise.all([
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-de-ce-holleman?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-beneficii?populate=*'),
           fetch('https://holleman-cms-production.up.railway.app/api/cariere-hero'),
-          fetch('https://holleman-cms-production.up.railway.app/api/cariere-pozitii?populate=*')
         ]);
 
         const whyHollemanData = await whyHollemanRes.json();
         const benefitsData = await benefitsRes.json();
         const carriereHeroData = await carriereHeroRes.json();
-        const positionsData = await positionsRes.json();
-
-        console.log('Why Holleman Data:', whyHollemanData);
-        console.log('Benefits Data:', benefitsData);
-        console.log('Carriere Hero Data:', carriereHeroData);
-        console.log('Positions Data:', positionsData);
-        console.log('API fetch completed successfully');
 
         setWhyHollemanContent(whyHollemanData.data);
         setBenefitsContent(benefitsData.data);
         setCarriereHeroContent(carriereHeroData.data);
-        // Handle both new repeatable component format and old fixed format
-        const positionsArray: Array<{id: number; title: string; description: string}> = [];
-        if (positionsData.data) {
-          const data = positionsData.data;
-          console.log('Processing positions data:', data);
-          
-          // New format: Check if positions is a repeatable component array
-          if (data.positions && Array.isArray(data.positions)) {
-            console.log('Using new repeatable component format');
-            data.positions.forEach((position: any, index: number) => {
-              if (position.title && position.description) {
-                positionsArray.push({
-                  id: position.id || index + 1,
-                  title: position.title,
-                  description: position.description
-                });
-                console.log(`Added position ${index + 1}:`, position.title);
-              }
-            });
-          }
-          // Fallback: Old fixed format (for backward compatibility)
-          else {
-            console.log('Using legacy fixed format as fallback');
-            // Dynamically detect any positionNTitle and positionNDescription fields
-            const positionKeys = Object.keys(data).filter(key => key.match(/^position\d+Title$/));
-            
-            positionKeys.forEach(titleKey => {
-              const positionNumber = titleKey.match(/^position(\d+)Title$/)?.[1];
-              const descriptionKey = `position${positionNumber}Description`;
-              
-              if (positionNumber && data[titleKey] && data[descriptionKey]) {
-                positionsArray.push({
-                  id: parseInt(positionNumber),
-                  title: data[titleKey],
-                  description: data[descriptionKey]
-                });
-                console.log(`Added position ${positionNumber}:`, data[titleKey]);
-              }
-            });
-          }
-        }
-        console.log('Final positions array:', positionsArray);
-        setAvailablePositions(positionsArray);
       } catch (error) {
         console.error('Error fetching content:', error);
-        // Fallback for hero content
         setCarriereHeroContent({
           title: 'Cariere',
           subtitleText: 'Alatura-te echipei care face ca imposibilul sa devina posibil'
@@ -491,46 +290,6 @@ const Cariere: React.FC = () => {
         </div>
       </section>
 
-      {/* Available Positions Section */}
-      <section className="positions-section" id="posturi-disponibile">
-        <div className="positions-container">
-          <div className="positions-header">
-            <h2 className="positions-title">Posturi disponibile</h2>
-          </div>
-          
-          <div className="positions-grid">
-            {availablePositions.length > 0 ? (
-              availablePositions.map((position, index) => (
-                <div key={position.id || index} className="position-item">
-                  <div className="position-icon">
-                    <img src="/images/icons/Info.webp" alt="Position icon" />
-                  </div>
-                  <h3>{position.title}</h3>
-                  <div className="position-overlay">
-                    <div className="position-icon-white">
-                      <img src="/images/icons/Info.webp" alt="Position icon" />
-                    </div>
-                    <h3>{position.title}</h3>
-                    <p>{position.description}</p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="no-positions">
-                <p>Nu există poziții disponibile în acest moment.</p>
-              </div>
-            )}
-          </div>
-          
-          <div className="positions-footer">
-            <p className="positions-note">
-              Lista completă este <span className="green-highlight">actualizată permanent</span>.<br/>
-              Revino regulat pentru a descoperi cele mai noi oportunități!
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Career Quote Footer */}
       <section className="career-quote-footer">
         <p className="career-quote-text">
@@ -545,155 +304,113 @@ const Cariere: React.FC = () => {
       </section>
 
       {/* Application Form Section */}
-      <section 
+      <section
         className="application-section"
         id="sectiune-dedicata-recrutarii"
-        style={{
-          backgroundImage: `url('/images/Group8748.webp')`
-        }}
+        style={{ backgroundImage: `url('/images/Group8748.webp')` }}
       >
         <div className="application-overlay"></div>
         <div className="application-container">
           <div className="application-form-wrapper animate-on-scroll slide-from-left">
             <div className="application-form-box">
-              <h3 className="form-title animate-on-scroll fade-up delay-200">Formular aplicare</h3>
-              
-              <form className="application-form animate-on-scroll fade-up delay-300" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder={getPlaceholder('name')}
-                    className={`form-input ${validationErrors.name ? 'error' : ''}`}
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  {validationErrors.name && (
-                    <span className="error-message">{validationErrors.name}</span>
-                  )}
+              <h3 className="form-title">Formular aplicare</h3>
+
+              {isSuccess ? (
+                <div className="success-message">
+                  ✅ Aplicația a fost trimisă cu succes! Vă vom contacta în curând.
                 </div>
-                
-                <div className="form-group">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder={getPlaceholder('email')}
-                    className={`form-input ${validationErrors.email ? 'error' : ''}`}
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  {validationErrors.email && (
-                    <span className="error-message">{validationErrors.email}</span>
-                  )}
-                </div>
-                
-                <div className="form-group phone-group">
-                  <div className="phone-input-wrapper">
-                    <select 
-                      className="phone-prefix-select"
-                      value={selectedPrefix}
-                      onChange={handlePhonePrefixChange}
-                    >
-                      {phoneCountries.map((country) => (
-                        <option key={country.code} value={country.code}>
-                          {country.code} {country.country}
-                        </option>
-                      ))}
-                    </select>
+              ) : (
+                <form className="application-form" onSubmit={handleSubmit} noValidate>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Nume *"
+                      className={`form-input ${validationErrors.name ? 'error' : ''}`}
+                      value={formData.name}
+                      onChange={handleInputChange}
+                    />
+                    {validationErrors.name && <span className="error-message">{validationErrors.name}</span>}
+                  </div>
+
+                  <div className="form-group">
                     <input
                       type="tel"
                       name="phone"
-                      placeholder={getPlaceholder('phone')}
-                      className={`form-input phone-input ${validationErrors.phone ? 'error' : ''}`}
+                      placeholder="Telefon *"
+                      className={`form-input ${validationErrors.phone ? 'error' : ''}`}
                       value={formData.phone}
                       onChange={handleInputChange}
-                      required
+                    />
+                    {validationErrors.phone && <span className="error-message">{validationErrors.phone}</span>}
+                  </div>
+
+                  <div className="form-group">
+                    <textarea
+                      name="message"
+                      placeholder="Mesaj..."
+                      className="form-textarea"
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleInputChange}
                     />
                   </div>
-                  {validationErrors.phone && (
-                    <span className="error-message">{validationErrors.phone}</span>
-                  )}
-                </div>
-                
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="position"
-                    placeholder={getPlaceholder('position')}
-                    className={`form-input ${validationErrors.position ? 'error' : ''}`}
-                    value={formData.position}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  {validationErrors.position && (
-                    <span className="error-message">{validationErrors.position}</span>
-                  )}
-                </div>
-                
-                <div className="form-group">
-                  <textarea
-                    name="message"
-                    placeholder={getPlaceholder('message')}
-                    className="form-textarea"
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                  ></textarea>
-                </div>
-                
-                {/* Success/Error Messages */}
-                {isSuccess && (
-                  <div className="success-message">
-                    ✅ Aplicația a fost trimisă cu succes! Vă vom contacta în curând.
-                  </div>
-                )}
-                
-                {error && (
-                  <div className="error-message-box">
-                    ❌ {error}
-                  </div>
-                )}
 
-                <div className="form-buttons">
-                  <button 
-                    type="submit" 
-                    className={`submit-btn ${isLoading ? 'loading' : ''}`}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Se trimite...' : 'Trimite'}
-                  </button>
-                  <button 
-                    type="button" 
-                    className="cv-btn"
-                    onClick={() => document.querySelector<HTMLInputElement>('input[type="file"]')?.click()}
-                  >
-                    <span>CV</span>
-                    <span className="cv-icon">
-                      <img src="/images/folder-up.webp" alt="Upload CV" />
-                    </span>
-                  </button>
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    style={{ display: 'none' }}
-                    onChange={handleCvFileChange}
-                  />
-                </div>
-              </form>
+                  <div className="checkbox-group gdpr-consent">
+                    <input
+                      type="checkbox"
+                      id="gdpr-cariere"
+                      checked={gdprAccepted}
+                      onChange={e => {
+                        setGdprAccepted(e.target.checked);
+                        if (e.target.checked) setValidationErrors(prev => ({ ...prev, gdpr: '' }));
+                      }}
+                    />
+                    <label htmlFor="gdpr-cariere">Consimțământ prelucrare date personale (GDPR) *</label>
+                  </div>
+                  {validationErrors.gdpr && <span className="error-message">{validationErrors.gdpr}</span>}
+
+                  {error && <div className="error-message-box">❌ {error}</div>}
+
+                  <div className="form-buttons">
+                    <button
+                      type="submit"
+                      className={`submit-btn ${isLoading ? 'loading' : ''}`}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'Se trimite...' : 'Trimite'}
+                    </button>
+                    <button
+                      type="button"
+                      className="cv-btn"
+                      onClick={() => document.getElementById('cv-upload-cariere')?.click()}
+                    >
+                      <span>CV</span>
+                      <span className="cv-icon">
+                        <img src="/images/folder-up.webp" alt="Upload CV" />
+                      </span>
+                    </button>
+                    <input
+                      id="cv-upload-cariere"
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      style={{ display: 'none' }}
+                      onChange={handleCvFileChange}
+                    />
+                  </div>
+                  {selectedCvFile && (
+                    <p style={{ fontSize: '12px', color: '#555', marginTop: '8px' }}>
+                      📄 {selectedCvFile.name}
+                    </p>
+                  )}
+                </form>
+              )}
             </div>
           </div>
-          
+
           <div className="application-content">
-            <h2 className="application-title">Aplică online</h2>
-            <p className="application-subtitle">
-              Ești pregătit pentru următoarea<br/>
-              etapă din cariera ta?
-            </p>
             <p className="application-description">
-              Completează formularul și hai să<br/>
-              ne cunoaștem!
+              La Holleman lucrăm cu proiecte care cer rigoare, siguranță și coordonare, de la transporturi speciale la operațiuni de manipulare și project cargo. Dacă vrei să faci parte dintr-o echipă orientată spre execuție și responsabilitate, trimite-ne CV-ul, iar noi te contactăm pentru pașii următori.
             </p>
           </div>
         </div>
