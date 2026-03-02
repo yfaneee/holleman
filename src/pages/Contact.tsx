@@ -18,37 +18,10 @@ const Contact: React.FC = () => {
   const [location2, setLocation2] = useState<any>(null);
   const [locationsLoading, setLocationsLoading] = useState(true);
   
-  // State for network section from Strapi
-  const [networkInfo, setNetworkInfo] = useState<any>(null);
-  const [networkOffices, setNetworkOffices] = useState<any[]>([]);
-  const [networkLoading, setNetworkLoading] = useState(true);
-  
   // State for coverage section from Strapi
   const [coverageContent, setCoverageContent] = useState<any>(null);
   const [coverageLoading, setCoverageLoading] = useState(true);
   const [contactHeroContent, setContactHeroContent] = useState<any>(null);
-  
-  // State for expandable office cards
-  const [expandedOffice, setExpandedOffice] = useState<number | null>(null);
-  
-  // Function to toggle office expansion
-  const toggleOfficeExpansion = (index: number) => {
-    setExpandedOffice(expandedOffice === index ? null : index);
-  };
-  
-  // Get office details from Strapi data
-  const getOfficeDetails = (office: any) => {
-    // Only return details if they exist in Strapi
-    if (office.detailedInfo) {
-      return {
-        address: office.detailedInfo.address,
-        phone: office.detailedInfo.phone,
-        email: office.detailedInfo.email,
-        website: office.detailedInfo.website
-      };
-    }
-    return null;
-  };
   
   // Form state
   const [formData, setFormData] = useState<ContactFormData>({
@@ -379,26 +352,6 @@ const Contact: React.FC = () => {
     }
   ];
 
-  // Handle service selection with smooth scroll
-  const handleServiceSelection = (serviceId: string) => {
-    setSelectedService(serviceId);
-    
-    // Smooth scroll to form section
-    setTimeout(() => {
-      const formSection = document.querySelector('.contact-form-section');
-      if (formSection) {
-        const headerHeight = window.innerWidth <= 768 ? 100 : 120;
-        const elementPosition = formSection.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - headerHeight;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    }, 100);
-  };
-
   // Handle return to general form with smooth transition
   const handleReturnToGeneral = () => {
     // Add a slight fade effect before changing
@@ -581,39 +534,23 @@ const Contact: React.FC = () => {
     fetchLocations();
   }, []);
 
-  // Fetch network content from Strapi
+  // Fetch hero content from Strapi
   useEffect(() => {
-    const fetchNetworkContent = async () => {
+    const fetchHeroContent = async () => {
       try {
-        const [networkInfoRes, networkOfficesRes, contactHeroRes] = await Promise.all([
-          fetch('https://holleman-cms-production.up.railway.app/api/contact-network-info?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/contact-network-offices?populate=*'),
-          fetch('https://holleman-cms-production.up.railway.app/api/contact-hero')
-        ]);
-
-        const networkInfoData = await networkInfoRes.json();
-        const networkOfficesData = await networkOfficesRes.json();
+        const contactHeroRes = await fetch('https://holleman-cms-production.up.railway.app/api/contact-hero');
         const contactHeroData = await contactHeroRes.json();
-
-        console.log('Network Info Data:', networkInfoData);
-        console.log('Network Offices Data:', networkOfficesData);
-        console.log('Contact Hero Data:', contactHeroData);
-
-        setNetworkInfo(networkInfoData.data);
-        setNetworkOffices(networkOfficesData.data || []);
         setContactHeroContent(contactHeroData.data);
       } catch (error) {
-        console.error('Error fetching network content:', error);
+        console.error('Error fetching hero content:', error);
         setContactHeroContent({
           title: 'Contact',
           subtitleText: 'Suntem aici sa te ajutam cu orice intrebare'
         });
-      } finally {
-        setNetworkLoading(false);
       }
     };
 
-    fetchNetworkContent();
+    fetchHeroContent();
   }, []);
 
   // Fetch coverage content from Strapi
