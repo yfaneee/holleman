@@ -716,8 +716,8 @@ const Contact: React.FC = () => {
         </div>
       </section>
 
-      {/* Service Selection Section */}
-      <section id="cerere-oferta" className="service-selection-section">
+      {/* Service Selection Section — hidden per client request */}
+      {/* <section id="cerere-oferta" className="service-selection-section">
         <div className="service-selection-container">
           <h2 className="service-selection-title animate-on-scroll fade-up">
             Cerere ofertă – trimite solicitarea direct către divizia potrivită:
@@ -746,15 +746,12 @@ const Contact: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Form Section */}
       <section 
         id="formular-contact"
         className="contact-form-section"
-        style={{
-          backgroundImage: `url('/images/Group8748.webp')`
-        }}
       >
         <div className="contact-form-container">
           {selectedService && (
@@ -1148,12 +1145,7 @@ const Contact: React.FC = () => {
             </div>
             
             <div className="form-right">
-              <h2 className="form-right-title">Suntem aici pentru tine</h2>
-              <p className="form-right-text">
-                Ai o întrebare, o solicitare sau vrei să discutăm despre un proiect 
-                logistic complex? Indiferent de natura solicitării tale, echipa 
-                Holleman îți stă la dispoziție cu promptitudine și profesionalism.
-              </p>
+              <h2 className="form-right-title">Scrie-ne si iti propunem rapid o solutie, transport intern sau international, cu suport operational complet pentru incarcaturi grele si agabaritice.</h2>
               
               {selectedService && (
                 <div className="return-to-general">
@@ -1174,7 +1166,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Location & Info Section */}
-      <section id="date-contact" className="location-section">
+      <section id="date-contact" className="location-section" style={{ backgroundImage: `url('/images/Group8748.webp')` }}>
         <div className="location-container">
           <div className="location-content">
             <div className="map-container">
@@ -1240,141 +1232,7 @@ const Contact: React.FC = () => {
         </div>
       </section>
 
-      {/* International Network Section */}
-      <section 
-        className="international-network-section"
-        style={{
-          backgroundImage: `url('/images/Group8750.webp')`
-        }}
-      >
-        <div className="international-network-container">
-          <div className="network-content">
-            {networkLoading ? (
-              <div>Loading network content...</div>
-            ) : networkInfo ? (
-              <>
-                <h2 className="network-title" style={{
-                  opacity: 0,
-                  transform: 'translateY(30px)',
-                  animation: 'slideInUp 0.8s ease-out forwards'
-                }}>
-                  {networkInfo.title} <span className="highlight">
-                    {networkInfo.highlightedTitle || "Holleman"}
-                  </span>
-                </h2>
-                
-                <div className="network-intro" style={{
-                  opacity: 0,
-                  transform: 'translateY(30px)',
-                  animation: 'slideInUp 0.8s ease-out 0.2s forwards'
-                }}>
-                  <p>{networkInfo.intro}</p>
-                </div>
-                
-                <div className="network-offices">
-                  <h3 className="offices-title" style={{
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    animation: 'slideInUp 0.8s ease-out 0.4s forwards'
-                  }}>
-                    {networkInfo.subtitle || "Sucursale proprii și birouri reprezentative:"}
-                  </h3>
-                  
-                  <div className="offices-grid">
-                    {networkOffices.map((office, index) => {
-                      const isExpanded = expandedOffice === index;
-                      const officeDetails = getOfficeDetails(office);
-                      const hasDetails = officeDetails !== null;
-                      
-                      return (
-                        <div key={index} className={`office-item-wrapper ${isExpanded ? 'office-wrapper-expanded' : ''}`}>
-                          <div className={`office-item ${hasDetails ? 'office-item-clickable' : ''} ${isExpanded ? 'office-item-expanded' : ''}`} 
-                               onClick={() => hasDetails && toggleOfficeExpansion(index)}
-                               style={{
-                                 opacity: 0,
-                                 transform: 'translateY(30px)',
-                                 animation: `slideInUp 0.8s ease-out ${0.6 + (index * 0.1)}s forwards`
-                               }}>
-                            <div className="office-main-content">
-                              <div className="flag-icon">
-                                {office.image && office.image.length > 0 && (
-                                  <img 
-                                    src={office.image[0].url.startsWith('http') 
-                                      ? office.image[0].url 
-                                      : `https://holleman-cms-production.up.railway.app${office.image[0].url}`
-                                    } 
-                                    alt={`${office.country} flag`} 
-                                  />
-                                )}
-                              </div>
-                              <span>{office.country} – {office.city}</span>
-                              {hasDetails && (
-                                <div className="office-expand-indicator">
-                                  <svg 
-                                    width="20" 
-                                    height="20" 
-                                    viewBox="0 0 16 16" 
-                                    fill="currentColor"
-                                    className={`expand-icon ${isExpanded ? 'expanded' : ''}`}
-                                  >
-                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                  </svg>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          
-                          {hasDetails && (
-                            <div className={`office-details ${isExpanded ? 'office-details-expanded' : ''}`}>
-                              <div className="office-details-content">
-                                <div className="detail-item">
-                                  <div className="detail-icon">📍</div>
-                                  <div className="detail-text">
-                                    <strong>Adresă:</strong><br/>
-                                    {officeDetails.address}
-                                  </div>
-                                </div>
-                                
-                                <div className="detail-item">
-                                  <div className="detail-icon">📞</div>
-                                  <div className="detail-text">
-                                    <strong>Telefon:</strong><br/>
-                                    <a href={`tel:${officeDetails.phone}`}>{officeDetails.phone}</a>
-                                  </div>
-                                </div>
-                                
-                                <div className="detail-item">
-                                  <div className="detail-icon">✉️</div>
-                                  <div className="detail-text">
-                                    <strong>Email:</strong><br/>
-                                    <a href={`mailto:${officeDetails.email}`}>{officeDetails.email}</a>
-                                  </div>
-                                </div>
-                                
-                                <div className="detail-item">
-                                  <div className="detail-icon">🌐</div>
-                                  <div className="detail-text">
-                                    <strong>Website:</strong><br/>
-                                    <a href={officeDetails.website} target="_blank" rel="noopener noreferrer">
-                                      {officeDetails.website}
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div>No network content found.</div>
-            )}
-          </div>
-        </div>
-      </section>
+      {/* International Network Section — hidden per client request */}
 
       {/* Unlimited Coverage Section */}
       <section className="unlimited-coverage-section">

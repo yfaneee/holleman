@@ -62,13 +62,7 @@ const Footer: React.FC = () => {
               </ul>
             </nav>
             
-            <h3 translate="yes">Blog</h3>
-            <nav aria-label="Navigare secțiune blog">
-              <ul>
-                <li><a href="/blog#articles-section" translate="yes">Articole</a></li>
-                <li><a href="/blog#stay-connected-section" translate="yes">Social Media</a></li>
-              </ul>
-            </nav>
+            {/* Blog / Comunicare section hidden per client request */}
           </section>
 
           {/* Servicii Column */}

@@ -80,7 +80,7 @@ const Header: React.FC = () => {
               <span>ACASA</span>
             </div>
 
-            <div className={`nav-item nav-item-multiline ${activeNav === 'industrii-deservite' ? 'active' : ''}`} onClick={navigateToIndustriiDeservite}>
+            <div className={`nav-item ${activeNav === 'industrii-deservite' ? 'active' : ''}`} onClick={navigateToIndustriiDeservite}>
               <span>INDUSTRII DESERVITE</span>
             </div>
 
@@ -124,10 +124,6 @@ const Header: React.FC = () => {
 
             <div className={`nav-item ${activeNav === 'despre-noi' ? 'active' : ''}`} onClick={navigateToDespreNoi}>
               <span>DESPRE NOI</span>
-            </div>
-            
-            <div className={`nav-item ${activeNav === 'comunicare' ? 'active' : ''}`} onClick={() => navigate('/comunicare')}>
-              <span>COMUNICARE</span>
             </div>
             
             <div className={`nav-item ${activeNav === 'contact' ? 'active' : ''}`} onClick={navigateToContact}>
