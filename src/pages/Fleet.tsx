@@ -1,121 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getRelatedProjectsSync } from '../data/projectsData';
 import './Fleet.css';
 
+interface FleetCard {
+  id: number;
+  image: string;
+  description: string;
+}
+
+const fleetCards: FleetCard[] = [
+  {
+    id: 1,
+    image: '/images/flota/1.webp',
+    description: 'Platformă extensibilă (telemega). Trailer versatil, poate transporta încărcături de până la 2300 cm lungime sau utilaje autopropulsate de până la 365 cm înălțime (nu neapărat cea mai economică soluție).',
+  },
+  {
+    id: 2,
+    image: '/images/flota/2.webp',
+    description: 'Semitrailer de 90 cm cu alveole, extensibil pe lungime. Potrivit pentru tractoare, încărcătoare mici și alte echipamente similare.',
+  },
+];
+
 const Fleet: React.FC = () => {
-  const [, setCurrentRelatedProject] = useState(0);
-  
-  // Get Heavy Lift related projects (using a dummy project ID to get Heavy Lift projects)
-  const relatedProjects = getRelatedProjectsSync('heavy-lift-project-1', 'heavy-lift');
-
-  // Auto-advance related projects slideshow
-  useEffect(() => {
-    if (relatedProjects.length > 1) {
-      const interval = setInterval(() => {
-        setCurrentRelatedProject((prev) => (prev + 1) % relatedProjects.length);
-      }, 4000);
-
-      return () => clearInterval(interval);
-    }
-  }, [relatedProjects.length]);
-
-  // Fleet data with truck information
-  const fleetData = [
-    {
-      id: 1,
-      description: "Platformă extensibilă (telemega). Trailer versatil, poate transporta încărcături de până la 2300 cm lungime sau utilaje autopropulsate de până la 365 cm înălțime (nu neapărat cea mai economică soluție)."
-    },
-    {
-      id: 2,
-      description: "Semitrailer de 90 cm cu alveole, extensibil pe lungime. Potrivit pentru tractoare, încărcătoare mici și alte echipamente similare."
-    },
-    {
-      id: 3,
-      description: "Semitrailer cu înălțime de 80 cm și alveole. Foarte căutat deoarece permite transportul mărfurilor agabaritice, dar și protecția celor sensibile (de exemplu utilaje cu componente electronice)."
-    },
-    {
-      id: 4,
-      description: "Tren rutier. Util atunci când este nevoie de transportul a două mărfuri cu lungime totală peste 1350 cm. Legal și flexibil (poate fi folosit doar capul tractor dacă este necesar)."
-    },
-    {
-      id: 5,
-      description: "Semitrailer cu alveole de 80 cm. Potrivit pentru utilaje mai înalte, respectând limita de 445 cm înălțime; folosirea alveolelor oferă marjă suplimentară."
-    },
-    {
-      id: 6,
-      description: "Semitrailer cu alveole de 90 cm. Potrivit pentru utilaje mai grele, utilizând cap tractor cu trei axe."
-    },
-    {
-      id: 7,
-      description: "Lowbed cu două axe, pat drept extensibil. Recomandat pentru mărfuri lungi și înalte, dar nu foarte grele."
-    },
-    {
-      id: 8,
-      description: "Lowbed cu două axe, cu \"inimă\" centrală și grătare laterale. Ideal pentru utilaje autopropulsate sau pe roți, în special agricole."
-    },
-    {
-      id: 9,
-      description: "Lowbed cu trei axe. Potrivit pentru mărfuri înalte și mai grele decât cele de la punctul anterior."
-    },
-    {
-      id: 11,
-      description: "Lowbed cu pat drept extensibil pe lungime, pentru mărfuri grele, lungi și înalte."
-    },
-    {
-      id: 12,
-      description: "Semitrailer cu 5 axe. Potrivit pentru mărfuri generale cu greutate medie."
-    },
-    {
-      id: 13,
-      description: "Similar punctului 12, dar pentru greutăți mai mari."
-    },
-    {
-      id: 14,
-      description: "Semitrailere pentru mărfuri foarte grele și, eventual, lungi. Există și variante cu două axe suplimentare pentru capacitate extinsă."
-    },
-    {
-      id: 15,
-      description: "Axe modulare. Pot fi configurate în funcție de necesități, pentru transportul mărfurilor extrem de grele. Suspensia hidraulică permite reglaje speciale pentru stabilitate pe drumuri dificile."
-    },
-    {
-      id: 16,
-      description: "Axe modulare cu grindă/pat. Pentru mărfuri grele și înalte – versiune supradimensionată a modelului de la punctul 11."
-    },
-    {
-      id: 17,
-      description: "Trailer cu 10 axe. Potrivit pentru mărfuri grele și lungi."
-    },
-    {
-      id: 18,
-      description: "Similar punctului 11, dar destinat utilajelor mai grele, fără lungimi excepționale."
-    },
-    {
-      id: 19,
-      description: "Lowbed cu 8 axe. Pentru mărfuri foarte grele (18+)."
-    },
-    {
-      id: 20,
-      description: "Trailer pentru mărfuri extrem de lungi (pale de eoliene, grinzi de pod etc.)."
-    },
-    {
-      id: 21,
-      description: "Trailer pentru mărfuri extrem de lungi (pale de eoliene, grinzi de pod etc.)."
-    },
-    {
-      id: 22,
-      description: "Axe modulare în configurație specială pentru mărfuri deosebit de grele. Al doilea cap tractor (cu protap) sprijină prin împingere, în timp ce primul trage ansamblul."
-    },
-    {
-      id: 23,
-      description: "Mese rotative. Utilizate pentru mărfuri foarte lungi pe trasee sinuoase. Montate pe axe modulare, asigură și capacitate mare de încărcare."
-    },
-    {
-      id: 24,
-      description: "Girder bridge. Folosit pentru transformatoare de capacitate foarte mare (de exemplu, pentru alimentarea unui oraș). Avantaj: distribuie greutatea pe o lungime mare, protejând infrastructura rutieră."
-    }
-  ];
 
   // SEO: Set document title and meta description for fleet page
   useEffect(() => {
@@ -165,51 +72,33 @@ const Fleet: React.FC = () => {
               Echipamente pentru Transport Specializat
             </h2>
             <p className="fleet-intro-description">
-              Flota noastră cuprinde o gamă variată de echipamente specializate, 
-              de la platforme extensibile până la axe modulare pentru transportul 
-              celor mai complexe și grele încărcături. Fiecare vehicul este 
-              conceput pentru a răspunde provocărilor specifice ale industriei 
-              de transport agabaritic.
+            Holleman pune la dispoziție o flotă specializată și echipamente dedicate transporturilor grele și agabaritice, configurate pentru cerințe logistice variate, de la transporturi speciale rutiere până la proiecte complexe de tip project cargo. Flota este susținută de investiții continue în echipamente și de capabilități proprii de service și mentenanță, un avantaj important pentru disponibilitate operațională, siguranță și continuitatea proiectelor.
+În această secțiune sunt prezentate echipamentele disponibile și specificațiile tehnice relevante, pentru a oferi o imagine clară asupra resurselor tehnice utilizate de Holleman în proiecte speciale, în România și la nivel european.
+Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale industriei de transport agabaritic.
             </p>
           </div>
 
-          {/* Fleet Main Content - Side by Side */}
-          <div className="fleet-main-content">
-            {/* Fleet Images - Left Side */}
-            <div className="fleet-images-section">
-              <div className="fleet-image-container">
-                <img 
-                  src="/images/flotaechip.webp" 
-                  alt="Flota Holleman Heavy Lift - Echipamente Transport Agabaritic"
-                  className="fleet-main-image"
-                />
-              </div>
-              <div className="fleet-image-container">
-                <img 
-                  src="/images/flotaechipm.webp" 
-                  alt="Flota Holleman Heavy Lift - Echipamente Transport Agabaritic Mobile"
-                  className="fleet-main-image"
-                />
-              </div>
-            </div>
-
-            {/* Fleet Details - Right Side */}
-            <div className="fleet-details">
-              <div className="fleet-items">
-                {fleetData.map((item) => (
-                  <div key={item.id} className="fleet-item">
-                    <div className="fleet-item-number">
-                      {item.id}
-                    </div>
-                    <div className="fleet-item-content">
-                      <p className="fleet-item-description">
-                        {item.description}
-                      </p>
-                    </div>
+          <div className="fleet-grid">
+            {fleetCards.map((card) => (
+              <div key={card.id} className="fleet-card">
+                <div className="fleet-card-top">
+                  <div className="fleet-card-image-wrap">
+                    <img
+                      src={card.image}
+                      alt={`Echipament transport ${card.id}`}
+                      className="fleet-card-image"
+                    />
                   </div>
-                ))}
+                  <div className="fleet-card-actions">
+                    <button className="fleet-btn">Detalii Tehnice</button>
+                    <button className="fleet-btn">Detalii Foto</button>
+                  </div>
+                </div>
+                <div className="fleet-card-footer">
+                  <p className="fleet-card-description">{card.description}</p>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
 
         </div>
