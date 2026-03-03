@@ -92,7 +92,7 @@ const IndustriiDeservite: React.FC = () => {
         title="Industrii Deservite | Holleman"
         description="Holleman acoperă transporturi rutiere, agabaritice, navale, feroviare și aeriene. Soluții logistice specializate pentru fiecare sector economic."
         canonicalUrl="https://holleman.ro/industrii-deservite"
-        ogImage="https://holleman.ro/images/Group8800.png"
+        ogImage="https://holleman.ro/images/Group8800.webp"
         keywords="industrii deservite, transport rutier, transport agabaritic, transport naval, transport feroviar, transport aerian, logistica Romania"
       />
       <Header />
@@ -100,7 +100,7 @@ const IndustriiDeservite: React.FC = () => {
       {/* Hero Section */}
       <section
         className="industrii-hero"
-        style={{ backgroundImage: `url('/images/Group8800.png')` }}
+        style={{ backgroundImage: `url('/images/Group8800.webp')` }}
       >
         <div className="industrii-hero-overlay">
           <div className="industrii-hero-content">
