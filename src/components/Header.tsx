@@ -102,20 +102,8 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            <div 
-              className={`nav-item dropdown ${activeNav === 'proiecte' ? 'active' : ''}`}
-              onMouseEnter={() => handleDropdownHover('proiecte')}
-              onMouseLeave={handleDropdownLeave}
-            >
+            <div className={`nav-item ${activeNav === 'proiecte' ? 'active' : ''}`} onClick={() => navigate('/proiecte')}>
               <span>PROIECTE</span>
-              <span className="dropdown-arrow">▼</span>
-              {activeDropdown === 'proiecte' && (
-                <div className="dropdown-menu" role="menu">
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#" role="menuitem" aria-label="Logistica Parcuri Eoline">Logistica Parcuri Eoline</a>
-                  <a href="/proiecte" role="menuitem" aria-label="Proiecte Transport Complex">Proiecte Transport Complex</a>
-                </div>
-              )}
             </div>
 
             <div className={`nav-item ${activeNav === 'echipamente-resurse' ? 'active' : ''}`} onClick={() => navigate('/fleet')}>
