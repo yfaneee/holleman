@@ -52,7 +52,7 @@ const Fleet: React.FC = () => {
       <section 
         className="fleet-hero"
         style={{
-          backgroundImage: `url('/images/Group8730.webp')`
+          backgroundImage: `url('/images/Group8802.webp')`
         }}
       >
         <div className="hero-overlay"></div>
