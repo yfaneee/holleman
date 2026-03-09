@@ -166,7 +166,10 @@
 
 /* Fleet Card Grid */
 .fleet-grid {
-  flex: 1;
+  flex: 0 1 680px;
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
@@ -323,6 +326,8 @@
   }
 
   .fleet-grid {
+    flex: 1 1 auto;
+    max-width: 100%;
     gap: 1.25rem;
   }
 
