@@ -109,6 +109,44 @@ const IndustriiDeservite: React.FC = () => {
         </div>
       </section>
 
+      {/* Unde livram valoare Section */}
+      <section className="industrii-unde-section">
+        <div className="industrii-unde-container">
+          <h2 className="industrii-unde-title">Unde livram valoare</h2>
+          <div className="industrii-unde-grid">
+            {undeLivram.map((card) => (
+              <div
+                key={card.title}
+                className="industrii-unde-card"
+                style={{ backgroundImage: `url('${card.image}')` }}
+              >
+                <div className="industrii-unde-overlay">
+                  <h3 className="industrii-unde-card-title">{card.title}</h3>
+                  <p className="industrii-unde-card-text">{card.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Servicii cheie Section */}
+      <section
+        className="industrii-servicii-section"
+        style={{ backgroundImage: `url('/images/Group8728.webp')` }}
+      >
+        <div className="industrii-servicii-overlay">
+          <div className="industrii-servicii-container">
+            <h2 className="industrii-servicii-title">Servicii cheie, integrate în proiect</h2>
+            <ul className="industrii-servicii-list">
+              {serviciiCheie.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Main Content Section */}
       <section className="industrii-content-section">
         <div className="industrii-content-container">
@@ -133,44 +171,6 @@ const IndustriiDeservite: React.FC = () => {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Servicii cheie Section */}
-      <section
-        className="industrii-servicii-section"
-        style={{ backgroundImage: `url('/images/Group8728.webp')` }}
-      >
-        <div className="industrii-servicii-overlay">
-          <div className="industrii-servicii-container">
-            <h2 className="industrii-servicii-title">Servicii cheie, integrate în proiect</h2>
-            <ul className="industrii-servicii-list">
-              {serviciiCheie.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Unde livram valoare Section */}
-      <section className="industrii-unde-section">
-        <div className="industrii-unde-container">
-          <h2 className="industrii-unde-title">Unde livram valoare</h2>
-          <div className="industrii-unde-grid">
-            {undeLivram.map((card) => (
-              <div
-                key={card.title}
-                className="industrii-unde-card"
-                style={{ backgroundImage: `url('${card.image}')` }}
-              >
-                <div className="industrii-unde-overlay">
-                  <h3 className="industrii-unde-card-title">{card.title}</h3>
-                  <p className="industrii-unde-card-text">{card.text}</p>
-                </div>
               </div>
             ))}
           </div>

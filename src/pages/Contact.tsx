@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import HollemanMap from '../components/HollemanMap';
+import HollemanMap, { locations as mapLocations } from '../components/HollemanMap';
 import { useEmailForm } from '../hooks/useEmailForm';
 import { ContactFormData, isValidEmail, isValidPhone } from '../services/emailService';
 import './Contact.css';
 import '../styles/forms.css';
 
+const secondaryLocations = mapLocations.filter(
+  (loc) => loc.name !== 'București – Jilava' && loc.name !== 'Constanța – Port Agigea Sud'
+);
+
 const Contact: React.FC = () => {
   const { isLoading, isSuccess, error, submitContactForm, resetForm } = useEmailForm();
-  
+
+  const [expandedLocation, setExpandedLocation] = useState<string | null>(null);
+
   // State for contact locations from Strapi
   const [location1, setLocation1] = useState<any>(null);
   const [location2, setLocation2] = useState<any>(null);
@@ -469,6 +475,54 @@ const Contact: React.FC = () => {
                     )}
                   </>
                 )}
+              </div>
+
+              {/* Accordion cards for remaining map pin locations */}
+              <div className="contact-map-locations-grid">
+                {secondaryLocations.map((loc) => {
+                  const isOpen = expandedLocation === loc.name;
+                  return (
+                    <div key={loc.name} className={`contact-map-location-card${isOpen ? ' open' : ''}`}>
+                      <button
+                        className="contact-map-location-header"
+                        onClick={() => setExpandedLocation(isOpen ? null : loc.name)}
+                        aria-expanded={isOpen}
+                      >
+                        <div className="location-marker">
+                          <img src="/images/icons/location-marker.webp" alt="Location" />
+                        </div>
+                        <h4>{loc.name}</h4>
+                        <svg
+                          className={`accordion-arrow${isOpen ? ' rotated' : ''}`}
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                      <div className={`contact-map-location-body${isOpen ? ' open' : ''}`}>
+                        <p className="address">
+                          {loc.address.split('\n').map((line, i) => (
+                            <span key={i}>{line}<br /></span>
+                          ))}
+                        </p>
+                        <div className="contact-details">
+                          {loc.phone.split('\n').map((line, i) => (
+                            <p key={i} className="phone">{line}</p>
+                          ))}
+                        </div>
+                        <a className="map-location-email" href={`mailto:${loc.email}`}>{loc.email}</a>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

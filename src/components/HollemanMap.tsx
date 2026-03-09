@@ -38,7 +38,7 @@ export interface MapLocation {
   email: string;
 }
 
-const locations: MapLocation[] = [
+export const locations: MapLocation[] = [
   {
     name: 'București – Jilava',
     position: [44.3391, 26.1024],
@@ -101,6 +101,13 @@ const locations: MapLocation[] = [
     address: 'Holleman NORD\nHusøyveien 260, Postboks 23, 4299 Avaldsnes',
     phone: '+47 52 85 69 00',
     email: 'info@holleman-nord.no',
+  },
+  {
+    name: 'Netherlands – Bergen op Zoom',
+    position: [51.4969, 4.2878],
+    address: 'Lelyweg 12, 4612 PS Bergen op Zoom',
+    phone: '+31 (0)166 61 23 15',
+    email: 'sales@degroentransport.nl',
   },
 ];
 

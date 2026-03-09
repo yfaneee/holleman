@@ -78,27 +78,47 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
             </p>
           </div>
 
-          <div className="fleet-grid">
-            {fleetCards.map((card) => (
-              <div key={card.id} className="fleet-card">
-                <div className="fleet-card-top">
-                  <div className="fleet-card-image-wrap">
-                    <img
-                      src={card.image}
-                      alt={`Echipament transport ${card.id}`}
-                      className="fleet-card-image"
-                    />
-                  </div>
-                  <div className="fleet-card-actions">
-                    <button className="fleet-btn">Detalii Tehnice</button>
-                    <button className="fleet-btn">Detalii Foto</button>
-                  </div>
-                </div>
-                <div className="fleet-card-footer">
-                  <p className="fleet-card-description">{card.description}</p>
-                </div>
+          <div className="fleet-body">
+            {/* Filter Sidebar */}
+            <aside className="fleet-sidebar">
+              <div className="fleet-filter-box">
+                <h3 className="fleet-filter-title">Filtrează după axe</h3>
+                <ul className="fleet-filter-list">
+                  {['3 Axe', '4 Axe', '5 Axe', '6 Axe', '7 Axe', '8 Axe', '9 Axe', '10 Axe', '10+ Axe'].map((label) => (
+                    <li key={label} className="fleet-filter-item">
+                      <label className="fleet-filter-label">
+                        <input type="checkbox" className="fleet-filter-checkbox" />
+                        <span>{label}</span>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
+            </aside>
+
+            {/* Cards */}
+            <div className="fleet-grid">
+              {fleetCards.map((card) => (
+                <div key={card.id} className="fleet-card">
+                  <div className="fleet-card-top">
+                    <div className="fleet-card-image-wrap">
+                      <img
+                        src={card.image}
+                        alt={`Echipament transport ${card.id}`}
+                        className="fleet-card-image"
+                      />
+                    </div>
+                    <div className="fleet-card-actions">
+                      <button className="fleet-btn">Detalii Tehnice</button>
+                      <button className="fleet-btn">Detalii Foto</button>
+                    </div>
+                  </div>
+                  <div className="fleet-card-footer">
+                    <p className="fleet-card-description">{card.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>
