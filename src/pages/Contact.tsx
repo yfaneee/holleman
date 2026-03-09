@@ -596,17 +596,6 @@ const Contact: React.FC = () => {
                         lineHeight: '1.6',
                         color: '#333',
                       };
-                      const dotStyle: React.CSSProperties = {
-                        opacity: 1,
-                        visibility: 'visible',
-                        width: '12px',
-                        height: '12px',
-                        backgroundColor: '#D4A017',
-                        borderRadius: '50%',
-                        flexShrink: 0,
-                        marginTop: '6px',
-                      };
-
                       const raw = coverageContent.bulletPoints;
 
                       // Strapi blocks format (array of block objects)
