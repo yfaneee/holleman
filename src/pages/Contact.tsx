@@ -584,45 +584,68 @@ const Contact: React.FC = () => {
                     margin: 0
                   }}>
                     {coverageContent.bulletPoints && (() => {
-                      const text = coverageContent.bulletPoints;
-                      let points = [];
-                      
-                      // If it contains line breaks, use them
-                      if (text.includes('\n')) {
-                        points = text.split('\n').filter((point: string) => point.trim());
-                      } else {
-                        // Manual split based on the specific content structure
-                        points = [
-                          "Germania, Austria, Polonia, Olanda, Italia, Turcia",
-                          "Rute comerciale Est–Vest și coridoare multimodale internaționale", 
-                          "Acces rapid la porturi maritime și fluviale (Constanța, Rotterdam, Antwerp, etc.)"
-                        ];
+                      const liStyle: React.CSSProperties = {
+                        opacity: 1,
+                        transform: 'translateY(0px)',
+                        display: 'flex',
+                        visibility: 'visible',
+                        alignItems: 'flex-start',
+                        gap: '15px',
+                        marginBottom: '20px',
+                        fontSize: 'clamp(15px, 2vw, 17px)',
+                        lineHeight: '1.6',
+                        color: '#333',
+                      };
+                      const dotStyle: React.CSSProperties = {
+                        opacity: 1,
+                        visibility: 'visible',
+                        width: '12px',
+                        height: '12px',
+                        backgroundColor: '#D4A017',
+                        borderRadius: '50%',
+                        flexShrink: 0,
+                        marginTop: '6px',
+                      };
+
+                      const raw = coverageContent.bulletPoints;
+
+                      // Strapi blocks format (array of block objects)
+                      if (Array.isArray(raw)) {
+                        const items: React.ReactNode[] = [];
+                        raw.forEach((block: any, bi: number) => {
+                          if (block.type === 'list') {
+                            block.children.forEach((item: any, ii: number) => {
+                              const text = (item.children || []).map((c: any) => c.text).join('');
+                              if (text.trim()) {
+                                items.push(
+                                  <li key={`${bi}-${ii}`} style={{ ...liStyle, gap: 0 }}>
+                                    {text}
+                                  </li>
+                                );
+                              }
+                            });
+                          } else if (block.type === 'paragraph') {
+                            const text = (block.children || []).map((c: any) => c.text).join('');
+                            if (text.trim()) {
+                              items.push(
+                                <li key={bi} style={{ ...liStyle, gap: 0 }}>
+                                  {text}
+                                </li>
+                              );
+                            }
+                          }
+                        });
+                        return items;
                       }
-                      
+
+                      // Plain string fallback
+                      const points: string[] = String(raw)
+                        .split('\n')
+                        .map((p: string) => p.trim())
+                        .filter(Boolean);
                       return points.map((point: string, index: number) => (
-                        <li key={index} style={{
-                          opacity: 1,
-                          transform: 'translateY(0px)',
-                          display: 'flex',
-                          visibility: 'visible',
-                          alignItems: 'flex-start',
-                          gap: '15px',
-                          marginBottom: '20px',
-                          fontSize: 'clamp(15px, 2vw, 17px)',
-                          lineHeight: '1.6',
-                          color: '#333'
-                        }}>
-                          <span style={{
-                            opacity: 1,
-                            visibility: 'visible',
-                            width: '12px',
-                            height: '12px',
-                            backgroundColor: '#D4A017',
-                            borderRadius: '50%',
-                            flexShrink: 0,
-                            marginTop: '6px'
-                          }}></span>
-                          {point.trim()}
+                        <li key={index} style={{ ...liStyle, gap: 0 }}>
+                          {point}
                         </li>
                       ));
                     })()}
