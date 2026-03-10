@@ -409,6 +409,13 @@ const Contact: React.FC = () => {
               <h2 className="form-right-title">
                 Scrie-ne si iti propunem rapid o solutie - transport intern sau international, cu suport operational complet pentru incarcaturi grele si agabaritice.
               </h2>
+              <div className="form-right-map">
+                <img
+                  src="/images/contactMap.webp"
+                  alt="Harta acoperire Holleman"
+                  className="form-right-map-img"
+                />
+              </div>
             </div>
           </div>
         </div>
