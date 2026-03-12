@@ -36,6 +36,7 @@ export interface MapLocation {
   address: string;
   phone: string;
   email: string;
+  website?: string;
 }
 
 export const locations: MapLocation[] = [
@@ -59,6 +60,7 @@ export const locations: MapLocation[] = [
     address: '72 Tutrakan Blvd., 7000 Rousse, Bulgaria',
     phone: '+359 82 842 886 / +359 88 621 1715',
     email: 'info@holleman.bg',
+    website: 'www.holleman.bg',
   },
   {
     name: 'Serbia – Beograd',
@@ -66,6 +68,7 @@ export const locations: MapLocation[] = [
     address: 'Milinka Kusica 1/3, 11250 Beograd, Serbia',
     phone: '+381 11 657 1 307 / +381 63 770 9 039',
     email: 'info@holleman.rs',
+    website: 'www.holleman.rs',
   },
   {
     name: 'Ukraine – Mykolaiv',
@@ -73,6 +76,7 @@ export const locations: MapLocation[] = [
     address: 'м. Mykolaiv, 61/7 Mariupolska str.',
     phone: '+38 (067) 519-26-00',
     email: 'info@holleman.org.ua',
+    website: 'www.holleman.org.ua',
   },
   {
     name: 'Germany – Pfreimd',
@@ -80,6 +84,7 @@ export const locations: MapLocation[] = [
     address: 'P. Schwandner Logistik & Transport GmbH\nAm Kalvarienberg 17, DE-92536 Pfreimd',
     phone: '+49 (0)96 06 / 92 19–0 / +49 (0)96 06 / 92 19–19',
     email: 'info@schwandner-logistik.de',
+    website: 'www.schwandner-logistik.de',
   },
   {
     name: 'Hungary – Alsónémedi',
@@ -87,6 +92,7 @@ export const locations: MapLocation[] = [
     address: 'Holleman Hungary OOD\n2351 Alsónémedi, Ványi út 2765 hrsz.',
     phone: '+36 238 04 320 / +36 238 04 319',
     email: 'info@holleman.hu',
+    website: 'www.holleman.hu',
   },
   {
     name: 'Moldova – Chișinău',
@@ -94,6 +100,7 @@ export const locations: MapLocation[] = [
     address: 'ICS Holleman East SRL\n72 Decebal Blvd., bl.2, ap.6, Chișinău, MD-2038',
     phone: '+37 369 092 674 / +37 302 263 74 57',
     email: 'info@holleman.md',
+    website: 'www.holleman.md',
   },
   {
     name: 'Norway – Avaldsnes',
@@ -101,6 +108,7 @@ export const locations: MapLocation[] = [
     address: 'Holleman NORD\nHusøyveien 260, Postboks 23, 4299 Avaldsnes',
     phone: '+47 52 85 69 00',
     email: 'info@holleman-nord.no',
+    website: 'www.holleman-nord.no',
   },
   {
     name: 'Netherlands – Bergen op Zoom',
@@ -108,6 +116,7 @@ export const locations: MapLocation[] = [
     address: 'Lelyweg 12, 4612 PS Bergen op Zoom',
     phone: '+31 (0)166 61 23 15',
     email: 'sales@degroentransport.nl',
+    website: 'www.degroentransport.nl',
   },
 ];
 

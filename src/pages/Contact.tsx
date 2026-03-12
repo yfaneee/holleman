@@ -586,6 +586,9 @@ const Contact: React.FC = () => {
                           ))}
                         </div>
                         <a className="map-location-email" href={`mailto:${loc.email}`}>{loc.email}</a>
+                        {loc.website && (
+                          <a className="map-location-website" href={`https://${loc.website}`} target="_blank" rel="noopener noreferrer">{loc.website}</a>
+                        )}
                       </div>
                     </div>
                   );

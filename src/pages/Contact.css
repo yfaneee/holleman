@@ -1672,7 +1672,9 @@
   margin: 2px 0;
 }
 
-.contact-page .map-location-email {
+.contact-page .map-location-email,
+.contact-page .map-location-website {
+  display: block;
   font-size: 13px;
   color: #136B38;
   text-decoration: none;
@@ -1680,9 +1682,14 @@
   transition: color 0.2s ease;
 }
 
-.contact-page .map-location-email:hover {
+.contact-page .map-location-email:hover,
+.contact-page .map-location-website:hover {
   color: #0e5230;
   text-decoration: underline;
+}
+
+.contact-page .map-location-website {
+  margin-top: 4px;
 }
 
 @media (max-width: 768px) {
