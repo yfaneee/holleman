@@ -11,6 +11,66 @@ const secondaryLocations = mapLocations.filter(
   (loc) => loc.name !== 'București – Jilava' && loc.name !== 'Constanța – Port Agigea Sud'
 );
 
+const liStyle: React.CSSProperties = {
+  display: 'block',
+  marginBottom: '20px',
+  fontSize: 'clamp(15px, 2vw, 17px)',
+  lineHeight: '1.6',
+  color: '#333',
+};
+
+// Split "**bold**" markdown into React nodes
+const parseBold = (text: string): React.ReactNode[] => {
+  const parts = text.split(/\*\*(.*?)\*\*/);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+  );
+};
+
+// Render a Strapi inline children array, respecting bold/italic + markdown **
+const renderInline = (children: any[]): React.ReactNode =>
+  children.map((c: any, i: number) => {
+    let node: React.ReactNode = parseBold(c.text ?? '');
+    if (c.bold) node = <strong key={i}>{c.text}</strong>;
+    if (c.italic) node = <em key={i}>{c.italic ? c.text : node}</em>;
+    if (c.underline) node = <u key={i}>{c.text}</u>;
+    return <React.Fragment key={i}>{node}</React.Fragment>;
+  });
+
+const renderBulletPoints = (raw: any): React.ReactNode[] => {
+  if (!raw) return [];
+
+  // Strapi blocks array
+  if (Array.isArray(raw)) {
+    const items: React.ReactNode[] = [];
+    raw.forEach((block: any, bi: number) => {
+      if (block.type === 'list') {
+        (block.children || []).forEach((item: any, ii: number) => {
+          const plain = (item.children || []).map((c: any) => c.text ?? '').join('');
+          if (plain.trim()) {
+            items.push(<li key={`${bi}-${ii}`} style={liStyle}>{renderInline(item.children || [])}</li>);
+          }
+        });
+      } else if (block.type === 'paragraph') {
+        const plain = (block.children || []).map((c: any) => c.text ?? '').join('');
+        if (plain.trim()) {
+          items.push(<li key={bi} style={liStyle}>{renderInline(block.children || [])}</li>);
+        }
+      }
+    });
+    return items;
+  }
+
+  // Plain string fallback — also parse **bold**
+  return String(raw)
+    .split('\n')
+    .map((p: string) => p.trim())
+    .filter(Boolean)
+    .map((point: string, i: number) => (
+      <li key={i} style={liStyle}>{parseBold(point)}</li>
+    ));
+};
+
 const Contact: React.FC = () => {
   const { isLoading, isSuccess, error, submitContactForm, resetForm } = useEmailForm();
 
@@ -590,61 +650,7 @@ const Contact: React.FC = () => {
                     padding: 0,
                     margin: 0
                   }}>
-                    {coverageContent.bulletPoints && (() => {
-                      const liStyle: React.CSSProperties = {
-                        opacity: 1,
-                        transform: 'translateY(0px)',
-                        display: 'flex',
-                        visibility: 'visible',
-                        alignItems: 'flex-start',
-                        gap: '15px',
-                        marginBottom: '20px',
-                        fontSize: 'clamp(15px, 2vw, 17px)',
-                        lineHeight: '1.6',
-                        color: '#333',
-                      };
-                      const raw = coverageContent.bulletPoints;
-
-                      // Strapi blocks format (array of block objects)
-                      if (Array.isArray(raw)) {
-                        const items: React.ReactNode[] = [];
-                        raw.forEach((block: any, bi: number) => {
-                          if (block.type === 'list') {
-                            block.children.forEach((item: any, ii: number) => {
-                              const text = (item.children || []).map((c: any) => c.text).join('');
-                              if (text.trim()) {
-                                items.push(
-                                  <li key={`${bi}-${ii}`} style={{ ...liStyle, gap: 0 }}>
-                                    {text}
-                                  </li>
-                                );
-                              }
-                            });
-                          } else if (block.type === 'paragraph') {
-                            const text = (block.children || []).map((c: any) => c.text).join('');
-                            if (text.trim()) {
-                              items.push(
-                                <li key={bi} style={{ ...liStyle, gap: 0 }}>
-                                  {text}
-                                </li>
-                              );
-                            }
-                          }
-                        });
-                        return items;
-                      }
-
-                      // Plain string fallback
-                      const points: string[] = String(raw)
-                        .split('\n')
-                        .map((p: string) => p.trim())
-                        .filter(Boolean);
-                      return points.map((point: string, index: number) => (
-                        <li key={index} style={{ ...liStyle, gap: 0 }}>
-                          {point}
-                        </li>
-                      ));
-                    })()}
+                    {renderBulletPoints(coverageContent.bulletPoints)}
                   </ul>
                 </div>
               </>
