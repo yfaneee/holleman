@@ -105,6 +105,9 @@
   width: 200px;
   position: sticky;
   top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .fleet-filter-box {

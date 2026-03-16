@@ -94,6 +94,20 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
                   ))}
                 </ul>
               </div>
+
+              <div className="fleet-filter-box">
+                <h3 className="fleet-filter-title">Tip echipament</h3>
+                <ul className="fleet-filter-list">
+                  {['LowBed', 'Eoliene'].map((label) => (
+                    <li key={label} className="fleet-filter-item">
+                      <label className="fleet-filter-label">
+                        <input type="checkbox" className="fleet-filter-checkbox" />
+                        <span>{label}</span>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </aside>
 
             {/* Cards */}
