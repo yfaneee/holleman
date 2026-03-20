@@ -84,7 +84,7 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
               <div className="fleet-filter-box">
                 <h3 className="fleet-filter-title">Filtrează după Nr. Axe Trailer</h3>
                 <ul className="fleet-filter-list">
-                  {['3 Axe', '4 Axe', '5 Axe', '6 Axe', '7 Axe', '8 Axe', '9 Axe', '10 Axe', '10+ Axe'].map((label) => (
+                  {['2 Axe','3 Axe', '4 Axe', '5 Axe', '6 Axe', '7 Axe', '8 Axe', '9 Axe', '10 Axe', '10+ Axe'].map((label) => (
                     <li key={label} className="fleet-filter-item">
                       <label className="fleet-filter-label">
                         <input type="checkbox" className="fleet-filter-checkbox" />
@@ -98,7 +98,7 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
               <div className="fleet-filter-box">
                 <h3 className="fleet-filter-title">Tip echipament</h3>
                 <ul className="fleet-filter-list">
-                  {['Semiremorci', 'LowBed/Vessel Bridge', 'Eoliene'].map((label) => (
+                  {['Semiremorci', 'LowBed/Vessel Bridge', 'Eoliene','10+ Axe Modulare'].map((label) => (
                     <li key={label} className="fleet-filter-item">
                       <label className="fleet-filter-label">
                         <input type="checkbox" className="fleet-filter-checkbox" />
