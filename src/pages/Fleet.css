@@ -226,6 +226,20 @@
   gap: 0;
 }
 
+.fleet-card-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #136B38;
+  border-right: 1px solid #f0f0f0;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
 .fleet-card-image-wrap {
   flex: 1;
   display: flex;

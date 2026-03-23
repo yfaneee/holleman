@@ -173,9 +173,10 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
               {filteredCards.length === 0 ? (
                 <p className="fleet-no-results">Niciun echipament nu corespunde filtrelor selectate.</p>
               ) : (
-                filteredCards.map((card) => (
+                filteredCards.map((card, index) => (
                   <div key={card.id} className="fleet-card">
                     <div className="fleet-card-top">
+                      <span className="fleet-card-number">{index + 1}</span>
                       <div className="fleet-card-image-wrap">
                         <img
                           src={card.image}
