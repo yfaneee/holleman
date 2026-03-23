@@ -167,6 +167,34 @@
   flex-shrink: 0;
 }
 
+.fleet-filter-clear {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #136B38;
+  color: #136B38;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.fleet-filter-clear:hover {
+  background: #136B38;
+  color: #fff;
+}
+
+.fleet-no-results {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 1rem;
+  color: #888;
+  text-align: center;
+  padding: 40px 0;
+  grid-column: 1 / -1;
+}
+
 /* Fleet Card Grid */
 .fleet-grid {
   flex: 0 1 680px;
