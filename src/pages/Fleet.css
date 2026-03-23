@@ -270,6 +270,7 @@
 }
 
 .fleet-btn {
+  display: inline-block;
   background: #136B38;
   color: #fff;
   border: none;
@@ -282,6 +283,7 @@
   white-space: nowrap;
   transition: background 0.2s ease, transform 0.15s ease;
   letter-spacing: 0.3px;
+  text-decoration: none;
 }
 
 .fleet-btn:hover {

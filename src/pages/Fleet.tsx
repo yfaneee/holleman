@@ -8,37 +8,38 @@ interface FleetCard {
   image: string;
   axe: string;
   tip: string;
+  pdf?: string;
 }
 
 const fleetCards: FleetCard[] = [
-  { id: 'a1',  image: '/images/flota/a1.jpg',  axe: '3 Axe',   tip: 'Semiremorci' },
-  { id: 'a2',  image: '/images/flota/a2.jpg',  axe: '4 Axe',   tip: 'Semiremorci' },
-  { id: 'a3',  image: '/images/flota/a3.jpg',  axe: '3 Axe',   tip: 'Semiremorci' },
-  { id: 'a4',  image: '/images/flota/a4.jpg',  axe: '3 Axe',   tip: 'Semiremorci' },
-  { id: 'a5',  image: '/images/flota/a5.jpg',  axe: '3 Axe',   tip: 'Semiremorci' },
-  { id: 'a6',  image: '/images/flota/a6.jpg',  axe: '4 Axe',   tip: 'Semiremorci' },
-  { id: 'a7',  image: '/images/flota/a7.jpg',  axe: '4 Axe',   tip: 'Semiremorci' },
-  { id: 'a8',  image: '/images/flota/a8.jpg',  axe: '2 Axe',   tip: 'LowBed/Vessel Bridge' },
-  { id: 'a9',  image: '/images/flota/a9.jpg',  axe: '3 Axe',   tip: 'LowBed/Vessel Bridge' },
-  { id: 'a10', image: '/images/flota/a10.jpg', axe: '4 Axe',   tip: 'LowBed/Vessel Bridge' },
-  { id: 'a11', image: '/images/flota/a11.jpg', axe: '6 Axe',   tip: 'LowBed/Vessel Bridge' },
-  { id: 'a12', image: '/images/flota/a12.jpg', axe: '6 Axe',   tip: 'LowBed/Vessel Bridge' },
-  { id: 'a13', image: '/images/flota/a13.jpg', axe: '8 Axe',   tip: 'LowBed/Vessel Bridge' },
-  { id: 'a14', image: '/images/flota/a14.jpg', axe: '10+ Axe', tip: 'LowBed/Vessel Bridge' },
-  { id: 'a15', image: '/images/flota/a15.jpg', axe: '4 Axe',   tip: 'Semiremorci' },
-  { id: 'a18', image: '/images/flota/a18.jpg', axe: '10+ Axe', tip: 'Semiremorci' },
-  { id: 'a19', image: '/images/flota/a19.jpg', axe: '10+ Axe', tip: 'Semiremorci' },
-  { id: 'a20', image: '/images/flota/a20.jpg', axe: '5 Axe',   tip: 'Semiremorci' },
-  { id: 'a21', image: '/images/flota/a21.jpg', axe: '6 Axe',   tip: 'Semiremorci' },
-  { id: 'a22', image: '/images/flota/a22.jpg', axe: '7 Axe',   tip: 'Semiremorci' },
-  { id: 'a23', image: '/images/flota/a23.jpg', axe: '8 Axe',   tip: 'Semiremorci' },
-  { id: 'a24', image: '/images/flota/a24.jpg', axe: '5 Axe',   tip: 'Semiremorci' },
-  { id: 'a25', image: '/images/flota/a25.jpg', axe: '6 Axe',   tip: 'Semiremorci' },
-  { id: 'a26', image: '/images/flota/a26.jpg', axe: '7 Axe',   tip: 'Semiremorci' },
-  { id: 'a27', image: '/images/flota/a27.jpg', axe: '8 Axe',   tip: 'Semiremorci' },
-  { id: 'a28', image: '/images/flota/a28.jpg', axe: '10+ Axe', tip: 'Semiremorci' },
-  { id: 'a29', image: '/images/flota/a29.jpg', axe: '8 Axe',   tip: 'Eoliene' },
-  { id: 'a30', image: '/images/flota/a30.jpg', axe: '10+ Axe', tip: 'Eoliene' },
+  { id: 'a1',  image: '/images/flota/a1.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          pdf: '/flota/a1.pdf'  },
+  { id: 'a2',  image: '/images/flota/a2.jpg',  axe: '4 Axe',   tip: 'Semiremorci',          pdf: '/flota/a2.pdf'  },
+  { id: 'a3',  image: '/images/flota/a3.jpg',  axe: '3 Axe',   tip: 'Semiremorci'           },
+  { id: 'a4',  image: '/images/flota/a4.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          pdf: '/flota/a4.pdf'  },
+  { id: 'a5',  image: '/images/flota/a5.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          pdf: '/flota/a5.pdf'  },
+  { id: 'a6',  image: '/images/flota/a6.jpg',  axe: '4 Axe',   tip: 'Semiremorci'           },
+  { id: 'a7',  image: '/images/flota/a7.jpg',  axe: '4 Axe',   tip: 'Semiremorci',          pdf: '/flota/a7.pdf'  },
+  { id: 'a8',  image: '/images/flota/a8.jpg',  axe: '2 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a8.pdf'  },
+  { id: 'a9',  image: '/images/flota/a9.jpg',  axe: '3 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a9.pdf'  },
+  { id: 'a10', image: '/images/flota/a10.jpg', axe: '4 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a10.pdf' },
+  { id: 'a11', image: '/images/flota/a11.jpg', axe: '6 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a11.pdf' },
+  { id: 'a12', image: '/images/flota/a12.jpg', axe: '6 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a12.pdf' },
+  { id: 'a13', image: '/images/flota/a13.jpg', axe: '8 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a13.pdf' },
+  { id: 'a14', image: '/images/flota/a14.jpg', axe: '10+ Axe', tip: 'LowBed/Vessel Bridge', pdf: '/flota/a14.pdf' },
+  { id: 'a15', image: '/images/flota/a15.jpg', axe: '4 Axe',   tip: 'Semiremorci'           },
+  { id: 'a18', image: '/images/flota/a18.jpg', axe: '10+ Axe', tip: 'Semiremorci',          pdf: '/flota/a16.pdf' },
+  { id: 'a19', image: '/images/flota/a19.jpg', axe: '10+ Axe', tip: 'Semiremorci'           },
+  { id: 'a20', image: '/images/flota/a20.jpg', axe: '5 Axe',   tip: 'Semiremorci',          pdf: '/flota/a18.pdf' },
+  { id: 'a21', image: '/images/flota/a21.jpg', axe: '6 Axe',   tip: 'Semiremorci',          pdf: '/flota/a19.pdf' },
+  { id: 'a22', image: '/images/flota/a22.jpg', axe: '7 Axe',   tip: 'Semiremorci',          pdf: '/flota/a20.pdf' },
+  { id: 'a23', image: '/images/flota/a23.jpg', axe: '8 Axe',   tip: 'Semiremorci',          pdf: '/flota/a21.pdf' },
+  { id: 'a24', image: '/images/flota/a24.jpg', axe: '5 Axe',   tip: 'Semiremorci'           },
+  { id: 'a25', image: '/images/flota/a25.jpg', axe: '6 Axe',   tip: 'Semiremorci'           },
+  { id: 'a26', image: '/images/flota/a26.jpg', axe: '7 Axe',   tip: 'Semiremorci'           },
+  { id: 'a27', image: '/images/flota/a27.jpg', axe: '8 Axe',   tip: 'Semiremorci'           },
+  { id: 'a28', image: '/images/flota/a28.jpg', axe: '10+ Axe', tip: 'Semiremorci'           },
+  { id: 'a29', image: '/images/flota/a29.jpg', axe: '8 Axe',   tip: 'Eoliene'               },
+  { id: 'a30', image: '/images/flota/a30.jpg', axe: '10+ Axe', tip: 'Eoliene'               },
 ];
 
 const Fleet: React.FC = () => {
@@ -185,7 +186,16 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
                         />
                       </div>
                       <div className="fleet-card-actions">
-                        <button className="fleet-btn">Detalii Tehnice</button>
+                        {card.pdf && (
+                          <a
+                            className="fleet-btn"
+                            href={card.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Detalii Tehnice
+                          </a>
+                        )}
                         <button className="fleet-btn">Detalii Foto</button>
                       </div>
                     </div>
