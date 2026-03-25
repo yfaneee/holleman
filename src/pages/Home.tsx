@@ -630,7 +630,7 @@ const Home: React.FC = () => {
       <section className="contact-section" style={contactStyle} aria-labelledby="contact-heading">
         <div className="contact-content">
           {/* Left: Company Info */}
-          <div className="company-info">
+          <div className="contact-info-panel">
             <h2 id="contact-heading">HOLLEMAN SPECIAL TRANSPORT & PROJECT CARGO SRL</h2>
             <h3>Transporturi Agabaritice</h3>
 

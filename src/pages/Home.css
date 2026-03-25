@@ -1060,7 +1060,7 @@
   margin: 0 auto;
 }
 
-.company-info {
+.contact-info-panel {
   flex: 1 1 52%;
   padding: clamp(36px, 4vw, 72px) clamp(28px, 3.5vw, 64px);
   color: white;
@@ -1071,7 +1071,7 @@
   z-index: 2;
 }
 
-.company-info h2 {
+.contact-info-panel h2 {
   font-family: 'Gotham Bold', sans-serif;
   font-size: clamp(14px, 1.6vw, 24px);
   margin-bottom: 4px;
@@ -1079,7 +1079,7 @@
   letter-spacing: 1px;
 }
 
-.company-info h3 {
+.contact-info-panel h3 {
   font-family: 'Gotham Bold', sans-serif;
   font-size: clamp(12px, 1.2vw, 18px);
   margin-bottom: clamp(20px, 2.5vw, 36px);
@@ -1175,7 +1175,7 @@
     flex-direction: column;
   }
 
-  .company-info {
+  .contact-info-panel {
     flex: none;
   }
 
@@ -1197,7 +1197,7 @@
     gap: 20px;
   }
 
-  .company-info {
+  .contact-info-panel {
     padding: 28px 20px;
   }
 
