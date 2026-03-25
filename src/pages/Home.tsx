@@ -335,12 +335,6 @@ const Home: React.FC = () => {
           <a href="https://holleman.bg/" target="_blank" rel="noopener noreferrer" className="partner-link">
             Holleman Bulgaria
           </a>
-          <a href="http://www.holleman.rs/sr/" target="_blank" rel="noopener noreferrer" className="partner-link">
-            Holleman Serbia
-          </a>
-          <a href="https://www.holleman.org.ua/" target="_blank" rel="noopener noreferrer" className="partner-link">
-            Holleman Ucraina
-          </a>
           <a href="https://mutariindustriale.ro/" target="_blank" rel="noopener noreferrer" className="partner-link">
             Holleman Heavy Lift
           </a>

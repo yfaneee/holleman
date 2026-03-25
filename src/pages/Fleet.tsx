@@ -27,8 +27,8 @@ const fleetCards: FleetCard[] = [
   { id: 'a13', image: '/images/flota/a13.jpg', axe: '8 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a13.pdf' },
   { id: 'a14', image: '/images/flota/a14.jpg', axe: '10+ Axe', tip: 'LowBed/Vessel Bridge', pdf: '/flota/a14.pdf' },
   { id: 'a15', image: '/images/flota/a15.jpg', axe: '4 Axe',   tip: 'Semiremorci'           },
-  { id: 'a18', image: '/images/flota/a18.jpg', axe: '10+ Axe', tip: 'Semiremorci',          pdf: '/flota/a16.pdf' },
-  { id: 'a19', image: '/images/flota/a19.jpg', axe: '10+ Axe', tip: 'Semiremorci',          pdf: '/flota/a17.pdf' },
+  { id: 'a18', image: '/images/flota/a18.jpg', axe: '10+ Axe', tip: 'Semiremorci / 10+ Axe Modulare', pdf: '/flota/a16.pdf' },
+  { id: 'a19', image: '/images/flota/a19.jpg', axe: '10+ Axe', tip: 'Semiremorci / 10+ Axe Modulare', pdf: '/flota/a17.pdf' },
   { id: 'a20', image: '/images/flota/a20.jpg', axe: '5 Axe',   tip: 'Semiremorci',          pdf: '/flota/a18.pdf' },
   { id: 'a21', image: '/images/flota/a21.jpg', axe: '6 Axe',   tip: 'Semiremorci',          pdf: '/flota/a19.pdf' },
   { id: 'a22', image: '/images/flota/a22.jpg', axe: '7 Axe',   tip: 'Semiremorci',          pdf: '/flota/a20.pdf' },
@@ -60,7 +60,8 @@ const Fleet: React.FC = () => {
 
   const filteredCards = fleetCards.filter(card => {
     const axeMatch = selectedAxe.length === 0 || selectedAxe.includes(card.axe);
-    const tipMatch = selectedTip.length === 0 || selectedTip.includes(card.tip);
+    const cardTips = card.tip.split(' / ');
+    const tipMatch = selectedTip.length === 0 || selectedTip.some(t => cardTips.includes(t));
     return axeMatch && tipMatch;
   });
 

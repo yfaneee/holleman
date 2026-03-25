@@ -254,21 +254,23 @@
 
 .industrii-unde-card-title {
   font-family: 'Gotham Bold', sans-serif;
-  font-size: var(--content-medium, 16px);
+  font-size: clamp(16px, 1.4vw, 19px);
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 8px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .industrii-unde-card-text {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: 400;
-  font-size: var(--content-small, 13px);
+  font-size: clamp(13px, 1.1vw, 15px);
   color: rgba(255, 255, 255, 0.92);
   line-height: 1.6;
   margin: 0;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
 }
 
 /* ============================================================
