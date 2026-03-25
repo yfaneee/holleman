@@ -5,6 +5,21 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { searchContent, getAutocompleteSuggestions, SearchableItem } from '../data/searchData';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+const homeMapIcon = L.divIcon({
+  className: '',
+  html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 44" width="32" height="44">
+    <path d="M16 0C7.163 0 0 7.163 0 16c0 10.5 16 28 16 28S32 26.5 32 16C32 7.163 24.837 0 16 0z" fill="#136B38"/>
+    <circle cx="16" cy="16" r="7" fill="white"/>
+    <circle cx="16" cy="16" r="4" fill="#136B38"/>
+  </svg>`,
+  iconSize: [32, 44],
+  iconAnchor: [16, 44],
+  popupAnchor: [0, -46],
+});
 
 const slides = [
   { src: '/images/slide1.webp', title: 'Holleman', alt: '1' },
@@ -36,14 +51,6 @@ const Home: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
-  // Cookie consent state
-  const [cookiesAccepted, setCookiesAccepted] = useState(false);
-
-  // Check cookie consent on mount
-  useEffect(() => {
-    const consent = localStorage.getItem('cookieConsent');
-    setCookiesAccepted(consent === 'accepted');
-  }, []);
 
 
 
@@ -622,86 +629,113 @@ const Home: React.FC = () => {
       {/* Contact Section */}
       <section className="contact-section" style={contactStyle} aria-labelledby="contact-heading">
         <div className="contact-content">
+          {/* Left: Company Info */}
           <div className="company-info">
             <h2 id="contact-heading">HOLLEMAN SPECIAL TRANSPORT & PROJECT CARGO SRL</h2>
             <h3>Transporturi Agabaritice</h3>
-            <div className="info-grid" role="list">
-              <div className="info-item" role="listitem">
-                <span className="label">Email:</span>
-                <a href="mailto:info@holleman.ro" className="value" aria-label="Trimite email la info@holleman.ro">info@holleman.ro</a>
+
+            <div className="contact-locations-grid">
+              {/* București – Jilava */}
+              <div className="contact-location-block">
+                <h4 className="location-block-title">București – Jilava</h4>
+                <div className="info-grid">
+                  <div className="info-item">
+                    <span className="label">Adresă:</span>
+                    <span className="value">Șoseaua de Centură nr. 29, Jilava, jud. Ilfov</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Telefon:</span>
+                    <span className="value-group">
+                      <a href="tel:+40213213822" className="value">+40 21 321 38 22</a> / <a href="tel:+40213216182" className="value">321 61 82</a>
+                    </span>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Mobil:</span>
+                    <span className="value-group">
+                      <a href="tel:+40744317713" className="value">+40 744 317 713</a> / <a href="tel:+40745017529" className="value">+40 745 017 529</a>
+                    </span>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Fax:</span>
+                    <span className="value">+40 21 320 24 29</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Email:</span>
+                    <a href="mailto:info@holleman.ro" className="value">info@holleman.ro</a>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Reg. Com:</span>
+                    <span className="value">J40/23700/2007</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Cod fiscal:</span>
+                    <span className="value">RO 22941739</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Bancă:</span>
+                    <span className="value">Raiffeisen Bank</span>
+                  </div>
+                </div>
               </div>
-              <div className="info-item" role="listitem">
-                <span className="label">Mobil:</span>
-                <span className="value-group">
-                  <a href="tel:+40744317713" className="value" aria-label="Sună la numărul de mobil">+40 744 317 713</a> / 
-                  <a href="tel:+40745017529" className="value">+40 745 017 529</a>
-                </span>
-              </div>
-              <div className="info-item" role="listitem">
-                <span className="label">Telefon:</span>
-                <span className="value-group">
-                  <a href="tel:+40213213822" className="value" aria-label="Sună la telefon fix"> +40 21 321 38 22</a> / 
-                  <a href="tel:+40213216182" className="value"> 321 61 82</a>
-                </span>
-              </div>
-              <div className="info-item" role="listitem">
-                <span className="label">Fax:</span>
-                <span className="value">+40 21 320 24 29</span>
-              </div>
-              <div className="info-item" role="listitem">
-                <span className="label">Reg. Com:</span>
-                <span className="value">J40/23700/2007</span>
-              </div>
-              <div className="info-item" role="listitem">
-                <span className="label">Cod fiscal:</span>
-                <span className="value">RO 22941739</span>
-              </div>
-              <div className="info-item" role="listitem">
-                <span className="label">Sediu:</span>
-                <span className="value">București</span>
-              </div>
-              <div className="info-item" role="listitem">
-                <span className="label">Bancă:</span>
-                <span className="value">Raiffeisen Bank</span>
+
+              {/* Constanța – Port Agigea Sud */}
+              <div className="contact-location-block">
+                <h4 className="location-block-title">Constanța – Port Agigea Sud</h4>
+                <div className="info-grid">
+                  <div className="info-item">
+                    <span className="label">Adresă:</span>
+                    <span className="value">Port Agigea Sud CT, cladirea TLS, parter, Birou 1, Constanța</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Telefon:</span>
+                    <a href="tel:+40744678100" className="value">+40 744 678 100</a>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Telefon:</span>
+                    <a href="tel:+40754016285" className="value">+40 754 016 285</a>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">Email:</span>
+                    <a href="mailto:maritima@holleman.ro" className="value">maritima@holleman.ro</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="map-container">
-            <div className="map-content">
-              {cookiesAccepted ? (
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1850.318501834485!2d26.102393031937627!3d44.339111155963934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ae019bb55c84a3%3A0x2bc4b1774827add9!2sHolleman%20Special%20Transport%20%26%20Project%20Cargo%20-%20transport%20agabaritic!5e0!3m2!1sro!2snl!4v1755968145616!5m2!1sro!2snl"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Hartă locație Holleman Special Transport & Project Cargo, București"
-                  aria-label="Hartă Google Maps cu locația sediului Holleman din București"
-                ></iframe>
-              ) : (
-                <div style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center',
-                  background: '#f0f0f0',
-                  color: '#555',
-                  textAlign: 'center',
-                  padding: '40px',
-                  fontSize: '16px',
-                  fontFamily: 'Gotham Book, sans-serif'
-                }}>
-                  <div>
-                    <p style={{ marginBottom: '15px' }}>📍</p>
-                    <p>Acceptați cookie-urile pentru a vizualiza harta.</p>
+
+          {/* Right: Map */}
+          <div className="home-map-panel">
+            <MapContainer
+              center={[44.06, 27.35]}
+              zoom={7}
+              scrollWheelZoom={false}
+              className="home-contact-map"
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://carto.com/">CartoDB</a>'
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+              />
+              <Marker position={[44.3391, 26.1024]} icon={homeMapIcon}>
+                <Popup className="holleman-popup">
+                  <div className="popup-content">
+                    <h3 className="popup-title">București – Jilava</h3>
+                    <p className="popup-address">Șoseaua de Centură nr. 29, Jilava, jud. Ilfov</p>
+                    <p className="popup-phone">+40 21 321 38 22 / 321 61 82</p>
+                    <a className="popup-email" href="mailto:info@holleman.ro">info@holleman.ro</a>
                   </div>
-                </div>
-              )}
-            </div>
-            <div className="map-overlay" aria-hidden="true"></div>
+                </Popup>
+              </Marker>
+              <Marker position={[43.7850, 28.6030]} icon={homeMapIcon}>
+                <Popup className="holleman-popup">
+                  <div className="popup-content">
+                    <h3 className="popup-title">Constanța – Port Agigea Sud</h3>
+                    <p className="popup-address">Port Agigea Sud CT, cladirea TLS, parter, Birou 1, Constanța</p>
+                    <p className="popup-phone">+40 744 678 100 / +40 754 016 285</p>
+                    <a className="popup-email" href="mailto:maritima@holleman.ro">maritima@holleman.ro</a>
+                  </div>
+                </Popup>
+              </Marker>
+            </MapContainer>
           </div>
         </div>
       </section>
