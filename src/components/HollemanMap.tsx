@@ -71,14 +71,6 @@ export const locations: MapLocation[] = [
     website: 'www.holleman.rs',
   },
   {
-    name: 'Ukraine – Mykolaiv',
-    position: [46.9588, 32.0303],
-    address: 'м. Mykolaiv, 61/7 Mariupolska str.',
-    phone: '+38 (067) 519-26-00',
-    email: 'info@holleman.org.ua',
-    website: 'www.holleman.org.ua',
-  },
-  {
     name: 'Germany – Pfreimd',
     position: [49.4752, 12.1705],
     address: 'P. Schwandner Logistik & Transport GmbH\nAm Kalvarienberg 17, DE-92536 Pfreimd',
