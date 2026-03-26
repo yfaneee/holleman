@@ -14,11 +14,17 @@
 
 .industrii-hero {
   height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
   position: relative;
+  overflow: hidden;
+}
+
+.industrii-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .industrii-hero-overlay {

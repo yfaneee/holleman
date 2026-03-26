@@ -98,10 +98,15 @@ const IndustriiDeservite: React.FC = () => {
       <Header />
 
       {/* Hero Section */}
-      <section
-        className="industrii-hero"
-        style={{ backgroundImage: `url('/images/Group8800.webp')` }}
-      >
+      <section className="industrii-hero">
+        <video
+          className="industrii-hero-video"
+          src="/videos/industrii-deservite.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
         <div className="industrii-hero-overlay">
           <div className="industrii-hero-content">
             <h1 className="industrii-hero-title">INDUSTRII DESERVITE</h1>
