@@ -6,6 +6,77 @@ import GoUpButton from '../components/GoUpButton';
 import SEO from '../components/SEO';
 import './HeavyLift.css';
 
+const ImageSlideshow: React.FC<{ images: string[]; alt: string }> = ({ images, alt }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const prev = () => setCurrentIndex((i) => (i - 1 + images.length) % images.length);
+  const next = () => setCurrentIndex((i) => (i + 1) % images.length);
+
+  return (
+    <div className="echipamente-slideshow">
+      <div className="slideshow-image-wrapper">
+        <img src={images[currentIndex]} alt={`${alt} ${currentIndex + 1}`} />
+        {images.length > 1 && (
+          <>
+            <button className="slideshow-btn prev" onClick={prev} aria-label="Imaginea anterioară">&#8249;</button>
+            <button className="slideshow-btn next" onClick={next} aria-label="Imaginea următoare">&#8250;</button>
+          </>
+        )}
+      </div>
+      {images.length > 1 && (
+        <div className="slideshow-dots">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              className={`slideshow-dot${i === currentIndex ? ' active' : ''}`}
+              onClick={() => setCurrentIndex(i)}
+              aria-label={`Imaginea ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const equipmentItems = [
+  {
+    title: 'Macară industrială 12 tone',
+    description: 'Macară industrială cu capacitate de 12 tone, marca Telemac.',
+    images: ['/echipamente/2_1.jpg', '/echipamente/2_2.jpg', '/echipamente/2_3.jpg', '/echipamente/2_4.jpg'],
+  },
+  {
+    title: 'Macară gantry 1000 tone',
+    description: 'Macară gantry cu capacitate maximă de ridicare de 1000 tone.',
+    images: ['/echipamente/3_1.jpg', '/echipamente/3_2.jpg', '/echipamente/3_3.jpg'],
+  },
+  {
+    title: 'Macară gantry 320 tone',
+    description: 'Macară gantry cu capacitate maximă de ridicare de 320 tone.',
+    images: ['/echipamente/4_1.jpg', '/echipamente/4_2.jpg'],
+  },
+  {
+    title: 'Stivuitoare 3, 4, 6 și 7 tone',
+    description: 'Stivuitoare de 3, 4, 6 și 7 tone.',
+    images: ['/echipamente/5_1.jpg', '/echipamente/5_2.jpg', '/echipamente/5_3.jpg'],
+  },
+  {
+    title: 'Trolii, palancuri și cărucioare cu role',
+    description: 'Trolii; Palancuri; Cărucioare cu role cu capacități cuprinse între 15 și 280 tone.',
+    images: ['/echipamente/6_1.jpg', '/echipamente/6_2.jpg'],
+  },
+  {
+    title: 'Cilindri hidraulici și cricuri specializate',
+    description: 'Cilindri hidraulici diversi / cricuri de ridicare specializate.',
+    images: ['/echipamente/7_1.jpg', '/echipamente/7_2.jpg', '/echipamente/7_3.jpg'],
+  },
+  {
+    title: 'Sisteme hidraulice sincronizate și traverse de ridicare',
+    description: 'Sisteme sincronizate de cilindri hidraulici; Traverse de ridicare diverse.',
+    images: ['/echipamente/8_1.jpg', '/echipamente/8_2.jpg'],
+  },
+];
+
 const HeavyLift: React.FC = () => {
   const navigate = useNavigate();
   const [serviceCardsContent, setServiceCardsContent] = useState<any>(null);
@@ -109,13 +180,13 @@ const HeavyLift: React.FC = () => {
                   if (imageContainer) {
                     imageContainer.classList.add('image-container-delivered');
                   }
-                }, 3000); // Hook reaches position and delivers image
+                }, 1900); // Hook reaches position and delivers image
                 
-                // 3. Hook retracts after delivering (0.5s later)
+                // 3. Hook retracts after delivering (0.4s later)
                 setTimeout(() => {
                   console.log('Hook retracting!');
                   hookContainer.classList.add('hook-retract');
-                }, 3500); // Start retraction after delivery
+                }, 2300); // Start retraction after delivery
               } else {
                 console.log('Missing elements - hookContainer:', !!hookContainer, 'imageElement:', !!imageElement);
               }
@@ -229,6 +300,27 @@ const HeavyLift: React.FC = () => {
 
           <div className="services-footer">
             <button className="btn" onClick={() => navigate('/contact')}>CONTACT</button>
+          </div>
+        </div>
+      </section>
+
+      {/* Echipamente Relocari Industriale Section */}
+      <section className="echipamente-section">
+        <div className="echipamente-container">
+          <h2 className="echipamente-title">Echipamente relocări industriale</h2>
+          <div className="echipamente-list">
+            {equipmentItems.map((item, index) => (
+              <div key={index} className={`echipamente-item${index % 2 !== 0 ? ' reverse' : ''}`}>
+                <div className="echipamente-text">
+                  <span className="echipamente-number">{String(index + 1).padStart(2, '0')}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+                <div className="echipamente-visual">
+                  <ImageSlideshow images={item.images} alt={item.title} />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
