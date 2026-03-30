@@ -8,11 +8,11 @@ const ScrollArrow: React.FC = () => {
   };
 
   return (
-    <a href="#" className="scroll-arrow-container" onClick={handleClick} aria-label="Scroll down">
+    <button className="scroll-arrow-container" onClick={handleClick} aria-label="Scroll down">
       <div className="scroll-arrow"></div>
       <div className="scroll-arrow"></div>
       <div className="scroll-arrow"></div>
-    </a>
+    </button>
   );
 };
 
