@@ -2,7 +2,7 @@ import React from 'react';
 import './ScrollArrow.css';
 
 const ScrollArrow: React.FC = () => {
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
   };
