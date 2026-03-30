@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { getAllProjects, getAllProjectsSync } from '../data/projectsData';
 import './ProjectCargo.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const ProjectCargo: React.FC = () => {
   const navigate = useNavigate();
@@ -152,6 +153,7 @@ const ProjectCargo: React.FC = () => {
             {projectCargoHeroContent?.subtitleText || ''}
           </p>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Services Section */}

@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { getAllProjects, getAllProjectsSync } from '../data/projectsData';
 import { convertBasicMarkdown } from '../utils/textFormatting';
 import './Proiecte.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const slides = [
   { src: '/images/slide1.webp', title: 'Holleman', alt: '1' },
@@ -494,6 +495,7 @@ const Proiecte: React.FC = () => {
              </p>
            </div>
          </div>
+         <ScrollArrow />
        </section>
 
       {/* Intro Text Section */}

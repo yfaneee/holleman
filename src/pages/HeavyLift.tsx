@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import GoUpButton from '../components/GoUpButton';
 import SEO from '../components/SEO';
 import './HeavyLift.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const ImageSlideshow: React.FC<{ images: string[]; alt: string }> = ({ images, alt }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -48,12 +49,12 @@ const equipmentItems = [
   {
     title: 'Macară gantry 1000 tone',
     description: 'Macară gantry cu capacitate maximă de ridicare de 1000 tone.',
-    images: ['/echipamente/3_1.jpg', '/echipamente/3_2.jpg', '/echipamente/3_3.jpg'],
+    images: ['/images/Group8730.webp','/echipamente/3_1.jpg', '/echipamente/3_2.jpg', '/echipamente/3_3.jpg'],
   },
   {
     title: 'Macară gantry 320 tone',
     description: 'Macară gantry cu capacitate maximă de ridicare de 320 tone.',
-    images: ['/echipamente/4_1.jpg', '/echipamente/4_2.jpg'],
+    images: ['/echipamente/4_2.jpg', '/echipamente/4_1.jpg'],
   },
   {
     title: 'Stivuitoare 3, 4, 6 și 7 tone',
@@ -239,6 +240,7 @@ const HeavyLift: React.FC = () => {
             </p>
           </div>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Services Grid Section */}
@@ -249,7 +251,7 @@ const HeavyLift: React.FC = () => {
           <div className="services-grid">
             <div className="service-item clickable" onClick={() => scrollToSection('hydraulic-cranes')}>
               <div className="service-icon">
-                <img src="/images/icons/Hydraulic.svg" alt="Acționări speciale cu portale hidraulice mobile de mare tonaj" />
+                <img src="/images/icons/hydraulic.png" alt="Acționări speciale cu portale hidraulice mobile de mare tonaj" />
               </div>
               <h3>{serviceCardsContent?.Service1Title || 'Loading...'}</h3>
               <div className="service-overlay">
@@ -269,7 +271,7 @@ const HeavyLift: React.FC = () => {
 
             <div className="service-item clickable" onClick={() => scrollToSection('global-relocations')}>
               <div className="service-icon">
-                <img src="/images/icons/iconinternational.webp" alt="Relocări în cadrul acelorași hale, firme, localități, țări, continent" />
+                <img src="/images/icons/cargo-container.png" alt="Relocări în cadrul acelorași hale, firme, localități, țări, continent" />
               </div>
               <h3>{serviceCardsContent?.Service3Title || 'Loading...'}</h3>
               <div className="service-overlay">
@@ -289,7 +291,7 @@ const HeavyLift: React.FC = () => {
 
             <div className="service-item clickable" onClick={() => scrollToSection('logistics-integration')}>
               <div className="service-icon">
-                <img src="/images/icons/heavy.webp" alt="Integrare cu transport agabaritic – activitate door-to-door" />
+                <img src="/images/icons/relocation.png" alt="Integrare cu transport agabaritic – activitate door-to-door" />
               </div>
               <h3>{serviceCardsContent?.Service5Title || 'Loading...'}</h3>
               <div className="service-overlay">

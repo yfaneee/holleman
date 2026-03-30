@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { getLatestArticles, getAllArticles, clearArticlesCache } from '../data/newsData';
 import './Blog.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const Blog: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -134,6 +135,7 @@ const Blog: React.FC = () => {
             {blogHeroContent?.subtitleText || ''}
           </p>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Articles Slideshow Section */}

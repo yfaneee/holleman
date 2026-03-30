@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { getArticleByIdSync, getRelatedArticlesSync, getAllArticles, clearArticlesCache } from '../data/newsData';
 import './ArticlePage.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const ArticlePage: React.FC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -192,6 +193,7 @@ const ArticlePage: React.FC = () => {
             <span>Autor: {article.author}</span>
           </div>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Article Content */}

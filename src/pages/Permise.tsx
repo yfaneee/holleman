@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import './Permise.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const accordionItems = [
   {
@@ -71,6 +72,7 @@ const Permise: React.FC = () => {
             </h1>
           </div>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Section 1 – Departament intern specializat */}

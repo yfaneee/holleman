@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './Fleet.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 interface FleetCard {
   id: string;
@@ -122,6 +123,7 @@ const Fleet: React.FC = () => {
             Echipamente specializate pentru orice provocare în transportul agabaritic
           </p>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Fleet Content Section */}

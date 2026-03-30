@@ -6,6 +6,7 @@ import { useEmailForm } from '../hooks/useEmailForm';
 import { ContactFormData, isValidEmail, isValidPhone } from '../services/emailService';
 import './Contact.css';
 import '../styles/forms.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const secondaryLocations = mapLocations.filter(
   (loc) => loc.name !== 'București – Jilava' && loc.name !== 'Constanța – Port Agigea Sud'
@@ -317,6 +318,7 @@ const Contact: React.FC = () => {
             {contactHeroContent?.subtitleText || ''}
           </p>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Contact Form Section */}

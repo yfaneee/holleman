@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import './ITL.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const ITL: React.FC = () => {
   const navigate = useNavigate();
@@ -136,6 +137,7 @@ const ITL: React.FC = () => {
             {itlHeroContent?.subtitleText || ''}
           </p>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Services Section */}

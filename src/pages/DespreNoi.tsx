@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import GoUpButton from '../components/GoUpButton';
 import './DespreNoi.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const DespreNoi: React.FC = () => {
   const navigate = useNavigate();
@@ -216,6 +217,7 @@ const DespreNoi: React.FC = () => {
             {heroContent?.heroSubtitle || ''}
           </p>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Navigation Boxes Section */}

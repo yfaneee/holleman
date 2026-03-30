@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { searchContent, getAutocompleteSuggestions, SearchableItem } from '../data/searchData';
+import ScrollArrow from '../components/ScrollArrow';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -334,6 +335,7 @@ const Home: React.FC = () => {
             {homeHeroContent?.subtitleText || ''}
           </p>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Partner Companies Bar */}

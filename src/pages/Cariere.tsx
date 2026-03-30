@@ -6,6 +6,7 @@ import { useEmailForm } from '../hooks/useEmailForm';
 import { CareerFormData, isValidPhone } from '../services/emailService';
 import './Cariere.css';
 import '../styles/forms.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const Cariere: React.FC = () => {
   const navigate = useNavigate();
@@ -171,6 +172,7 @@ const Cariere: React.FC = () => {
             {carriereHeroContent?.subtitleText || ''}
           </p>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* First Section - Why Choose Holleman */}

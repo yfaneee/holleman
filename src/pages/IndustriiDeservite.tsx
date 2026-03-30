@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import './IndustriiDeservite.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const transportColumns = [
   {
@@ -112,6 +113,7 @@ const IndustriiDeservite: React.FC = () => {
             <h1 className="industrii-hero-title">INDUSTRII DESERVITE</h1>
           </div>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Unde livram valoare Section */}

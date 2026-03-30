@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './Agro.css';
+import ScrollArrow from '../components/ScrollArrow';
 
 const Agro: React.FC = () => {
   const navigate = useNavigate();
@@ -97,6 +98,7 @@ const Agro: React.FC = () => {
             </p>
           </div>
         </div>
+        <ScrollArrow />
       </section>
 
       {/* Services Section */}
