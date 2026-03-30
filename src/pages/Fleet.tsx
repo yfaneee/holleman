@@ -9,6 +9,7 @@ interface FleetCard {
   axe: string;
   tip: string;
   pdf?: string;
+  photos?: string[];
 }
 
 const fleetCards: FleetCard[] = [
@@ -40,11 +41,29 @@ const fleetCards: FleetCard[] = [
   { id: 'a28', image: '/images/flota/a28.jpg', axe: '10+ Axe', tip: 'Semiremorci',          pdf: '/flota/a26.pdf' },
   { id: 'a29', image: '/images/flota/a29.jpg', axe: '8 Axe',   tip: 'Eoliene',               pdf: '/flota/a27.pdf' },
   { id: 'a30', image: '/images/flota/a30.jpg', axe: '10+ Axe', tip: 'Eoliene'               },
+  { id: 'a31', image: '/images/flota/a31.jpg', axe: '10+ Axe', tip: '10+ Axe Modulare', pdf: '/flota/a31.pdf', photos: ['/images/picflota/a31.jpg'] },
 ];
 
 const Fleet: React.FC = () => {
   const [selectedAxe, setSelectedAxe] = useState<string[]>([]);
   const [selectedTip, setSelectedTip] = useState<string[]>([]);
+  const [photoModal, setPhotoModal] = useState<{ photos: string[]; index: number } | null>(null);
+
+  const openPhotoModal = (photos: string[]) => setPhotoModal({ photos, index: 0 });
+  const closePhotoModal = () => setPhotoModal(null);
+  const prevPhoto = () => setPhotoModal(m => m ? { ...m, index: (m.index - 1 + m.photos.length) % m.photos.length } : m);
+  const nextPhoto = () => setPhotoModal(m => m ? { ...m, index: (m.index + 1) % m.photos.length } : m);
+
+  useEffect(() => {
+    if (!photoModal) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closePhotoModal();
+      if (e.key === 'ArrowLeft') prevPhoto();
+      if (e.key === 'ArrowRight') nextPhoto();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [photoModal]);
 
   const toggleAxe = (label: string) => {
     setSelectedAxe(prev =>
@@ -197,7 +216,15 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
                             Detalii Tehnice
                           </a>
                         )}
-                        <button className="fleet-btn">Detalii Foto</button>
+                        {card.photos && card.photos.length > 0 ? (
+                          <button className="fleet-btn" onClick={() => openPhotoModal(card.photos!)}>
+                            Detalii Foto
+                          </button>
+                        ) : (
+                          <button className="fleet-btn fleet-btn--disabled" disabled>
+                            Detalii Foto
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -208,6 +235,26 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
 
         </div>
       </section>
+
+      {photoModal && (
+        <div className="photo-modal-overlay" onClick={closePhotoModal}>
+          <div className="photo-modal" onClick={e => e.stopPropagation()}>
+            <button className="photo-modal-close" onClick={closePhotoModal} aria-label="Închide">&#x2715;</button>
+            <img
+              src={photoModal.photos[photoModal.index]}
+              alt={`Foto ${photoModal.index + 1}`}
+              className="photo-modal-img"
+            />
+            {photoModal.photos.length > 1 && (
+              <>
+                <button className="photo-modal-nav photo-modal-nav--prev" onClick={prevPhoto} aria-label="Anterior">&#8249;</button>
+                <button className="photo-modal-nav photo-modal-nav--next" onClick={nextPhoto} aria-label="Următor">&#8250;</button>
+                <div className="photo-modal-counter">{photoModal.index + 1} / {photoModal.photos.length}</div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
