@@ -261,7 +261,7 @@ const HeavyLift: React.FC = () => {
 
             <div className="service-item clickable" onClick={() => scrollToSection('intelligent-solutions')}>
               <div className="service-icon">
-                <img src="/images/icons/Solutii.svg" alt="Soluții inteligente pentru diverse și neașteptate relocări la sediul firmei" />
+                <img src="/images/icons/disruptive-innovation.png" alt="Soluții inteligente pentru diverse și neașteptate relocări la sediul firmei" />
               </div>
               <h3>{serviceCardsContent?.Service2Title || 'Loading...'}</h3>
               <div className="service-overlay">
@@ -281,7 +281,7 @@ const HeavyLift: React.FC = () => {
 
             <div className="service-item clickable" onClick={() => scrollToSection('industrial-assembly')}>
               <div className="service-icon">
-                <img src="/images/icons/Montaj.svg" alt="Montaj industrial cu echipaje noastre, folosind și specialiști în echipamente hidraulice și de automatizare" />
+                <img src="/images/icons/infrastructure.png" alt="Montaj industrial cu echipaje noastre, folosind și specialiști în echipamente hidraulice și de automatizare" />
               </div>
               <h3>{serviceCardsContent?.Service4Title || 'Loading...'}</h3>
               <div className="service-overlay">
