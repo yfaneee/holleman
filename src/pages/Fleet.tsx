@@ -39,7 +39,7 @@ const fleetCards: FleetCard[] = [
   { id: 'a25', image: '/images/flota/a25.jpg', axe: '6 Axe',   tip: 'Semiremorci',          pdf: '/flota/a23.pdf' },
   { id: 'a26', image: '/images/flota/a26.jpg', axe: '7 Axe',   tip: 'Semiremorci',          pdf: '/flota/a24.pdf' },
   { id: 'a27', image: '/images/flota/a27.jpg', axe: '8 Axe',   tip: 'Semiremorci',          pdf: '/flota/a25.pdf' },
-  { id: 'a28', image: '/images/flota/a28.jpg', axe: '10+ Axe', tip: 'Semiremorci',          pdf: '/flota/a26.pdf', photos: ['/images/picflota/a26.jpg'] },
+  { id: 'a28', image: '/images/flota/a28.jpg', axe: '10+ Axe', tip: 'Semiremorci',          pdf: '/flota/a26.pdf', photos: ['/images/picflota/a26.JPG'] },
   { id: 'a29', image: '/images/flota/a29.jpg', axe: '8 Axe',   tip: 'Eoliene',               pdf: '/flota/a27.pdf', photos: ['/images/picflota/a27.jpg','/images/picflota/a271.jpg','/images/picflota/a272.jpg'] },
   { id: 'a30', image: '/images/flota/a30.jpg', axe: '10+ Axe', tip: 'Eoliene',               photos: ['/images/picflota/a28.jpg','/images/picflota/a281.jpg'] },
   { id: 'a31', image: '/images/flota/a31.jpg', axe: '10+ Axe', tip: '10+ Axe Modulare', pdf: '/flota/a31.pdf', photos: ['/images/picflota/a31.jpg'] },
