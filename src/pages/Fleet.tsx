@@ -19,7 +19,7 @@ const fleetCards: FleetCard[] = [
   { id: 'a3',  image: '/images/flota/a3.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          photos: ['/images/picflota/DSC_0573.jpg']           },
   { id: 'a4',  image: '/images/flota/a4.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          pdf: '/flota/a4.pdf'  },
   { id: 'a5',  image: '/images/flota/a5.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          pdf: '/flota/a5.pdf'  },
-  { id: 'a6',  image: '/images/flota/a6.jpg',  axe: '4 Axe',   tip: 'Semiremorci',          pdf: '/flota/a6.pdf'  },
+  { id: 'a6',  image: '/images/flota/a6.jpeg',  axe: '4 Axe',   tip: 'Semiremorci',          pdf: '/flota/a6.pdf'  },
   { id: 'a7',  image: '/images/flota/a7.jpg',  axe: '4 Axe',   tip: 'Semiremorci',          pdf: '/flota/a7.pdf'  },
   { id: 'a8',  image: '/images/flota/a8.jpg',  axe: '2 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a8.pdf',  photos: ['/images/picflota/A2L1.jpg','/images/picflota/A2L5.jpg','/images/picflota/a8.jpg']  },
   { id: 'a9',  image: '/images/flota/a9.jpg',  axe: '3 Axe',   tip: 'LowBed/Vessel Bridge', pdf: '/flota/a9.pdf',  photos: ['/images/picflota/a9.jpg','/images/picflota/a91.jpg']  },

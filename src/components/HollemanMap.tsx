@@ -86,6 +86,21 @@ export const locations: MapLocation[] = [
     email: 'sales@degroentransport.nl',
     website: 'www.degroentransport.nl',
   },
+  {
+    name: 'Ukraine – Mykolaiv',
+    position: [46.9750, 31.9946],
+    address: 'м. Mykolaiv, 61/7 Mariupolska str.',
+    phone: '+38 (067) 519-26-00',
+    email: 'Info@holleman.org.ua',
+  },
+  {
+    name: 'Bulgaria – Varna',
+    position: [43.2055, 27.9147],
+    address: 'Varna, Sq. Slaveykov 1, Bulgaria',
+    phone: '+359 88 752 60 28',
+    email: 'info@holleman.bg',
+    website: 'www.holleman.bg',
+  },
 ];
 
 // Center the map roughly over Central/Eastern Europe

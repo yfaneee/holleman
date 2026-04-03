@@ -344,14 +344,14 @@ const Home: React.FC = () => {
           <a href="https://holleman.bg/" target="_blank" rel="noopener noreferrer" className="partner-link">
             Holleman Bulgaria
           </a>
-          <a href="https://mutariindustriale.ro/" target="_blank" rel="noopener noreferrer" className="partner-link">
-            Holleman Heavy Lift
+          <a href="https://holleman.rs/" target="_blank" rel="noopener noreferrer" className="partner-link">
+            Holleman Serbia
           </a>
-          <a href="https://www.itl.ro/ro" target="_blank" rel="noopener noreferrer" className="partner-link">
-            ITL
+          <a href="https://holleman.org.ua/en/" target="_blank" rel="noopener noreferrer" className="partner-link">
+            Holleman Ukraina
           </a>
-          <a href="https://holleman-agro.ro/" target="_blank" rel="noopener noreferrer" className="partner-link">
-            Holleman Agro
+          <a href="https://www.degroentransport.nl/en/" target="_blank" rel="noopener noreferrer" className="partner-link">
+           De Groen Transport 
           </a>
           <a href="https://www.schwandner-logistik.de/" target="_blank" rel="noopener noreferrer" className="partner-link">
             P. Schwandner
@@ -465,9 +465,9 @@ const Home: React.FC = () => {
       <section className="section2" style={section2Style} aria-labelledby="discover-heading">
         <div className="section2-overlay">
           <div className="section2-content">
-            <h2 id="discover-heading" className="section2-title animate-on-scroll fade-up">Descoperă serviciile noastre</h2>
+            <h2 id="discover-heading" className="section2-title animate-on-scroll fade-up">Serviciile noastre</h2>
             <p className="section2-description animate-on-scroll fade-up delay-200">
-              De la transporturi agabaritice și logistică internațională, la Project Cargo, relocări industriale și servicii agricole, suntem partenerul tău de încredere pentru fiecare provocare
+            De la transporturi agabaritice și project cargo, la logistică internațională și relocări industriale, oferim soluții complete pentru proiecte complexe.
             </p>
             <button className="btn animate-on-scroll fade-up delay-400" onClick={() => navigate('/contact')} aria-label="Solicită o ofertă personalizată de la Holleman">
               Cere o oferta

@@ -201,7 +201,7 @@ const ProjectCargo: React.FC = () => {
                   <img src="/images/icons/Info.webp" alt="Management icon" />
                 </div>
                 <h3>Management de proiect</h3>
-                <p>Management de proiect complet, de la planificare până la execuție</p>
+                <p>Organizam in detaliu, cu personal specializat, tot lantul logistic, de la port la site sau invers, cu o flota proprie de peste 15 de cap-tractoare, in toate tarile in care avem flote de transport agabaritic si greu.</p>
               </div>
             </div>
             
@@ -223,14 +223,13 @@ const ProjectCargo: React.FC = () => {
               <div className="service-icon">
                 <img src="/images/icons/Chield_check.webp" alt="Authorizations icon" />
               </div>
-              <h3>Autorizatii & asigurari</h3>
+              <h3>Autorizatii si asigurari speciale de transport si insotire legala</h3>
               <div className="service-overlay">
                 <div className="service-icon-white">
                   <img src="/images/icons/Chield_check.webp" alt="Authorizations icon" />
                 </div>
-                <h3>Autorizatii & asigurari</h3>
-                <p>•	Obținerea autorizațiilor speciale și escortă <br/>
-                  • Asigurări specifice pentru bunuri agabaritice și transporturi speciale</p>
+                <h3>Autorizatii si asigurari speciale de transport si insotire legala</h3>
+                <p>Holleman are capacitatea de a obtine AST in toate tarile din Europa, in cela mai scurt timp, pe trasee optime. Avem o foarte buna reputatie cu toate autoritatile, obtinuta in timp.</p>
               </div>
             </div>
             
@@ -247,6 +246,20 @@ const ProjectCargo: React.FC = () => {
                 <p>Transport multimodal (rutier, fluvial, maritim, feroviar), în funcție de cerințele proiectului</p>
               </div>
             </div>
+
+            <div className="service-item service-item--route-survey">
+              <div className="service-icon">
+                <img src="/images/icons/iconlogistice.webp" alt="Route survey icon" />
+              </div>
+              <h3>Route Survey</h3>
+              <div className="service-overlay">
+                <div className="service-icon-white">
+                  <img src="/images/icons/iconlogistice.webp" alt="Route survey icon" />
+                </div>
+                <h3>Route Survey</h3>
+                <p>Holleman executa route-survey intr-un mod complet professional, in concordanta cu cele mai inalte standard din estul europei, folosind cele mai modern dispositive, plecand de la drone cu system LiDAR technology, pana la softuri de simulare 3D.</p>
+              </div>
+            </div>
             
             <div className="service-item">
               <div className="service-icon">
@@ -258,7 +271,7 @@ const ProjectCargo: React.FC = () => {
                   <img src="/images/icons/world_light.webp" alt="Site logistics icon" />
                 </div>
                 <h3>Logistica site</h3>
-                <p>Logistică pe șantier – descărcare, manipulare, poziționare la punct fix</p>
+                <p>Indeplinim conditii de siguranta, de sanitate si Securitate in munca, in conformitate cu cerintele clientilor; ne sincronizam in operatiuni planificand in avans operatiunile commune.</p>
               </div>
             </div>
             
@@ -271,8 +284,8 @@ const ProjectCargo: React.FC = () => {
                 <div className="service-icon-white">
                   <img src="/images/icons/Map_fill.webp" alt="Risk management icon" />
                 </div>
-                <h3>Gestiune riscuri</h3>
-                <p>Gestiunea riscurilor și măsuri de siguranță adaptate fiecărei etape</p>
+                <h3>Gestiune riscuri & Asigurari</h3>
+                <p>Analizam in permanenta riscurile si ne pozitionam in zona de siguranta pe baza calculelor specialistilor nostri cu privier la capacitatea podurilor si viaductelor peste care trecem, studiem toate punctele complexe ale traseului. In acelasi timp ave asigurari de raspundere a carausului si privind manipularile, asigurari de raspundere generala si pentru terte parti acoperitoare.</p>
               </div>
             </div>
           </div>
