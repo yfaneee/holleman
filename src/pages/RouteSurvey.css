@@ -1,0 +1,616 @@
+/* ============================================================
+   ROUTE SURVEY PAGE
+   ============================================================ */
+
+.rs-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.rs-hero {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.rs-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rs-hero-content {
+  text-align: center;
+  color: white;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.rs-hero-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-title-size);
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.rs-hero-subtitle {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--hero-subtitle-size);
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .rs-hero-title {
+    font-size: clamp(24px, 7vw, 44px);
+    letter-spacing: 1px;
+  }
+  .rs-hero-subtitle {
+    font-size: clamp(14px, 4vw, 20px);
+  }
+}
+
+/* ============================================================
+   SECTION 1 – INTRO (text left / image right)
+   ============================================================ */
+
+.rs-intro-section {
+  background: #ffffff;
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.rs-intro-container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.rs-intro-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.09);
+  padding: clamp(40px, 6vw, 70px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.rs-intro-left {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.rs-intro-text {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.rs-contact-btn {
+  align-self: flex-start;
+}
+
+.rs-intro-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.rs-intro-img {
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .rs-intro-box {
+    grid-template-columns: 1fr;
+  }
+  .rs-intro-right {
+    order: -1;
+  }
+  .rs-intro-img {
+    max-height: 280px;
+  }
+  .rs-contact-btn {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .rs-intro-section {
+    padding: 50px 16px;
+  }
+  .rs-intro-box {
+    padding: 32px 20px;
+    gap: 28px;
+  }
+  .rs-intro-text {
+    font-size: clamp(14px, 3.5vw, 17px);
+  }
+}
+
+/* ============================================================
+   GREEN BANNER
+   ============================================================ */
+
+.rs-green-banner {
+  background: #136B38;
+  padding: 20px clamp(20px, 6vw, 80px);
+}
+
+.rs-banner-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 40px;
+}
+
+.rs-banner-list li {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(12px, 1.4vw, 15px);
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.rs-banner-list li::before {
+  content: '•';
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .rs-banner-list {
+    gap: 10px 20px;
+  }
+  .rs-banner-list li {
+    font-size: 12px;
+  }
+}
+
+/* ============================================================
+   SECTION 2 – DETAILS ON BG IMAGE
+   ============================================================ */
+
+.rs-details-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.rs-details-overlay {
+  background: rgba(0, 0, 0, 0.68);
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.rs-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+
+/* Left – description */
+.rs-details-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 8px;
+}
+
+.rs-details-text {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.85;
+  margin: 0;
+}
+
+/* Right – numbered list */
+.rs-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.rs-details-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.rs-details-num {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--content-large);
+  color: #D4A017;
+  flex-shrink: 0;
+  min-width: 24px;
+  line-height: 1.6;
+}
+
+.rs-details-content {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+}
+
+.rs-details-title {
+  font-family: 'Gotham Bold', sans-serif;
+  color: #ffffff;
+}
+
+.rs-details-sub {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 900px) {
+  .rs-details-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .rs-details-text {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+  .rs-details-content {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+}
+
+/* ── "Ce oferim:" yellow label ── */
+.rs-details-label {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(18px, 2.2vw, 24px);
+  color: #D4A017;
+  margin: 0 0 18px 0;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   SECTION 3 – CUM LUCRAM + LIVRABILE (white)
+   ============================================================ */
+
+.rs-process-section {
+  background: #ffffff;
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.rs-process-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+
+.rs-process-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #136B38;
+  margin: 0 0 30px 0;
+  line-height: 1.2;
+}
+
+/* Process list (bullets) */
+.rs-process-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rs-process-list li {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.65;
+  padding-left: 24px;
+  position: relative;
+}
+
+.rs-process-list li::before {
+  content: '●';
+  color: #136B38;
+  font-size: 10px;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+
+/* Livrabile list */
+.rs-livrabile-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rs-livrabile-list li {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.65;
+  padding-left: 24px;
+  position: relative;
+}
+
+.rs-livrabile-list li::before {
+  content: '●';
+  color: #136B38;
+  font-size: 10px;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+
+@media (max-width: 900px) {
+  .rs-process-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rs-process-title {
+    font-size: clamp(18px, 5vw, 26px);
+  }
+  .rs-process-list li,
+  .rs-livrabile-list li {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+}
+
+/* ============================================================
+   SECTION 4 – ECHIPAMENTE SI SOFTWARE
+   ============================================================ */
+
+.rs-equip-section {
+  background: #f8f9fa;
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.rs-equip-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+.rs-equip-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rs-equip-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #136B38;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rs-equip-text {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.rs-equip-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rs-equip-bullets li {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: #444;
+  line-height: 1.65;
+  padding-left: 24px;
+  position: relative;
+}
+
+.rs-equip-bullets li::before {
+  content: '●';
+  color: #D4A017;
+  font-size: 10px;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+
+/* Slideshow */
+.rs-equip-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rs-slideshow {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.rs-slide-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.rs-slide-img.rs-slide-active {
+  opacity: 1;
+}
+
+.rs-slide-dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.rs-slide-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+.rs-slide-dot.active {
+  background: #D4A017;
+}
+
+@media (max-width: 900px) {
+  .rs-equip-container {
+    grid-template-columns: 1fr;
+  }
+  .rs-slideshow {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 480px) {
+  .rs-equip-title {
+    font-size: clamp(18px, 5vw, 26px);
+  }
+  .rs-equip-text,
+  .rs-equip-bullets li {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+}
+
+/* ============================================================
+   SECTION 5 – TIPURI DE PROIECTE (bg image)
+   ============================================================ */
+
+.rs-projects-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.rs-projects-overlay {
+  background: rgba(0, 0, 0, 0.62);
+  padding: clamp(60px, 8vw, 100px) 20px;
+}
+
+.rs-projects-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.rs-projects-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: var(--section-title-large);
+  color: #ffffff;
+  margin: 0 0 40px 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.rs-projects-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rs-projects-list li {
+  font-family: 'Helvetica', sans-serif;
+  font-size: var(--content-large);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+  padding-left: 28px;
+  position: relative;
+}
+
+.rs-projects-list li::before {
+  content: '●';
+  color: #D4A017;
+  font-size: 12px;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+@media (max-width: 480px) {
+  .rs-projects-title {
+    font-size: clamp(18px, 5vw, 28px);
+    text-align: left;
+  }
+  .rs-projects-list li {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+}
