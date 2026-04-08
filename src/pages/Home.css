@@ -1171,8 +1171,13 @@
 }
 
 @media (max-width: 960px) {
+  .contact-section {
+    min-height: unset;
+  }
+
   .contact-content {
     flex-direction: column;
+    height: auto;
   }
 
   .contact-info-panel {
@@ -1379,7 +1384,7 @@
 }
 
 /* Universal scaling for medium resolutions - 1600px and below */
-@media (max-width: 1600px) {
+@media (max-width: 1600px) and (min-width: 961px) {
   /* Section 2 - reduce font sizes and height */
   .section2 { min-height: 450px; }
   
