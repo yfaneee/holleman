@@ -3,10 +3,12 @@ import emailjs from '@emailjs/browser';
 // EmailJS Configuration
 // These will need to be set up in your EmailJS dashboard
 export const EMAIL_CONFIG = {
-  SERVICE_ID: 'service_byifmce', // Your EmailJS Service ID
-  TEMPLATE_ID: 'template_wn8nx5o', // Your EmailJS template ID
-  PUBLIC_KEY: 'xHGsEHYrhp3USGZWM', // Your EmailJS Public Key
-  TEST_EMAIL: 'lucastefan.tomescu@gmail.com'
+  SERVICE_ID: 'service_byifmce',
+  TEMPLATE_ID: 'template_wn8nx5o',
+  CAREER_TEMPLATE_ID: 'template_wn8nx5o', // Replace with a separate career template ID if needed
+  PUBLIC_KEY: 'xHGsEHYrhp3USGZWM',
+  CONTACT_EMAIL: 'sales@holleman.ro', // Email for contact form submissions
+  CAREER_EMAIL: 'hr@holleman.ro',
 };
 
 // Initialize EmailJS
@@ -58,7 +60,7 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<boole
       message: msg,
       time: new Date().toLocaleString('ro-RO'),
       title: 'Cerere de contact',
-      to_email: EMAIL_CONFIG.TEST_EMAIL
+      to_email: EMAIL_CONFIG.CONTACT_EMAIL
     };
 
     const response = await emailjs.send(
@@ -89,12 +91,12 @@ export const sendCareerEmail = async (formData: CareerFormData): Promise<boolean
       message: careerMessage,
       time: new Date().toLocaleString('ro-RO'),
       title: 'Aplicație carieră',
-      to_email: EMAIL_CONFIG.TEST_EMAIL
+      to_email: EMAIL_CONFIG.CAREER_EMAIL
     };
 
     const response = await emailjs.send(
       EMAIL_CONFIG.SERVICE_ID,
-      EMAIL_CONFIG.TEMPLATE_ID,
+      EMAIL_CONFIG.CAREER_TEMPLATE_ID,
       templateParams
     );
 
