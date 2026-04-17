@@ -108,9 +108,16 @@ export const uploadCvToStrapi = async (file: File): Promise<string | null> => {
     const uploaded = data[0];
     if (!uploaded?.url) return null;
 
-    return uploaded.url.startsWith('http')
+    const rawUrl = uploaded.url.startsWith('http')
       ? uploaded.url
       : `${STRAPI_URL}${uploaded.url}`;
+
+    // Cloudinary stores non-image files (PDF, DOC, DOCX) under /image/upload/
+    // but they must be served from /raw/upload/ to be directly downloadable.
+    return rawUrl.replace(
+      /res\.cloudinary\.com\/([^/]+)\/image\/upload\//,
+      'res.cloudinary.com/$1/raw/upload/'
+    );
   } catch (err) {
     console.error('Error uploading CV to Strapi:', err);
     return null;
