@@ -1,15 +1,20 @@
 import emailjs from '@emailjs/browser';
 
 // EmailJS Configuration
-// These will need to be set up in your EmailJS dashboard
 export const EMAIL_CONFIG = {
   SERVICE_ID: 'service_byifmce',
   TEMPLATE_ID: 'template_wn8nx5o',
-  CAREER_TEMPLATE_ID: 'template_wn8nx5o', // Replace with a separate career template ID if needed
+  CAREER_TEMPLATE_ID: 'template_wn8nx5o',
   PUBLIC_KEY: 'xHGsEHYrhp3USGZWM',
-  CONTACT_EMAIL: 'sales@holleman.ro', // Email for contact form submissions
+  CONTACT_EMAIL: 'sales@holleman.ro',
   CAREER_EMAIL: 'hr@holleman.ro',
 };
+
+// Strapi Configuration
+const STRAPI_URL =
+  process.env.REACT_APP_STRAPI_URL ||
+  'https://holleman-cms-production.up.railway.app';
+const STRAPI_UPLOAD_TOKEN = process.env.REACT_APP_STRAPI_UPLOAD_TOKEN || '';
 
 // Initialize EmailJS
 emailjs.init(EMAIL_CONFIG.PUBLIC_KEY);
@@ -76,6 +81,42 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<boole
   }
 };
 
+// Upload a CV file to Strapi's media library and return its public URL.
+// Returns null if the upload fails (the email is still sent without the link).
+export const uploadCvToStrapi = async (file: File): Promise<string | null> => {
+  try {
+    const body = new FormData();
+    body.append('files', file);
+
+    const headers: HeadersInit = {};
+    if (STRAPI_UPLOAD_TOKEN) {
+      headers['Authorization'] = `Bearer ${STRAPI_UPLOAD_TOKEN}`;
+    }
+
+    const res = await fetch(`${STRAPI_URL}/api/upload`, {
+      method: 'POST',
+      headers,
+      body,
+    });
+
+    if (!res.ok) {
+      console.error('Strapi CV upload failed:', res.status, await res.text());
+      return null;
+    }
+
+    const data = await res.json();
+    const uploaded = data[0];
+    if (!uploaded?.url) return null;
+
+    return uploaded.url.startsWith('http')
+      ? uploaded.url
+      : `${STRAPI_URL}${uploaded.url}`;
+  } catch (err) {
+    console.error('Error uploading CV to Strapi:', err);
+    return null;
+  }
+};
+
 // Send Career Form Email
 export const sendCareerEmail = async (formData: CareerFormData): Promise<boolean> => {
   try {
@@ -84,14 +125,22 @@ export const sendCareerEmail = async (formData: CareerFormData): Promise<boolean
     careerMessage += `• Nume: ${formData.name}\n`;
     careerMessage += `• Telefon: ${formData.phone}\n`;
     if (formData.message) careerMessage += `\n💬 Mesaj:\n${formData.message}\n`;
-    if (formData.cvFile) careerMessage += `\n📄 CV atașat: ${formData.cvFile.name}\n`;
+
+    if (formData.cvFile) {
+      const cvUrl = await uploadCvToStrapi(formData.cvFile);
+      if (cvUrl) {
+        careerMessage += `\n📄 CV: ${cvUrl}\n`;
+      } else {
+        careerMessage += `\n📄 CV (upload eșuat): ${formData.cvFile.name}\n`;
+      }
+    }
 
     const templateParams = {
       name: formData.name,
       message: careerMessage,
       time: new Date().toLocaleString('ro-RO'),
       title: 'Aplicație carieră',
-      to_email: EMAIL_CONFIG.CAREER_EMAIL
+      to_email: EMAIL_CONFIG.CAREER_EMAIL,
     };
 
     const response = await emailjs.send(
@@ -105,19 +154,6 @@ export const sendCareerEmail = async (formData: CareerFormData): Promise<boolean
     console.error('Error sending career email:', error);
     return false;
   }
-};
-
-// Handle file attachments (convert to base64 for EmailJS)
-export const handleFileAttachment = async (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      resolve(base64.split(',')[1]); // Remove data:mime;base64, prefix
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 };
 
 // Validate email format

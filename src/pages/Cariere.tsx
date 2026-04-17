@@ -26,6 +26,7 @@ const Cariere: React.FC = () => {
   });
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [selectedCvFile, setSelectedCvFile] = useState<File | null>(null);
+  const [cvFileError, setCvFileError] = useState<string | null>(null);
   const [gdprAccepted, setGdprAccepted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -35,7 +36,15 @@ const Cariere: React.FC = () => {
   };
 
   const handleCvFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedCvFile(e.target.files?.[0] || null);
+    const file = e.target.files?.[0] || null;
+    if (file && file.size > 5 * 1024 * 1024) {
+      setCvFileError('Fișierul CV depășește limita de 5 MB. Vă rugăm să alegeți un fișier mai mic.');
+      setSelectedCvFile(null);
+      e.target.value = '';
+      return;
+    }
+    setCvFileError(null);
+    setSelectedCvFile(file);
   };
 
   const validateForm = (): boolean => {
@@ -400,6 +409,11 @@ const Cariere: React.FC = () => {
                       onChange={handleCvFileChange}
                     />
                   </div>
+                  {cvFileError && (
+                    <p style={{ fontSize: '12px', color: '#d32f2f', marginTop: '8px' }}>
+                      ⚠️ {cvFileError}
+                    </p>
+                  )}
                   {selectedCvFile && (
                     <p style={{ fontSize: '12px', color: '#555', marginTop: '8px' }}>
                       📄 {selectedCvFile.name}
