@@ -16,7 +16,7 @@ const Header: React.FC = () => {
     if (path === '/') return 'acasa';
     if (path === '/industrii-deservite' || path.startsWith('/industrii-deservite/')) return 'industrii-deservite';
     if (path === '/despre-noi') return 'despre-noi';
-    if (path === '/transport-marfuri-agabaritice' || path === '/relocari-industriale' || path === '/transport-marfuri-generale' || path === '/portops' || path === '/permise-si-insotire-agabaritice' || path === '/route-survey') return 'cum-va-sprijinim';
+    if (path === '/transport-marfuri-agabaritice' || path === '/logistica-turbinelor-eoliene' || path === '/relocari-industriale' || path === '/transport-marfuri-generale' || path === '/portops' || path === '/permise-si-insotire-agabaritice' || path === '/route-survey') return 'cum-va-sprijinim';
     if (path === '/proiecte' || path.startsWith('/proiecte/')) return 'proiecte';
     if (path === '/fleet' || path === '/flota-transport' || path === '/echipamente-manutanta') return 'echipamente-resurse';
     if (path === '/comunicare' || path.startsWith('/comunicare/')) return 'comunicare';
@@ -94,6 +94,7 @@ const Header: React.FC = () => {
               {activeDropdown === 'cum-va-sprijinim' && (
                 <div className="dropdown-menu" role="menu">
                   <a href="/transport-marfuri-agabaritice" role="menuitem" aria-label="Transport Marfuri Agabaritice si Grele">Transport Marfuri Agabaritice si Grele</a>
+                  <a href="/logistica-turbinelor-eoliene" role="menuitem" aria-label="Logistica Turbinelor Eoliene">Logistica Turbinelor Eoliene</a>
                   <a href="/relocari-industriale" role="menuitem" aria-label="Relocari Industriale -Manipulare, Montaje">Relocari Industriale - Manipulare, Montaje</a>
                   <a href="/portops" role="menuitem" aria-label="Operatiuni Porturare">Operatiuni Porturare</a>
                   <a href="/permise-si-insotire-agabaritice" role="menuitem" aria-label="Permise si Insotire Agabaritice">Permise si Insotire Agabaritice</a>

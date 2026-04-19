@@ -20,6 +20,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Permise from './pages/Permise';
 import RouteSurvey from './pages/RouteSurvey';
 import IndustriiDeservite from './pages/IndustriiDeservite';
+import LogisticaTurbinelorEoliene from './pages/LogisticaTurbinelorEoliene';
 import ScrollToTop from './components/ScrollToTop';
 import RouteChangeHandler from './components/RouteChangeHandler';
 import CookieConsent from './components/CookieConsent';
@@ -35,8 +36,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/transport-marfuri-agabaritice" element={<ProjectCargo />} />
-              <Route path="/transport-marfuri-generale" element={<ITL />} />
+              <Route path="/logistica-turbinelor-eoliene" element={<LogisticaTurbinelorEoliene />} />
               <Route path="/relocari-industriale" element={<HeavyLift />} />
+              <Route path="/transport-marfuri-generale" element={<ITL />} />
               <Route path="/fleet" element={<Fleet />} />
               <Route path="/portops" element={<Agro />} />
               <Route path="/proiecte" element={<Proiecte />} />

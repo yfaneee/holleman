@@ -1,0 +1,647 @@
+/* ============================================================
+   Logistica Turbinelor Eoliene – page styles
+   ============================================================ */
+
+/* ── Shared layout helpers ─────────────────────────────────── */
+.lte-page {
+  font-family: 'Gotham Book', sans-serif;
+  color: #222;
+}
+
+.lte-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 60px);
+}
+
+.lte-container--narrow {
+  max-width: 860px;
+}
+
+.lte-container--center {
+  text-align: center;
+}
+
+.lte-section-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(22px, 3vw, 36px);
+  margin-bottom: 24px;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.lte-section-title--light {
+  color: #ffffff;
+}
+
+.lte-section-text {
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 18px;
+}
+
+.lte-section-text--light {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Dark overlay used across bg-image sections */
+.lte-dark-overlay {
+  background: rgba(0, 0, 0, 0.62);
+  width: 100%;
+  padding: clamp(60px, 8vw, 100px) 0;
+}
+
+.lte-dark-overlay--cta {
+  background: rgba(0, 0, 0, 0.70);
+  padding: clamp(80px, 10vw, 120px) 0;
+}
+
+/* ── Split layout (text + media) ───────────────────────────── */
+.lte-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+.lte-split--centered {
+  align-items: center;
+}
+
+.lte-split-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lte-split-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lte-side-image {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ── 1. HERO ────────────────────────────────────────────────── */
+.lte-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lte-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.38) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(20px, 6vw, 80px);
+}
+
+.lte-hero-content {
+  max-width: 900px;
+  text-align: center;
+}
+
+.lte-hero-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(32px, 5.5vw, 68px);
+  color: #ffffff;
+  margin: 0 0 20px;
+  line-height: 1.1;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.lte-hero-subtitle {
+  font-family: 'Gotham Book', sans-serif;
+  font-size: clamp(15px, 2vw, 22px);
+  color: rgba(255,255,255,0.90);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── 2. INTRO ───────────────────────────────────────────────── */
+.lte-intro {
+  background: #ffffff;
+  padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 60px);
+  text-align: center;
+}
+
+.lte-intro p {
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.9;
+  color: #444;
+  margin: 0 auto 24px;
+  max-width: 860px;
+}
+
+.lte-intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── 3. LOGISTICĂ INTERNAȚIONALĂ ────────────────────────────── */
+.lte-international {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.lte-image-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.lte-image-pair-item {
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.lte-image-pair-item img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.lte-image-pair-item:hover img {
+  transform: scale(1.04);
+}
+
+/* ── 4. CE OFERIM ───────────────────────────────────────────── */
+.lte-services {
+  background: #ffffff;
+  padding: clamp(70px, 9vw, 110px) clamp(20px, 5vw, 60px);
+}
+
+/* ── 5. EXPERTIZĂ ───────────────────────────────────────────── */
+.lte-expertise {
+  background: #f5f6f7;
+  padding: clamp(70px, 9vw, 110px) clamp(20px, 5vw, 60px);
+}
+
+.lte-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 48px;
+}
+
+.lte-list li {
+  position: relative;
+  padding-left: 26px;
+  font-size: clamp(14px, 1.4vw, 16px);
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 14px;
+}
+
+.lte-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #136B38;
+}
+
+/* Gallery slideshow */
+.lte-gallery {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.14);
+  max-height: 520px;
+}
+
+.lte-gallery-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+}
+
+.lte-gallery-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+.lte-gallery-slide img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  display: block;
+}
+
+.lte-gallery-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.45);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 2;
+  line-height: 1;
+}
+
+.lte-gallery-btn:hover {
+  background: rgba(0,0,0,0.70);
+}
+
+.lte-gallery-btn--prev { left: 16px; }
+.lte-gallery-btn--next { right: 16px; }
+
+.lte-gallery-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.lte-gallery-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.7);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.lte-gallery-dot.active {
+  background: white;
+}
+
+/* ── 6. DIN PORT SAU FABRICĂ ────────────────────────────────── */
+.lte-port {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ── 7. DE CE HOLLEMAN ──────────────────────────────────────── */
+.lte-why {
+  background: #ffffff;
+  padding: clamp(70px, 9vw, 110px) clamp(20px, 5vw, 60px);
+}
+
+/* ── 8. VIDEO PLAYER ────────────────────────────────────────── */
+.lte-video-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  background: #000;
+  aspect-ratio: 16/9;
+}
+
+.lte-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lte-video-play {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s;
+}
+
+.lte-video-play:hover {
+  background: rgba(0,0,0,0.52);
+}
+
+.lte-video-play svg {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  transition: transform 0.25s;
+}
+
+.lte-video-play:hover svg {
+  transform: scale(1.1);
+}
+
+/* ── 9. CTA ─────────────────────────────────────────────────── */
+.lte-cta {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.lte-cta-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(24px, 3.5vw, 44px);
+  color: #FFD700;
+  margin: 0 0 20px;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.lte-cta-text {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: rgba(255,255,255,0.92);
+  line-height: 1.7;
+  margin: 0 auto 40px;
+  max-width: 620px;
+}
+
+/* Standard btn – yellow, matching homepage */
+.lte-page .btn {
+  --color: #D4A017;
+  --color2: rgb(255, 255, 255);
+  padding: 0.8em 1.75em;
+  background-color: transparent;
+  border-radius: 6px;
+  border: .3px solid var(--color);
+  transition: .5s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  font-weight: 300;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--color);
+  font-family: 'Gotham Bold', sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lte-page .btn::after,
+.lte-page .btn::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: skew(90deg) translate(-50%, -50%);
+  position: absolute;
+  inset: 50%;
+  left: 25%;
+  z-index: -1;
+  transition: .5s ease-out;
+  background-color: var(--color);
+}
+
+.lte-page .btn::before {
+  top: -50%;
+  left: -25%;
+  transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.lte-page .btn:hover::before {
+  transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.lte-page .btn:hover::after {
+  transform: skew(45deg) translate(-50%, -50%);
+}
+
+.lte-page .btn:hover {
+  color: var(--color2);
+}
+
+.lte-page .btn:active {
+  filter: brightness(.7);
+  transform: scale(.98);
+}
+
+
+.lte-page .btn .cta-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.lte-page .btn:hover .cta-icon {
+  transform: translateX(5px);
+}
+
+/* ── SHARED: services-nav + discover-projects ───────────────── */
+.lte-page .services-nav-section {
+  padding: clamp(60px, 8vw, 80px) clamp(40px, 8vw, 80px);
+  background: white;
+}
+
+.lte-page .services-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.lte-page .services-nav-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(20px, 2.8vw, 32px);
+  margin-bottom: clamp(40px, 6vw, 60px);
+  color: #333;
+}
+
+.lte-page .services-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.lte-page .service-nav-item {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: clamp(28px, 4vw, 40px) clamp(20px, 3vw, 30px);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lte-page .service-nav-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  background: white;
+}
+
+.lte-page .service-nav-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lte-page .service-nav-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.lte-page .service-nav-item h3 {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(12px, 1.3vw, 15px);
+  color: #333;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.lte-page .discover-projects-section {
+  background: #136B38;
+  padding: 35px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.lte-page .discover-projects-section:hover {
+  background: #115830;
+}
+
+.lte-page .discover-projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.lte-page .discover-projects-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.lte-page .discover-projects-title {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: clamp(16px, 2.4vw, 26px);
+  color: white;
+  margin: 0;
+}
+
+.lte-page .discover-play-button {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.lte-page .discover-play-button:hover {
+  transform: scale(1.1);
+}
+
+.lte-page .discover-play-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .lte-split {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .lte-split-media {
+    order: -1;
+  }
+
+  .lte-image-pair {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .lte-image-pair-item img {
+    height: 240px;
+  }
+
+  .lte-page .services-nav-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    gap: 20px;
+  }
+
+  .lte-gallery-slide img {
+    height: 280px;
+  }
+}
+
+@media (max-width: 600px) {
+  .lte-hero-title {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .lte-hero-subtitle {
+    font-size: 14px;
+  }
+
+  .lte-international {
+    background-attachment: scroll;
+  }
+
+  .lte-gallery-slide img {
+    height: 220px;
+  }
+
+  .lte-cta-btn {
+    padding: 14px 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lte-gallery-track {
+    transition: none;
+  }
+
+  .lte-image-pair-item img,
+  .lte-cta-btn,
+  .lte-video-play svg {
+    transition: none;
+  }
+}
