@@ -10,11 +10,17 @@ export const EMAIL_CONFIG = {
   CAREER_EMAIL: 'hr@holleman.ro',
 };
 
-// Strapi Configuration
+// Strapi Configuration (kept for other CMS use)
 const STRAPI_URL =
   process.env.REACT_APP_STRAPI_URL ||
   'https://holleman-cms-production.up.railway.app';
 const STRAPI_UPLOAD_TOKEN = process.env.REACT_APP_STRAPI_UPLOAD_TOKEN || '';
+
+// Cloudinary direct upload (CV files)
+const CLOUDINARY_CLOUD_NAME =
+  process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'dkapgg5q6';
+const CLOUDINARY_CV_PRESET =
+  process.env.REACT_APP_CLOUDINARY_CV_PRESET || 'holleman_cv';
 
 // Initialize EmailJS
 emailjs.init(EMAIL_CONFIG.PUBLIC_KEY);
@@ -81,45 +87,28 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<boole
   }
 };
 
-// Upload a CV file to Strapi's media library and return its public URL.
-// Returns null if the upload fails (the email is still sent without the link).
-export const uploadCvToStrapi = async (file: File): Promise<string | null> => {
+// Upload a CV file directly to Cloudinary as resource_type=raw so the
+// returned URL is always a direct download regardless of file type.
+export const uploadCvToCloudinary = async (file: File): Promise<string | null> => {
   try {
     const body = new FormData();
-    body.append('files', file);
+    body.append('file', file);
+    body.append('upload_preset', CLOUDINARY_CV_PRESET);
 
-    const headers: HeadersInit = {};
-    if (STRAPI_UPLOAD_TOKEN) {
-      headers['Authorization'] = `Bearer ${STRAPI_UPLOAD_TOKEN}`;
-    }
-
-    const res = await fetch(`${STRAPI_URL}/api/upload`, {
-      method: 'POST',
-      headers,
-      body,
-    });
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/raw/upload`,
+      { method: 'POST', body }
+    );
 
     if (!res.ok) {
-      console.error('Strapi CV upload failed:', res.status, await res.text());
+      console.error('Cloudinary CV upload failed:', res.status, await res.text());
       return null;
     }
 
     const data = await res.json();
-    const uploaded = data[0];
-    if (!uploaded?.url) return null;
-
-    const fileUrl = uploaded.url.startsWith('http')
-      ? uploaded.url
-      : `${STRAPI_URL}${uploaded.url}`;
-
-    // Add Cloudinary's fl_attachment flag so the file is served as a direct
-    // download rather than rendered inline (needed for PDF/DOC uploads).
-    return fileUrl.replace(
-      /res\.cloudinary\.com\/([^/]+)\/image\/upload\//,
-      'res.cloudinary.com/$1/image/upload/fl_attachment/'
-    );
+    return data.secure_url ?? null;
   } catch (err) {
-    console.error('Error uploading CV to Strapi:', err);
+    console.error('Error uploading CV to Cloudinary:', err);
     return null;
   }
 };
@@ -134,7 +123,7 @@ export const sendCareerEmail = async (formData: CareerFormData): Promise<boolean
     if (formData.message) careerMessage += `\n💬 Mesaj:\n${formData.message}\n`;
 
     if (formData.cvFile) {
-      const cvUrl = await uploadCvToStrapi(formData.cvFile);
+      const cvUrl = await uploadCvToCloudinary(formData.cvFile);
       if (cvUrl) {
         careerMessage += `\n📄 CV: ${cvUrl}\n`;
       } else {
