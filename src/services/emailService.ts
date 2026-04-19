@@ -10,12 +10,6 @@ export const EMAIL_CONFIG = {
   CAREER_EMAIL: 'hr@holleman.ro',
 };
 
-// Strapi Configuration (kept for other CMS use)
-const STRAPI_URL =
-  process.env.REACT_APP_STRAPI_URL ||
-  'https://holleman-cms-production.up.railway.app';
-const STRAPI_UPLOAD_TOKEN = process.env.REACT_APP_STRAPI_UPLOAD_TOKEN || '';
-
 // Cloudinary direct upload (CV files)
 const CLOUDINARY_CLOUD_NAME =
   process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'dkapgg5q6';
