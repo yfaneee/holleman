@@ -14,7 +14,7 @@ interface FleetCard {
 }
 
 const fleetCards: FleetCard[] = [
-  { id: 'a1',  image: '/images/flota/a1.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          pdf: '/flota/a1.pdf',  photos: ['/images/picflota/a1.jpeg'] },
+  { id: 'a1',  image: '/images/flota/a1.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          pdf: '/flota/a1.pdf',  photos: ['/images/picflota/a1a.jpeg','/images/picflota/a1b.jpeg'] },
   { id: 'a2',  image: '/images/flota/a2.jpg',  axe: '4 Axe',   tip: 'Semiremorci',          pdf: '/flota/a2.pdf',  photos: ['/images/picflota/A2L3.jpg','/images/picflota/IMG_4278.JPG'] },
   { id: 'a3',  image: '/images/flota/a3.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          photos: ['/images/picflota/DSC_0573.jpg']           },
   { id: 'a4',  image: '/images/flota/a4.jpg',  axe: '3 Axe',   tip: 'Semiremorci',          pdf: '/flota/a4.pdf',  photos: ['/images/picflota/a4.jpeg'] },
