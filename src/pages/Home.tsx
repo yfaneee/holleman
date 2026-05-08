@@ -698,7 +698,7 @@ const Home: React.FC = () => {
                   </div>
                   <div className="info-item">
                     <span className="label">Email:</span>
-                    <a href="mailto:maritima@holleman.ro" className="value">maritima@holleman.ro</a>
+                    <a href="mailto:maritime@holleman.ro" className="value">maritime@holleman.ro</a>
                   </div>
                 </div>
               </div>
