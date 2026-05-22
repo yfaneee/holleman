@@ -21,6 +21,21 @@ const DespreNoi: React.FC = () => {
   const [istoricContent, setIstoricContent] = useState<any>(null);
   const [misiuneContent, setMisiuneContent] = useState<any>(null);
   const [certificariContent, setCertificariContent] = useState<any>(null);
+  const [certModal, setCertModal] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setCertModal(null);
+    };
+    if (certModal) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [certModal]);
   const [codDeConduitaContent, setCodDeConduitaContent] = useState<any>(null);
   const [ceNeDefinesteContent, setCeNeDefinesteContent] = useState<any>(null);
   const [responsabilitateContent, setResponsabilitateContent] = useState<any>(null);
@@ -379,9 +394,37 @@ const DespreNoi: React.FC = () => {
               </ul>
             </div>
           </div>
+
+          <div className="certificari-images animate-on-scroll fade-up delay-400">
+            {[
+              { src: '/certificari/9001-1.jpg.jpeg', alt: 'ISO 9001:2015' },
+              { src: '/certificari/14001-1.jpg.jpeg', alt: 'ISO 14001:2015' },
+              { src: '/certificari/45001-1.jpg.jpeg', alt: 'ISO 45001:2018' },
+            ].map((cert) => (
+              <button
+                key={cert.src}
+                className="certificari-thumb-btn"
+                onClick={() => setCertModal(cert.src)}
+                aria-label={`Vizualizează certificatul ${cert.alt}`}
+              >
+                <img src={cert.src} alt={cert.alt} className="certificari-thumb" />
+                <span className="certificari-thumb-label">{cert.alt}</span>
+              </button>
+            ))}
+          </div>
         </div>
         
       </section>
+
+      {/* Certificate modal */}
+      {certModal && (
+        <div className="cert-modal-overlay" onClick={() => setCertModal(null)}>
+          <div className="cert-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="cert-modal-close" onClick={() => setCertModal(null)} aria-label="Închide">&#x2715;</button>
+            <img src={certModal} alt="Certificat" className="cert-modal-img" />
+          </div>
+        </div>
+      )}
 
       {/* Cod de Conduita Section */}
       <section className="cod-conduita-section" id="conducerea" ref={conducereaRef}>
