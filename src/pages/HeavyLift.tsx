@@ -43,7 +43,7 @@ const ImageSlideshow: React.FC<{ images: string[]; alt: string }> = ({ images, a
 const equipmentItems = [
   {
     title: 'Macară industrială 40 tone',
-    description: 'Macară industrială cu capacitate de 40 tone, marca Telemac.',
+    description: 'Macară industrială cu capacitate de 40 tone.',
     images: ['/echipamente/2_1.jpg', '/echipamente/2_2.jpg', '/echipamente/2_3.jpg', '/echipamente/2_4.jpg'],
   },
   {
