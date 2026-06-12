@@ -208,7 +208,7 @@ Fiecare vehicul este conceput pentru a răspunde provocărilor specifice ale ind
                         />
                       </div>
                       <div className="fleet-card-actions">
-                        {card.pdf && (
+                        {false && card.pdf && (
                           <a
                             className="fleet-btn"
                             href={card.pdf}
