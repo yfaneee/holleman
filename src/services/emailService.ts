@@ -35,6 +35,7 @@ export interface ContactFormData {
 export interface CareerFormData {
   name: string;
   phone: string;
+  email: string;
   message?: string;
   cvFile?: File | null;
 }
@@ -65,7 +66,8 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<boole
       message: msg,
       time: new Date().toLocaleString('ro-RO'),
       title: 'Cerere de contact',
-      to_email: EMAIL_CONFIG.CONTACT_EMAIL
+      to_email: EMAIL_CONFIG.CONTACT_EMAIL,
+      reply_to: formData.email,
     };
 
     const response = await emailjs.send(
@@ -114,6 +116,7 @@ export const sendCareerEmail = async (formData: CareerFormData): Promise<boolean
     careerMessage += `👤 Informații Candidat:\n`;
     careerMessage += `• Nume: ${formData.name}\n`;
     careerMessage += `• Telefon: ${formData.phone}\n`;
+    careerMessage += `• Email: ${formData.email}\n`;
     if (formData.message) careerMessage += `\n💬 Mesaj:\n${formData.message}\n`;
 
     if (formData.cvFile) {
@@ -131,6 +134,7 @@ export const sendCareerEmail = async (formData: CareerFormData): Promise<boolean
       time: new Date().toLocaleString('ro-RO'),
       title: 'Aplicație carieră',
       to_email: EMAIL_CONFIG.CAREER_EMAIL,
+      reply_to: formData.email,
     };
 
     const response = await emailjs.send(

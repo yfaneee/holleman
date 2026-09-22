@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useEmailForm } from '../hooks/useEmailForm';
-import { CareerFormData, isValidPhone } from '../services/emailService';
+import { CareerFormData, isValidEmail, isValidPhone } from '../services/emailService';
 import './Cariere.css';
 import '../styles/forms.css';
 import ScrollArrow from '../components/ScrollArrow';
@@ -22,6 +22,7 @@ const Cariere: React.FC = () => {
   const [formData, setFormData] = useState<CareerFormData>({
     name: '',
     phone: '',
+    email: '',
     message: '',
   });
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -54,6 +55,11 @@ const Cariere: React.FC = () => {
       errors.phone = 'Telefonul este obligatoriu';
     } else if (!isValidPhone(formData.phone)) {
       errors.phone = 'Formatul telefonului nu este valid';
+    }
+    if (!formData.email.trim()) {
+      errors.email = 'Emailul este obligatoriu';
+    } else if (!isValidEmail(formData.email)) {
+      errors.email = 'Formatul emailului nu este valid';
     }
     if (!gdprAccepted) errors.gdpr = 'Trebuie să acceptați prelucrarea datelor personale';
     setValidationErrors(errors);
@@ -354,6 +360,18 @@ const Cariere: React.FC = () => {
                       onChange={handleInputChange}
                     />
                     {validationErrors.phone && <span className="error-message">{validationErrors.phone}</span>}
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email *"
+                      className={`form-input ${validationErrors.email ? 'error' : ''}`}
+                      value={formData.email}
+                      onChange={handleInputChange}
+                    />
+                    {validationErrors.email && <span className="error-message">{validationErrors.email}</span>}
                   </div>
 
                   <div className="form-group">
