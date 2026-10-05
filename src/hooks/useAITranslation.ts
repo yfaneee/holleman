@@ -20,11 +20,39 @@ export const supportedLanguages: Language[] = [
   { code: 'sr', name: 'Serbian', nativeName: 'Српски', flag: '/images/icons/SRflag.webp' }
 ];
 
+// The same site is served on holleman.hu, where it is always shown in Hungarian
+const HU_SITE = 'https://holleman.hu';
+const RO_SITE = 'https://holleman.ro';
+const isHuDomain = () => window.location.hostname.endsWith('holleman.hu');
+const currentPathAndQuery = (extraParams?: Record<string, string>) => {
+  const params = new URLSearchParams(window.location.search);
+  params.delete('lang');
+  Object.entries(extraParams || {}).forEach(([key, value]) => params.set(key, value));
+  const query = params.toString();
+  return `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+};
+
+const getInitialLanguage = (): Language => {
+  const hungarian = supportedLanguages.find(lang => lang.code === 'hu')!;
+  if (isHuDomain()) return hungarian;
+
+  // Language passed along when switching from holleman.hu back to holleman.ro
+  const fromUrl = new URLSearchParams(window.location.search).get('lang');
+  if (fromUrl) {
+    localStorage.setItem('selectedLanguage', fromUrl);
+    const params = new URLSearchParams(window.location.search);
+    params.delete('lang');
+    const query = params.toString();
+    window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
+  }
+
+  const saved = fromUrl || localStorage.getItem('selectedLanguage');
+  // Hungarian lives on holleman.hu, so never translate to it on holleman.ro
+  return supportedLanguages.find(lang => lang.code === saved && lang.code !== 'hu') || supportedLanguages[0];
+};
+
 export const useAITranslation = () => {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem('selectedLanguage');
-    return supportedLanguages.find(lang => lang.code === saved) || supportedLanguages[0];
-  });
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(getInitialLanguage);
   const [isTranslating, setIsTranslating] = useState(false);
   const [originalTexts, setOriginalTexts] = useState<Map<Element, string>>(new Map());
   const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
@@ -164,6 +192,16 @@ export const useAITranslation = () => {
   const changeLanguage = useCallback(async (languageCode: string) => {
     const language = supportedLanguages.find(lang => lang.code === languageCode);
     if (!language) return;
+
+    // Hungarian is served on holleman.hu, every other language on holleman.ro
+    if (languageCode === 'hu' && !isHuDomain()) {
+      window.location.href = `${HU_SITE}${currentPathAndQuery()}`;
+      return;
+    }
+    if (languageCode !== 'hu' && isHuDomain()) {
+      window.location.href = `${RO_SITE}${currentPathAndQuery({ lang: languageCode })}`;
+      return;
+    }
 
     setCurrentLanguage(language);
     localStorage.setItem('selectedLanguage', languageCode);
