@@ -21,6 +21,7 @@ import Permise from './pages/Permise';
 import RouteSurvey from './pages/RouteSurvey';
 import IndustriiDeservite from './pages/IndustriiDeservite';
 import LogisticaTurbinelorEoliene from './pages/LogisticaTurbinelorEoliene';
+import TransportMilitar from './pages/TransportMilitar';
 import ScrollToTop from './components/ScrollToTop';
 import RouteChangeHandler from './components/RouteChangeHandler';
 import CookieConsent from './components/CookieConsent';
@@ -55,6 +56,7 @@ function App() {
               <Route path="/comunicare/:articleId" element={<ArticlePage />} />
               <Route path="/permise-si-insotire-agabaritice" element={<Permise />} />
               <Route path="/route-survey" element={<RouteSurvey />} />
+              <Route path="/logistica-aparare-transport-militar" element={<TransportMilitar />} />
               <Route path="/industrii-deservite" element={<IndustriiDeservite />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>

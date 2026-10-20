@@ -690,10 +690,6 @@ const Home: React.FC = () => {
                   </div>
                   <div className="info-item">
                     <span className="label">Telefon:</span>
-                    <a href="tel:+40744678100" className="value">+40 744 678 100</a>
-                  </div>
-                  <div className="info-item">
-                    <span className="label">Telefon:</span>
                     <a href="tel:+40754016285" className="value">+40 754 016 285</a>
                   </div>
                   <div className="info-item">
@@ -732,7 +728,7 @@ const Home: React.FC = () => {
                   <div className="popup-content">
                     <h3 className="popup-title">Constanța – Port Agigea Sud</h3>
                     <p className="popup-address">Port Agigea Sud CT, cladirea TLS, parter, Birou 1, Constanța</p>
-                    <p className="popup-phone">+40 744 678 100 / +40 754 016 285</p>
+                    <p className="popup-phone">+40 754 016 285</p>
                     <a className="popup-email" href="mailto:maritima@holleman.ro">maritima@holleman.ro</a>
                   </div>
                 </Popup>

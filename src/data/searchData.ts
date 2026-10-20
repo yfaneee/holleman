@@ -43,6 +43,14 @@ export const searchableContent: SearchableItem[] = [
     route: '/portops',
     category: 'service'
   },
+  {
+    id: 'transport-militar',
+    title: 'Logistică de apărare și transport militar',
+    description: 'Transport vehicule militare, blindate, echipamente grele, muniție și containere pentru proiecte de apărare',
+    keywords: ['transport militar', 'logistica de aparare', 'defence', 'military', 'blindate', 'tancuri', 'munitie', 'nato', 'armata'],
+    route: '/logistica-aparare-transport-militar',
+    category: 'service'
+  },
 
   // Project Cargo Sections
   {
