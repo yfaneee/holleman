@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -114,14 +114,26 @@ const deCeHolleman = [
   },
 ];
 
+// Every photo on the page, in page order, so the lightbox can step through them.
+const allPhotos = [
+  ...experientaPhotos,
+  ...ceTransportamPhotos,
+  serviciiPhoto,
+  echipamentePhoto,
+  ...proiectePhotos,
+  ...ctaPhotos,
+];
+
 interface PhotoProps {
   src: string;
   alt: string;
   className?: string;
+  contain?: boolean;
+  onOpen: (src: string) => void;
 }
 
-// Shows a placeholder box instead of a broken image while the photo is not uploaded yet.
-const Photo: React.FC<PhotoProps> = ({ src, alt, className = '' }) => {
+// Clickable photo that opens the lightbox; shows a placeholder box if the file is missing.
+const Photo: React.FC<PhotoProps> = ({ src, alt, className = '', contain = false, onOpen }) => {
   const [missing, setMissing] = useState(false);
 
   if (missing) {
@@ -129,18 +141,74 @@ const Photo: React.FC<PhotoProps> = ({ src, alt, className = '' }) => {
   }
 
   return (
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      className={`tm-photo ${className}`}
-      onError={() => setMissing(true)}
-    />
+    <button
+      type="button"
+      className={`tm-photo tm-photo-btn ${className}`}
+      onClick={() => onOpen(src)}
+      aria-label={`Mărește imaginea: ${alt}`}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className={contain ? 'tm-photo-img--contain' : ''}
+        onError={() => setMissing(true)}
+      />
+      <span className="tm-photo-zoom" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M21 21l-4.35-4.35M11 8v6M8 11h6" />
+        </svg>
+      </span>
+    </button>
   );
 };
 
 const TransportMilitar: React.FC = () => {
   const navigate = useNavigate();
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
+
+  const openPhoto = useCallback((src: string) => {
+    setLightboxIndex(allPhotos.findIndex((p) => p.src === src));
+  }, []);
+  const closePhoto = () => setLightboxIndex(null);
+  const prevPhoto = () =>
+    setLightboxIndex((i) => (i === null ? i : (i - 1 + allPhotos.length) % allPhotos.length));
+  const nextPhoto = () =>
+    setLightboxIndex((i) => (i === null ? i : (i + 1) % allPhotos.length));
+
+  const isOpen = lightboxIndex !== null;
+
+  // keyboard navigation + lock page scroll while the lightbox is open
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closePhoto();
+      if (e.key === 'ArrowLeft') prevPhoto();
+      if (e.key === 'ArrowRight') nextPhoto();
+    };
+    window.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
+
+  // swipe left / right on touch screens
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(dx) < 50) return;
+    if (dx > 0) prevPhoto();
+    else nextPhoto();
+  };
 
   return (
     <div className="tm-page">
@@ -209,7 +277,7 @@ const TransportMilitar: React.FC = () => {
           </div>
           <div className="tm-collage tm-collage--three">
             {experientaPhotos.map((p) => (
-              <Photo key={p.src} {...p} />
+              <Photo key={p.src} {...p} onOpen={openPhoto} />
             ))}
           </div>
         </div>
@@ -235,7 +303,7 @@ const TransportMilitar: React.FC = () => {
           </div>
           <div className="tm-strip tm-strip--two">
             {ceTransportamPhotos.map((p) => (
-              <Photo key={p.src} {...p} />
+              <Photo key={p.src} {...p} onOpen={openPhoto} />
             ))}
           </div>
           <p className="tm-closing">
@@ -268,7 +336,7 @@ const TransportMilitar: React.FC = () => {
               </article>
             ))}
           </div>
-          <Photo {...serviciiPhoto} className="tm-panorama" />
+          <Photo {...serviciiPhoto} className="tm-panorama" onOpen={openPhoto} />
           <p className="tm-closing">
             Un singur flux operațional, de la pregătirea traseului până la predarea încărcăturii la
             destinație, coordonat, în timp util.
@@ -310,7 +378,7 @@ const TransportMilitar: React.FC = () => {
             </div>
           </div>
           <div className="tm-diagram">
-            <Photo {...echipamentePhoto} className="tm-photo--contain" />
+            <Photo {...echipamentePhoto} className="tm-photo--flat" contain onOpen={openPhoto} />
           </div>
         </div>
       </section>
@@ -381,7 +449,7 @@ const TransportMilitar: React.FC = () => {
           </div>
           <div className="tm-gallery">
             {proiectePhotos.map((p) => (
-              <Photo key={p.src} {...p} />
+              <Photo key={p.src} {...p} onOpen={openPhoto} />
             ))}
           </div>
           <p className="tm-closing">
@@ -411,7 +479,7 @@ const TransportMilitar: React.FC = () => {
       <section className="tm-cta-section">
         <div className="tm-strip tm-strip--six">
           {ctaPhotos.map((p) => (
-            <Photo key={p.src} {...p} />
+            <Photo key={p.src} {...p} onOpen={openPhoto} />
           ))}
         </div>
         <div className="tm-container tm-narrow tm-cta-content">
@@ -427,6 +495,53 @@ const TransportMilitar: React.FC = () => {
           </button>
         </div>
       </section>
+
+      {lightboxIndex !== null && (
+        <div
+          className="tm-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Galerie foto"
+          onClick={closePhoto}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <button className="tm-lightbox-close" onClick={closePhoto} aria-label="Închide">
+            &#x2715;
+          </button>
+          <button
+            className="tm-lightbox-nav tm-lightbox-nav--prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              prevPhoto();
+            }}
+            aria-label="Imaginea anterioară"
+          >
+            &#8249;
+          </button>
+          <figure className="tm-lightbox-figure" onClick={(e) => e.stopPropagation()}>
+            <img
+              key={allPhotos[lightboxIndex].src}
+              src={allPhotos[lightboxIndex].src}
+              alt={allPhotos[lightboxIndex].alt}
+              className="tm-lightbox-img"
+            />
+            <figcaption className="tm-lightbox-counter">
+              {lightboxIndex + 1} / {allPhotos.length}
+            </figcaption>
+          </figure>
+          <button
+            className="tm-lightbox-nav tm-lightbox-nav--next"
+            onClick={(e) => {
+              e.stopPropagation();
+              nextPhoto();
+            }}
+            aria-label="Imaginea următoare"
+          >
+            &#8250;
+          </button>
+        </div>
+      )}
 
       <Footer />
     </div>

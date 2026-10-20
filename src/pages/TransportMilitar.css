@@ -238,9 +238,106 @@
   box-shadow: none;
 }
 
-.tm-photo--contain {
-  object-fit: contain;
+.tm-photo--flat {
   box-shadow: none;
+}
+
+/* clickable photo: zooms slightly on hover, opens the lightbox */
+.tm-photo-btn {
+  position: relative;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  cursor: zoom-in;
+  background: transparent;
+}
+
+.tm-photo-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tm-photo-btn img.tm-photo-img--contain {
+  object-fit: contain;
+}
+
+.tm-photo-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tm-photo-zoom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(19, 107, 56, 0.9);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tm-photo-btn:hover img,
+.tm-photo-btn:focus-visible img {
+  transform: scale(1.05);
+}
+
+.tm-photo-btn:hover::after,
+.tm-photo-btn:focus-visible::after,
+.tm-photo-btn:hover .tm-photo-zoom,
+.tm-photo-btn:focus-visible .tm-photo-zoom {
+  opacity: 1;
+}
+
+.tm-photo-btn:hover .tm-photo-zoom,
+.tm-photo-btn:focus-visible .tm-photo-zoom {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.tm-photo-btn:focus-visible {
+  outline: 3px solid #D4A017;
+  outline-offset: 2px;
+}
+
+/* the diagram sits on a light panel: no dark veil, no zoom-in crop */
+.tm-photo--flat::after {
+  display: none;
+}
+
+.tm-photo--flat:hover img {
+  transform: none;
+}
+
+/* touch screens have no hover: keep a small zoom badge visible in the corner */
+@media (hover: none) {
+  .tm-photo-zoom {
+    top: auto;
+    left: auto;
+    right: 10px;
+    bottom: 10px;
+    width: 34px;
+    height: 34px;
+    opacity: 0.9;
+    transform: none;
+  }
+  .tm-photo-zoom svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 /* 2 stacked left + 1 large right */
@@ -533,4 +630,122 @@
 .tm-cta-content .tm-btn {
   align-self: center;
   margin-top: 16px;
+}
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+
+.tm-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 80px;
+  box-sizing: border-box;
+  animation: tm-fade-in 0.2s ease;
+}
+
+@keyframes tm-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tm-lightbox-figure {
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.tm-lightbox-img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 160px);
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: tm-fade-in 0.25s ease;
+}
+
+.tm-lightbox-counter {
+  font-family: 'Gotham Bold', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.tm-lightbox-close,
+.tm-lightbox-nav {
+  position: absolute;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.tm-lightbox-close:hover,
+.tm-lightbox-nav:hover {
+  background: #136B38;
+}
+
+.tm-lightbox-close {
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.tm-lightbox-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  font-size: 36px;
+  line-height: 1;
+  padding-bottom: 4px;
+}
+
+.tm-lightbox-nav--prev {
+  left: 14px;
+}
+
+.tm-lightbox-nav--next {
+  right: 14px;
+}
+
+/* phones: image uses the full width, arrows move under it */
+@media (max-width: 600px) {
+  .tm-lightbox {
+    padding: 64px 8px 80px;
+  }
+  .tm-lightbox-img {
+    max-height: calc(100vh - 170px);
+  }
+  .tm-lightbox-nav {
+    top: auto;
+    bottom: 18px;
+    transform: none;
+    width: 46px;
+    height: 46px;
+    font-size: 30px;
+  }
+  .tm-lightbox-nav--prev {
+    left: calc(50% - 58px);
+  }
+  .tm-lightbox-nav--next {
+    right: calc(50% - 58px);
+  }
 }
